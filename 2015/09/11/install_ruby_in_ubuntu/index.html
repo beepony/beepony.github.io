@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
 <meta property="og:description" content="1. 先更新系统，安装常用软件Ubuntu 上执行 sudo apt-get update
 123sudo apt-get install -y git-core curl zlib1g-dev build-essential \                         libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite">
-<meta property="og:updated_time" content="2016-05-25T15:35:02.000Z">
+<meta property="og:updated_time" content="2016-11-22T11:42:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 Ubuntu 上安装 Ruby on Rails">
 <meta name="twitter:description" content="1. 先更新系统，安装常用软件Ubuntu 上执行 sudo apt-get update
@@ -333,7 +333,7 @@
       
         <h2 id="1-先更新系统，安装常用软件"><a href="#1-先更新系统，安装常用软件" class="headerlink" title="1. 先更新系统，安装常用软件"></a>1. 先更新系统，安装常用软件</h2><p>Ubuntu 上执行 sudo apt-get update</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install -y git-core curl zlib1g-dev build-essential \    </div><div class="line">                     libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 \    </div><div class="line">                     libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common</div></pre></td></tr></table></figure>
-<p>安装 mysql<br><code>sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev</code><br>根据提示，设置密码</p>
+<p>安装 mysql<br><code>sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev</code><br>根据提示，设置密码<br><a id="more"></a></p>
 <h2 id="2-安装-rbenv"><a href="#2-安装-rbenv" class="headerlink" title="2. 安装 rbenv"></a>2. 安装 rbenv</h2><p><a href="https://github.com/sstephenson/rbenv" target="_blank" rel="external">rbenv</a> 是 Basecamp（原 37signal）开发的 Ruby 版本管理工具，使用他可以很方便的设置在开发，测试，上线环境下的 Ruby 版本。跟它类似的是一款老牌管理工具 RVM，选择 rbenv 的原因是它更简单，强大，专注。</p>
 <ol>
 <li><p>克隆 rbenv 进 .rbenv<br><code>git clone https://github.com/sstephenson/rbenv.git ~/.rbenv</code></p>
@@ -352,7 +352,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rbenv install 2.1.2</div><div class="line">rbenv global 2.1.2</div></pre></td></tr></table></figure>
 <p>执行 Ruby -v 可以查看设置后的 Ruby 版本</p>
 <h2 id="4-安装-Rails"><a href="#4-安装-Rails" class="headerlink" title="4. 安装 Rails"></a>4. 安装 Rails</h2><p>安装好 Ruby 之后，系统就有 gem 的安装包，可以安装 Rails 了<br><code>gem install rails -v 4.1.2</code><br><code>rails -v</code><br>查看 Rails 版本</p>
-<p>至此，Ruby on Rails 就安装完成了。 </p>
+<p>至此，Ruby on Rails 就安装完成了。</p>
 <p>注：<br><em>操作系统：Ubuntu 14.04 x64</em><br><em>Ruby: 2.1.2</em><br><em>Rails: 4.1.2</em></p>
 
       

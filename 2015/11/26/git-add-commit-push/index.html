@@ -85,24 +85,18 @@
 
 
 <meta name="description" content="我在使用 git 的时候，大部分的需求本地修改能够及时推送到远程，两者保持同步。最常用的命令就是：
-123git add .git commit -m &quot;some comments&quot;git push
-这三条命令几乎占用了日常 90% 的使用频率，就在想能否将三条命令合成一条完成，减少手动的输入量，本能的反应是使用 shell 脚本中的 &amp;amp;&amp;amp; 连接符，一条命令执行。
-1git add">
+123git add .git commit -m &quot;some comments&quot;git push">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git 命令合三为一？">
 <meta property="og:url" content="http://yoursite.com/2015/11/26/git-add-commit-push/index.html">
 <meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
 <meta property="og:description" content="我在使用 git 的时候，大部分的需求本地修改能够及时推送到远程，两者保持同步。最常用的命令就是：
-123git add .git commit -m &quot;some comments&quot;git push
-这三条命令几乎占用了日常 90% 的使用频率，就在想能否将三条命令合成一条完成，减少手动的输入量，本能的反应是使用 shell 脚本中的 &amp;amp;&amp;amp; 连接符，一条命令执行。
-1git add">
-<meta property="og:updated_time" content="2016-01-24T15:34:54.000Z">
+123git add .git commit -m &quot;some comments&quot;git push">
+<meta property="og:updated_time" content="2016-11-22T11:42:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 命令合三为一？">
 <meta name="twitter:description" content="我在使用 git 的时候，大部分的需求本地修改能够及时推送到远程，两者保持同步。最常用的命令就是：
-123git add .git commit -m &quot;some comments&quot;git push
-这三条命令几乎占用了日常 90% 的使用频率，就在想能否将三条命令合成一条完成，减少手动的输入量，本能的反应是使用 shell 脚本中的 &amp;amp;&amp;amp; 连接符，一条命令执行。
-1git add">
+123git add .git commit -m &quot;some comments&quot;git push">
 
 
 
@@ -339,6 +333,7 @@
       
         <p>我在使用 git 的时候，大部分的需求本地修改能够及时推送到远程，两者保持同步。最常用的命令就是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m <span class="string">"some comments"</span></div><div class="line">git push</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>这三条命令几乎占用了日常 90% 的使用频率，就在想能否将三条命令合成一条完成，减少手动的输入量，本能的反应是使用 shell 脚本中的 &amp;&amp; 连接符，一条命令执行。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add . &amp;&amp; git commit -m <span class="string">"some comments"</span> &amp;&amp; git push</div></pre></td></tr></table></figure>
 <p>是可以，但没有减少手动输入的工作量，仅仅单纯的将三条命令放在一行里，不符合期望。那么，alias 呢，使用别名，将三种常用的命令设置为一个别名，在 .bashrc 或者 .bash_profile( for mac)，像这样</p>

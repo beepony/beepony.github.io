@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：binge，简述下搭建过程。 
-1. 本地部署本地部署 Jekyll 的步骤，跟新建一个 Rails 项目类似，首先安装 Jekyllsudo gem install jekyll然后创建一个 Jekyll 项目jekyll new test进入项目，启动服务cd testjekyll s浏览器输入 127.0.0.1:4000 即">
+<meta name="description" content="又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：binge，简述下搭建过程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Jekyll 和 Github Pages 搭建免费博客">
 <meta property="og:url" content="http://yoursite.com/2015/05/18/jekyll_github_built_blog/index.html">
 <meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
-<meta property="og:description" content="又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：binge，简述下搭建过程。 
-1. 本地部署本地部署 Jekyll 的步骤，跟新建一个 Rails 项目类似，首先安装 Jekyllsudo gem install jekyll然后创建一个 Jekyll 项目jekyll new test进入项目，启动服务cd testjekyll s浏览器输入 127.0.0.1:4000 即">
-<meta property="og:updated_time" content="2016-05-25T15:38:47.000Z">
+<meta property="og:description" content="又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：binge，简述下搭建过程。">
+<meta property="og:updated_time" content="2016-11-22T11:42:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Jekyll 和 Github Pages 搭建免费博客">
-<meta name="twitter:description" content="又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：binge，简述下搭建过程。 
-1. 本地部署本地部署 Jekyll 的步骤，跟新建一个 Rails 项目类似，首先安装 Jekyllsudo gem install jekyll然后创建一个 Jekyll 项目jekyll new test进入项目，启动服务cd testjekyll s浏览器输入 127.0.0.1:4000 即">
+<meta name="twitter:description" content="又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：binge，简述下搭建过程。">
 
 
 
@@ -331,10 +328,10 @@
       
 
       
-        <p>又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：<a href="http://binge.im" target="_blank" rel="external">binge</a>，简述下搭建过程。 </p>
+        <p>又折腾了一个 Blog 作为备份（万一 Farbox 不在了呢）：<a href="http://binge.im" target="_blank" rel="external">binge</a>，简述下搭建过程。<br><a id="more"></a></p>
 <h3 id="1-本地部署"><a href="#1-本地部署" class="headerlink" title="1. 本地部署"></a>1. 本地部署</h3><p>本地部署 Jekyll 的步骤，跟新建一个 Rails 项目类似，首先安装 Jekyll<br><code>sudo gem install jekyll</code><br>然后创建一个 Jekyll 项目<br><code>jekyll new test</code><br>进入项目，启动服务<br><code>cd test</code><br><code>jekyll s</code><br>浏览器输入 127.0.0.1:4000 即可预览，至此本地部署成功。</p>
 <h3 id="2-远程发布到-Github"><a href="#2-远程发布到-Github" class="headerlink" title="2. 远程发布到 Github"></a>2. 远程发布到 Github</h3><p>登入 Github 账号，新建一个 <code>test.github.io</code> (把这里的 <strong>test</strong> 替换成你再 Github 的账号)<br>将本地项目纳入 Git 版本管理，并且 Push 到 Github，在本地依次执行一下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd test </div><div class="line">git init # 初始化</div><div class="line">git add -A # 将所有文件加入到 Git 控制</div><div class="line">git commit -m &quot;the first commit&quot; # 提交第一个 commit</div><div class="line">git remote add origin https://github.com/test/test.github.io.git # 添加远程库</div><div class="line">git push -u origin master # 推送到远程库的 master 分支</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd test</div><div class="line">git init # 初始化</div><div class="line">git add -A # 将所有文件加入到 Git 控制</div><div class="line">git commit -m &quot;the first commit&quot; # 提交第一个 commit</div><div class="line">git remote add origin https://github.com/test/test.github.io.git # 添加远程库</div><div class="line">git push -u origin master # 推送到远程库的 master 分支</div></pre></td></tr></table></figure>
 <p>10 分钟之后，访问 <a href="http://test.github.com，博客初步搭建完成。" target="_blank" rel="external">http://test.github.com，博客初步搭建完成。</a></p>
 <h3 id="3-绑定自定义域名"><a href="#3-绑定自定义域名" class="headerlink" title="3. 绑定自定义域名"></a>3. 绑定自定义域名</h3><p>除了用 Github 提供的默认域名之后，还可以绑定自定义域名，分两步走</p>
 <ol>

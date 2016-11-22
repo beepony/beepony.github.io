@@ -84,22 +84,16 @@
 
 
 
-<meta name="description" content="lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。                
-语法：lftp (option)option-f: 指定 lftp 指令要执行的脚本文件-c: 执行指定的命令后退出—help:显示帮助信息—version:显示指令的版本号site:站点：要访问站点的 ip 地址或域名                
-示例：">
+<meta name="description" content="lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lftp 管理又拍云上资源">
 <meta property="og:url" content="http://yoursite.com/2015/03/30/lftp/index.html">
 <meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
-<meta property="og:description" content="lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。                
-语法：lftp (option)option-f: 指定 lftp 指令要执行的脚本文件-c: 执行指定的命令后退出—help:显示帮助信息—version:显示指令的版本号site:站点：要访问站点的 ip 地址或域名                
-示例：">
-<meta property="og:updated_time" content="2016-05-25T15:11:51.000Z">
+<meta property="og:description" content="lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。">
+<meta property="og:updated_time" content="2016-11-22T11:42:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lftp 管理又拍云上资源">
-<meta name="twitter:description" content="lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。                
-语法：lftp (option)option-f: 指定 lftp 指令要执行的脚本文件-c: 执行指定的命令后退出—help:显示帮助信息—version:显示指令的版本号site:站点：要访问站点的 ip 地址或域名                
-示例：">
+<meta name="twitter:description" content="lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。">
 
 
 
@@ -334,11 +328,11 @@
       
 
       
-        <p>lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。                </p>
+        <p>lftp 命令是一款优秀的文件客户端程序，支持 ftp,SETP,HTTP,FTPs 等多种文件传输协议。<br><a id="more"></a></p>
 <h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><p>lftp (option)<br>option<br>-f: 指定 lftp 指令要执行的脚本文件<br>-c: 执行指定的命令后退出<br>—help:显示帮助信息<br>—version:显示指令的版本号<br>site:<br>站点：要访问站点的 ip 地址或域名                </p>
 <h2 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h2><p>登陆 upyun<br>lftp ftp://v0.ftp.upyun.com:21<br>login 操作员/空间名<br>密码：操作员密码<br>登陆之后 ls 列出空间资源目录                </p>
 <h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p>get 文件名<br>mget -c *.pdf #把所有的 pdf 文件以允许断点续传的方式下载<br>mirror -R aaa/ #将 aaa 目录整个递归下载，子目录也会自动复制<br>pget -c -n 10 file.dat #以最多10个线程以允许断点续传的方式下载file.dat，可以通过设置pget:default-n的值而使用默认值。</p>
-<h2 id="上传："><a href="#上传：" class="headerlink" title="上传："></a>上传：</h2><p>put 或者 mput 文件<br>mirror -R 本地目录名 #将整个目录上传到 ftp site    </p>
+<h2 id="上传："><a href="#上传：" class="headerlink" title="上传："></a>上传：</h2><p>put 或者 mput 文件<br>mirror -R 本地目录名 #将整个目录上传到 ftp site</p>
 <h2 id="书签："><a href="#书签：" class="headerlink" title="书签："></a>书签：</h2><p>将当前站点加入书签：<br>在 lftp 命令下：<br>bookmark add upyunfile<br>当前正在浏览的 ftp site 用 upyunfile 标签存储起来了，以后再 shell 终端下，直接 lftp upyunfile 就可以自动登陆</p>
 
       

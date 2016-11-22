@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="来源北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。
-请求如果本地 hosts 没有，浏览器就会向">
+<meta name="description" content="来源北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DNS 解析调度过程">
 <meta property="og:url" content="http://yoursite.com/2014/07/12/dns/index.html">
 <meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
-<meta property="og:description" content="来源北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。
-请求如果本地 hosts 没有，浏览器就会向">
-<meta property="og:updated_time" content="2016-05-25T15:21:01.000Z">
+<meta property="og:description" content="来源北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。">
+<meta property="og:updated_time" content="2016-11-22T11:40:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DNS 解析调度过程">
-<meta name="twitter:description" content="来源北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。
-请求如果本地 hosts 没有，浏览器就会向">
+<meta name="twitter:description" content="来源北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。">
 
 
 
@@ -331,7 +328,7 @@
       
 
       
-        <h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。</p>
+        <h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>北京的王先生是一位创业者，做了一款 APP，正在为如何存储图片发愁，从朋友哪里听说 UPYUN 服务很好，速度稳定，价格便宜，打算了解一下。于是在浏览器输入了 「www.upyun.com」，发起请求。请求发起之后，浏览器要把这个域名解析成计算机认识的 IP 地址，浏览器首先会查询本地的 hosts 文件，看有没有对应的 IP,如果有则直接使用。<br><a id="more"></a></p>
 <h2 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h2><p>如果本地 hosts 没有，浏览器就会向 DNS 域名解析服务器发起域名解析请求，DNS 的域名解析式递归的，递归的 DNS 会先查看本地 DNS 缓存，如果缓存命中，则将 IP 返回给浏览器，如果没有则向上转发，然后从根域名服务器那里得到了 NS 服务器的地址，再向这个 NS 服务器去请求 IP，由于我们使用的是 Dnspod 的域名解析，Dnspod 发现这个 DNS 服务器是北京电信的，于是会将我们北京电信的节点 IP 返回给浏览器。</p>
 <p>浏览器获取 IP 之后，就开始构造 http 请求，北京电信的 CDN 节点服务器就会将资源返回给浏览器，王先生就看到了这个又拍云存储的首页。</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>如果回头去看上述过程，我们发现，如果用户把本地的 DNS 修改了，随便填了一个地址，恰好这个地址在国外，那么 Dnspod 会根据 IP 列表判定，这个请求来自国外，然后把国外的节点 IP 返回给浏览器。这就带来了一个问题，我在中国访问中国的网站，却要去国外节点请求资源，由于距离和网络延时，用户访问会非常慢，体验很不好。</p>

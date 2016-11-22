@@ -87,17 +87,7 @@
 <meta name="description" content="前端开发三要素
 html，描述网页内容
 css，描述网页样式
-Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动
-
-什么是 js
-解释型变成语言（脚本）
-运行环境，借助于浏览器引擎来运行，引擎可以独立于浏览器运行
-
-js 历史
-1995 年10 天诞生
-为了推广跟 sun 合作，改名为 Javascript，实际跟 Java 没关系
-1998 年发布 DOM 规范
-2005 年">
+Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[前端] JavaScript 程序设计-介绍">
 <meta property="og:url" content="http://yoursite.com/2015/06/01/neteasy-js-toturial/index.html">
@@ -105,34 +95,14 @@ js 历史
 <meta property="og:description" content="前端开发三要素
 html，描述网页内容
 css，描述网页样式
-Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动
-
-什么是 js
-解释型变成语言（脚本）
-运行环境，借助于浏览器引擎来运行，引擎可以独立于浏览器运行
-
-js 历史
-1995 年10 天诞生
-为了推广跟 sun 合作，改名为 Javascript，实际跟 Java 没关系
-1998 年发布 DOM 规范
-2005 年">
-<meta property="og:updated_time" content="2016-05-25T15:43:54.000Z">
+Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动">
+<meta property="og:updated_time" content="2016-11-22T11:42:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[前端] JavaScript 程序设计-介绍">
 <meta name="twitter:description" content="前端开发三要素
 html，描述网页内容
 css，描述网页样式
-Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动
-
-什么是 js
-解释型变成语言（脚本）
-运行环境，借助于浏览器引擎来运行，引擎可以独立于浏览器运行
-
-js 历史
-1995 年10 天诞生
-为了推广跟 sun 合作，改名为 Javascript，实际跟 Java 没关系
-1998 年发布 DOM 规范
-2005 年">
+Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动">
 
 
 
@@ -370,7 +340,8 @@ js 历史
         <h2 id="前端开发三要素"><a href="#前端开发三要素" class="headerlink" title="前端开发三要素"></a>前端开发三要素</h2><ul>
 <li>html，描述网页内容</li>
 <li>css，描述网页样式</li>
-<li>Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动</li>
+<li>Javacript，控制网页和浏览器的行为，对动作做响应，跟服务端互动<a id="more"></a>
+</li>
 </ul>
 <h2 id="什么是-js"><a href="#什么是-js" class="headerlink" title="什么是 js"></a>什么是 js</h2><ul>
 <li>解释型变成语言（脚本）</li>
@@ -385,13 +356,14 @@ js 历史
 </ul>
 <h2 id="浏览器中的-js"><a href="#浏览器中的-js" class="headerlink" title="浏览器中的 js"></a>浏览器中的 js</h2><ol>
 <li>ECMAScript js 语言的核心标准</li>
-<li>DOM（文档对象模型） W3C 标准，可以提供操作文档对象的 API </li>
+<li>DOM（文档对象模型） W3C 标准，可以提供操作文档对象的 API</li>
 <li>BOM（浏览器对象模型） 操作浏览器对象的 API</li>
 </ol>
 <h2 id="js-引入"><a href="#js-引入" class="headerlink" title="js 引入"></a>js 引入</h2><p>内嵌代码，用 <script></script> 包裹，一般放在 <body> 里</body></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;js&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">		document.write(&quot;hello world&quot;);</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
 <p>外联文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;js&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot; src = &quot;demo.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+
       
     </div>
 

@@ -84,25 +84,16 @@
 
 
 
-<meta name="description" content="1.初识 shellshell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。
-编写脚本的思路理清任务过程-&amp;gt;整理执行语句-&amp;gt;完善文件结构例如，请添加一个用户名为 tom 的用户，并且密码设为 123123理清任务过程：
-
-添加用户useradd to">
+<meta name="description" content="1.初识 shellshell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SHELL 基本应用">
 <meta property="og:url" content="http://yoursite.com/2014/10/03/shell-summary/index.html">
 <meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
-<meta property="og:description" content="1.初识 shellshell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。
-编写脚本的思路理清任务过程-&amp;gt;整理执行语句-&amp;gt;完善文件结构例如，请添加一个用户名为 tom 的用户，并且密码设为 123123理清任务过程：
-
-添加用户useradd to">
-<meta property="og:updated_time" content="2016-05-25T15:11:23.000Z">
+<meta property="og:description" content="1.初识 shellshell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。">
+<meta property="og:updated_time" content="2016-11-22T11:42:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SHELL 基本应用">
-<meta name="twitter:description" content="1.初识 shellshell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。
-编写脚本的思路理清任务过程-&amp;gt;整理执行语句-&amp;gt;完善文件结构例如，请添加一个用户名为 tom 的用户，并且密码设为 123123理清任务过程：
-
-添加用户useradd to">
+<meta name="twitter:description" content="1.初识 shellshell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。">
 
 
 
@@ -337,7 +328,7 @@
       
 
       
-        <h3 id="1-初识-shell"><a href="#1-初识-shell" class="headerlink" title="1.初识 shell"></a>1.初识 shell</h3><p>shell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。</p>
+        <h3 id="1-初识-shell"><a href="#1-初识-shell" class="headerlink" title="1.初识 shell"></a>1.初识 shell</h3><p>shell 是一种介于系统内核和用户之间的解释器，类似于翻译官的角色。儿脚本是一种特定的语言，可以按照预设定的顺序执行的文件。例如，SHELL、Python、Ruby、Javascript 等。<br><a id="more"></a></p>
 <p><strong>编写脚本的思路</strong><br>理清任务过程-&gt;整理执行语句-&gt;完善文件结构<br>例如，请添加一个用户名为 tom 的用户，并且密码设为 123123<br>理清任务过程：</p>
 <ol>
 <li><p>添加用户<br><code>useradd tom</code></p>
@@ -358,7 +349,7 @@
 <li><p><code>source uad.sh</code></p>
 </li>
 </ul>
-<h3 id="2-shell-组合应用"><a href="#2-shell-组合应用" class="headerlink" title="2. shell 组合应用"></a>2. shell 组合应用</h3><p><strong>管道：命令1 | 命令2</strong>    </p>
+<h3 id="2-shell-组合应用"><a href="#2-shell-组合应用" class="headerlink" title="2. shell 组合应用"></a>2. shell 组合应用</h3><p><strong>管道：命令1 | 命令2</strong></p>
 <p>查找 test 文本里的 aa<br><code>cat test | grep aa</code>                </p>
 <p>统计 etc 目录下 conf 后缀的文件综述<br><code>find /etc -name &quot;*.conf” -type f | wc -l</code>                </p>
 <p>查看 httpd 的进程:<br><code>ps -aux | grep httpd</code>             </p>
@@ -515,7 +506,7 @@
 <p><strong>格式</strong><br>awk ‘模式{操作}’ 文件1 文件2</p>
 <p><code>awk ‘NR==1{print} /etc/hosts</code>    #把 host 第一行输出来，NR 是 awk 内置变量，表示第几行<br>也可以使用 <code>head -1 /etc/hosts</code> 达到同样的效果            </p>
 <p>常见的几个内置变量：<br>NR   当前处理行的序数 (行号)，number row<br>FS   字符分割，缺省为空格或者 tab<br>$n   当前行的第 n 个字段<br>$0   当前行所有文本内容        </p>
-<p><strong>示例</strong>    </p>
+<p><strong>示例</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">test-awk.txt</div><div class="line">1 This is a first line</div><div class="line">2 Hello world</div><div class="line">3 64.233.185.99   google.com</div><div class="line">4 hunter:503:504:504::/home/sites:/bin/bash</div></pre></td></tr></table></figure>
 <p>输入第一到第三行<br><code>awk ‘NR==1,NR==3’{print}’ test-awk.txt</code></p>
 <p>输入第一和第三行<br><code>awk ‘NR==1||NR==3’{print}’ test-awk.txt</code></p>
@@ -537,7 +528,7 @@
 <p><strong>sed 使用正则表达式</strong><br><code>sed -n &#39;/a/,$p&#39; test-sed.txt</code><br>输出从第一个包含 a 的行到最后一个包含 a 的行，$ 代表最后一行</p>
 <p><code>sed -n /\&lt;This\&gt;/p&#39; test.txt</code><br>输出包含单词 this 的行，必须前后都是空格，中间反斜杠是转义作用</p>
 <p><strong>删除符合条件的行</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">删除第 2-3 行文本</div><div class="line">sed &apos;2,3d&apos; test.txt</div><div class="line"></div><div class="line">删除包含 aa 的行和最后一行,同样 $ 代表最后一行</div><div class="line">sed &apos;/aa/d;$d&apos; test.txt </div><div class="line"></div><div class="line">删除不符合的行，!d </div><div class="line">sed &apos;/aa/!d&apos; test.txt</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">删除第 2-3 行文本</div><div class="line">sed &apos;2,3d&apos; test.txt</div><div class="line"></div><div class="line">删除包含 aa 的行和最后一行,同样 $ 代表最后一行</div><div class="line">sed &apos;/aa/d;$d&apos; test.txt</div><div class="line"></div><div class="line">删除不符合的行，!d</div><div class="line">sed &apos;/aa/!d&apos; test.txt</div></pre></td></tr></table></figure>
 <p><strong>替换符合条件的文本</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sed &apos;3,4s/aa/bb/g&apos; test.txt</div><div class="line">其中 s 代表替换，sustitude, g 代表全部 globe 全部替换</div><div class="line"></div><div class="line">替换的特殊效果</div><div class="line">sed &apos;1,2s/^/#/g&apos; test.txt</div><div class="line">其中 ^ 代表一行的开头，将一行的开头用 # 替换，代表注释行</div><div class="line"></div><div class="line">sed &apos;s/ter//g&apos; test.txt</div><div class="line">删除字符 ter，用空格替换</div></pre></td></tr></table></figure>
 <p>以上 sed 没有加参数，所以输出只是效果，并没有改变文本自身，如果想直接操作文本，可以使用 -i 参数。</p>

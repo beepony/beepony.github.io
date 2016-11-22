@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法
-1、探测资源的头信息curl -I http://upfiles.b0.upaiyun.com/logo/90x45.png -v-I 表示返回响应头信息,Show document info only-i 表示返回整个内容">
+<meta name="description" content="curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="curl 在技术支持工作的用法">
 <meta property="og:url" content="http://yoursite.com/2014/06/16/Curl/index.html">
 <meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
-<meta property="og:description" content="curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法
-1、探测资源的头信息curl -I http://upfiles.b0.upaiyun.com/logo/90x45.png -v-I 表示返回响应头信息,Show document info only-i 表示返回整个内容">
-<meta property="og:updated_time" content="2016-05-25T15:19:08.000Z">
+<meta property="og:description" content="curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法">
+<meta property="og:updated_time" content="2016-11-22T11:40:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="curl 在技术支持工作的用法">
-<meta name="twitter:description" content="curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法
-1、探测资源的头信息curl -I http://upfiles.b0.upaiyun.com/logo/90x45.png -v-I 表示返回响应头信息,Show document info only-i 表示返回整个内容">
+<meta name="twitter:description" content="curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法">
 
 
 
@@ -331,7 +328,7 @@
       
 
       
-        <p>curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法</p>
+        <p>curl 是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。我们技术支持在日常工作中使用的很多，这里简单介绍一下几种常见的用法<br><a id="more"></a></p>
 <p>1、探测资源的头信息<br>curl -I <a href="http://upfiles.b0.upaiyun.com/logo/90x45.png" target="_blank" rel="external">http://upfiles.b0.upaiyun.com/logo/90x45.png</a> -v<br>-I 表示返回响应头信息,Show document info only<br>-i 表示返回整个内容，包括 body<br>-v返回整个请求相应的过程，不包括 body</p>
 <p>2、指定资源头信息获取响应<br>curl -I -H “origin:<em>“ <a href="http://upfiles.b0.upaiyun.com/logo/90x45.png" target="_blank" rel="external">http://upfiles.b0.upaiyun.com/logo/90x45.png</a> -v<br>-H 代表指定该次请求的请求头信息，比如该请求探测服务端是否支持跨域，请求的时候带上 origin:</em>，响应就会返回 Access-Control-Allow-Origin: *</p>
 <p>3、探测指定 IP 的文件头信息<br>curl -I -H “host:upfiles.b0.upaiyun.com” 60.190.249.102/logo/90x45.png<br>-H 代表指定该次请求的请求头信息，在 60 开头这个 IP 的节点上请求该资源的情况，类似于浏览器绑定 hosts 访问</p>

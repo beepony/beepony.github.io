@@ -458,17 +458,14 @@
 
       
         
-          
-            <p>快捷键能够极大的提高工作的效率，尤其能够在面对复杂但是高频的操作。这里介绍的就是在 SHELL 中经常使用的 CTRL 相关的快捷键，我自己掌握之后，觉得自己之前的那种方式真是傻 X，为什么不早点看到呢。</p>
-<h2 id="CRTL-A"><a href="#CRTL-A" class="headerlink" title="CRTL + A"></a>CRTL + A</h2><p>在大多数文本和文件操作从 CTRL+A 代表的是全选，而在 SHELL 中它代表的是把光标移动到这一行的行首，可比你一直按住后退键快多了。</p>
-<h2 id="CRTL-E"><a href="#CRTL-E" class="headerlink" title="CRTL + E"></a>CRTL + E</h2><p>跟 CRTL + A 类似，不过是代表把光标移动行尾，可以把 E 想像成 END，是不是好理解多了。</p>
-<p>有人说为什么不用键盘上的 HOME 和 END 键呢，很简单，因为不是所有的键盘都有这两个键，而这个快捷键的组合是所有键盘都有的</p>
-<h2 id="CTRL-I"><a href="#CTRL-I" class="headerlink" title="CTRL + I"></a>CTRL + I</h2><p>这个组合通常等效于 <code>clear</code> 命令。相比于 <code>clear</code> 速度更快，而且不会留在命令的历史记录里。</p>
-<h2 id="CTRL-W"><a href="#CTRL-W" class="headerlink" title="CTRL + W"></a>CTRL + W</h2><p>删除光标前面所有的字符，当服用老的命令时尤其有用</p>
-<h2 id="CTRL-U"><a href="#CTRL-U" class="headerlink" title="CTRL + U"></a>CTRL + U</h2><p>删除光标所在行的所有字符。通常用来清除密码，重新开始</p>
-<h2 id="CTRL-D"><a href="#CTRL-D" class="headerlink" title="CTRL + D"></a>CTRL + D</h2><p>通常是程序没有更多的输出了，在 SHELL 中通常指的是关闭 SHELL</p>
-
-          
+          <p>快捷键能够极大的提高工作的效率，尤其能够在面对复杂但是高频的操作。这里介绍的就是在 SHELL 中经常使用的 CTRL 相关的快捷键，我自己掌握之后，觉得自己之前的那种方式真是傻 X，为什么不早点看到呢。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/19/ctrl-command-you-should-know/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -589,44 +586,14 @@
 
       
         
-          
-            <p><a href="https://www.discourse.org/" target="_blank" rel="external">Discourse</a> 是著名是开源论坛程序，使用 Ruby 编写，以简洁、纯粹著称。</p>
-<p>我非常喜欢逛的一个论坛是口水楼市，这个论坛是基于 Discuz 搭建的，UI 还在停留在远古时期。各种反人类的功能，也让我很不爽。于是心血来潮，想自己搭建一个论坛。完全从零开始，买域名，买服务器，搭建程序，调试运行，大概花了一下午的时间搭建了一个以未来科技城为主题的论坛。废话少说，上成品。</p>
-<p><a href="https://zjfuture.us" target="_blank" rel="external">https://zjfuture.us</a>，未来科技城海创园的官方网站是：<a href="http://zjfuture.gov.cn" target="_blank" rel="external">zjfuture.gov.cn</a>，我找个一个相近的域名，寓意：我们这些生活在未来科技城的公民。</p>
-<p><img src="http://beepony.b0.upaiyun.com/zjfuture/img/zjfuture-demo.png" alt="zjfuture-demo"></p>
-<h2 id="搭建清单"><a href="#搭建清单" class="headerlink" title="搭建清单"></a>搭建清单</h2><ul>
-<li>域名：name.com 买的，3 美元</li>
-<li>服务器：linode，10$/月，主要考虑到 Linode 稳当性和口碑，以及最近 13 周年升级到了 2G 内存，对于 Rails 程序来说，内存显然是越大越好</li>
-<li>邮件提供商：Mailgun，免费</li>
-<li>Logo，使用 Sketch 处理</li>
-</ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官方提供了非常详细、清晰的安装文档 <a href="https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md" target="_blank" rel="external">Set up Discourse in the cloud in under 30 minutes</a>，基本上按照步骤去做，都能成功。这里简述一下</p>
-<h3 id="安装-Git-和-Docker"><a href="#安装-Git-和-Docker" class="headerlink" title="安装 Git 和 Docker"></a>安装 Git 和 Docker</h3><p>Dsicourse 之所以安装简单，不需要折腾 Ruby 和服务端环境，是因为官方封装到了 Dcoker 里，看看多贴心。安装这两样东西，只需要一个命令</p>
-<p><code>wget -qO- https://get.docker.com/ | sh</code></p>
-<h3 id="安装-Discourse"><a href="#安装-Discourse" class="headerlink" title="安装 Discourse"></a>安装 Discourse</h3><p>创建 /var/discourse 目录，依次执行一下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /var/discourse</div><div class="line">git clone https://github.com/discourse/discourse_docker.git /var/discourse</div><div class="line">cd /var/discourse</div></pre></td></tr></table></figure>
-<h2 id="配置邮件服务器"><a href="#配置邮件服务器" class="headerlink" title="配置邮件服务器"></a>配置邮件服务器</h2><p>进入 /var/discourse 执行 <code>./discourse-setup</code> 脚本来配置邮件服务。在做这一步之前，先去 Mailgun 上注册个帐号，然后在域名的 DNS 服务商里，配置好 MX、TXT 等记录，Mailgun 文档写的很详细，跟着操作就可以了。执行脚本之后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Hostname for your Discourse? [discourse.example.com]: </div><div class="line">Email address for admin account? [me@example.com]: </div><div class="line">SMTP server address? [smtp.example.com]: </div><div class="line">SMTP user name? [postmaster@discourse.example.com]: </div><div class="line">SMTP port [587]:</div><div class="line">SMTP password? []:</div></pre></td></tr></table></figure>
-<p>解释下上面的配置项</p>
-<ul>
-<li>hostname，就是论坛程序域名</li>
-<li>管理员账户邮箱地址，你自己的邮箱</li>
-<li>SMTP 服务器地址，<code>smtp.mailgun.com</code></li>
-<li>用户名：xxx@hostname</li>
-<li>端口号：默认 587 就可以了。如果是基于 SSL/TLS，465</li>
-<li>密码：就是密码</li>
-</ul>
-<p>Mailgun 配置如图<br><img src="http://beepony.b0.upaiyun.com/zjfuture/img/maigun-config.png" alt="maigun-config"></p>
-<p>执行脚本的时候配置错误也没关系，打开 /var/discourse/containers/app.yam 可以再次编辑。编辑完毕之后，使用 <code>./launch rebuild app</code> 命令初始化容器。打开域名或者 IP 即可访问。</p>
-<h2 id="配置-app-yml"><a href="#配置-app-yml" class="headerlink" title="配置 app.yml"></a>配置 app.yml</h2><p>app.yml 主要分为几个部分 templates、expose、params、env、hooks、run。<br>templates 在默认的基础上加上一句，更好的支持本地化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">templates:</div><div class="line">  - &quot;templates/postgres.template.yml&quot;</div><div class="line">  - &quot;templates/redis.template.yml&quot;</div><div class="line">  - &quot;templates/web.template.yml&quot;</div><div class="line">  - &quot;templates/web.ratelimited.template.yml&quot; </div><div class="line">  - &quot;templates/web.china.template.yml&quot;# 加上这句</div></pre></td></tr></table></figure>
-<p>expose 里配置端口，根据 https 还是 http 配置 80，默认都开。<br>env 里配置域名和邮件信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">LANG: zh_CN # 语言，设为中文</div><div class="line"> # DISCOURSE_DEFAULT_LOCALE: en</div><div class="line"></div><div class="line"> ## How many concurrent web requests are supported? Depends on memory and CPU cores.</div><div class="line"> ## will be set automatically by bootstrap based on detected CPUs, or you can override</div><div class="line"> UNICORN_WORKERS: 4</div><div class="line"></div><div class="line"> ## TODO: The domain name this Discourse instance will respond to</div><div class="line"> DISCOURSE_HOSTNAME: zjfuture.us #域名</div><div class="line"></div><div class="line"> ## Uncomment if you want the container to be started with the same</div><div class="line"> ## hostname (-h option) as specified above (default &quot;$hostname-$config&quot;)</div><div class="line"> #DOCKER_USE_HOSTNAME: true</div><div class="line"></div><div class="line"> ## TODO: List of comma delimited emails that will be made admin and developer</div><div class="line"> ## on initial signup example &apos;user1@example.com,user2@example.com&apos;</div><div class="line"> DISCOURSE_DEVELOPER_EMAILS: &apos;beeponky@gmail.com&apos;</div><div class="line"></div><div class="line"> ## TODO: The SMTP mail server used to validate new accounts and send notifications 配置邮箱信息</div><div class="line"> DISCOURSE_SMTP_ADDRESS: smtp.mailgun.org</div><div class="line"> DISCOURSE_SMTP_PORT: 587</div><div class="line"> DISCOURSE_SMTP_USER_NAME: xxx@zjfuture.us</div><div class="line"> DISCOURSE_SMTP_PASSWORD: &quot;xxx&quot;</div><div class="line"> #DISCOURSE_SMTP_ENABLE_START_TLS: true           # (optional, default true)</div></pre></td></tr></table></figure>
-<h2 id="创建管理员账户"><a href="#创建管理员账户" class="headerlink" title="创建管理员账户"></a>创建管理员账户</h2><p>更多的配置项是管理员登录后台配置的，要先配置好管理员。连到服务器，<code>cd /var/discourse</code>，<code>./launch enter app</code> 进入 Docker 容器中的 Rails App，执行命令<br><code>rake admin:create</code> 不管是新建管理员、重置管理员密码和对已经存在的帐号赋予管理员权限都是这个命令。<br>注：<a href="https://meta.discourse.org/t/create-admin-account-from-console/17274" target="_blank" rel="external">Create Admin Account from Console</a></p>
-<h2 id="Let’s-Encrypt-配置-HTTPS-访问"><a href="#Let’s-Encrypt-配置-HTTPS-访问" class="headerlink" title="Let’s Encrypt 配置 HTTPS 访问"></a>Let’s Encrypt 配置 HTTPS 访问</h2><p>从未见过如此简单就能使用 HTTPS 访问的应用，可以参考教程：<a href="https://meta.discourse.org/t/setting-up-lets-encrypt/40709" target="_blank" rel="external">Let’s Encrypt</a>，配置完毕，在设置-安全性-use https，强制开启 HTTPS 访问。</p>
-<p>到这里差不多一个纯粹、简洁的论坛就搭建完毕了，后面要做的就是配置、定制化、运营了。</p>
-
-          
+          <p><a href="https://www.discourse.org/">Discourse</a> 是著名是开源论坛程序，使用 Ruby 编写，以简洁、纯粹著称。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/25/install-and-configure-discourse/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -747,22 +714,14 @@
 
       
         
-          
-            <p>三明治反馈法</p>
-<h4 id="第一片面包：先表扬，让人们更容易接受你的反馈。"><a href="#第一片面包：先表扬，让人们更容易接受你的反馈。" class="headerlink" title="第一片面包：先表扬，让人们更容易接受你的反馈。"></a>第一片面包：先表扬，让人们更容易接受你的反馈。</h4><p>接下来，给出那些令人不快的信息(批评)</p>
-<h4 id="第二片面包：最后提醒你多么看中他们的优点，让反馈对事不对人。"><a href="#第二片面包：最后提醒你多么看中他们的优点，让反馈对事不对人。" class="headerlink" title="第二片面包：最后提醒你多么看中他们的优点，让反馈对事不对人。"></a>第二片面包：最后提醒你多么看中他们的优点，让反馈对事不对人。</h4><p>这种方法适合低级别的人员，但缺点也同样明显，反馈往往过于正式，用多了就显得不那么真诚，而且中高级经理人会立刻意识到这种方法，结果往往适得其反。<br>好的反馈必须超越三明治反馈法，一般会有以下几个关键点：</p>
-<ul>
-<li>真实可信</li>
-<li>出发点正确，目的是希望他们做的更好，而不是更差。</li>
-<li>对事不对人</li>
-<li>不要在同事面前羞辱某个人</li>
-<li>反馈因人而异，要结合员工个性</li>
-<li>直接了当，但不要刻薄，弱化反馈中批评的部分，可能比没有反馈更糟糕。</li>
-<li>反馈应当是开启对话，而不是终结。要足够开明，要鼓励人们质疑你。</li>
-<li>高频率反馈，要对每一件事儿，都有自己的看法，不管喜欢与否，要让人们知道你的想法。</li>
-</ul>
-
-          
+          <p>三明治反馈法<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/03/feedback/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -883,33 +842,14 @@
 
       
         
-          
-            <p>前段时间，看到很多科技媒体在转载一则消息，Dropbox 可能会关闭 Mailbox，12 月 8 日，邮箱里收到了 Mailbox Saying goodbye 的邮件。</p>
-<blockquote>
-<p>Hello wang,<br>It’s with heavy hearts that we let you know Mailbox will shut down on February 26, 2016.<br>Mailbox ignited a shift in mobile email and many of its innovations are now ubiquitous across the industry. It’s been a great journey, and we’re proud of this impact and grateful to the community that helped make it possible.<br>When the Mailbox team joined Dropbox in 2013, we shared a passion for simplifying the way people work together. And solving the email problem seemed like a strong complement to the challenges Dropbox was already tackling.<br>But as we’ve increased our focus on collaboration, we realized there’s only so much an email app can do to fundamentally improve email. We’ve come to believe that the best way for us to improve people’s productivity going forward is to streamline the workflows that generate so much email in the first place.<br>We know saying goodbye to Mailbox will be hard for many. To help make the transition to a new email client easier, we’ve created guides and export tools. For more information about how we’ll be winding down Mailbox, please visit the Mailbox website.<br>Thank you to everyone who helped bring Mailbox to life, whether by spreading the word, letting us know what you liked (and didn’t like), or simply using the product. You taught us so much, and we’re deeply grateful.<br>—The Mailbox Team</p>
-</blockquote>
-<p>我反复读了很多遍，越发觉得写的真的是太好了。结构清晰，语言简洁而又感情真挚，简直可以作为产品讣闻的典范，让我这个曾经的 Mailbox 用户很是怜惜和感动。</p>
-<p>我们来大致分析一下这封邮件。第一段直接了当的告诉用户 Mailbox 要关闭了，而且给出了具体时间，解答了用户心中的疑虑。第二段用简单的几句话讲了一下 Mailbox 做出的创新以及对业界的影响，同时感谢了社区的贡献。第三段回顾了 Mailbox 加入 Dropbox 的初衷和当初的愿景。第四段说明了 Mailbox 关闭的原因，未来聚焦的点会在协作和提高生产效率上。第五段给出了如何从 Mailbox 转移出去的措施。第六段再次致谢用户，态度谦逊而真挚。</p>
-<p>Mailbox 这封邮件其实只是讲了一个道理：「把用户当成活生生的人，我们一路走来是靠用户的帮助，对此我们很感激～」</p>
-<p>我在 Support 工作中始终坚持的一个原则是：「永远不要骂用户，用户不是傻逼，你才是」。无数的产品格言都在教我们要转换心态，把用户当成小白，当成白痴。其实用户不是小白，他只是等待着被服务。如果他真的是白痴，也不会用你的产品。</p>
-<p>我记得某次故障的时候，一个用户情绪非常激动，态度也很恶劣，换成没有经验的人，很容易跟用户对飙，陷入双输的局面。接待这种问题，其实方法很简单：「把用户当成活生生的人，真的站在他的角度，为他考虑」。在线式的支持工作，用户看不到你的脸，感受不到的情感，你对用户也一样。只能通过文字让用户体会你的情感。首先先道歉，让他情绪先稍微缓解，当然光有态度是不够的。然后详述这次故障的原因、经过、应对和后续的整改方案、赔偿标准。到了这一步大部分用户都可以接受了，毕竟算是解决了他们的问题。如果用户仍旧不满意，再提供一个解决方案。「如果您仍旧觉得不满意，您看一下还有其他我们能做的」，这句话问出去的好处，就是用户会亮出他的底线，我们也就此知道用户真实的诉求，他究竟需要我们怎样处理才能满意。最后再根据他的诉求，商讨进一步处理的方案。</p>
-<p>除了从 Mailbox 里学到「把用户当作活生生的人」，以及怎样写一则产品讣告之外，还有一点给了我一些启发。</p>
-<p>曾经有一句非常著名的心灵鸡汤。「当有人关心你飞的够不够高时，我关心的是你快不快乐」，这句话某种程度上道出了本质，类比到 Mailbox 就是:「当所有人都关注邮件客户端是否好用时，我们关注的是为什么会产生这么多的邮件」，再类似到 Support 的工作就是:「当所有的人都在疲于解决用户问题时，我关注的是为什么会产生如此多的问题」。从产品的角度来看，用户在使用过程中出现了问题。又能有几个原因：</p>
-<ul>
-<li>产品功能有 bug</li>
-<li>用户体验太差，无法做到「一目了然，自我解释」，用户很难搞明白该如何使用</li>
-<li>缺乏足够的文档说明，Q&amp;A</li>
-<li>客户赖的自己去找答案，更希望有人帮他解决</li>
-</ul>
-<p>日常支持工作中后两点可能占了大部分，以我司为例，产品和 API 文档已经算是比较丰富了，涵盖了至少 90% 以上的问题，为什么重复的问题被不同的用户问来问要去，而 Support 每次都要重复回答，难道真的是所有的用户都很懒呢，如果有一个更便捷的方式能够用户自助式的解决问题，是否就能够改善这一状况 ？</p>
-<p>有一本非常著名的产品营销类书籍叫《跨越鸿沟》，讲的是产品如何跨域早期人群和主流市场之前的鸿沟。我们 Support 要做的是如何跨域用户现有的知识和我们期望用户掌握的知识的鸿沟。说实话，这个问题我也没有好的解决方案，只能讲一下我自己的思考。</p>
-<p>建立社区和群组。SF 上目前有问答社区，虽然说是社区，但是太过开放和松散，不同的用户之间很少有积极性去回答别的用户的问题，即便这个问题之前他也遇到过，而且解决方案一模一样。大部分都还是官方的人员在答疑。之前也有类似 discuz 的论坛，但是后来取消了，原因未知。我的推测，可能跟公司太保守有关系，我不止一次的听到，不建议用户跟用户之前交流，不建议客户之前建立群组，原因是一旦有故障，他们立刻都知道，而且会相互讨论，甚至抱团发起一些集集体诉求。其实不妨可以更开放一些，大胆的组织用户进行交流，开诚布公的处理故障，解决问题，反倒给客户一种开放真诚的态度，无数的公关败笔已经揭示：开诚布公、正视问题是解决问题的最短路径，比开始试图掩埋，又被别人揭露要得体的多。况且，有时候还可能因为好的态度带来好的反馈，反倒是对公司的长远发展有好处。做企业，能体面一点，就尽量去做。</p>
-<p>公开产品、系统、服务的更新日志。这样做的好处显而易见，就是让用户知道，我们做了什么，推出了什么新产品，开发了了哪些新特性，改进了怎样的服务流程，从而能够如何更好的帮到您。记得知乎上，有人提问题，说 XX 为什么这几年都没有什么变化。创始人和 CEO 纷纷站出来，回答说我们做了什么云云。本质的问题就在，你们做了什么，为什么不让用户知道呢，要知道这可能能为用户提供价值的，干嘛不更开放一些呢？</p>
-<p>提供智能应答。智能应答的好处在于能够减少大量咨询类的问题，同时又能够通过用户的点击了解用户的问题，提前做出预判，提高问题解决的时间。</p>
-<p>建立专门的企业博客。这方面最著名的就是 Basecamp（原 37signal）</p>
-<p>真正的解决方案还有待持续不断的学习和探索，暂且先记录一下吧～</p>
-
-          
+          <p>前段时间，看到很多科技媒体在转载一则消息，Dropbox 可能会关闭 Mailbox，12 月 8 日，邮箱里收到了 Mailbox Saying goodbye 的邮件。</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/27/think_from_mailbox_shutdodwn/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1030,18 +970,15 @@
 
       
         
-          
-            <p>我在使用 git 的时候，大部分的需求本地修改能够及时推送到远程，两者保持同步。最常用的命令就是：</p>
+          <p>我在使用 git 的时候，大部分的需求本地修改能够及时推送到远程，两者保持同步。最常用的命令就是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m <span class="string">"some comments"</span></div><div class="line">git push</div></pre></td></tr></table></figure>
-<p>这三条命令几乎占用了日常 90% 的使用频率，就在想能否将三条命令合成一条完成，减少手动的输入量，本能的反应是使用 shell 脚本中的 &amp;&amp; 连接符，一条命令执行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add . &amp;&amp; git commit -m <span class="string">"some comments"</span> &amp;&amp; git push</div></pre></td></tr></table></figure>
-<p>是可以，但没有减少手动输入的工作量，仅仅单纯的将三条命令放在一行里，不符合期望。那么，alias 呢，使用别名，将三种常用的命令设置为一个别名，在 .bashrc 或者 .bash_profile( for mac)，像这样</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">alias</span> lazygit = “git add .; git commit <span class="_">-a</span> -m ’some comments’; git push;”;</div><div class="line">执行</div><div class="line">$ lazygit</div></pre></td></tr></table></figure>
-<p>这很好，直接输入别名，就可以自动执行三条命令，减少了手动输入量，初步达到我们的预期。但是仔细想想，还是不完美。问题在于，commemts  是写死的，无法在每次修改添加不同的 comments，不够灵活。那么，如果把每次 comments 作为参数传入变量中，不就可以灵活的提交 comments 了，可以在 bash 的配置文件中写成函数。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">lazygit</span></span>()&#123;</div><div class="line">     git add .</div><div class="line">     git commit <span class="_">-a</span> -m <span class="variable">$1</span></div><div class="line">     git push</div><div class="line">&#125;</div><div class="line"></div><div class="line">$ lazygit <span class="string">"my comments"</span></div></pre></td></tr></table></figure>
-<p>这样就既节省了输入量，又能灵活的提交 commit 的信息，看起来似乎完美解决了我的问题。但又跟 git 设计之初 workflow 的初衷相违背，不过凡事处处满意也很难吧。算是做个简单的记录，满足了懒人的需求罢了，不必纠结。</p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/26/git-add-commit-push/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1162,57 +1099,14 @@
 
       
         
-          
-            <p>由于经常需要把本地内容 <code>scp</code> 到服务器，同时在服务器上执行一些固定的命令，了解到 <code>exepect</code> 脚本可以自动实现，于是做个记录。尽力做到简单重复的工作交给计算机去处理，流程和任务自动化，提升干活的效率。<br>当你需要跟控制台进行交互的时候，你就会发现 <code>TCL-Expect</code> 是多么好用的工具，能够将你从重复繁杂的任务中解救出来。以前只能手动去做的工作，现在通过 <code>expect</code> 脚本可以轻松完成。他们跟 shell 脚本很像，但是利用 .tcl 扩展实现，并且通过 #! 调用。</p>
-<h2 id="设置脚本初始环境"><a href="#设置脚本初始环境" class="headerlink" title="设置脚本初始环境"></a>设置脚本初始环境</h2><p>第一步，跟写 <code>bash</code> 脚本很像，告诉脚本在什么环境下执行命令。对于 expect 来说，我们一般这么调用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">最好在脚本最后加上 `interact`，这样脚本执行完毕，还停留在终端，不至于退出，类似这样：</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">&apos;&apos;&apos;代码部分&apos;&apos;&apos;</div><div class="line"></div><div class="line">interact</div></pre></td></tr></table></figure>
-<h2 id="Puts-amp-Output"><a href="#Puts-amp-Output" class="headerlink" title="Puts &amp; Output"></a>Puts &amp; Output</h2><p><code>shell</code> 脚本一般使用 <code>echo</code> 输出，而 <code>expect</code> 则使用 <code>puts</code> 输出，这一点倒是跟 <code>Ruby</code> 很像。</p>
-<p><code>puts &quot;I am performing a output command&quot;</code></p>
-<p>结果就会输出 <code>I am performing a output command</code>,跟 <code>echo</code> 效果一样。</p>
-<p>一般情况下，脚本会输出你正在执行的命令。测试的时候很有用，但是在生产环境或者日常使用未必需要。如果只需要显示 <code>puts</code> 的文本，隐藏其他命令，可以通过：</p>
-<blockquote>
-<p>log_user 0</p>
-</blockquote>
-<p>或者你可以强制开启输出命令及其响应，可以通过：</p>
-<blockquote>
-<p>log_user 1</p>
-</blockquote>
-<h2 id="变量-Variables"><a href="#变量-Variables" class="headerlink" title="变量 Variables"></a>变量 Variables</h2><p>定义变量非常简单，只用 <code>set {name}{value}</code>,例如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set a &quot;apple&quot;</div><div class="line">set b &quot;banana&quot;</div><div class="line">set c &quot;cantalope&quot;</div></pre></td></tr></table></figure>
-<p>通过 <code>$</code> 加变量的 <code>name</code> 来引用变量，<code>$a</code> 即代表 <code>apple</code>.</p>
-<h2 id="参数-Arguments"><a href="#参数-Arguments" class="headerlink" title="参数 Arguments"></a>参数 Arguments</h2><p>如果想通过传递参数的方式来设置变量，可以通过这种方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set user [lindex $argv 0]</div><div class="line">set password [lindex $argv 1]</div></pre></td></tr></table></figure>
-<p>然后，当执行脚本的时候带上参数<br><code>./mycript.tcl youruser yourpassword</code></p>
-<h2 id="Spawn-amp-Send"><a href="#Spawn-amp-Send" class="headerlink" title="Spawn &amp; Send"></a>Spawn &amp; Send</h2><p>你可以使用 <code>spawn</code> 开启一个新的进程，例如 <code>ssh</code> 或者 <code>scp</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set user &quot;myuser&quot;</div><div class="line">set server &quot;myserver.com&quot;</div><div class="line">spawn ssh &quot;$user\@server&quot;</div></pre></td></tr></table></figure>
-<p>上面的例子就是开启了一个 <code>ssh</code> 进程，同时提交用户名和服务器，本质上就是在控制台输入 <code>ssh myuser@myserver.com</code>.</p>
-<p><code>send</code> 命令可以让你发送命令给控制台，比如发送一个密码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">set password [lindex $argv 0]</div><div class="line">set app [lindex $argv 1]</div><div class="line"></div><div class="line">spawn sudo &quot;apt-get install $app&quot;</div><div class="line"></div><div class="line">expect &quot;assword&quot;</div><div class="line"></div><div class="line">send &quot;$password\r&quot;</div></pre></td></tr></table></figure>
-<p>上面的例子允许你传递你的 sudo 密码和需要从 apt 安装的应用的名字，然后等着提示密码并且发送。No assword is not a mispelling，让我们看看 expect 声明。</p>
-<h2 id="Expect"><a href="#Expect" class="headerlink" title="Expect"></a>Expect</h2><p><code>expect</code> 才是见证奇迹的时候。我们先从最基本的开始，假设你运行了一个命令，然后等着控制台提示，然后再继续执行…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">spawn apt-get &quot;update&quot;</div><div class="line"></div><div class="line">expect &quot;$&quot;</div><div class="line"></div><div class="line"># Move on to the next thing...</div></pre></td></tr></table></figure>
-<p>你开启一个 <code>spawn</code> 进程 <code>apt-get</code>,然后等着 <code>$</code> 或者提示。<br>上面的 <code>expect</code> 语句遵循就近匹配的原则。所以上面的例子里的提示可以像这样，比如<code>root@server  $~</code>。<code>expect</code> 语句找到 <code>$</code>，然后知道该继续执行下去了。</p>
-<p>下面再来看看一些稍微复杂的例子，不只有一条 <code>expect</code>,让我们再看看 <code>ssh</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">spawn ssh &quot;$user\@server&quot;</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">    &quot;assword&quot; &#123;</div><div class="line">        send &quot;$password\r&quot;</div><div class="line">    &#125;</div><div class="line">    &quot;yes/no&quot; &#123;</div><div class="line">        send &quot;yes\r&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"># NOW we can move on...</div></pre></td></tr></table></figure>
-<p>这里例子里，我们可能会遇到两种结果。第一种在连接到服务器之前会提示输入密码。<code>assword</code> 宽松的定义覆盖了两种情况，提交 <code>$password</code> 变量。<br>如果你尝试连接远程服务器，就会提示 <code>yes/no</code>,他会提交 <code>yes</code> 为你，然后等着密码提示，随后处理。</p>
-<p>这也适合不同的提示-你可以做不同风格的提示，就像下面这样。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">expect &#123;</div><div class="line">    &quot;&gt; &quot; &#123; &#125;</div><div class="line">    &quot;$ &quot; &#123; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>This can be built-upon more to really close the error-gap:(不知道该如何翻译更得体，索性附上原句)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">expect &#123;</div><div class="line">    &quot;&gt; &quot; &#123; &#125;</div><div class="line">    &quot;$ &quot; &#123; &#125;</div><div class="line">    &quot;assword: &quot; &#123; </div><div class="line">        send &quot;$password\n&quot; </div><div class="line">        expect &#123;</div><div class="line">            &quot;&gt; &quot; &#123; &#125;</div><div class="line">            &quot;$ &quot; &#123; &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    &quot;(yes/no)? &quot; &#123; </div><div class="line">        send &quot;yes\n&quot;</div><div class="line">        expect &#123;</div><div class="line">          &quot;&gt; &quot; &#123; &#125;</div><div class="line">          &quot;$ &quot; &#123; &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    default &#123;</div><div class="line">        send_user &quot;Login failed\n&quot;</div><div class="line">        exit</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="条件-Conditionals"><a href="#条件-Conditionals" class="headerlink" title="条件 Conditionals"></a>条件 Conditionals</h2><p><code>if</code> 语句非常简单，下面的例子足以说明：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if &#123; $a == &quot;soup&quot; &#125; &#123;</div><div class="line">    puts &quot;You have soup!&quot;</div><div class="line">else &#123;</div><div class="line">    puts &quot;No soup for you!&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="循环-Looping"><a href="#循环-Looping" class="headerlink" title="循环 Looping"></a>循环 Looping</h2><p>有好几种方法可以实现循环，我倾向于使用 <code>while</code> 方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">set count 10;</div><div class="line">while &#123;$count &gt; 0 &#125; &#123;</div><div class="line">    puts &quot;$count\n&quot;</div><div class="line">    set count [expr $count-1];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个语句会从 10 开始向后循环，然后输出每个数字</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数可以复用代码，像这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proc do_something &#123; a b c &#125; &#123;</div><div class="line">    puts &quot;You should buy some $a, $b, and $c!\n&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以这样被调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">set running [do_something &quot;apples&quot; &quot;bananas&quot; &quot;cantalopes&quot;]</div></pre></td></tr></table></figure>
-<p>输出结果是这样：<br><code>You should buy some apples, bananas, and cantalopes!&quot;</code><br>我的小脚本，供参考:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># !/usr/bin/expect -f</div><div class="line"># 同步本地目录到服务器，登陆服务器，删除 tkb 目录，修改 site 为 tkb</div><div class="line"></div><div class="line">set timeout -1</div><div class="line">set user &quot;username&quot;</div><div class="line">set server &quot;server_ip&quot;</div><div class="line">spawn /usr/bin/scp -r site $user@$server:/usr/share/nginx/html</div><div class="line">expect eof</div><div class="line">spawn ssh $user@$server</div><div class="line">expect &quot;*&quot;</div><div class="line">send &quot;cd /usr/share/nginx/html\r&quot;</div><div class="line">send &quot;rm -rf tkb\r&quot;</div><div class="line">send &quot;mv site tkb\r&quot;</div><div class="line">interact</div></pre></td></tr></table></figure>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>上面就是 expect 脚本的一些最基本的概念。以前需要手工处理一系列动作，现在可以通过 expect 转化为执行一系列列动作的脚本。<br>本文翻译自 <a href="https://gist.github.com/Fluidbyte/6294378" target="_blank" rel="external">Basic principles of using tcl-expect scripts</a><br>详细的说明，可以参考 <a href="http://www.tcl.tk/man/expect5.31/expect.1.html" target="_blank" rel="external">expect</a></p>
-
-          
+          <p>由于经常需要把本地内容 <code>scp</code> 到服务器，同时在服务器上执行一些固定的命令，了解到 <code>exepect</code> 脚本可以自动实现，于是做个记录。尽力做到简单重复的工作交给计算机去处理，流程和任务自动化，提升干活的效率。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/22/expect-script-concept/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1333,57 +1227,20 @@
 
       
         
-          
-            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>AJAX 不是一种新的编程语言，而是创建快速和动态页面的技术。有了它，你可以实现</p>
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>AJAX 不是一种新的编程语言，而是创建快速和动态页面的技术。有了它，你可以实现</p>
 <ul>
 <li>在不重载页面的情况下更新内容</li>
 <li>向服务器请求数据</li>
 <li>从服务器下载数据</li>
 <li>后台运行发送数据给服务器</li>
 </ul>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AJAX = Asynchronous JavaScript and XML，直接翻译是异步的 JavaScript 和 XML，这其实有误导的嫌疑，即使不懂 XML 也可以使用 AJAX。</p>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>使用 AJAX 技术的应用有：Google Maps, Gmail, Youtube, Facebook etc.</p>
-<h3 id="AJAX-工作流程"><a href="#AJAX-工作流程" class="headerlink" title="AJAX 工作流程"></a>AJAX 工作流程</h3><p><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/ajax.gif" alt="ajax"></p>
-<h3 id="AJAX-基于标准的互联网协议"><a href="#AJAX-基于标准的互联网协议" class="headerlink" title="AJAX 基于标准的互联网协议"></a>AJAX 基于标准的互联网协议</h3><p>AJAX 基于互联网协议，主要是下面两种</p>
-<ul>
-<li>XMLHttpRequest object (to retrieve data from a web server)</li>
-<li>JavaScript/DOM (to display/use the data)</li>
-</ul>
-<p>AJAX 2005 年因为 Google Suggest 开始流行。当你在搜索框里输入时，JavaScript 就已经开始发送数据到服务器，服务器根据输入返回一个建议列表。</p>
-<h3 id="XMLHttpRequest-object"><a href="#XMLHttpRequest-object" class="headerlink" title="XMLHttpRequest object"></a>XMLHttpRequest object</h3><p>XMLHttpRequest object 是 AJAX 是基础。所有现代的浏览器都支持 XMLHttpRequest object，用它来跟服务器交换数据。</p>
-<p>创建 XMLHttpRequest object<br><code>xhr = new XMLHttpRequest();</code></p>
-<h2 id="AJAX-发送请求"><a href="#AJAX-发送请求" class="headerlink" title="AJAX 发送请求"></a>AJAX 发送请求</h2><p>我们使用 XMLHttpRequest 对象的 open() 和 send() 方法来发送请求：</p>
-<p>GET</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xhttp.open(&quot;GET&quot;, &quot;ajax_info.txt&quot;, true);</div><div class="line">xhttp.send();</div></pre></td></tr></table></figure>
-<p>POST</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xhttp.open(&quot;POST&quot;, &quot;demo_post.asp&quot;, true);</div><div class="line">xhttp.send();</div></pre></td></tr></table></figure>
-<p><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/get-post.png" alt="get-post"></p>
-<p>加上头信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">xhttp.open(&quot;POST&quot;, &quot;ajax_test.asp&quot;, true);</div><div class="line">xhttp.setRequestHeader(&quot;Content-type&quot;, &quot;application/x-www-form-urlencoded&quot;);</div><div class="line">xhttp.send(&quot;fname=Henry&amp;lname=Ford&quot;);</div></pre></td></tr></table></figure>
-<p><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/setRequestHeader.png" alt="setRequestHeader"></p>
-<p>上面定义清晰的说明了 AJAX 是异步的，所以 open() 的第三个参数指定为 true。能异步执行，对开发者来说实在是一件大好事，我们都知道服务端执行程序一般都非常耗时，在没有 AJAX 之前许多操作都有可能导致服务端挂起或者停止。有了 AJAX 之后，JavaScript 再有不用一直等待服务端的响应了</p>
-<ul>
-<li>可以在等待服务端响应的时候同时执行脚本</li>
-<li>可以在响应准备好时，开始处理响应。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">xhttp.onreadystatechange = function() &#123;</div><div class="line">  if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">    document.getElementById(&quot;demo&quot;).innerHTML = xhttp.responseText;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">xhttp.open(&quot;GET&quot;, &quot;ajax_info.txt&quot;, true);</div><div class="line">xhttp.send();</div></pre></td></tr></table></figure>
-<h2 id="服务端响应"><a href="#服务端响应" class="headerlink" title="服务端响应"></a>服务端响应</h2><p>XMLHttpRequest 对象的 responseText(as String) 和 responseXML(as XML) 属性可以获取服务端响应。</p>
-<p>responseText<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">服务端直接响应 String，可以直接使用</div><div class="line">document.getElementById(&quot;demo&quot;).innerHTML = xhttp.responseText;</div></pre></td></tr></table></figure></p>
-<p>responseXML</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">从服务端请求 cd_catalog.xml 并且解析响应</div><div class="line">xmlDoc = xhttp.responseXML;</div><div class="line">txt = &quot;&quot;;</div><div class="line">x = xmlDoc.getElementsByTagName(&quot;ARTIST&quot;);</div><div class="line">for (i = 0; i &lt; x.length; i++) &#123;</div><div class="line">  txt += x[i].childNodes[0].nodeValue + &quot;&lt;br&gt;&quot;;</div><div class="line">  &#125;</div><div class="line">document.getElementById(&quot;demo&quot;).innerHTML = txt;</div></pre></td></tr></table></figure>
-<h2 id="AJAX-的-onreadystatechange-事件"><a href="#AJAX-的-onreadystatechange-事件" class="headerlink" title="AJAX 的 onreadystatechange 事件"></a>AJAX 的 onreadystatechange 事件</h2><p>你如果仔细观察的话，我们在上面已经用了一些事件。比如在响应准备好时 <code>onreadystatechange</code>。当请求发啊送之后，我们想基于服务端的响应执行一些动作。当每一次 <code>readyState</code> 改变的时候，就会触发  <code>onreadystatechange</code>  事件。<code>readyState</code> 代表了 XMLHttpRequest 的状态。下<br>图是 XMLHttpRequest 对象的一些重要属性<br><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/onreadystatechange.png" alt="onreadystatechange"><br>在这张图里，我们能看出当 <code>readyState</code> 是 4 和 <code>status</code> 是 200 的时候，响应就准备好了，下面用代码举个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function loadDoc() &#123;</div><div class="line">  var xhttp = new XMLHttpRequest();</div><div class="line">  xhttp.onreadystatechange = function() &#123;</div><div class="line">  if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">    document.getElementById(&quot;demo&quot;).innerHTML = xhttp.responseText;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h2 id="AJAX-和-PHP-脚本的交互"><a href="#AJAX-和-PHP-脚本的交互" class="headerlink" title="AJAX 和 PHP 脚本的交互"></a>AJAX 和 PHP 脚本的交互</h2><p>下面通过输入一些字符，演示了一个 Web 页面如何跟服务端交互的，源码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;h3&gt;Start typing a name in the input field below:&lt;/h3&gt;</div><div class="line"></div><div class="line">&lt;form action=&quot;&quot;&gt;</div><div class="line">First name: &lt;input type=&quot;text&quot; id=&quot;txt1&quot; onkeyup=&quot;showHint(this.value)&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line"></div><div class="line">&lt;p&gt;Suggestions: &lt;span id=&quot;txtHint&quot;&gt;&lt;/span&gt;&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">function showHint(str) &#123;</div><div class="line">  var xhttp;</div><div class="line">  if (str.length == 0) &#123;</div><div class="line">    document.getElementById(&quot;txtHint&quot;).innerHTML = &quot;&quot;;</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line">  xhttp = new XMLHttpRequest();</div><div class="line">  xhttp.onreadystatechange = function() &#123;</div><div class="line">    if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">      document.getElementById(&quot;txtHint&quot;).innerHTML = xhttp.responseText;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  xhttp.open(&quot;GET&quot;, &quot;gethint.php?q=&quot;+str, true);</div><div class="line">  xhttp.send();   </div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>PHP 文件 gethint.php</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">// Array with names</div><div class="line">$a[] = &quot;Anna&quot;;</div><div class="line">$a[] = &quot;Brittany&quot;;</div><div class="line">$a[] = &quot;Cinderella&quot;;</div><div class="line">$a[] = &quot;Diana&quot;;</div><div class="line">$a[] = &quot;Eva&quot;;</div><div class="line">$a[] = &quot;Fiona&quot;;</div><div class="line">$a[] = &quot;Gunda&quot;;</div><div class="line">$a[] = &quot;Hege&quot;;</div><div class="line">$a[] = &quot;Inga&quot;;</div><div class="line">$a[] = &quot;Johanna&quot;;</div><div class="line">$a[] = &quot;Kitty&quot;;</div><div class="line">$a[] = &quot;Linda&quot;;</div><div class="line">$a[] = &quot;Nina&quot;;</div><div class="line">$a[] = &quot;Ophelia&quot;;</div><div class="line">$a[] = &quot;Petunia&quot;;</div><div class="line">$a[] = &quot;Amanda&quot;;</div><div class="line">$a[] = &quot;Raquel&quot;;</div><div class="line">$a[] = &quot;Cindy&quot;;</div><div class="line">$a[] = &quot;Doris&quot;;</div><div class="line">$a[] = &quot;Eve&quot;;</div><div class="line">$a[] = &quot;Evita&quot;;</div><div class="line">$a[] = &quot;Sunniva&quot;;</div><div class="line">$a[] = &quot;Tove&quot;;</div><div class="line">$a[] = &quot;Unni&quot;;</div><div class="line">$a[] = &quot;Violet&quot;;</div><div class="line">$a[] = &quot;Liza&quot;;</div><div class="line">$a[] = &quot;Elizabeth&quot;;</div><div class="line">$a[] = &quot;Ellen&quot;;</div><div class="line">$a[] = &quot;Wenche&quot;;</div><div class="line">$a[] = &quot;Vicky&quot;;</div><div class="line"></div><div class="line">// get the q parameter from URL</div><div class="line">$q = $_REQUEST[&quot;q&quot;];</div><div class="line"></div><div class="line">$hint = &quot;&quot;;</div><div class="line"></div><div class="line">// lookup all hints from array if $q is different from &quot;&quot;</div><div class="line">if ($q !== &quot;&quot;) &#123;</div><div class="line">    $q = strtolower($q);</div><div class="line">    $len=strlen($q);</div><div class="line">    foreach($a as $name) &#123;</div><div class="line">        if (stristr($q, substr($name, 0, $len))) &#123;</div><div class="line">            if ($hint === &quot;&quot;) &#123;</div><div class="line">                $hint = $name;</div><div class="line">            &#125; else &#123;</div><div class="line">                $hint .= &quot;, $name&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Output &quot;no suggestion&quot; if no hint was found or output correct values</div><div class="line">echo $hint === &quot;&quot; ? &quot;no suggestion&quot; : $hint;</div></pre></td></tr></table></figure>
-<p>##AJAX 和 数据库的交互<br>下面通过一个例子演示了 Web 页面如何通过 AJAX 从数据库获取数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function showCustomer(str) &#123;</div><div class="line">  var xhttp;</div><div class="line">  if (str == &quot;&quot;) &#123;</div><div class="line">    document.getElementById(&quot;txtHint&quot;).innerHTML = &quot;&quot;;</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line">  xhttp = new XMLHttpRequest();</div><div class="line">  xhttp.onreadystatechange = function() &#123;</div><div class="line">    if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">    document.getElementById(&quot;txtHint&quot;).innerHTML = xhttp.responseText;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  xhttp.open(&quot;GET&quot;, &quot;getcustomer.asp?q=&quot;+str, true);</div><div class="line">  xhttp.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>getcustomer.asp 从数据库中查询信息，并且返回给 HTML 页面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">response.expires=-1</div><div class="line">sql=&quot;SELECT * FROM CUSTOMERS WHERE CUSTOMERID=&quot;</div><div class="line">sql=sql &amp; &quot;&apos;&quot; &amp; request.querystring(&quot;q&quot;) &amp; &quot;&apos;&quot;</div><div class="line"></div><div class="line">set conn=Server.CreateObject(&quot;ADODB.Connection&quot;)</div><div class="line">conn.Provider=&quot;Microsoft.Jet.OLEDB.4.0&quot;</div><div class="line">conn.Open(Server.Mappath(&quot;/datafolder/northwind.mdb&quot;))</div><div class="line">set rs=Server.CreateObject(&quot;ADODB.recordset&quot;)</div><div class="line">rs.Open sql,conn</div><div class="line"></div><div class="line">response.write(&quot;&lt;table&gt;&quot;)</div><div class="line">do until rs.EOF</div><div class="line">  for each x in rs.Fields</div><div class="line">    response.write(&quot;&lt;tr&gt;&lt;td&gt;&lt;b&gt;&quot; &amp; x.name &amp; &quot;&lt;/b&gt;&lt;/td&gt;&quot;)</div><div class="line">    response.write(&quot;&lt;td&gt;&quot; &amp; x.value &amp; &quot;&lt;/td&gt;&lt;/tr&gt;&quot;)</div><div class="line">  next</div><div class="line">  rs.MoveNext</div><div class="line">loop</div><div class="line">response.write(&quot;&lt;/table&gt;&quot;)</div><div class="line">%&gt;</div></pre></td></tr></table></figure>
-<p>参考文档：<a href="http://www.w3schools.com/ajax/default.asp" target="_blank" rel="external">w3cshools</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/18/ajax-tutorial/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1504,17 +1361,14 @@
 
       
         
-          
-            <p>我所服务的是一家企业级服务的公司，当看到 YC 创业课的列表时，也直接跳到第十二课，希望 Aaron Levie 能够解答我的很多疑问。</p>
-<p>Aaron Levie 语速很快，也非常幽默，开场放了很 high 的音乐，鼓动大家一起拍手，然后话锋一转说，这可能是这堂课的最高潮了，后面都是在走下坡路。Box 的最初想法是源自于 2004 年 Aaron 写论文的时候，当时苦于分享文件很困难，于是开发一个方便在线存储分享的应用(又一个产品源自自身的需求的案例)，他找到了在杜克大学的高中同学，开始了创业之路。创业并不是说说那么简单，你如果没有钱那就无法开始。神奇的是，当时他们的启动资金竟然是从在线赌博赢的两万美元。后面就比较幸运，遇到了一个很厉害的投资人-Mark Cuban，给他们投了 35 万美元，要知道在 2005 年的时候，这已经算是一笔不小的天使投资了，也足以见的 Mark Cuban 的远见卓识。</p>
-<h3 id="Box-成功的促进因素"><a href="#Box-成功的促进因素" class="headerlink" title="Box 成功的促进因素"></a>Box 成功的促进因素</h3><p>Aaron Levie 认为他们之所以能够成功，是几个重要的科技变革的因素促成的。存储设备价格的不断下降，这就减轻了提供了在线存储的硬件成本压力，为普通的个人能否拥有大容量的存储奠定了基础。仅仅硬件成本的下降还远远不够，更快的网络和更加强大的浏览器才是关键。这两者直接决定这文件在线分享的用户体验。一个龟速的网络和卡顿的浏览器会毁掉所有伟大产品的用户体验。软硬件条件齐备，加上世界各地的人们对于在线存储和分享极为渴求，庞大的需求则保证市场份额足够大。「任何一个发生明显本质变化的市场，无论是原材料还是其他促成因素，都是市场巨变的征兆」，Aaron 很幸运的找到了。</p>
-<p>Box 也并不是一开始就瞄准企业级市场的。在 2006 年 Box 可以免费使用，并且也获取了大量的用户，而且针对消费级的市场，建立了完善的产品，而企业市场也非常少。摆在 Aaron 面前的是两条路。一条是继续走消费级市场，非常好玩，但是获利困难，你必须非常努力让用户每个月花上几块钱来使用你的服务，而变现的方式要么是购买应用，要么是投放广告，当时整个的市场份额也就只有一千多亿美元；另外一条路，企业级市场非常庞大而且稳定，每年的市场份额高达 3.7 万亿美元，而且他们对于技术带来的效率的提升也极为重视。</p>
-<p><img src="http://beepony.b0.upaiyun.com/blog/yc12-1.png" alt=""><br>市场固然巨大，企业级市场同样存在这很多问题。技术复杂度高，软件开发周期长，销售周期长，传统的企业软件用户体验非常差(一个软件里有 47 个按钮)。如果 Box 继续追随这老的传统企业软件的路子走，即便市场份额这么大，也未必能够分的一杯羮。怎样能够做的以往人们印象中的企业软件不一样，Aaron 也一直在思索着、寻找着。和他一贯的方法论一样，他不仅在思考如何改变，如何变的与众不同，同时也在观察，这个一直变化的世界，有什么能够助理他们改变的变化，顺势而为，重建一个更好的企业级软件公司。   </p>
-<h3 id="这些变化到底是什么呢？"><a href="#这些变化到底是什么呢？" class="headerlink" title="这些变化到底是什么呢？"></a>这些变化到底是什么呢？</h3><p>企业和企业软件正在发生着巨大的变化，如果你要创立一家企业软件公司，一定要以技术和解决方案为导向。这是企业软件最好的时代，大量的应用开始迁移到云端，以前只有大公司才能用的软件，现在变成了每个企业都可以使用的便标准化服务，成本也大幅度下降，开发和部署的周期大大缩短，从以往的定制化开发转成了可以订阅的云端服务，没有任何地区限制，全世界的公司都可以按需使用，企业模式也从已 IT 为导向，转变成以用户为导向。除此之外，17.5 亿的智能手机，将近 30 亿人在线。几乎每个行业都在发生变化，而企业也最有可能在这两个技术革新的时刻爆发。一是，原材料发生变化，成本下降，更有利于集中化，人们可以按需使用。二是变化就是客户需求。零售业的全渠道零售，个性化的医疗，从开始检查和治疗转变为为为了保持健康而付费，远程医疗，电子病例诊断。媒体行业的全球化制作和采编，和分销。都需要软件和技术在提供支持。这些变化都意味着个性化的客户需求和庞大的市场。<br><img src="http://beepony.b0.upaiyun.com/blog/yc12-2.png" alt=""></p>
-<h3 id="如何开始创办一家企业软件公司？"><a href="#如何开始创办一家企业软件公司？" class="headerlink" title="如何开始创办一家企业软件公司？"></a>如何开始创办一家企业软件公司？</h3><p>虽然经验是建立在对过去发生过事物的回放，你不能套用进所有你未来将面临的事件中去，但是万变不离其中。      </p>
-<p>要有对颠覆性技术的敏锐嗅觉，这是技术公司最基本的要素，只有技术才能制造红海和蓝海之前的差距。我们现在基本在重复 5 年或者 10 年前预言的事情，成本的降低使得以往不可能的技术预想变成现实。讲从小处入手，从小市场，小应用下手，在这个基础上慢慢扩张。以 zenpayroll 公司为例，从工资发放入手，到薪酬管理，逐步扩张，逐步开拓更多的服务。发现市场不对称的地方，找到那些大公司不想做，审视大公司成本构成，挖掘出无法省掉的开支，那就是他们的商业模式，或者从客户群找到变现的方法。《黑客与画家》的作者 - 保罗.格雷厄姆有篇文章讲到，要活在未来，并且创造未来生活中才需要的东西，这样才能冲破现有模式的思维模式，跟上潮流。工作也是，如果有消费者从事创造未来的工作，最好的方法就是和他们一起共事，摸索中未来世界需要，但还存在空白的领域。听用户的，但别完全按照他们的意思来，创造他们需要的东西。过滤出来最终有用的产品建议。建立一个平台，而不是定制化。永远把用户体验放在第一位，产品更易上手，有更大的机会。在产品研发阶段就把消费者 DNA 考虑进来，让产品具有自传播性。最后，还要看三本书。《跨越鸿沟》、《创新者的窘境》、《Behind the Cloud》(中译名：云攻略)</p>
-
-          
+          <p>我所服务的是一家企业级服务的公司，当看到 YC 创业课的列表时，也直接跳到第十二课，希望 Aaron Levie 能够解答我的很多疑问。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/01/how-to-build-enterprise/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1635,15 +1489,14 @@
 
       
         
-          
-            <p>问题起源于一次用户的咨询。他看到某篇文档的 Q/A 上写着，为了避免使用镜像导致的降权，最好在源站根目录下上传一份<br>robots.txt。于是就很问，为什么为使用镜像会导致网站降权，回答这个问题之前先看看什么是权重。</p>
-<h4 id="网站权重"><a href="#网站权重" class="headerlink" title="网站权重"></a>网站权重</h4><p>网站权重是指搜索引擎给予网站的权威值，包含对网站的综合评价。权重值越高，在搜索引擎里所占的比例越大，网站排名越好。提高网站的权重值，有利于提高网站在搜索引擎的排名，提高网站的整体流量和网站信任度，对网站发展起到至关重要的作用。</p>
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>为了能够给网站引入更多的流量，很多网站开始做搜索引擎优化，采取各种手段，极力提高网站的权重，这其中有一种方法就是镜像。所谓镜像，通俗点说，就是复制一个一模一样的网站，域名 IP 不同，内容完全一样，以此达到多次收录的目的。而现在许多搜索引擎都有自己的一套镜像网站的过滤系统，一旦发现网站镜像，就会将源站和镜像从搜索引擎的数据库中删除，导致网站权重下降，流量减少，影响网站的运营。</p>
-<h4 id="UPYUN-镜像"><a href="#UPYUN-镜像" class="headerlink" title="UPYUN 镜像"></a>UPYUN 镜像</h4><p>UPYUN 镜像 CDN 的推出是希望能解决用户源站迁移数据的难题，开启镜像之后，程序会自动抓去源站资源，永久存储在<br>UPYUN，极大的减轻了源站的压力。但这也可能带来潜在的威胁，就是文章开头所说的网站降权。</p>
-<h4 id="rebots"><a href="#rebots" class="headerlink" title="rebots"></a>rebots</h4><p>既然搜索引擎有过滤镜像的功能，避免降权的办法，就是不让搜索引擎发现这个镜像。资源都是在共网上可以访问的，怎么样才能避免搜索引擎的抓去的。这里不得不提的就是 robots.txt，关于 rebots 的作用可以参考<br><a href="https://zh.wikipedia.org/wiki/Robots.txt" target="_blank" rel="external">rebots</a> 我们可以手动上传一份 robots，里面写好约定俗称的规则来告诉搜索引擎，不要来抓取镜像的资源。以 UPYUN 镜像为例，如下的 robots 的模板可以参考一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"># rebots.txt generated at UPYUN</div><div class="line">User-agent: Baiduspider</div><div class="line">Disallow: /</div><div class="line">User-agent: Sosospider</div><div class="line">Disallow: /</div><div class="line">User-agent: sogou spider</div><div class="line">Disallow: /</div><div class="line">User-agent: YodaoBot</div><div class="line">Disallow: /</div><div class="line">User-agent: Googlebot</div><div class="line">Disallow: /</div><div class="line">User-agent: Bingbot</div><div class="line">Disallow: /</div><div class="line">User-agent: Slurp</div><div class="line">Disallow: /</div><div class="line">User-agent: MSNBot</div><div class="line">Disallow: /</div><div class="line">User-agent: googlebot-image</div><div class="line">Disallow: /</div><div class="line">User-agent: googlebot-mobile</div><div class="line">Disallow: /</div><div class="line">User-agent: yahoo-blogs/v3.9</div><div class="line">Disallow: /</div><div class="line">User-agent: psbot</div><div class="line">Disallow: /</div><div class="line">User-agent: *</div><div class="line">Disallow: /</div></pre></td></tr></table></figure>
-
-          
+          <p>问题起源于一次用户的咨询。他看到某篇文档的 Q/A 上写着，为了避免使用镜像导致的降权，最好在源站根目录下上传一份<br>robots.txt。于是就很问，为什么为使用镜像会导致网站降权，回答这个问题之前先看看什么是权重。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/18/cdn-seo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1764,10 +1617,14 @@
 
       
         
-          
-            <p>最近接到一个需求，将绑定在我司的域名解析出对应的空间，主要设计到对字符串处理，于是用学到的一点点 Ruby 知识写了个脚本。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># /usr/bin/ruby -w</span></div><div class="line"><span class="comment"># coding:utf-8</span></div><div class="line"><span class="comment"># dig the domain and bucket</span></div><div class="line"><span class="comment"># https://github.com/bluemonk/net-dns</span></div><div class="line"></div><div class="line"><span class="keyword">require</span> <span class="string">'net/dns'</span></div><div class="line"><span class="keyword">require</span> <span class="string">'json'</span></div><div class="line"></div><div class="line"><span class="comment"># 将给定的 url dig 出来 answer 里的第一条解析记录</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dig_dns</span><span class="params">(url)</span></span></div><div class="line">  packet = Net::DNS::Resolver.start(<span class="string">"<span class="subst">#&#123;url&#125;</span>"</span>)</div><div class="line">  r = packet.answer[<span class="number">0</span>].to_s.split(<span class="string">" "</span>)</div><div class="line">  print <span class="string">"<span class="subst">#&#123;r[<span class="number">0</span>].to_s.chop&#125;</span>  "</span> <span class="string">"<span class="subst">#&#123;r[<span class="number">4</span>].to_s.split(<span class="string">"."</span>)[<span class="number">0</span>]&#125;</span>\n"</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># 将泛域名里面的 * 替换成 test，以符合域名解析规则</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">subt</span><span class="params">(str)</span></span></div><div class="line">	<span class="keyword">if</span> str.<span class="keyword">include</span>? <span class="string">'*'</span></div><div class="line">		str.sub(<span class="string">'*'</span>,<span class="string">'upyun'</span>)</div><div class="line">	<span class="keyword">else</span></div><div class="line">		str</div><div class="line">	<span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># 包含域名的文件作为参数输入</span></div><div class="line"><span class="comment"># filename = ARGV[0]</span></div><div class="line">filename = <span class="string">'yuming.txt'</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">afile</span><span class="params">(filename)</span></span></div><div class="line">	File.open(filename,<span class="string">'r'</span>) <span class="keyword">do</span> <span class="params">|f|</span></div><div class="line">		f.each <span class="keyword">do</span> <span class="params">|line|</span></div><div class="line">			line.split(<span class="string">' '</span>).each &#123;<span class="params">|s|</span></div><div class="line">				dig_dns(subt(s)) </div><div class="line">			&#125;</div><div class="line">		<span class="keyword">end</span></div><div class="line">	<span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">afile(filename)</div></pre></td></tr></table></figure>
-          
+          <p>最近接到一个需求，将绑定在我司的域名解析出对应的空间，主要设计到对字符串处理，于是用学到的一点点 Ruby 知识写了个脚本。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/11/ruby_script_birth/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1888,19 +1745,14 @@
 
       
         
-          
-            <p>使用 expect 可以方便的自动登陆 SSH，Ubuntu 并没有自带 expect，使用之前先安装。<br>sudo apt-get install expect</p>
-<p>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#! /usr/bin/expect </div><div class="line"># auto ssh login with expect</div><div class="line">set timeout 600</div><div class="line">spawn ssh -p 65422 user@host</div><div class="line">expect “*passoword:&quot;</div><div class="line">send “your_pwd\r&quot;</div><div class="line">interact</div></pre></td></tr></table></figure>
-<p><code>#! /usr/bin/expect</code><br>expect 安装路径，声明使用 expect 来执行脚本，expect 跟 bash 类似</p>
-<p><code>set timeout 600</code><br>设置超时时间，单位是秒</p>
-<p><code>spawn ssh -p 65422 user@host</code><br>spawn 只能在 expect 环境下执行，如果没装 expect 或者 bash 环境下，提示找不到</p>
-<p><code>expect “*passoword:&quot;</code><br>expect 也是 expect 命令，判断上次输出的结果是否包含 password 字符串，如有则立即返回。否则等待，直至超时</p>
-<p><code>send “your_pwd\r&quot;</code><br>执行交互，等效输入密码，\r 代表异常的时候可以核查一下</p>
-<p><code>interact</code><br>保持交互状态，让会话停留在终端上。</p>
-<p>如果直接运行 sh script.sh 会提示找不到文件，需要给脚本加上执行权限：<code>chmod +x script.sh</code>，执行 <code>./script.sh</code>。</p>
-
-          
+          <p>使用 expect 可以方便的自动登陆 SSH，Ubuntu 并没有自带 expect，使用之前先安装。<br>sudo apt-get install expect<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/23/auto_ssh_login/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2021,32 +1873,16 @@
 
       
         
-          
-            <h2 id="1-先更新系统，安装常用软件"><a href="#1-先更新系统，安装常用软件" class="headerlink" title="1. 先更新系统，安装常用软件"></a>1. 先更新系统，安装常用软件</h2><p>Ubuntu 上执行 sudo apt-get update</p>
+          <h2 id="1-先更新系统，安装常用软件"><a href="#1-先更新系统，安装常用软件" class="headerlink" title="1. 先更新系统，安装常用软件"></a>1. 先更新系统，安装常用软件</h2><p>Ubuntu 上执行 sudo apt-get update</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install -y git-core curl zlib1g-dev build-essential \    </div><div class="line">                     libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 \    </div><div class="line">                     libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common</div></pre></td></tr></table></figure>
-<p>安装 mysql<br><code>sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev</code><br>根据提示，设置密码</p>
-<h2 id="2-安装-rbenv"><a href="#2-安装-rbenv" class="headerlink" title="2. 安装 rbenv"></a>2. 安装 rbenv</h2><p><a href="https://github.com/sstephenson/rbenv" target="_blank" rel="external">rbenv</a> 是 Basecamp（原 37signal）开发的 Ruby 版本管理工具，使用他可以很方便的设置在开发，测试，上线环境下的 Ruby 版本。跟它类似的是一款老牌管理工具 RVM，选择 rbenv 的原因是它更简单，强大，专注。</p>
-<ol>
-<li><p>克隆 rbenv 进 .rbenv<br><code>git clone https://github.com/sstephenson/rbenv.git ~/.rbenv</code></p>
-</li>
-<li><p>添加 ~/.rbenv/bin 到 $PATH 中<br><code>echo &#39;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#39; &gt;&gt; ~/.zshrc</code></p>
-</li>
-<li><p>添加 <code>rbenv init</code> 进 Shell<br><code>echo &#39;eval &quot;$(rbenv init -)&quot;&#39; &gt;&gt; ~/.zshrc</code></p>
-</li>
-<li><p>重启 Shell，检测是否安装成功<br><code>type rbenv</code> =&gt; # “rbenv is a function”</p>
-</li>
-<li><p>安装 <a href="https://github.com/sstephenson/ruby-build#readme" target="_blank" rel="external">ruby-build</a>.</p>
-</li>
-</ol>
-<p><strong>特别注意</strong>：<code>.zshrc</code> 为 zsh 的配置文件，若 bash 应为 <code>~/.bashrc</code>。</p>
-<h2 id="3-安装-Ruby"><a href="#3-安装-Ruby" class="headerlink" title="3. 安装 Ruby"></a>3. 安装 Ruby</h2><p>现在可以安装指定的 Ruby 版本，并且设置为全局版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rbenv install 2.1.2</div><div class="line">rbenv global 2.1.2</div></pre></td></tr></table></figure>
-<p>执行 Ruby -v 可以查看设置后的 Ruby 版本</p>
-<h2 id="4-安装-Rails"><a href="#4-安装-Rails" class="headerlink" title="4. 安装 Rails"></a>4. 安装 Rails</h2><p>安装好 Ruby 之后，系统就有 gem 的安装包，可以安装 Rails 了<br><code>gem install rails -v 4.1.2</code><br><code>rails -v</code><br>查看 Rails 版本</p>
-<p>至此，Ruby on Rails 就安装完成了。 </p>
-<p>注：<br><em>操作系统：Ubuntu 14.04 x64</em><br><em>Ruby: 2.1.2</em><br><em>Rails: 4.1.2</em></p>
-
-          
+<p>安装 mysql<br><code>sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev</code><br>根据提示，设置密码<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/11/install_ruby_in_ubuntu/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2291,20 +2127,14 @@
 
       
         
-          
-            <p>既能够有很高的转换率，也非常易用。换言之，无论从商业角度还是用户体验角度都非常好。这里有一些我们一直在使用的好建议列表，而且还在不断更新中。</p>
-<h2 id="一、使用一列布局，而不是多列"><a href="#一、使用一列布局，而不是多列" class="headerlink" title="一、使用一列布局，而不是多列"></a>一、使用一列布局，而不是多列</h2><p>使用一列布局，你能够更好控制内容的叙述。引导你的堵着从头到尾这个过程，也更好预测。多列布局容易分散读者的注意力，跟我们希望让用户专注页面的核心目标背离。以一个有吸引力的故事开头，以一个有号召力的行动结尾。</p>
-<p><img src="http://pic-bin.b0.upaiyun.com/beepony-blog/goodui/idea001.png" alt="idea001"></p>
-<h2 id="二、给用户小礼物，而不是关闭销售的时候"><a href="#二、给用户小礼物，而不是关闭销售的时候" class="headerlink" title="二、给用户小礼物，而不是关闭销售的时候"></a>二、给用户小礼物，而不是关闭销售的时候</h2><p>以一种更友好的方式对待客户，比如提供小礼物。从更深层次来讲，送礼物是基于互惠原则的，也非常有效的说服策略。善待别人，并且通过提供增值的小礼物对以后的路非常有利。</p>
-<p><img src="http://pic-bin.b0.upaiyun.com/beepony-blog/goodui/idea002.png" alt="idea002"></p>
-<h2 id="三、合并相似的功能，而不是割裂-UI"><a href="#三、合并相似的功能，而不是割裂-UI" class="headerlink" title="三、合并相似的功能，而不是割裂 UI"></a>三、合并相似的功能，而不是割裂 UI</h2><p>随着时间的推移，很容易不经意之间就创造了许多布局、元素和特性，而他们却有同样的功能。这是一个基本熵 - 随着时间的推移，事务间距离越来越远。留意那些重复，却以不同方式标记的功能，这些对我们的用户无益。UI 分割的越多，用户的学习曲线就越高。好好考虑重构一下你的 UI，把类似的功能都合并在一起。比如，客户服务和联系我们放到同一个模块里。</p>
-<p><img src="http://pic-bin.b0.upaiyun.com/beepony-blog/goodui/idea003.png" alt="idea003"></p>
-<h2 id="四、让用户认可，而不是自吹自擂"><a href="#四、让用户认可，而不是自吹自擂" class="headerlink" title="四、让用户认可，而不是自吹自擂"></a>四、让用户认可，而不是自吹自擂</h2><p>社会认同是另外一种有效的说服手段，能直接带来转化率的提升。看到别人认可你、讨论你的产品，是号召其他用户行动起来的好方法。让用户发表感言，并且给出能证明用户是真是存在的数据。</p>
-<p><img src="http://pic-bin.b0.upaiyun.com/beepony-blog/goodui/idea004.png" alt="idea004"></p>
-<h2 id="五、重复显示重要的动作，而不是只出现一次"><a href="#五、重复显示重要的动作，而不是只出现一次" class="headerlink" title="五、重复显示重要的动作，而不是只出现一次"></a>五、重复显示重要的动作，而不是只出现一次</h2><p>重复呼吁用户行动起来对长的页面或者重复的页面来说，是非常有效的策略。当然你不想让报价信息在同一个屏幕上显示 10 次来折磨用户。但是，现在长页面正在编程常态，把所有的东西都压缩到一个文件夹的想法也不再流行。在顶部有个不太明显的按钮，然后在底部有另一个突然的按钮，这种作为没什么坏处。当用户浏览到页面底部，会暂停，想想下一步做什么。如果有个突出的地方来让用户来购买，那么订单就来了，或者还是什么都没有，白白丢掉一笔生意。</p>
-<p><img src="http://pic-bin.b0.upaiyun.com/beepony-blog/goodui/idea005.png" alt="idea005"></p>
-
-          
+          <p>既能够有很高的转换率，也非常易用。换言之，无论从商业角度还是用户体验角度都非常好。这里有一些我们一直在使用的好建议列表，而且还在不断更新中。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/25/good-ui-00-05/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
