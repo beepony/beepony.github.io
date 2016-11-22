@@ -1,0 +1,930 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="beepony, internet, reading, writing" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="这个简单的教程，可以帮助初学者了解 Ruby 的基本语法。
+
+如果你还没有安装 Ruby，参考下 the environment setup page for instructions
+
+Ruby 的历史许多人以为 Ruby 是一门年轻的语言，但是实际上 1994 年就发布了，作者是一个叫 Matz 的开发者。Matz 是个痴迷于编程语言的极客，非常喜欢 Perl。他创立 Ruby 初衷就是希望">
+<meta property="og:type" content="article">
+<meta property="og:title" content="100 分钟爱上 Ruby">
+<meta property="og:url" content="http://yoursite.com/2015/05/16/ruby_in_100_minutes/index.html">
+<meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
+<meta property="og:description" content="这个简单的教程，可以帮助初学者了解 Ruby 的基本语法。
+
+如果你还没有安装 Ruby，参考下 the environment setup page for instructions
+
+Ruby 的历史许多人以为 Ruby 是一门年轻的语言，但是实际上 1994 年就发布了，作者是一个叫 Matz 的开发者。Matz 是个痴迷于编程语言的极客，非常喜欢 Perl。他创立 Ruby 初衷就是希望">
+<meta property="og:updated_time" content="2016-05-25T15:15:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="100 分钟爱上 Ruby">
+<meta name="twitter:description" content="这个简单的教程，可以帮助初学者了解 Ruby 的基本语法。
+
+如果你还没有安装 Ruby，参考下 the environment setup page for instructions
+
+Ruby 的历史许多人以为 Ruby 是一门年轻的语言，但是实际上 1994 年就发布了，作者是一个叫 Matz 的开发者。Matz 是个痴迷于编程语言的极客，非常喜欢 Perl。他创立 Ruby 初衷就是希望">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '8120355',
+      author: 'beepony'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/05/16/ruby_in_100_minutes/"/>
+
+
+
+
+
+  <title> 100 分钟爱上 Ruby | 独立思考｜知无不言｜知识平等 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">独立思考｜知无不言｜知识平等</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/05/16/ruby_in_100_minutes/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="beepony">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="独立思考｜知无不言｜知识平等">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="独立思考｜知无不言｜知识平等" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                100 分钟爱上 Ruby
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-16T15:57:00+08:00">
+                2015-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2015/05/16/ruby_in_100_minutes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/16/ruby_in_100_minutes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这个简单的教程，可以帮助初学者了解 Ruby 的基本语法。</p>
+<blockquote>
+<p>如果你还没有安装 Ruby，参考下 <a href="http://tutorials.jumpstartlab.com/topics/environment/environment.html" target="_blank" rel="external">the environment setup page for instructions</a></p>
+</blockquote>
+<h2 id="Ruby-的历史"><a href="#Ruby-的历史" class="headerlink" title="Ruby 的历史"></a>Ruby 的历史</h2><p>许多人以为 Ruby 是一门年轻的语言，但是实际上 1994 年就发布了，作者是一个叫 Matz 的开发者。Matz 是个痴迷于编程语言的极客，非常喜欢 Perl。他创立 Ruby 初衷就是希望 Ruby 跟 Perl 一样灵活和强大，同时语法上更加丰富，代码更具有可读性。</p>
+<p>Ruby 很快就有了一批追随者。但是在 2000 以前，所有的 Ruby 文档都是日语的。所以，如果你想学习 Ruby，还得先学习日语。大卫.托马斯是个敏捷编程的先驱，迷恋上了 Ruby，决定写 Ruby 的文档。他写了一本颇有影响力的书，叫<a href="https://pragprog.com/book/ruby/programming-ruby" target="_blank" rel="external"> The Pickaxe </a>(镐头)，叫这个名字是因为封面上的那张图。这本书打开了英语世界了解 Ruby 的窗口。</p>
+<p>英语世界里知道 Ruby 的人开始多了起来，但是增长十分缓慢。直到系统管理员开始用 Ruby 写维护和「胶水」脚本-以前都用 Perl 写的，Ruby 这才开始流行起来。从 2000-2005 年美国的<br>Ruby 社区已经有了几百个会员。</p>
+<p>2004-2005 年，芝加哥一个叫 37signal 的公司招了一个年轻的程序员开发一款 Web 应用。他们只关心客户端的设计和功能性，至于实现方面，则给了这个年轻的程序员以极大的自由发挥的空间。彼时，主要的 Web 技术还是 Perl CGI，PHP，JSP，ASP 等。这些语言或多或少都有痛点。所以大卫，现在我们都叫他 DHH，开创了一条新的道路。</p>
+<p>他使用 Ruby 完成了这款应用。除了依赖核心库和少量的帮助库，差不多其他都是靠自己完成的。他和 37signal 都为这款应用做开发工作，这款应用现在叫 Basecamp。</p>
+<p>Basecamp 完成之后，DHH 就从应用里提取出一种 Web 框架。不同于 Java 和 .NET 从上至下的框架。Rails 完全都从真实的案例中提取出来的。它遵循约定俗成胜于配置的原则，使得通用的问题更容易解决。</p>
+<p>Rails 取得了巨大的成功。之后 Rails 驱动了 Ruby 社区的巨大增长。现在你可以在亚马逊上买到十几本关于 Ruby 的书，全世界有几百场有关 Ruby 的会议，数以千计的人成为专业的 Ruby/Rails 开发者。</p>
+<p>如果你想学 Rails，得先学学 Ruby，走起…</p>
+<h2 id="1-简要说明和解释器"><a href="#1-简要说明和解释器" class="headerlink" title="1. 简要说明和解释器"></a>1. 简要说明和解释器</h2><p>Ruby 是一种解释性的语言，那就意味着他不直接跑在处理器上。它通过虚拟机来运行，这种方式的好处就是一次编写，在各种不同的操作系统和硬件平台上都可以运行。</p>
+<p>Ruby 程序不能自己运行，你要先载入虚拟机。在虚拟机里有两种方式执行 Ruby 代码：IRB 和 命令行。</p>
+<h3 id="通过命令行运行-Ruby"><a href="#通过命令行运行-Ruby" class="headerlink" title="通过命令行运行 Ruby"></a>通过命令行运行 Ruby</h3><p>把 Ruby 代码写到一个文件里是比较常用靠谱的方法，文件可以备份，传输，加到源码控制等等。</p>
+<h4 id="一个简单的-Ruby-例子"><a href="#一个简单的-Ruby-例子" class="headerlink" title="一个简单的 Ruby 例子"></a>一个简单的 Ruby 例子</h4><p>我们创建一个文件，命名为 my_program.rb 如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Sample</div><div class="line">  def hello</div><div class="line">    puts &quot;Hello world!&quot;</div><div class="line">  end</div><div class="line">end</div><div class="line"></div><div class="line">s = Sample.new</div><div class="line">s.hello</div></pre></td></tr></table></figure>
+<p>然后我们这样运行程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ruby my_program      </div><div class="line">hello world!</div></pre></td></tr></table></figure>
+<p>当你运行 ruby my_program.rb 的时候，你实际上就已经载入虚拟机开始运行 my_program.rb 文件了。</p>
+<h4 id="从-IRB-运行程序"><a href="#从-IRB-运行程序" class="headerlink" title="从 IRB 运行程序"></a>从 IRB 运行程序</h4><p>Ruby 是第一个普及交互式脚本的语言：读取-计算-输出-循环。把它想成一个计算器，当你输入一个完整的指令，IRB 会执行并且计算出结果，输出给你。</p>
+<p>IRB 最好用的就是作为一个实验的草稿箱。许多开发者开发程序的时候都开着 IRB 窗口。用它来回忆方法的使用或者调试代码。</p>
+<p>我们也开始用 IRB 来做实验了。打开命令行，输入 <code>irb</code>.</p>
+<h2 id="2-变量"><a href="#2-变量" class="headerlink" title="2. 变量"></a>2. 变量</h2><p>编程就是创造抽象的概念。为了创造这种抽象的概念，我们要给事物一个名字，而变量就是为数据命名的。</p>
+<p>在有些编程语言中，变量只能保存特定类型的数据。但是 Ruby 不需要，它有非常灵活的类型系统，任何一个变量可以保存各种数据类型。</p>
+<h3 id="创建变量，并且赋值"><a href="#创建变量，并且赋值" class="headerlink" title="创建变量，并且赋值"></a>创建变量，并且赋值</h3><p>在有些编程语言中，你需要先声明变量，然后才能赋值。Ruby 的变量是在你赋值的时候自动创建的，不需要指定。来看个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">2.1.2 :001 &gt; a = 5</div><div class="line"> =&gt; 5 </div><div class="line">2.1.2 :002 &gt; a</div><div class="line"> =&gt; 5 </div><div class="line">2.1.2 :003 &gt;</div></pre></td></tr></table></figure>
+<p>a = 5 这个语句创建了变量 a，并且将 5 存储到 a 里。</p>
+<h4 id="从右边开始看"><a href="#从右边开始看" class="headerlink" title="从右边开始看"></a>从右边开始看</h4><p>日常阅读时，我们从左往右读，所以很自然的读代码也这样。但是当用 = 赋值的时候，Ruby 实际上是先执行等号右边的。举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">2.1.2 :003 &gt; b = 10 + 5</div><div class="line"> =&gt; 15 </div><div class="line">2.1.2 :004 &gt; b</div><div class="line"> =&gt; 15 </div><div class="line">2.1.2 :005 &gt;</div></pre></td></tr></table></figure>
+<p>10 + 5 先被执行，然后将结果赋值给变量 b。</p>
+<h4 id="灵活的变量赋值"><a href="#灵活的变量赋值" class="headerlink" title="灵活的变量赋值"></a>灵活的变量赋值</h4><p>Ruby 的变量可以保存任何类型的数据，甚至能够改变保存的数据类型。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">2.1.2 :005 &gt; c = 20</div><div class="line"> =&gt; 20 </div><div class="line">2.1.2 :006 &gt; c = &quot;hello&quot;</div><div class="line"> =&gt; &quot;hello&quot; </div><div class="line">2.1.2 :007 &gt;</div></pre></td></tr></table></figure>
+<p>先给 c 赋值了一个 20，然后再将字符串 “hello” 赋值给 c，c 的值就变成了 “hello”。</p>
+<h4 id="变量命名规则"><a href="#变量命名规则" class="headerlink" title="变量命名规则"></a>变量命名规则</h4><p>虚拟机对大多数的 Ruby 变量命名都有格式要求，一般</p>
+<ul>
+<li>小写字母开头，（下划线也可以，但是不常用）</li>
+<li>没有空格</li>
+<li>不能包含特殊字符，比如 $, @, &amp; 等。</li>
+</ul>
+<p>除此之外，还有一些 Ruby 程序员通用的命名风格：</p>
+<ul>
+<li>每个单词都小写并且通过下划线连接</li>
+<li>根据变量的内容命名，而不是内容的类型</li>
+<li>不能太短</li>
+</ul>
+<p>好的变量名应该像 count，students_in_class，或者 fisrt_lesson.</p>
+<p>不要像下面那样写：</p>
+<ul>
+<li>studentsInClass - 用驼峰命名法，而不是下划线连接，应该像 students_in_class </li>
+<li>1st_lesson - 变量不能以数字开头，应该是这样：fisrt_lesson</li>
+<li>students_array - 这个命名格式是对的，但是名字代表了数据的类型，所以也不规范，因该是 students</li>
+<li>sts - 变量名太短了，用 students 就好了</li>
+</ul>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>使用交互命令行 IRB，试试那些名字是好的，那些是非法的，哪些是合法但是不符合 Ruby 风格的。</p>
+<ul>
+<li>time_machine</li>
+<li>student_count_integer</li>
+<li>3_secitons</li>
+<li>top_ppl</li>
+</ul>
+<h2 id="3-字符串"><a href="#3-字符串" class="headerlink" title="3. 字符串"></a>3. 字符串</h2><p>现实生活中，英语 string 代表绳子，绳子可以用来捆东西。程序中的字符串跟现实生活中的绳子没有关系。</p>
+<p>字符串用来存储数字和字母的集合。它们既可以是单个字母 “a” 也可以是一个单词 “hi” 或者像一个句子 “hello world!”</p>
+<h3 id="字符串的书写"><a href="#字符串的书写" class="headerlink" title="字符串的书写"></a>字符串的书写</h3><p>一个 Ruby 的字符串以引号开头，可以包含 0 个或者多个字母、数字、连接符，再以引号结尾。最短的字符串是空字符串 “” 。一个字符串包含一段文字甚至几页文本都不足为奇。</p>
+<h3 id="子串"><a href="#子串" class="headerlink" title="子串"></a>子串</h3><p>有时候，我们需要从一个字符串中拿出一部分，这个就叫子串。比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">2.1.2 :007 &gt; greeting = &quot;hello Everyone!&quot;</div><div class="line"> =&gt; &quot;hello Everyone!&quot; </div><div class="line">2.1.2 :008 &gt; greeting[0..4]</div><div class="line"> =&gt; &quot;hello&quot; </div><div class="line">2.1.2 :009 &gt; greeting[6..14]</div><div class="line"> =&gt; &quot;Everyone!&quot; </div><div class="line">2.1.2 :010 &gt; greeting[6..-1]</div><div class="line"> =&gt; &quot;Everyone!&quot; </div><div class="line">2.1.2 :011 &gt; greeting[6..-2]</div><div class="line"> =&gt; &quot;Everyone&quot; </div><div class="line">2.1.2 :012 &gt;</div></pre></td></tr></table></figure>
+<h4 id="正书和负数的位置"><a href="#正书和负数的位置" class="headerlink" title="正书和负数的位置"></a>正书和负数的位置</h4><p>字符串中的字符通常都有正数数字，从 0 开始。以 “Hi” 为例，第 0 个位置是 “H” “i” 是第一个位置</p>
+<p>我们用开始和结束符号来取出子串，比如 greeting[0..4] 代表从第 0 个位置到第 4 个位置的字符，共 5 个字符。</p>
+<p>Ruby 解释器处理负数的方法是从字符串的最后开始截取，”Hi” 字符串的 “i” 是第 -1 个位置，”i” 是第 -2 个位置。</p>
+<p>那么如果一个字符既有正数位置，又有负数位置，该如何选择呢？如果用正数很容易理解，但是如果你要一个字符串的最后几位（像 “What’s the last character of this string?”）,这时候就用负数位置。</p>
+<h4 id="通用的字符串方法"><a href="#通用的字符串方法" class="headerlink" title="通用的字符串方法"></a>通用的字符串方法</h4><p>我们在 IRB 里试验一下通用的几个字符串方法</p>
+<ul>
+<li><strong>length</strong><br>length 方法告诉你一个字符串里有多少字符，包括空格：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2.1.2 :012 &gt; greeting = &quot;hello world&quot;</div><div class="line"> =&gt; &quot;hello world&quot; </div><div class="line">2.1.2 :013 &gt; greeting.length</div><div class="line"> =&gt; 11</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>试试计算一下你名字的长度</p>
+<ul>
+<li><strong>split</strong><br>你经常需要把字符串切分成几个部分。比如，你在字符串里存了一个句子，现在想分割成单词：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2.1.2 :014 &gt; sentence = &quot;This is my sample sentence.&quot;</div><div class="line"> =&gt; &quot;This is my sample sentence.&quot; </div><div class="line">2.1.2 :015 &gt; sentence.split</div><div class="line"> =&gt; [&quot;This&quot;, &quot;is&quot;, &quot;my&quot;, &quot;sample&quot;, &quot;sentence.&quot;]</div></pre></td></tr></table></figure>
+<p>.split 方法返回一个数组。他通过空格来分割字符串。</p>
+<ul>
+<li><strong>.split 使用参数分割</strong><br>有时候你想要不只是通过空格分隔，而是通过特定的字符。那么 .split 方法可以加参数来分割，比如<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">2.1.2 :018 &gt; numbers = &quot;one,two,three,four,five&quot;</div><div class="line"> =&gt; &quot;one,two,three,four,five&quot; </div><div class="line">2.1.2 :019 &gt; numbers.split</div><div class="line"> =&gt; [&quot;one,two,three,four,five&quot;] </div><div class="line">2.1.2 :020 &gt; numbers.split(&quot;,&quot;)</div><div class="line"> =&gt; [&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>调用第一个 split 方法时，因为没有空格，返回了一个整个字符的数组。在第二个方法中，我指定了 <code>,</code><br>作为分隔符，得到了一个包含五个单独单词的数组。</p>
+<p><strong>.sub 和 .gsub</strong><br>这两个方法用来替换字符串。类似于 word 中的查找和替换。<code>.sub</code> 是 substitute 的缩写，代表单词替换。<code>.gsub</code> 代表全局替换，替换所有符合的字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2.1.2 :021 &gt; greeting = &quot;hello friend&quot;</div><div class="line"> =&gt; &quot;hello friend&quot; </div><div class="line">2.1.2 :022 &gt; greeting.gsub(&quot;friend&quot;,&quot;you&quot;)</div><div class="line"> =&gt; &quot;hello you&quot;</div></pre></td></tr></table></figure>
+<h3 id="连接字符串和变量"><a href="#连接字符串和变量" class="headerlink" title="连接字符串和变量"></a>连接字符串和变量</h3><p>我们常常需要将变量和字符串连接在一起。比如，以这样一个字符串开始<br><code>&quot;Good morning, Frank！&quot;</code></p>
+<p>当我们在 IRB 里输入这个字符串的时候，还是返回这个字符串。要是写程序的话，我们希望程序能够跟他们各自的名字交互，而不只是 “Frank”.</p>
+<p>那我们就需要将字符串和变量连接在一起。有两种方式可以实现</p>
+<h4 id="字符串的级联"><a href="#字符串的级联" class="headerlink" title="字符串的级联"></a>字符串的级联</h4><p>最简单的方法叫做字符串的级联，用 <code>+</code> 将两者连接起来即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2.1.2 :034&apos;&gt; name = &quot;Frank&quot;</div><div class="line">2.1.2 :035&apos;&gt; puts &quot;Good morning, &quot; + name + &quot;!&quot;</div></pre></td></tr></table></figure>
+<p>第一行我们命名了一个变量保存名字。第二行我们打印出了 “Good morinng” 和变量 name 以及 “!” 字符串。</p>
+<h4 id="字符串插值"><a href="#字符串插值" class="headerlink" title="字符串插值"></a>字符串插值</h4><p>第二种方法是用字符串插值，将数据插入到字符串中。</p>
+<p>字符串插值能在双引号包裹的字符串中使用。在字符串中我们使用 <code>#{}</code> 表示插值。 我们可以把变量和将被赋值的代码，转换成字符串，然后输出。之前的例子可以用插值重写成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2.1.2 :001 &gt; name = &quot;Frank&quot;</div><div class="line"> =&gt; &quot;Frank&quot; </div><div class="line">2.1.2 :002 &gt; puts &quot;Good morning, #&#123;name&#125;!&quot;</div><div class="line">Good morning, Frank!</div></pre></td></tr></table></figure>
+<p>如果你比较一下输出，就可以看到结果是一样的。插值的风格可以输入更少的字符，打开/关闭引号的频次更低，既然如此，那就忘了加号吧。</p>
+<h4 id="在插值中执行代码"><a href="#在插值中执行代码" class="headerlink" title="在插值中执行代码"></a>在插值中执行代码</h4><p>你可以在插值的括号中放入 Ruby 代码和计算符，就像这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">2.1.2 :003 &gt; modifier = &quot;very&quot;</div><div class="line"> =&gt; &quot;very&quot; </div><div class="line">2.1.2 :004 &gt; mood = &quot;excited&quot;</div><div class="line"> =&gt; &quot;excited&quot; </div><div class="line">2.1.2 :005 &gt; puts &quot;I am #&#123;modifier * 3 + mood&#125; for today&apos;s class!&quot;</div><div class="line">I am veryveryveryexcited for today&apos;s class!</div><div class="line"> =&gt; nil</div></pre></td></tr></table></figure>
+<p><code>modifier * 3 + mood</code> 先被计算，然后计算结果再插入到字符串中输出。</p>
+<h2 id="4-Symbols"><a href="#4-Symbols" class="headerlink" title="4. Symbols"></a>4. Symbols</h2><p>Symbols（符号）比较难解释，他是介于字符串和数字之间的一种类型。符号很好认，都是以冒号开头，后面跟字母，比如 :flag 或者 :best_friend.</p>
+<h3 id="如果你是新手"><a href="#如果你是新手" class="headerlink" title="如果你是新手"></a>如果你是新手</h3><p>如果你是编程新手，可以把符号想象为字符串的精简，没有很多方法和字符串插值。比较一下一个字符串支持的方法和符号的区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2.1.2 :010 &gt; &quot;hello&quot;.methods</div><div class="line"> =&gt; [:&lt;=&gt;, :==, :===, :eql?, :hash, :casecmp, :+, :*, :%, :[], :[]=, :insert, :length, :size, :bytesize, :empty?, :=~, :match, :succ, :succ!, :next, :next!, :upto, :index, :rindex, :replace, :clear, :chr, :getbyte, :setbyte, :byteslice, :scrub, :scrub!, :freeze, :to_i, :to_f, :to_s, :to_str, :inspect, :dump, :upcase, :downcase, :capitalize, :swapcase, :upcase!, :downcase!, :capitalize!, :swapcase!, :hex, :oct, :split, :lines, :bytes, :chars, :codepoints, :reverse, :reverse!, :concat, :&lt;&lt;, :prepend, :crypt, :intern, :to_sym, :ord, :include?, :start_with?, :end_with?, :scan, :ljust, :rjust, :center, :sub, :gsub, :chop, :chomp, :strip, :lstrip, :rstrip, :sub!, :gsub!, :chop!, :chomp!, :strip!, :lstrip!, :rstrip!, :tr, :tr_s, :delete, :squeeze, :count, :tr!, :tr_s!, :delete!, :squeeze!, :each_line, :each_byte, :each_char, :each_codepoint, :sum, :slice, :slice!, :partition, :rpartition, :encoding, :force_encoding, :b, :valid_encoding?, :ascii_only?, :unpack, :encode, :encode!, :to_r, :to_c, :&gt;, :&gt;=, :&lt;, :&lt;=, :between?, :nil?, :!~, :class, :singleton_class, :clone, :dup, :taint, :tainted?, :untaint, :untrust, :untrusted?, :trust, :frozen?, :methods, :singleton_methods, :protected_methods, :private_methods, :public_methods, :instance_variables, :instance_variable_get, :instance_variable_set, :instance_variable_defined?, :remove_instance_variable, :instance_of?, :kind_of?, :is_a?, :tap, :send, :public_send, :respond_to?, :extend, :display, :method, :public_method, :singleton_method, :define_singleton_method, :object_id, :to_enum, :enum_for, :equal?, :!, :!=, :instance_eval, :instance_exec, :__send__, :__id__] </div><div class="line">2.1.2 :011 &gt; &quot;hello&quot;.methods.count</div><div class="line"> =&gt; 164 </div><div class="line">2.1.2 :012 &gt; :hello.methods </div><div class="line"> =&gt; [:==, :===, :inspect, :to_s, :id2name, :intern, :to_sym, :to_proc, :succ, :next, :&lt;=&gt;, :casecmp, :=~, :[], :slice, :length, :size, :empty?, :match, :upcase, :downcase, :capitalize, :swapcase, :encoding, :&gt;, :&gt;=, :&lt;, :&lt;=, :between?, :nil?, :!~, :eql?, :hash, :class, :singleton_class, :clone, :dup, :taint, :tainted?, :untaint, :untrust, :untrusted?, :trust, :freeze, :frozen?, :methods, :singleton_methods, :protected_methods, :private_methods, :public_methods, :instance_variables, :instance_variable_get, :instance_variable_set, :instance_variable_defined?, :remove_instance_variable, :instance_of?, :kind_of?, :is_a?, :tap, :send, :public_send, :respond_to?, :extend, :display, :method, :public_method, :singleton_method, :define_singleton_method, :object_id, :to_enum, :enum_for, :equal?, :!, :!=, :instance_eval, :instance_exec, :__send__, :__id__] </div><div class="line">2.1.2 :013 &gt; :hello.methods.count</div><div class="line"> =&gt; 78</div></pre></td></tr></table></figure>
+<h3 id="如果你是个有经验的程序员"><a href="#如果你是个有经验的程序员" class="headerlink" title="如果你是个有经验的程序员"></a>如果你是个有经验的程序员</h3><p>如果你是个有经验的程序员，可以把符号当成一种 “命名整形”。符号实际引用的值不重要，我们要关心的是在虚拟机里任何指向这个值都会返回同样的值。符号是在一个全局符号表里定义的，他们的值不会改变。</p>
+<h2 id="5-Numbers"><a href="#5-Numbers" class="headerlink" title="5. Numbers"></a>5. Numbers</h2><p>Number 有两种基本的类型：integers (整数)和 floats (浮点型，有小数点的)。</p>
+<p>Integers 对于你和计算机来说，都是相对容易处理的。你可以用常用的运算符操作，包括 <code>+</code>, <code>-</code>, <code>/</code>, <code>*</code>. Integers 有许多方法可以帮你做数学运算。可以通过 <code>5.methods</code> 来查看。</p>
+<h3 id="重复指令"><a href="#重复指令" class="headerlink" title="重复指令"></a>重复指令</h3><p>其他语言里常用的重复模式就是 <code>for</code> 循环，通常用户重复一条指令很多次。比如在 JavaScript 中可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var i = 0; i &lt; 5; i++)&#123;</div><div class="line">    console.log(&quot;Hello,world&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>For 循环用的比较多，但是这种代码不具备可读性。因为 Ruby 中的 integers 是对象，有方法。其中一个方法就是 <code>time</code> 重复某个指令若干次。用 Ruby 重写上面的循环大概是这样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">5.times do</div><div class="line">  puts &quot;Hello,world&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>这里例子里我们再用的 <code>times</code> 方法我们叫块。我们会在下一个部分讨论。在 IRB 里运行这个例子看看会发生什么。</p>
+<h2 id="6-Block-块"><a href="#6-Block-块" class="headerlink" title="6. Block (块)"></a>6. Block (块)</h2><p>块是 Ruby 里非常强大的概念，经常被用到。可以把它们看成是一系列说明的方法，可以被用到各个地方。</p>
+<h3 id="Blocks-的开始和结束"><a href="#Blocks-的开始和结束" class="headerlink" title="Blocks 的开始和结束"></a>Blocks 的开始和结束</h3><p>你刚刚已经看过了 integer 里使用 .times 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">5.times do</div><div class="line">  puts &quot;Hello,world&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>块以 <code>do</code> 开头，以 <code>end</code> 结尾。<code>do</code>/<code>end</code> 总是合适的。</p>
+<h4 id="括号里的块"><a href="#括号里的块" class="headerlink" title="括号里的块"></a>括号里的块</h4><p>当块只包含一个简单的指令，我们经常用 <code>{}</code> 来替代块的开始和结束</p>
+<p><code>5.times{puts &quot;Hello,world&quot;}</code></p>
+<h3 id="块传递给方法"><a href="#块传递给方法" class="headerlink" title="块传递给方法"></a>块传递给方法</h3><p>块有什么实际的用处呢？他们可以作为参数传递给方法调用。比如，我们刚才调用 <code>5.times</code>，Ruby 不知道我们想把什么样的语句执行 5 次。当我们传递块过去的时候，就想说 “我想让你每次都运行这个语句”.</p>
+<p>很多方法都接受块传递。像刚才在字符串部分看到的 <code>.gsub</code> 方法就接受块传递。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">2.1.2 :027 &gt; &quot;this is a sentence&quot;.gsub(&quot;e&quot;)&#123; puts &quot;Found an E!&quot;&#125;</div><div class="line">Found an E!</div><div class="line">Found an E!</div><div class="line">Found an E!</div><div class="line"> =&gt; &quot;this is a sntnc&quot;</div></pre></td></tr></table></figure>
+<p>注意下那句 <code>Found an E!</code> 出现了三次，因为有 3 个 e 在字符串里。</p>
+<p>为什么结果是 <code>&quot;sntnv&quot;</code>，留给你思考。</p>
+<h3 id="块参数"><a href="#块参数" class="headerlink" title="块参数"></a>块参数</h3><p>我没你经常遇到块里面语句需要引用我们现在使用的值，当我们写块的时候能够通过通过管道符认出块参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">irb(main):002:0&gt; 5.times do |i|</div><div class="line">irb(main):003:1* puts &quot;hello world&quot;</div><div class="line">irb(main):004:1&gt; end</div></pre></td></tr></table></figure>
+<p>块参数的取值取决于我们多调用的方法。这里例子里，我们调用的是 number 的 times 方法。先实验一下上面的语句，观察输出结果，然后再试试下面这个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">irb(main):004:0&gt; 5.times do |i|</div><div class="line">irb(main):005:1* puts &quot;#&#123;i&#125;:hello,world!&quot;</div><div class="line">irb(main):006:1&gt; end</div><div class="line"></div><div class="line"># the output</div><div class="line">0:hello,world!</div><div class="line">1:hello,world!</div><div class="line">2:hello,world!</div><div class="line">3:hello,world!</div><div class="line">4:hello,world!</div><div class="line">=&gt; 5</div></pre></td></tr></table></figure>
+<p>当调用 String 的 .gsub 方法，试试下面的代码（用括号）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">irb(main):007:0&gt; &quot;this is a sentence&quot;.gsub(&quot;e&quot;)&#123;|letter| letter.upcase&#125;</div></pre></td></tr></table></figure></p>
+<p>你就会看到 .gsub 方法使用快语句的结果替换了原始的字符。</p>
+<h2 id="7-Arrays（数组）"><a href="#7-Arrays（数组）" class="headerlink" title="7. Arrays（数组）"></a>7. Arrays（数组）</h2><p>我们写程序的时候，经常会需要处理一组数据的集合。在这一部分，我们就来看看最常用的数据的集合 —— 数组。</p>
+<h3 id="可视化的模型"><a href="#可视化的模型" class="headerlink" title="可视化的模型"></a>可视化的模型</h3><p>数组是一个数字索引的列表。想象一下，在一张白纸上画三个小盒子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> ---  ---  ---</div><div class="line">|   ||   ||   |</div><div class="line"> ---  ---  ---</div></pre></td></tr></table></figure>
+<p>你可以根据他们从左到右的位置算出每一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> ---  ---  ---</div><div class="line">|   ||   ||   |</div><div class="line"> ---  ---  ---</div><div class="line">  0    1    2</div></pre></td></tr></table></figure>
+<p>然后把字符串放进每个盒子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> -------------  ---------  ----------</div><div class="line">| &quot;Breakfast&quot; || &quot;Lunch&quot; || &quot;Dinner&quot; |</div><div class="line"> -------------  ---------  ----------</div><div class="line">       0            1           2</div></pre></td></tr></table></figure>
+<p>这个数组有三个元素。Ruby 的数组可以增加或者减少。通常都在数组的末尾增加元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> -------------  ---------  ----------  -----------</div><div class="line">| &quot;Breakfast&quot; || &quot;Lunch&quot; || &quot;Dinner&quot; || &quot;Dessert&quot; |</div><div class="line"> -------------  ---------  ----------  -----------</div><div class="line">       0            1           2           3</div></pre></td></tr></table></figure>
+<p>想一想为什么最后一个数组的位置总是比数组里的元素少一位。<br>如果你请求数据里位置为 2 的元素，你会得到一个 “Dinner”。请求数组里的最后一个元素，会得到 “Dessert”。</p>
+<h3 id="代码里的数组"><a href="#代码里的数组" class="headerlink" title="代码里的数组"></a>代码里的数组</h3><p>下面就是在 Ruby 代码里运行同样的模型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">irb(main):014:0&gt; meals = [&quot;Breakfast&quot;, &quot;Lunch&quot;, &quot;Dinner&quot;]</div><div class="line">=&gt; [&quot;Breakfast&quot;, &quot;Lunch&quot;, &quot;Dinner&quot;]</div><div class="line">irb(main):015:0&gt; meals &lt;&lt; &quot;Dessert&quot;</div><div class="line">=&gt; [&quot;Breakfast&quot;, &quot;Lunch&quot;, &quot;Dinner&quot;, &quot;Dessert&quot;]</div><div class="line">irb(main):016:0&gt; meals[2]</div><div class="line">=&gt; &quot;Dinner&quot;</div><div class="line">irb(main):017:0&gt; meals.last</div><div class="line">=&gt; &quot;Dessert&quot;</div></pre></td></tr></table></figure>
+<p>观察一下上面的情况…</p>
+<ul>
+<li>数组的元素以逗号分割，用中括号括起来</li>
+<li>用两个小于号 <code>&lt;&lt;</code> 往数组里添加元素</li>
+<li>通过中 <code>[]</code> 加元素的位置来取元素</li>
+<li>还有一些方法方便区数据，比如 <code>.last</code></li>
+</ul>
+<h3 id="通用的数组方法"><a href="#通用的数组方法" class="headerlink" title="通用的数组方法"></a>通用的数组方法</h3><p>数组还可以做很多酷的事情。举几个例子：</p>
+<h4 id="sort-方法的解释"><a href="#sort-方法的解释" class="headerlink" title=".sort 方法的解释"></a><code>.sort</code> 方法的解释</h4><p><code>.sort</code> 方法会返回一个重新排序后的新数组。如果数据里的元素是字符串，那么就会以字母表里的顺序。如果是数字，就会返回升序排列后的数组。下面试一试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">irb(main):020:0&gt; one = [&quot;this&quot;, &quot;is&quot;, &quot;an&quot;, &quot;array&quot;]</div><div class="line">=&gt; [&quot;this&quot;, &quot;is&quot;, &quot;an&quot;, &quot;array&quot;]</div><div class="line">irb(main):021:0&gt; one.sort</div><div class="line">=&gt; [&quot;an&quot;, &quot;array&quot;, &quot;is&quot;, &quot;this&quot;]</div><div class="line">irb(main):022:0&gt; one</div><div class="line">=&gt; [&quot;this&quot;, &quot;is&quot;, &quot;an&quot;, &quot;array&quot;]</div></pre></td></tr></table></figure>
+<p>你可以用 <code>sort</code> 方法重新对元素排序，你可以用 <code>each</code> 方法循环访问每一个元素。你可以通过 <code>join</code> 方法将他们连接成字符串。你可以通过 <code>index</code> 方法找到某个元素内存中的地址。你也可以通过 <code>include?</code> 方法判断该元素是否在数组里。</p>
+<p>当我们需要一个有序的列表时，就可以用数组。</p>
+<h4 id="试试其他的"><a href="#试试其他的" class="headerlink" title="试试其他的"></a>试试其他的</h4><ul>
+<li><code>each</code></li>
+<li><code>collect</code></li>
+<li><code>first</code> and <code>last</code></li>
+<li><code>shuffle</code></li>
+</ul>
+<p>更多详细的说明，可以参考文档：<a href="http://www.ruby-doc.org/core-2.1.2/Array.html" target="_blank" rel="external">Arrary</a></p>
+<h2 id="8-哈希"><a href="#8-哈希" class="headerlink" title="8. 哈希"></a>8. 哈希</h2><p>哈希也是一组数据的集合，跟数组不同的是，哈希里的数据没有顺序，每个数据都有一个名字。跟冰箱很类似的。如果我们从冰箱里找东西，我们其实并不关心它在哪一层。顺序不重要。相反，我们是用名字来分类东西。比如苹果的数量是 3 个，橘子的数量是 1 个。胡萝卜是 12 个。在这种情况下，我们就用到了哈希。</p>
+<h3 id="键值对"><a href="#键值对" class="headerlink" title="键值对"></a>键值对</h3><p>哈希是无序的集合，数据是以键值对的形式存储。哈希的语法相对复杂，需要一点时间习惯。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">irb(main):046:0&gt; produce = &#123;&quot;apples&quot; =&gt; 3, &quot;oranges&quot; =&gt; 1, &quot;carrotes&quot; =&gt; 12&#125;</div><div class="line">=&gt; &#123;&quot;apples&quot;=&gt;3, &quot;oranges&quot;=&gt;1, &quot;carrotes&quot;=&gt;12&#125;</div><div class="line">irb(main):047:0&gt; puts &quot;There are #&#123;produce[&quot;oranges&quot;]&#125; oranges in the fridges.&quot;</div><div class="line">There are 1 oranges in the fridges.</div></pre></td></tr></table></figure>
+<p><code>key</code> 可以看作是地址，<code>value</code> 就是存储在地址的数据。在 <code>produce</code> 这个哈希中，我们有 <code>&quot;apples&quot;</code> 和 <code>&quot;oranges&quot;</code> 这两个键，值就是 <code>12</code> 和 <code>3</code>。创建哈希时，键和值是通过 <code>=&gt;</code> 这个字符连接的，我们把这个字符叫做 rocket（火箭？）。所以哈希是大括号 <code>{</code> 开始，零个或者多个字符组成键，<code>=&gt;</code> 和值，通过逗号分割，最后以大括号结尾 <code>&quot;}&quot;</code> 。</p>
+<p>试试下面几个操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">irb(main):048:0&gt; produce[&quot;grapes&quot;] = 221</div><div class="line">=&gt; 221</div><div class="line">irb(main):049:0&gt; produce</div><div class="line">=&gt; &#123;&quot;apples&quot;=&gt;3, &quot;oranges&quot;=&gt;1, &quot;carrotes&quot;=&gt;12, &quot;grapes&quot;=&gt;221&#125;</div><div class="line">irb(main):050:0&gt; produce[&quot;oranges&quot;] = 6</div><div class="line">=&gt; 6</div><div class="line">irb(main):051:0&gt; produce</div><div class="line">=&gt; &#123;&quot;apples&quot;=&gt;3, &quot;oranges&quot;=&gt;6, &quot;carrotes&quot;=&gt;12, &quot;grapes&quot;=&gt;221&#125;</div><div class="line">irb(main):052:0&gt; produce.keys</div><div class="line">=&gt; [&quot;apples&quot;, &quot;oranges&quot;, &quot;carrotes&quot;, &quot;grapes&quot;]</div><div class="line">irb(main):053:0&gt; produce.values</div><div class="line">=&gt; [3, 6, 12, 221]</div></pre></td></tr></table></figure>
+<p>第一行我们为这个哈希加了一个新的值。因为这个 <code>&quot;grapes&quot;</code> 键不在原始的哈希里，所以也给他加了一个值 <code>221</code>。键在哈希中必须是唯一的，所以当我们使用相对的语法对 <code>produce[&quot;oranges&quot;]</code> 操作时， <code>oranges</code> 这个键已经存在，但是他的值会被 <code>6</code> 代替。 <code>keys</code> 和 <code>value</code> 方法会分别给出键值对中的另外半部分。</p>
+<h3 id="简单的哈希语法"><a href="#简单的哈希语法" class="headerlink" title="简单的哈希语法"></a>简单的哈希语法</h3><p>实际编码中，我们经常使用符号来代替哈希中的键。当所有的键都变为符号的时候，那么哈希的语法看起来就简单一些了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">irb(main):054:0&gt; produce = &#123;apples: 3, oranges: 1, carrots: 12&#125;</div><div class="line">=&gt; &#123;:apples=&gt;3, :oranges=&gt;1, :carrots=&gt;12&#125;</div><div class="line">irb(main):060:0&gt; puts &quot;There are #&#123;produce[:oranges]&#125; oranges in the fridge.&quot;</div><div class="line">There are 1 oranges in the fridge.</div><div class="line">=&gt; nil</div></pre></td></tr></table></figure>
+<p>仔细观察你就会注意到键是冒号结尾，而不是开头，即便如此，这些也是符号。1.9 以上版本的 Ruby 都支持这种简单的语法。可以在控制台里用 <code>ruby -v</code> 看看你现在使用的 Ruby 版本。</p>
+<h2 id="9-条件表达式"><a href="#9-条件表达式" class="headerlink" title="9. 条件表达式"></a>9. 条件表达式</h2><p>条件表达式的值是 <code>ture</code> 或者 <code>false</code>。最常见的条件操作符是 <code>==</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>。</p>
+<p>有些对象的方法也可以返回 <code>true</code> 或者 <code>false</code>,他们用的也是条件表达式。比如，每个对象都有一个方法 <code>.nil?</code> 当为 <code>true</code> 的时候，对象为 <code>nil</code>. 数组也有一个方法叫 <code>.include?</code> 当返回 <code>true</code> 的时候，说明该数组里包含这个元素。在 Ruby 语言的惯例中判断一个方法返回 <code>true</code> 还是 <code>false</code> 的时候，都会有一个 <code>?</code> 结尾。</p>
+<h3 id="条件分支-语句"><a href="#条件分支-语句" class="headerlink" title="条件分支/语句"></a>条件分支/语句</h3><p>我们为什么要用条件声明？很多时候要进行条件控制，特别是 <code>if</code>/<code>elsif</code>/<code>else</code> 结构。我们来写个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">def water_status(minutes)</div><div class="line">  if minutes &lt; 7</div><div class="line">    puts &quot;The water is not boiling yet.&quot;</div><div class="line">  elsif minutes == 7</div><div class="line">    puts &quot;It&apos;s just barely boiling&quot;</div><div class="line">  elsif minutes == 8</div><div class="line">    puts &quot;It&apos;s boiling!&quot;</div><div class="line">  else</div><div class="line">    puts &quot;Hot! Hot! Hot!&quot;</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>我们看一下这个 <code>water_status</code> 这个方法的值分别在 5，7，8，9 时候的取值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">irb(main):072:0&gt; water_status(5)</div><div class="line">The water is not boiling yet.</div><div class="line">=&gt; nil</div><div class="line">irb(main):073:0&gt; water_status(7)</div><div class="line">It&apos;s just barely boiling</div><div class="line">=&gt; nil</div><div class="line">irb(main):074:0&gt; water_status(8)</div><div class="line">It&apos;s boiling!</div><div class="line">=&gt; nil</div><div class="line">irb(main):075:0&gt; water_status(9)</div><div class="line">Hot! Hot! Hot!</div><div class="line">=&gt; nil</div></pre></td></tr></table></figure>
+<h4 id="理解这个执行的流程"><a href="#理解这个执行的流程" class="headerlink" title="理解这个执行的流程"></a>理解这个执行的流程</h4><p>当 <code>minutes</code> 是 5 的时候，先判断是不是小于 7, 是的，所以打印出 <code>The water is not boiling yet.</code> .</p>
+<p>当 <code>minutes</code> 是 7 的时候，7 不小于 7，往下执行。等于 7，打印出 <code>It&#39;s just barely boiling</code>.</p>
+<p>当 <code>minutes</code> 是 8 的时候，先判断 8 是不是小于 7，不是，再判断 8 是不是小于 7，也不是，继续往下走，8 是不是等于 8，是的，所以打印出 <code>It&#39;s boiling!</code>.</p>
+<p>当 <code>minutes</code> 是 9 的时候，同理，执行最后一条语句 <code>Hot! Hot! Hot!</code>.</p>
+<h4 id="if-语句几种可能的情况"><a href="#if-语句几种可能的情况" class="headerlink" title="if 语句几种可能的情况"></a>if 语句几种可能的情况</h4><p>if 语句有下面几种…</p>
+<ul>
+<li>只有一个 if 语句，当语句为 true 时，才会被执行</li>
+<li>一个或多个 elsif 语句，当语句为 true 时，才会被执行</li>
+<li>没有或者只有一个 else 声明，当 if 或者 elsif 都为 true 才会被执行。</li>
+</ul>
+<p>if/elsif/else 结构里只有其中一项是可以被执行的。如果 if 为真，Ruby 直接忽略后面的 elsif 。一次只执行一个块，就是这样。</p>
+<h3 id="等于-vs-赋值"><a href="#等于-vs-赋值" class="headerlink" title="等于 vs 赋值"></a>等于 vs 赋值</h3><p>在写条件语句时，最容易犯的错误就是搞不清 <code>=</code> 和 <code>==</code> 的区别。</p>
+<ul>
+<li><code>=</code> 是赋值，意思是把它左边的值放入到右边。是陈述，不是疑问</li>
+<li><code>==</code> 是疑问，意思是左边的这个东东跟右边是否相等，是疑问，不是陈述</li>
+</ul>
+<p>你也可以用逻辑操作符跟条件语句连接。最常看到的就是逻辑与和逻辑或，分别可以用 <code>&amp;&amp;</code> 和 <code>||</code> 表示。</p>
+<h2 id="10-Nil-amp-Nothingness"><a href="#10-Nil-amp-Nothingness" class="headerlink" title="10. Nil &amp; Nothingness"></a>10. Nil &amp; Nothingness</h2><p>什么是不存在？不存在是不是只在外太空？事实上，当我们认为不存的时候，是不是仅仅只是某种事物的抽象呢？好吧，这个词儿太哲学了…</p>
+<p>在 Ruby 中<code>nil</code> 代表值不存在的。</p>
+<p>你有 3 个鸡蛋，吃了 3 个鸡蛋，你可能认为你就啥也没有了。但是仅就鸡蛋而言，你有 0 个。0 是一个数字，并不是不存在。</p>
+<p>如果你有一个字符串 “hello”，然后删除了 “h”,”e”,”l”,”o” 字符，你以为你啥也没了，但是实际上你还有个 “”，空字符串。这也不是不存在。</p>
+<p><code>nil</code> 就是 Ruby 里关于不存在的概念。当你请求一个不存在的事物时，它就出现了。我们创建了一个只有 5 个元素的数字，但是你非得请求数组的第六个元素，那 Ruby 就给我们一个 <code>nil</code>。这不是说第六个就是空白，他跟数字不一样，就是不存在- <code>nil</code>。</p>
+<p>你在写 Ruby 时遇到的大部分错误都跟 <code>nil</code> 有关系。你以为出了问题，想尝试解决，但你不能解决一个不存在的问题，所以 Ruby 会给出错误。</p>
+<h2 id="11-Objects-Attributes-and-Methods-对象，属性，方法"><a href="#11-Objects-Attributes-and-Methods-对象，属性，方法" class="headerlink" title="11. Objects, Attributes, and Methods(对象，属性，方法)"></a>11. Objects, Attributes, and Methods(对象，属性，方法)</h2><h3 id="Ruby-是面向对象的语言"><a href="#Ruby-是面向对象的语言" class="headerlink" title="Ruby 是面向对象的语言"></a>Ruby 是面向对象的语言</h3><p>Ruby 是面向对象的语言，所有跟我们打交道的在虚拟机里都是对象。每一片数据都是对象。对象拥有的信息，称之为属性。对象可以执行的动作，称之为方法。</p>
+<p>举个关于对象的例子，想象一下你作为一个人。你的属性就是身高，体重，眼睛的颜色。你拥有的方法比如走路，跑步，洗碗，做梦。不同的对象有不同的属性和方法。下一个部分我们具体的看看 Ruby 中常见的对象。</p>
+<h3 id="类和实例"><a href="#类和实例" class="headerlink" title="类和实例"></a>类和实例</h3><p>在面向对象语言中定义了类，类是同一类别或者同一类型的描述。它定义了这一类对象都有的属性和方法。</p>
+<h4 id="定义一个类"><a href="#定义一个类" class="headerlink" title="定义一个类"></a>定义一个类</h4><p>我们来想一下学校的模型。我们创建了一个 <code>Student</code> 类，代表所有的学生。学生类的属性有 <code>first_name</code>, <code>last_name</code>, <code>primary_phone_number</code>。还可以定义一个 <code>introduction</code> 方法，让学生自我介绍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class Student</div><div class="line">  attr_accessor :first_name, :last_name, :primary_phone_number</div><div class="line"></div><div class="line">  def introduction</div><div class="line">    puts &quot;Hi, I&apos;m #&#123;first_name&#125;!&quot;</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>你可能还不了解 <code>attr_accessor</code> 方法，这是用来定义一个类的实例的属性。</p>
+<h4 id="创建实例"><a href="#创建实例" class="headerlink" title="创建实例"></a>创建实例</h4><p>类本身不能表示一个学生，他只是学生的抽象表达。为了表示一个真实的学生，我们在类的基础上创建了实例。</p>
+<p>想象一下你是一个学生。不是一个抽象的概念，你是一个真实存在的人。这个真实的人就是一个学生实例。他是一个抽象概念的实现。所有的属性都是真实的数据。<code>first_name</code>,<code>last_name</code>,<code>primary_phone_number</code>。</p>
+<h3 id="从文件里运行-Ruby"><a href="#从文件里运行-Ruby" class="headerlink" title="从文件里运行 Ruby"></a>从文件里运行 Ruby</h3><p>我们很少在 IRB 里定义类。它只是我们的草稿，随时验证我们的想法。我们来看看如果运行一个 Ruby 文件。</p>
+<ul>
+<li>退出 IRB 会话</li>
+<li>在命令行里建个文件夹，作为工作目录</li>
+<li>用文本编辑器创建一个文件，命名为 student.rb</li>
+<li>在编辑器里保存好</li>
+<li>从命令行里运行</li>
+</ul>
+<p><code>ruby student.rb</code> 因为文件是空的，所以看不到输出。</p>
+<h3 id="创建一个学生类"><a href="#创建一个学生类" class="headerlink" title="创建一个学生类"></a>创建一个学生类</h3><p>在你的文本编辑器里，像这样的结构写一个类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Student</div><div class="line"></div><div class="line">end</div></pre></td></tr></table></figure>
+<p>在类里面定义方法的时候通常用 <code>def</code> 关键字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Student</div><div class="line">  def introduction</div><div class="line">    puts &quot;Hi, I&apos;m #&#123;first_name&#125;!&quot;</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>我们注意到 <code>puts</code> 那一行是一个返回学生第一个名字的方法。我们添加上之前用到的属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class Student</div><div class="line">  attr_accessor :first_name, :last_name, :primary_phone_number</div><div class="line"></div><div class="line">  def introduction</div><div class="line">    puts &quot;Hi, I&apos;m #&#123;first_name&#125;!&quot;</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<h4 id="运行这个文件"><a href="#运行这个文件" class="headerlink" title="运行这个文件"></a>运行这个文件</h4><p>回到终端里，试着运行这个程序，还是没有任何输出…</p>
+<p>为什么？我们定义了一个学生类，然后给这个类赋予了一个方法，还添加了一些属性。-但是我没有实际上没有创建任何的实例或者调用任何方法。</p>
+<h4 id="创建实例-1"><a href="#创建实例-1" class="headerlink" title="创建实例"></a>创建实例</h4><p>我们定义了类之后，还要创建一个实例：<code>frank = Student.new</code></p>
+<p>我们调用了学生类的 <code>new</code> 方法。并且存储到一个叫做 <code>frank</code> 的变量里。一旦我们创建了实例，我们就能设置或者访问他们的属性，调用他们的方法。</p>
+<h4 id="在文件里创建实例"><a href="#在文件里创建实例" class="headerlink" title="在文件里创建实例"></a>在文件里创建实例</h4><p>在 student.rb 下面，最后一个 end 后面，添加下面的字段。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">frank = Student.new</div><div class="line">frank.first_name = &quot;Frank&quot;</div><div class="line">frank.introduction</div></pre></td></tr></table></figure>
+<p>保存之后，返回终端，再次运行 student.rb ，这时候应该输出 <code>Hi，I&#39;m Frank！</code></p>
+<h3 id="方法的参数"><a href="#方法的参数" class="headerlink" title="方法的参数"></a>方法的参数</h3><p>有时候方法会带有一个或者多个参数，告诉他们想做的要怎么做。比如，我想让 <code>frank.introduction(&#39;katrina&#39;)</code> 让他介绍自己给 Katrina .这个参数可以是 numbers,strings,或者任何对象。修改你的方法，让他携带一个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Student</div><div class="line">  attr_accessor :first_name, :last_name, :primary_phone_number</div><div class="line"></div><div class="line">  def introduction(target)</div><div class="line">    puts &quot;Hi #&#123;target&#125;, I&apos;m #&#123;first_name&#125;!&quot;</div><div class="line">  end</div><div class="line">end</div><div class="line"></div><div class="line">frank = Student.new</div><div class="line">frank.first_name = &quot;Frank&quot;</div><div class="line">frank.introduction(&apos;Katrina&apos;)</div></pre></td></tr></table></figure>
+<p>现在重新运行文件，你就会看到 <code>Hi Katrina, I&#39;m Frank</code>.</p>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>在 Ruby 里，每次调用方法都会有一个返回值。默认，Ruby 的方法会返回执行最后一个表达式的值。</p>
+<h3 id="添加-favorite-number"><a href="#添加-favorite-number" class="headerlink" title="添加 favorite_number"></a>添加 favorite_number</h3><p>为我们的类添加一个 favorite_number 参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class Student</div><div class="line">  attr_accessor :first_name, :last_name, :primary_phone_number</div><div class="line"></div><div class="line">  def introduction(target)</div><div class="line">    puts &quot;Hi #&#123;target&#125;, I&apos;m #&#123;first_name&#125;!&quot;</div><div class="line">  end</div><div class="line"></div><div class="line">  def favorite_number</div><div class="line">    7</div><div class="line">  end</div><div class="line">end</div><div class="line"></div><div class="line">frank = Student.new</div><div class="line">frank.first_name = &quot;Frank&quot;</div><div class="line">puts &quot;Frank&apos;s favorite number is #&#123;frank.favorite_number&#125;.&quot;</div></pre></td></tr></table></figure>
+<p>从你的终端里运行它，然后就会看到 <code>Frank&#39;s favorite number is 7</code>.最后这一行调用的就是 <code>favorite_number</code> 方法。最后那个方法的最后一行是 7，那么 7 就成了这个方法的返回值，返回给调用这个方法的人。在我们这里，返回了 7 并且作为插值，进入了字符串里。</p>
+<h2 id="现在你差不多入门了"><a href="#现在你差不多入门了" class="headerlink" title="现在你差不多入门了"></a>现在你差不多入门了</h2><p>好了，简单介绍到这儿了，现在你可以深入的探索诱人的 Ruby 了。</p>
+<blockquote>
+<p>本文翻译至 <a href="http://tutorials.jumpstartlab.com/projects/ruby_in_100_minutes.html" target="_blank" rel="external">Ruby in 100 Minutes</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/12/growth-hacker/" rel="next" title="所谓 Growth hacking">
+                <i class="fa fa-chevron-left"></i> 所谓 Growth hacking
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/18/jekyll_github_built_blog/" rel="prev" title="使用 Jekyll 和 Github Pages 搭建免费博客">
+                使用 Jekyll 和 Github Pages 搭建免费博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/05/16/ruby_in_100_minutes/"
+           data-title="100 分钟爱上 Ruby" data-url="http://yoursite.com/2015/05/16/ruby_in_100_minutes/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126"
+               alt="beepony" />
+          <p class="site-author-name" itemprop="name">beepony</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/beepony" target="_blank" title="GitHub">
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ynopeeb" target="_blank" title="Twitter">
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/beepony" target="_blank" title="Weibo">
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zhihu.com/beepony" target="_blank" title="Zhihu">
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ruby-的历史"><span class="nav-number">1.</span> <span class="nav-text">Ruby 的历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简要说明和解释器"><span class="nav-number">2.</span> <span class="nav-text">1. 简要说明和解释器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过命令行运行-Ruby"><span class="nav-number">2.1.</span> <span class="nav-text">通过命令行运行 Ruby</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个简单的-Ruby-例子"><span class="nav-number">2.1.1.</span> <span class="nav-text">一个简单的 Ruby 例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从-IRB-运行程序"><span class="nav-number">2.1.2.</span> <span class="nav-text">从 IRB 运行程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-变量"><span class="nav-number">3.</span> <span class="nav-text">2. 变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建变量，并且赋值"><span class="nav-number">3.1.</span> <span class="nav-text">创建变量，并且赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#从右边开始看"><span class="nav-number">3.1.1.</span> <span class="nav-text">从右边开始看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#灵活的变量赋值"><span class="nav-number">3.1.2.</span> <span class="nav-text">灵活的变量赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量命名规则"><span class="nav-number">3.1.3.</span> <span class="nav-text">变量命名规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#练习"><span class="nav-number">3.1.4.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-字符串"><span class="nav-number">4.</span> <span class="nav-text">3. 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串的书写"><span class="nav-number">4.1.</span> <span class="nav-text">字符串的书写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子串"><span class="nav-number">4.2.</span> <span class="nav-text">子串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正书和负数的位置"><span class="nav-number">4.2.1.</span> <span class="nav-text">正书和负数的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用的字符串方法"><span class="nav-number">4.2.2.</span> <span class="nav-text">通用的字符串方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接字符串和变量"><span class="nav-number">4.3.</span> <span class="nav-text">连接字符串和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的级联"><span class="nav-number">4.3.1.</span> <span class="nav-text">字符串的级联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串插值"><span class="nav-number">4.3.2.</span> <span class="nav-text">字符串插值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在插值中执行代码"><span class="nav-number">4.3.3.</span> <span class="nav-text">在插值中执行代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Symbols"><span class="nav-number">5.</span> <span class="nav-text">4. Symbols</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如果你是新手"><span class="nav-number">5.1.</span> <span class="nav-text">如果你是新手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果你是个有经验的程序员"><span class="nav-number">5.2.</span> <span class="nav-text">如果你是个有经验的程序员</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Numbers"><span class="nav-number">6.</span> <span class="nav-text">5. Numbers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重复指令"><span class="nav-number">6.1.</span> <span class="nav-text">重复指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Block-块"><span class="nav-number">7.</span> <span class="nav-text">6. Block (块)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Blocks-的开始和结束"><span class="nav-number">7.1.</span> <span class="nav-text">Blocks 的开始和结束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#括号里的块"><span class="nav-number">7.1.1.</span> <span class="nav-text">括号里的块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块传递给方法"><span class="nav-number">7.2.</span> <span class="nav-text">块传递给方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块参数"><span class="nav-number">7.3.</span> <span class="nav-text">块参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Arrays（数组）"><span class="nav-number">8.</span> <span class="nav-text">7. Arrays（数组）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化的模型"><span class="nav-number">8.1.</span> <span class="nav-text">可视化的模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码里的数组"><span class="nav-number">8.2.</span> <span class="nav-text">代码里的数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用的数组方法"><span class="nav-number">8.3.</span> <span class="nav-text">通用的数组方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-方法的解释"><span class="nav-number">8.3.1.</span> <span class="nav-text">.sort 方法的解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#试试其他的"><span class="nav-number">8.3.2.</span> <span class="nav-text">试试其他的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-哈希"><span class="nav-number">9.</span> <span class="nav-text">8. 哈希</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#键值对"><span class="nav-number">9.1.</span> <span class="nav-text">键值对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的哈希语法"><span class="nav-number">9.2.</span> <span class="nav-text">简单的哈希语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-条件表达式"><span class="nav-number">10.</span> <span class="nav-text">9. 条件表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件分支-语句"><span class="nav-number">10.1.</span> <span class="nav-text">条件分支/语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理解这个执行的流程"><span class="nav-number">10.1.1.</span> <span class="nav-text">理解这个执行的流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-语句几种可能的情况"><span class="nav-number">10.1.2.</span> <span class="nav-text">if 语句几种可能的情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等于-vs-赋值"><span class="nav-number">10.2.</span> <span class="nav-text">等于 vs 赋值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Nil-amp-Nothingness"><span class="nav-number">11.</span> <span class="nav-text">10. Nil & Nothingness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Objects-Attributes-and-Methods-对象，属性，方法"><span class="nav-number">12.</span> <span class="nav-text">11. Objects, Attributes, and Methods(对象，属性，方法)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ruby-是面向对象的语言"><span class="nav-number">12.1.</span> <span class="nav-text">Ruby 是面向对象的语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类和实例"><span class="nav-number">12.2.</span> <span class="nav-text">类和实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义一个类"><span class="nav-number">12.2.1.</span> <span class="nav-text">定义一个类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建实例"><span class="nav-number">12.2.2.</span> <span class="nav-text">创建实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从文件里运行-Ruby"><span class="nav-number">12.3.</span> <span class="nav-text">从文件里运行 Ruby</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个学生类"><span class="nav-number">12.4.</span> <span class="nav-text">创建一个学生类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行这个文件"><span class="nav-number">12.4.1.</span> <span class="nav-text">运行这个文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建实例-1"><span class="nav-number">12.4.2.</span> <span class="nav-text">创建实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在文件里创建实例"><span class="nav-number">12.4.3.</span> <span class="nav-text">在文件里创建实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法的参数"><span class="nav-number">12.5.</span> <span class="nav-text">方法的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">12.6.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-favorite-number"><span class="nav-number">12.7.</span> <span class="nav-text">添加 favorite_number</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在你差不多入门了"><span class="nav-number">13.</span> <span class="nav-text">现在你差不多入门了</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beepony</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"beepony"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

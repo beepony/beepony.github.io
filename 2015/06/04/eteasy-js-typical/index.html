@@ -1,0 +1,872 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="beepony, internet, reading, writing" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="主要介绍6种基本类型（Undefine、Null、Boolean、Number、String、Object）、原生类型及引用类型概念等.
+标准类型标准类型分为原始类型和引用对象，原始类型(primitive)包括
+
+Undefined
+Null
+Boolean
+String
+Number
+Object
+
+引用类型
+Object
+
+原始类型和引用类型在栈内存中的区别1234567var a;var">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[前端]Javascript 程序设计—类型系统—基本类型">
+<meta property="og:url" content="http://yoursite.com/2015/06/04/eteasy-js-typical/index.html">
+<meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
+<meta property="og:description" content="主要介绍6种基本类型（Undefine、Null、Boolean、Number、String、Object）、原生类型及引用类型概念等.
+标准类型标准类型分为原始类型和引用对象，原始类型(primitive)包括
+
+Undefined
+Null
+Boolean
+String
+Number
+Object
+
+引用类型
+Object
+
+原始类型和引用类型在栈内存中的区别1234567var a;var">
+<meta property="og:image" content="http://pic-bin.b0.upaiyun.com/wangyi/yinyongleixing.png">
+<meta property="og:image" content="http://pic-bin.b0.upaiyun.com/wangyi/yuanshi-yinyong-qubie.png">
+<meta property="og:updated_time" content="2016-05-25T15:42:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[前端]Javascript 程序设计—类型系统—基本类型">
+<meta name="twitter:description" content="主要介绍6种基本类型（Undefine、Null、Boolean、Number、String、Object）、原生类型及引用类型概念等.
+标准类型标准类型分为原始类型和引用对象，原始类型(primitive)包括
+
+Undefined
+Null
+Boolean
+String
+Number
+Object
+
+引用类型
+Object
+
+原始类型和引用类型在栈内存中的区别1234567var a;var">
+<meta name="twitter:image" content="http://pic-bin.b0.upaiyun.com/wangyi/yinyongleixing.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '8120355',
+      author: 'beepony'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/06/04/eteasy-js-typical/"/>
+
+
+
+
+
+  <title> [前端]Javascript 程序设计—类型系统—基本类型 | 独立思考｜知无不言｜知识平等 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">独立思考｜知无不言｜知识平等</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/06/04/eteasy-js-typical/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="beepony">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="独立思考｜知无不言｜知识平等">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="独立思考｜知无不言｜知识平等" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [前端]Javascript 程序设计—类型系统—基本类型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-04T10:25:00+08:00">
+                2015-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2015/06/04/eteasy-js-typical/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/04/eteasy-js-typical/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要介绍6种基本类型（Undefine、Null、Boolean、Number、String、Object）、原生类型及引用类型概念等.</p>
+<h2 id="标准类型"><a href="#标准类型" class="headerlink" title="标准类型"></a>标准类型</h2><p>标准类型分为原始类型和引用对象，原始类型(primitive)包括</p>
+<ul>
+<li>Undefined</li>
+<li>Null</li>
+<li>Boolean</li>
+<li>String</li>
+<li>Number</li>
+<li>Object</li>
+</ul>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><ul>
+<li>Object</li>
+</ul>
+<h2 id="原始类型和引用类型在栈内存中的区别"><a href="#原始类型和引用类型在栈内存中的区别" class="headerlink" title="原始类型和引用类型在栈内存中的区别"></a>原始类型和引用类型在栈内存中的区别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var a;</div><div class="line">var b = null;</div><div class="line">var c = true;</div><div class="line">var d = 123;</div><div class="line">var e = &quot;hello&quot;;</div><div class="line">var f = &#123;a:1&#125;;</div><div class="line">// a,b,c,d,e 都是原始类型，f 是引用类型</div></pre></td></tr></table></figure>
+<p>原始类型在栈内存中的情况<br>| a |undefined(Undefined 类型)|<br>|—|—:|<br>|b  |   null(Null 类型)|<br>|c  |   true(Boolean 类型)|<br>|d  |   123(Number 类型)|<br>|e  |   “hello”(String 类型)|<br>|f  |   Object 类型|<br>原始类型都是保存在栈内存中，而引用类型在栈内存内存中只是一个地址，该地址指向堆内存，如图所示</p>
+<p><img src="http://pic-bin.b0.upaiyun.com/wangyi/yinyongleixing.png" alt="yinyongleixing"></p>
+<p>由上图可以推断出，原始类型的复制都是在栈内存中复制一份，而引用类型只是复制了指向堆内存的地址，如下图。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;a:1&#125;;</div><div class="line">var obj2 = obj1;</div></pre></td></tr></table></figure>
+<p><img src="http://pic-bin.b0.upaiyun.com/wangyi/yuanshi-yinyong-qubie.png" alt="qubie"></p>
+<p>下面详细的说明原始类型的用法</p>
+<h3 id="Undefined"><a href="#Undefined" class="headerlink" title="Undefined"></a>Undefined</h3><h4 id="1-类型说明"><a href="#1-类型说明" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>该类型的值就是：undefined</p>
+<h4 id="2-出现场景"><a href="#2-出现场景" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><ul>
+<li>已经声明但是没有赋值的变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a;</div><div class="line">console.log(a);</div><div class="line">console.log(b)</div><div class="line">// 只定义，未赋值</div></pre></td></tr></table></figure>
+<ul>
+<li><p>获取对象不存在的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;a:1,b:2&#125;;</div><div class="line">console.log(obj.c);</div><div class="line">// obj 不存在 c 属性</div></pre></td></tr></table></figure>
+</li>
+<li><p>无返回值的函数的执行结果</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">    alert(&quot;test&quot;);</div><div class="line">&#125;</div><div class="line">var ret = f();</div><div class="line">console.log(ret);</div></pre></td></tr></table></figure>
+<ul>
+<li>函数的参数没有传入<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">functiom f(i,j)&#123;</div><div class="line">    console.log(i);</div><div class="line">    console.log(j);</div><div class="line">&#125;;</div><div class="line">f(1);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-类型转换"><a href="#3-类型转换" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><p>undefined ＝&gt; Boolean，在判断该属性是否存在时使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;a:1,b:function()&#123;&#125;,...&#125;;</div><div class="line">if(obj.c)&#123;</div><div class="line">    console.log(obj.c);</div><div class="line">&#125;</div><div class="line">// 结果为 false</div></pre></td></tr></table></figure>
+<p>undefined ＝&gt; Number<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var count;</div><div class="line">count + 1;</div><div class="line">//结果为 NaN</div></pre></td></tr></table></figure></p>
+<p>undefined ＝&gt; String<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(function(a)&#123;</div><div class="line">    console.log(&quot;a:&quot; + a);</div><div class="line">&#125;)()</div></pre></td></tr></table></figure></p>
+<h3 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h3><h4 id="1-类型说明-1"><a href="#1-类型说明-1" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>值为 null</p>
+<h4 id="2-出现场景-1"><a href="#2-出现场景-1" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><p>对象不存在时为 null<br><code>document.getElementById(&#39;notExistElement&#39;);</code></p>
+<h4 id="3-类型转换-1"><a href="#3-类型转换-1" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><p>null =&gt; Boolean，结果为 false<br>null =&gt; Number， 结果为 0<br>null =&gt; String， 结果为 “null”</p>
+<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><h4 id="1-类型说明-2"><a href="#1-类型说明-2" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>值为 true,false</p>
+<h4 id="2-出现场景-2"><a href="#2-出现场景-2" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><ul>
+<li>条件语句导致系统执行的隐式类型转换<br><code>if(document.getElementById(&#39;notExistElement&#39;)){...}else{...}</code><br>当元素不存在的时候，会返回 null,条件语句会隐式的转换为 false，执行 else 语句。</li>
+<li>字面量或者定义变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">true</div><div class="line">var a = true;</div></pre></td></tr></table></figure>
+<h4 id="3-类型转换-2"><a href="#3-类型转换-2" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">Number</th>
+<th style="text-align:center">String</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td style="text-align:right">1</td>
+<td style="text-align:center">“null”</td>
+</tr>
+<tr>
+<td>false</td>
+<td style="text-align:right">0</td>
+<td style="text-align:center">“false”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><h4 id="1-类型说明-3"><a href="#1-类型说明-3" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>由单引号或者双引号括起来的字符序列</p>
+<h4 id="2-出现场景-3"><a href="#2-出现场景-3" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&apos;hello world!&apos;</div><div class="line">var s = &apos;name = &quot;myform&quot;&apos;;</div></pre></td></tr></table></figure>
+<h4 id="3-类型转换-3"><a href="#3-类型转换-3" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">Number</th>
+<th style="text-align:center">Boolean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“”</td>
+<td style="text-align:right">0</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td>“123”</td>
+<td style="text-align:right">123</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td>“1a”</td>
+<td style="text-align:right">true</td>
+<td style="text-align:center">NaN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><h4 id="1-类型说明-4"><a href="#1-类型说明-4" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>整形直接量，八进制(0)直接量，十六进制(0x)直接量，浮点型直接量</p>
+<h4 id="2-出现场景-4"><a href="#2-出现场景-4" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">10</div><div class="line">1.4</div><div class="line">1.2e5</div><div class="line">var count = 0x10;</div></pre></td></tr></table></figure>
+<h4 id="3-类型转换-4"><a href="#3-类型转换-4" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">String</th>
+<th style="text-align:center">Boolean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td style="text-align:right">“0”</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align:right">“1”</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td>Infinity</td>
+<td style="text-align:right">“Infinity”</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td>NaN</td>
+<td style="text-align:right">“NaN”</td>
+<td style="text-align:center">false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><h4 id="1-类型说明-5"><a href="#1-类型说明-5" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>Object 类型是一组属性的集合</p>
+<h4 id="2-出现场景-5"><a href="#2-出现场景-5" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><p><code>var obj = {name:&#39;jerry&#39;, age: 0};</code></p>
+<h4 id="3-类型转换-5"><a href="#3-类型转换-5" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">String</th>
+<th style="text-align:center">Boolean</th>
+<th style="text-align:center">Number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{}</td>
+<td style="text-align:right">“[object Object]”</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">NaN</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/02/neteasy-js-debug/" rel="next" title="[前端] JavaScript 程序设计-调试">
+                <i class="fa fa-chevron-left"></i> [前端] JavaScript 程序设计-调试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/01/don't-make-me-think/" rel="prev" title="Krug 可用性三定律">
+                Krug 可用性三定律 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/06/04/eteasy-js-typical/"
+           data-title="[前端]Javascript 程序设计—类型系统—基本类型" data-url="http://yoursite.com/2015/06/04/eteasy-js-typical/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126"
+               alt="beepony" />
+          <p class="site-author-name" itemprop="name">beepony</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/beepony" target="_blank" title="GitHub">
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ynopeeb" target="_blank" title="Twitter">
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/beepony" target="_blank" title="Weibo">
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zhihu.com/beepony" target="_blank" title="Zhihu">
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准类型"><span class="nav-number">1.</span> <span class="nav-text">标准类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用类型"><span class="nav-number">2.</span> <span class="nav-text">引用类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原始类型和引用类型在栈内存中的区别"><span class="nav-number">3.</span> <span class="nav-text">原始类型和引用类型在栈内存中的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Undefined"><span class="nav-number">3.1.</span> <span class="nav-text">Undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-类型说明"><span class="nav-number">3.1.1.</span> <span class="nav-text">1. 类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-出现场景"><span class="nav-number">3.1.2.</span> <span class="nav-text">2. 出现场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-类型转换"><span class="nav-number">3.1.3.</span> <span class="nav-text">3. 类型转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Null"><span class="nav-number">3.2.</span> <span class="nav-text">Null</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-类型说明-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. 类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-出现场景-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. 出现场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-类型转换-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">3. 类型转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boolean"><span class="nav-number">3.3.</span> <span class="nav-text">Boolean</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-类型说明-2"><span class="nav-number">3.3.1.</span> <span class="nav-text">1. 类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-出现场景-2"><span class="nav-number">3.3.2.</span> <span class="nav-text">2. 出现场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-类型转换-2"><span class="nav-number">3.3.3.</span> <span class="nav-text">3. 类型转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String"><span class="nav-number">3.4.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-类型说明-3"><span class="nav-number">3.4.1.</span> <span class="nav-text">1. 类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-出现场景-3"><span class="nav-number">3.4.2.</span> <span class="nav-text">2. 出现场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-类型转换-3"><span class="nav-number">3.4.3.</span> <span class="nav-text">3. 类型转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number"><span class="nav-number">3.5.</span> <span class="nav-text">Number</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-类型说明-4"><span class="nav-number">3.5.1.</span> <span class="nav-text">1. 类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-出现场景-4"><span class="nav-number">3.5.2.</span> <span class="nav-text">2. 出现场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-类型转换-4"><span class="nav-number">3.5.3.</span> <span class="nav-text">3. 类型转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object"><span class="nav-number">3.6.</span> <span class="nav-text">Object</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-类型说明-5"><span class="nav-number">3.6.1.</span> <span class="nav-text">1. 类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-出现场景-5"><span class="nav-number">3.6.2.</span> <span class="nav-text">2. 出现场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-类型转换-5"><span class="nav-number">3.6.3.</span> <span class="nav-text">3. 类型转换</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beepony</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"beepony"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

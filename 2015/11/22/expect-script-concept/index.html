@@ -1,0 +1,726 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="beepony, internet, reading, writing" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="由于经常需要把本地内容 scp 到服务器，同时在服务器上执行一些固定的命令，了解到 exepect 脚本可以自动实现，于是做个记录。尽力做到简单重复的工作交给计算机去处理，流程和任务自动化，提升干活的效率。当你需要跟控制台进行交互的时候，你就会发现 TCL-Expect 是多么好用的工具，能够将你从重复繁杂的任务中解救出来。以前只能手动去做的工作，现在通过 expect 脚本可以轻松完成。他们跟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EXPECT 的几个基本概念">
+<meta property="og:url" content="http://yoursite.com/2015/11/22/expect-script-concept/index.html">
+<meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
+<meta property="og:description" content="由于经常需要把本地内容 scp 到服务器，同时在服务器上执行一些固定的命令，了解到 exepect 脚本可以自动实现，于是做个记录。尽力做到简单重复的工作交给计算机去处理，流程和任务自动化，提升干活的效率。当你需要跟控制台进行交互的时候，你就会发现 TCL-Expect 是多么好用的工具，能够将你从重复繁杂的任务中解救出来。以前只能手动去做的工作，现在通过 expect 脚本可以轻松完成。他们跟">
+<meta property="og:updated_time" content="2016-06-26T04:04:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EXPECT 的几个基本概念">
+<meta name="twitter:description" content="由于经常需要把本地内容 scp 到服务器，同时在服务器上执行一些固定的命令，了解到 exepect 脚本可以自动实现，于是做个记录。尽力做到简单重复的工作交给计算机去处理，流程和任务自动化，提升干活的效率。当你需要跟控制台进行交互的时候，你就会发现 TCL-Expect 是多么好用的工具，能够将你从重复繁杂的任务中解救出来。以前只能手动去做的工作，现在通过 expect 脚本可以轻松完成。他们跟">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '8120355',
+      author: 'beepony'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/11/22/expect-script-concept/"/>
+
+
+
+
+
+  <title> EXPECT 的几个基本概念 | 独立思考｜知无不言｜知识平等 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">独立思考｜知无不言｜知识平等</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/11/22/expect-script-concept/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="beepony">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="独立思考｜知无不言｜知识平等">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="独立思考｜知无不言｜知识平等" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                EXPECT 的几个基本概念
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-22T13:59:25+08:00">
+                2015-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2015/11/22/expect-script-concept/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/22/expect-script-concept/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于经常需要把本地内容 <code>scp</code> 到服务器，同时在服务器上执行一些固定的命令，了解到 <code>exepect</code> 脚本可以自动实现，于是做个记录。尽力做到简单重复的工作交给计算机去处理，流程和任务自动化，提升干活的效率。<br>当你需要跟控制台进行交互的时候，你就会发现 <code>TCL-Expect</code> 是多么好用的工具，能够将你从重复繁杂的任务中解救出来。以前只能手动去做的工作，现在通过 <code>expect</code> 脚本可以轻松完成。他们跟 shell 脚本很像，但是利用 .tcl 扩展实现，并且通过 #! 调用。</p>
+<h2 id="设置脚本初始环境"><a href="#设置脚本初始环境" class="headerlink" title="设置脚本初始环境"></a>设置脚本初始环境</h2><p>第一步，跟写 <code>bash</code> 脚本很像，告诉脚本在什么环境下执行命令。对于 expect 来说，我们一般这么调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">最好在脚本最后加上 `interact`，这样脚本执行完毕，还停留在终端，不至于退出，类似这样：</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">&apos;&apos;&apos;代码部分&apos;&apos;&apos;</div><div class="line"></div><div class="line">interact</div></pre></td></tr></table></figure>
+<h2 id="Puts-amp-Output"><a href="#Puts-amp-Output" class="headerlink" title="Puts &amp; Output"></a>Puts &amp; Output</h2><p><code>shell</code> 脚本一般使用 <code>echo</code> 输出，而 <code>expect</code> 则使用 <code>puts</code> 输出，这一点倒是跟 <code>Ruby</code> 很像。</p>
+<p><code>puts &quot;I am performing a output command&quot;</code></p>
+<p>结果就会输出 <code>I am performing a output command</code>,跟 <code>echo</code> 效果一样。</p>
+<p>一般情况下，脚本会输出你正在执行的命令。测试的时候很有用，但是在生产环境或者日常使用未必需要。如果只需要显示 <code>puts</code> 的文本，隐藏其他命令，可以通过：</p>
+<blockquote>
+<p>log_user 0</p>
+</blockquote>
+<p>或者你可以强制开启输出命令及其响应，可以通过：</p>
+<blockquote>
+<p>log_user 1</p>
+</blockquote>
+<h2 id="变量-Variables"><a href="#变量-Variables" class="headerlink" title="变量 Variables"></a>变量 Variables</h2><p>定义变量非常简单，只用 <code>set {name}{value}</code>,例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set a &quot;apple&quot;</div><div class="line">set b &quot;banana&quot;</div><div class="line">set c &quot;cantalope&quot;</div></pre></td></tr></table></figure>
+<p>通过 <code>$</code> 加变量的 <code>name</code> 来引用变量，<code>$a</code> 即代表 <code>apple</code>.</p>
+<h2 id="参数-Arguments"><a href="#参数-Arguments" class="headerlink" title="参数 Arguments"></a>参数 Arguments</h2><p>如果想通过传递参数的方式来设置变量，可以通过这种方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set user [lindex $argv 0]</div><div class="line">set password [lindex $argv 1]</div></pre></td></tr></table></figure>
+<p>然后，当执行脚本的时候带上参数<br><code>./mycript.tcl youruser yourpassword</code></p>
+<h2 id="Spawn-amp-Send"><a href="#Spawn-amp-Send" class="headerlink" title="Spawn &amp; Send"></a>Spawn &amp; Send</h2><p>你可以使用 <code>spawn</code> 开启一个新的进程，例如 <code>ssh</code> 或者 <code>scp</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set user &quot;myuser&quot;</div><div class="line">set server &quot;myserver.com&quot;</div><div class="line">spawn ssh &quot;$user\@server&quot;</div></pre></td></tr></table></figure>
+<p>上面的例子就是开启了一个 <code>ssh</code> 进程，同时提交用户名和服务器，本质上就是在控制台输入 <code>ssh myuser@myserver.com</code>.</p>
+<p><code>send</code> 命令可以让你发送命令给控制台，比如发送一个密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">set password [lindex $argv 0]</div><div class="line">set app [lindex $argv 1]</div><div class="line"></div><div class="line">spawn sudo &quot;apt-get install $app&quot;</div><div class="line"></div><div class="line">expect &quot;assword&quot;</div><div class="line"></div><div class="line">send &quot;$password\r&quot;</div></pre></td></tr></table></figure>
+<p>上面的例子允许你传递你的 sudo 密码和需要从 apt 安装的应用的名字，然后等着提示密码并且发送。No assword is not a mispelling，让我们看看 expect 声明。</p>
+<h2 id="Expect"><a href="#Expect" class="headerlink" title="Expect"></a>Expect</h2><p><code>expect</code> 才是见证奇迹的时候。我们先从最基本的开始，假设你运行了一个命令，然后等着控制台提示，然后再继续执行…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">spawn apt-get &quot;update&quot;</div><div class="line"></div><div class="line">expect &quot;$&quot;</div><div class="line"></div><div class="line"># Move on to the next thing...</div></pre></td></tr></table></figure>
+<p>你开启一个 <code>spawn</code> 进程 <code>apt-get</code>,然后等着 <code>$</code> 或者提示。<br>上面的 <code>expect</code> 语句遵循就近匹配的原则。所以上面的例子里的提示可以像这样，比如<code>root@server  $~</code>。<code>expect</code> 语句找到 <code>$</code>，然后知道该继续执行下去了。</p>
+<p>下面再来看看一些稍微复杂的例子，不只有一条 <code>expect</code>,让我们再看看 <code>ssh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">spawn ssh &quot;$user\@server&quot;</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">    &quot;assword&quot; &#123;</div><div class="line">        send &quot;$password\r&quot;</div><div class="line">    &#125;</div><div class="line">    &quot;yes/no&quot; &#123;</div><div class="line">        send &quot;yes\r&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"># NOW we can move on...</div></pre></td></tr></table></figure>
+<p>这里例子里，我们可能会遇到两种结果。第一种在连接到服务器之前会提示输入密码。<code>assword</code> 宽松的定义覆盖了两种情况，提交 <code>$password</code> 变量。<br>如果你尝试连接远程服务器，就会提示 <code>yes/no</code>,他会提交 <code>yes</code> 为你，然后等着密码提示，随后处理。</p>
+<p>这也适合不同的提示-你可以做不同风格的提示，就像下面这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">expect &#123;</div><div class="line">    &quot;&gt; &quot; &#123; &#125;</div><div class="line">    &quot;$ &quot; &#123; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>This can be built-upon more to really close the error-gap:(不知道该如何翻译更得体，索性附上原句)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">expect &#123;</div><div class="line">    &quot;&gt; &quot; &#123; &#125;</div><div class="line">    &quot;$ &quot; &#123; &#125;</div><div class="line">    &quot;assword: &quot; &#123; </div><div class="line">        send &quot;$password\n&quot; </div><div class="line">        expect &#123;</div><div class="line">            &quot;&gt; &quot; &#123; &#125;</div><div class="line">            &quot;$ &quot; &#123; &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    &quot;(yes/no)? &quot; &#123; </div><div class="line">        send &quot;yes\n&quot;</div><div class="line">        expect &#123;</div><div class="line">          &quot;&gt; &quot; &#123; &#125;</div><div class="line">          &quot;$ &quot; &#123; &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    default &#123;</div><div class="line">        send_user &quot;Login failed\n&quot;</div><div class="line">        exit</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="条件-Conditionals"><a href="#条件-Conditionals" class="headerlink" title="条件 Conditionals"></a>条件 Conditionals</h2><p><code>if</code> 语句非常简单，下面的例子足以说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if &#123; $a == &quot;soup&quot; &#125; &#123;</div><div class="line">    puts &quot;You have soup!&quot;</div><div class="line">else &#123;</div><div class="line">    puts &quot;No soup for you!&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="循环-Looping"><a href="#循环-Looping" class="headerlink" title="循环 Looping"></a>循环 Looping</h2><p>有好几种方法可以实现循环，我倾向于使用 <code>while</code> 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">set count 10;</div><div class="line">while &#123;$count &gt; 0 &#125; &#123;</div><div class="line">    puts &quot;$count\n&quot;</div><div class="line">    set count [expr $count-1];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个语句会从 10 开始向后循环，然后输出每个数字</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数可以复用代码，像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proc do_something &#123; a b c &#125; &#123;</div><div class="line">    puts &quot;You should buy some $a, $b, and $c!\n&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以这样被调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">set running [do_something &quot;apples&quot; &quot;bananas&quot; &quot;cantalopes&quot;]</div></pre></td></tr></table></figure>
+<p>输出结果是这样：<br><code>You should buy some apples, bananas, and cantalopes!&quot;</code><br>我的小脚本，供参考:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># !/usr/bin/expect -f</div><div class="line"># 同步本地目录到服务器，登陆服务器，删除 tkb 目录，修改 site 为 tkb</div><div class="line"></div><div class="line">set timeout -1</div><div class="line">set user &quot;username&quot;</div><div class="line">set server &quot;server_ip&quot;</div><div class="line">spawn /usr/bin/scp -r site $user@$server:/usr/share/nginx/html</div><div class="line">expect eof</div><div class="line">spawn ssh $user@$server</div><div class="line">expect &quot;*&quot;</div><div class="line">send &quot;cd /usr/share/nginx/html\r&quot;</div><div class="line">send &quot;rm -rf tkb\r&quot;</div><div class="line">send &quot;mv site tkb\r&quot;</div><div class="line">interact</div></pre></td></tr></table></figure>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>上面就是 expect 脚本的一些最基本的概念。以前需要手工处理一系列动作，现在可以通过 expect 转化为执行一系列列动作的脚本。<br>本文翻译自 <a href="https://gist.github.com/Fluidbyte/6294378" target="_blank" rel="external">Basic principles of using tcl-expect scripts</a><br>详细的说明，可以参考 <a href="http://www.tcl.tk/man/expect5.31/expect.1.html" target="_blank" rel="external">expect</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/18/ajax-tutorial/" rel="next" title="Ajax Tutorial">
+                <i class="fa fa-chevron-left"></i> Ajax Tutorial
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/26/git-add-commit-push/" rel="prev" title="git 命令合三为一？">
+                git 命令合三为一？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/11/22/expect-script-concept/"
+           data-title="EXPECT 的几个基本概念" data-url="http://yoursite.com/2015/11/22/expect-script-concept/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126"
+               alt="beepony" />
+          <p class="site-author-name" itemprop="name">beepony</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/beepony" target="_blank" title="GitHub">
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ynopeeb" target="_blank" title="Twitter">
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/beepony" target="_blank" title="Weibo">
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zhihu.com/beepony" target="_blank" title="Zhihu">
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置脚本初始环境"><span class="nav-number">1.</span> <span class="nav-text">设置脚本初始环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Puts-amp-Output"><span class="nav-number">2.</span> <span class="nav-text">Puts & Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量-Variables"><span class="nav-number">3.</span> <span class="nav-text">变量 Variables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数-Arguments"><span class="nav-number">4.</span> <span class="nav-text">参数 Arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spawn-amp-Send"><span class="nav-number">5.</span> <span class="nav-text">Spawn & Send</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expect"><span class="nav-number">6.</span> <span class="nav-text">Expect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件-Conditionals"><span class="nav-number">7.</span> <span class="nav-text">条件 Conditionals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环-Looping"><span class="nav-number">8.</span> <span class="nav-text">循环 Looping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">9.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">10.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beepony</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"beepony"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,755 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="beepony, internet, reading, writing" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="介绍AJAX 不是一种新的编程语言，而是创建快速和动态页面的技术。有了它，你可以实现
+
+在不重载页面的情况下更新内容
+向服务器请求数据
+从服务器下载数据
+后台运行发送数据给服务器
+
+定义AJAX = Asynchronous JavaScript and XML，直接翻译是异步的 JavaScript 和 XML，这其实有误导的嫌疑，即使不懂 XML 也可以使用 AJAX。
+应用使用 AJAX 技">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax Tutorial">
+<meta property="og:url" content="http://yoursite.com/2015/11/18/ajax-tutorial/index.html">
+<meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
+<meta property="og:description" content="介绍AJAX 不是一种新的编程语言，而是创建快速和动态页面的技术。有了它，你可以实现
+
+在不重载页面的情况下更新内容
+向服务器请求数据
+从服务器下载数据
+后台运行发送数据给服务器
+
+定义AJAX = Asynchronous JavaScript and XML，直接翻译是异步的 JavaScript 和 XML，这其实有误导的嫌疑，即使不懂 XML 也可以使用 AJAX。
+应用使用 AJAX 技">
+<meta property="og:image" content="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/ajax.gif">
+<meta property="og:image" content="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/get-post.png">
+<meta property="og:image" content="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/setRequestHeader.png">
+<meta property="og:image" content="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/onreadystatechange.png">
+<meta property="og:updated_time" content="2016-11-22T08:42:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ajax Tutorial">
+<meta name="twitter:description" content="介绍AJAX 不是一种新的编程语言，而是创建快速和动态页面的技术。有了它，你可以实现
+
+在不重载页面的情况下更新内容
+向服务器请求数据
+从服务器下载数据
+后台运行发送数据给服务器
+
+定义AJAX = Asynchronous JavaScript and XML，直接翻译是异步的 JavaScript 和 XML，这其实有误导的嫌疑，即使不懂 XML 也可以使用 AJAX。
+应用使用 AJAX 技">
+<meta name="twitter:image" content="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/ajax.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '8120355',
+      author: 'beepony'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/11/18/ajax-tutorial/"/>
+
+
+
+
+
+  <title> Ajax Tutorial | 独立思考｜知无不言｜知识平等 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">独立思考｜知无不言｜知识平等</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/11/18/ajax-tutorial/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="beepony">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="独立思考｜知无不言｜知识平等">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="独立思考｜知无不言｜知识平等" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ajax Tutorial
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-18T13:59:25+08:00">
+                2015-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2015/11/18/ajax-tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/18/ajax-tutorial/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>AJAX 不是一种新的编程语言，而是创建快速和动态页面的技术。有了它，你可以实现</p>
+<ul>
+<li>在不重载页面的情况下更新内容</li>
+<li>向服务器请求数据</li>
+<li>从服务器下载数据</li>
+<li>后台运行发送数据给服务器</li>
+</ul>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AJAX = Asynchronous JavaScript and XML，直接翻译是异步的 JavaScript 和 XML，这其实有误导的嫌疑，即使不懂 XML 也可以使用 AJAX。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>使用 AJAX 技术的应用有：Google Maps, Gmail, Youtube, Facebook etc.</p>
+<h3 id="AJAX-工作流程"><a href="#AJAX-工作流程" class="headerlink" title="AJAX 工作流程"></a>AJAX 工作流程</h3><p><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/ajax.gif" alt="ajax"></p>
+<h3 id="AJAX-基于标准的互联网协议"><a href="#AJAX-基于标准的互联网协议" class="headerlink" title="AJAX 基于标准的互联网协议"></a>AJAX 基于标准的互联网协议</h3><p>AJAX 基于互联网协议，主要是下面两种</p>
+<ul>
+<li>XMLHttpRequest object (to retrieve data from a web server)</li>
+<li>JavaScript/DOM (to display/use the data)</li>
+</ul>
+<p>AJAX 2005 年因为 Google Suggest 开始流行。当你在搜索框里输入时，JavaScript 就已经开始发送数据到服务器，服务器根据输入返回一个建议列表。</p>
+<h3 id="XMLHttpRequest-object"><a href="#XMLHttpRequest-object" class="headerlink" title="XMLHttpRequest object"></a>XMLHttpRequest object</h3><p>XMLHttpRequest object 是 AJAX 是基础。所有现代的浏览器都支持 XMLHttpRequest object，用它来跟服务器交换数据。</p>
+<p>创建 XMLHttpRequest object<br><code>xhr = new XMLHttpRequest();</code></p>
+<h2 id="AJAX-发送请求"><a href="#AJAX-发送请求" class="headerlink" title="AJAX 发送请求"></a>AJAX 发送请求</h2><p>我们使用 XMLHttpRequest 对象的 open() 和 send() 方法来发送请求：</p>
+<p>GET</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xhttp.open(&quot;GET&quot;, &quot;ajax_info.txt&quot;, true);</div><div class="line">xhttp.send();</div></pre></td></tr></table></figure>
+<p>POST</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xhttp.open(&quot;POST&quot;, &quot;demo_post.asp&quot;, true);</div><div class="line">xhttp.send();</div></pre></td></tr></table></figure>
+<p><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/get-post.png" alt="get-post"></p>
+<p>加上头信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">xhttp.open(&quot;POST&quot;, &quot;ajax_test.asp&quot;, true);</div><div class="line">xhttp.setRequestHeader(&quot;Content-type&quot;, &quot;application/x-www-form-urlencoded&quot;);</div><div class="line">xhttp.send(&quot;fname=Henry&amp;lname=Ford&quot;);</div></pre></td></tr></table></figure>
+<p><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/setRequestHeader.png" alt="setRequestHeader"></p>
+<p>上面定义清晰的说明了 AJAX 是异步的，所以 open() 的第三个参数指定为 true。能异步执行，对开发者来说实在是一件大好事，我们都知道服务端执行程序一般都非常耗时，在没有 AJAX 之前许多操作都有可能导致服务端挂起或者停止。有了 AJAX 之后，JavaScript 再有不用一直等待服务端的响应了</p>
+<ul>
+<li>可以在等待服务端响应的时候同时执行脚本</li>
+<li>可以在响应准备好时，开始处理响应。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">xhttp.onreadystatechange = function() &#123;</div><div class="line">  if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">    document.getElementById(&quot;demo&quot;).innerHTML = xhttp.responseText;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">xhttp.open(&quot;GET&quot;, &quot;ajax_info.txt&quot;, true);</div><div class="line">xhttp.send();</div></pre></td></tr></table></figure>
+<h2 id="服务端响应"><a href="#服务端响应" class="headerlink" title="服务端响应"></a>服务端响应</h2><p>XMLHttpRequest 对象的 responseText(as String) 和 responseXML(as XML) 属性可以获取服务端响应。</p>
+<p>responseText<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">服务端直接响应 String，可以直接使用</div><div class="line">document.getElementById(&quot;demo&quot;).innerHTML = xhttp.responseText;</div></pre></td></tr></table></figure></p>
+<p>responseXML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">从服务端请求 cd_catalog.xml 并且解析响应</div><div class="line">xmlDoc = xhttp.responseXML;</div><div class="line">txt = &quot;&quot;;</div><div class="line">x = xmlDoc.getElementsByTagName(&quot;ARTIST&quot;);</div><div class="line">for (i = 0; i &lt; x.length; i++) &#123;</div><div class="line">  txt += x[i].childNodes[0].nodeValue + &quot;&lt;br&gt;&quot;;</div><div class="line">  &#125;</div><div class="line">document.getElementById(&quot;demo&quot;).innerHTML = txt;</div></pre></td></tr></table></figure>
+<h2 id="AJAX-的-onreadystatechange-事件"><a href="#AJAX-的-onreadystatechange-事件" class="headerlink" title="AJAX 的 onreadystatechange 事件"></a>AJAX 的 onreadystatechange 事件</h2><p>你如果仔细观察的话，我们在上面已经用了一些事件。比如在响应准备好时 <code>onreadystatechange</code>。当请求发啊送之后，我们想基于服务端的响应执行一些动作。当每一次 <code>readyState</code> 改变的时候，就会触发  <code>onreadystatechange</code>  事件。<code>readyState</code> 代表了 XMLHttpRequest 的状态。下<br>图是 XMLHttpRequest 对象的一些重要属性<br><img src="http://7ktu98.com1.z0.glb.clouddn.com/blog/img/onreadystatechange.png" alt="onreadystatechange"><br>在这张图里，我们能看出当 <code>readyState</code> 是 4 和 <code>status</code> 是 200 的时候，响应就准备好了，下面用代码举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function loadDoc() &#123;</div><div class="line">  var xhttp = new XMLHttpRequest();</div><div class="line">  xhttp.onreadystatechange = function() &#123;</div><div class="line">  if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">    document.getElementById(&quot;demo&quot;).innerHTML = xhttp.responseText;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="AJAX-和-PHP-脚本的交互"><a href="#AJAX-和-PHP-脚本的交互" class="headerlink" title="AJAX 和 PHP 脚本的交互"></a>AJAX 和 PHP 脚本的交互</h2><p>下面通过输入一些字符，演示了一个 Web 页面如何跟服务端交互的，源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;h3&gt;Start typing a name in the input field below:&lt;/h3&gt;</div><div class="line"></div><div class="line">&lt;form action=&quot;&quot;&gt;</div><div class="line">First name: &lt;input type=&quot;text&quot; id=&quot;txt1&quot; onkeyup=&quot;showHint(this.value)&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line"></div><div class="line">&lt;p&gt;Suggestions: &lt;span id=&quot;txtHint&quot;&gt;&lt;/span&gt;&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">function showHint(str) &#123;</div><div class="line">  var xhttp;</div><div class="line">  if (str.length == 0) &#123;</div><div class="line">    document.getElementById(&quot;txtHint&quot;).innerHTML = &quot;&quot;;</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line">  xhttp = new XMLHttpRequest();</div><div class="line">  xhttp.onreadystatechange = function() &#123;</div><div class="line">    if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">      document.getElementById(&quot;txtHint&quot;).innerHTML = xhttp.responseText;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  xhttp.open(&quot;GET&quot;, &quot;gethint.php?q=&quot;+str, true);</div><div class="line">  xhttp.send();   </div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>PHP 文件 gethint.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">// Array with names</div><div class="line">$a[] = &quot;Anna&quot;;</div><div class="line">$a[] = &quot;Brittany&quot;;</div><div class="line">$a[] = &quot;Cinderella&quot;;</div><div class="line">$a[] = &quot;Diana&quot;;</div><div class="line">$a[] = &quot;Eva&quot;;</div><div class="line">$a[] = &quot;Fiona&quot;;</div><div class="line">$a[] = &quot;Gunda&quot;;</div><div class="line">$a[] = &quot;Hege&quot;;</div><div class="line">$a[] = &quot;Inga&quot;;</div><div class="line">$a[] = &quot;Johanna&quot;;</div><div class="line">$a[] = &quot;Kitty&quot;;</div><div class="line">$a[] = &quot;Linda&quot;;</div><div class="line">$a[] = &quot;Nina&quot;;</div><div class="line">$a[] = &quot;Ophelia&quot;;</div><div class="line">$a[] = &quot;Petunia&quot;;</div><div class="line">$a[] = &quot;Amanda&quot;;</div><div class="line">$a[] = &quot;Raquel&quot;;</div><div class="line">$a[] = &quot;Cindy&quot;;</div><div class="line">$a[] = &quot;Doris&quot;;</div><div class="line">$a[] = &quot;Eve&quot;;</div><div class="line">$a[] = &quot;Evita&quot;;</div><div class="line">$a[] = &quot;Sunniva&quot;;</div><div class="line">$a[] = &quot;Tove&quot;;</div><div class="line">$a[] = &quot;Unni&quot;;</div><div class="line">$a[] = &quot;Violet&quot;;</div><div class="line">$a[] = &quot;Liza&quot;;</div><div class="line">$a[] = &quot;Elizabeth&quot;;</div><div class="line">$a[] = &quot;Ellen&quot;;</div><div class="line">$a[] = &quot;Wenche&quot;;</div><div class="line">$a[] = &quot;Vicky&quot;;</div><div class="line"></div><div class="line">// get the q parameter from URL</div><div class="line">$q = $_REQUEST[&quot;q&quot;];</div><div class="line"></div><div class="line">$hint = &quot;&quot;;</div><div class="line"></div><div class="line">// lookup all hints from array if $q is different from &quot;&quot;</div><div class="line">if ($q !== &quot;&quot;) &#123;</div><div class="line">    $q = strtolower($q);</div><div class="line">    $len=strlen($q);</div><div class="line">    foreach($a as $name) &#123;</div><div class="line">        if (stristr($q, substr($name, 0, $len))) &#123;</div><div class="line">            if ($hint === &quot;&quot;) &#123;</div><div class="line">                $hint = $name;</div><div class="line">            &#125; else &#123;</div><div class="line">                $hint .= &quot;, $name&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Output &quot;no suggestion&quot; if no hint was found or output correct values</div><div class="line">echo $hint === &quot;&quot; ? &quot;no suggestion&quot; : $hint;</div></pre></td></tr></table></figure>
+<p>##AJAX 和 数据库的交互<br>下面通过一个例子演示了 Web 页面如何通过 AJAX 从数据库获取数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function showCustomer(str) &#123;</div><div class="line">  var xhttp;</div><div class="line">  if (str == &quot;&quot;) &#123;</div><div class="line">    document.getElementById(&quot;txtHint&quot;).innerHTML = &quot;&quot;;</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line">  xhttp = new XMLHttpRequest();</div><div class="line">  xhttp.onreadystatechange = function() &#123;</div><div class="line">    if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) &#123;</div><div class="line">    document.getElementById(&quot;txtHint&quot;).innerHTML = xhttp.responseText;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  xhttp.open(&quot;GET&quot;, &quot;getcustomer.asp?q=&quot;+str, true);</div><div class="line">  xhttp.send();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>getcustomer.asp 从数据库中查询信息，并且返回给 HTML 页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">response.expires=-1</div><div class="line">sql=&quot;SELECT * FROM CUSTOMERS WHERE CUSTOMERID=&quot;</div><div class="line">sql=sql &amp; &quot;&apos;&quot; &amp; request.querystring(&quot;q&quot;) &amp; &quot;&apos;&quot;</div><div class="line"></div><div class="line">set conn=Server.CreateObject(&quot;ADODB.Connection&quot;)</div><div class="line">conn.Provider=&quot;Microsoft.Jet.OLEDB.4.0&quot;</div><div class="line">conn.Open(Server.Mappath(&quot;/datafolder/northwind.mdb&quot;))</div><div class="line">set rs=Server.CreateObject(&quot;ADODB.recordset&quot;)</div><div class="line">rs.Open sql,conn</div><div class="line"></div><div class="line">response.write(&quot;&lt;table&gt;&quot;)</div><div class="line">do until rs.EOF</div><div class="line">  for each x in rs.Fields</div><div class="line">    response.write(&quot;&lt;tr&gt;&lt;td&gt;&lt;b&gt;&quot; &amp; x.name &amp; &quot;&lt;/b&gt;&lt;/td&gt;&quot;)</div><div class="line">    response.write(&quot;&lt;td&gt;&quot; &amp; x.value &amp; &quot;&lt;/td&gt;&lt;/tr&gt;&quot;)</div><div class="line">  next</div><div class="line">  rs.MoveNext</div><div class="line">loop</div><div class="line">response.write(&quot;&lt;/table&gt;&quot;)</div><div class="line">%&gt;</div></pre></td></tr></table></figure>
+<p>参考文档：<a href="http://www.w3schools.com/ajax/default.asp" target="_blank" rel="external">w3cshools</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/01/how-to-build-enterprise/" rel="next" title="[YC12]如何做企业级的产品">
+                <i class="fa fa-chevron-left"></i> [YC12]如何做企业级的产品
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/22/expect-script-concept/" rel="prev" title="EXPECT 的几个基本概念">
+                EXPECT 的几个基本概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/11/18/ajax-tutorial/"
+           data-title="Ajax Tutorial" data-url="http://yoursite.com/2015/11/18/ajax-tutorial/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126"
+               alt="beepony" />
+          <p class="site-author-name" itemprop="name">beepony</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/beepony" target="_blank" title="GitHub">
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ynopeeb" target="_blank" title="Twitter">
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/beepony" target="_blank" title="Weibo">
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zhihu.com/beepony" target="_blank" title="Zhihu">
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">1.2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AJAX-工作流程"><span class="nav-number">1.3.</span> <span class="nav-text">AJAX 工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AJAX-基于标准的互联网协议"><span class="nav-number">1.4.</span> <span class="nav-text">AJAX 基于标准的互联网协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XMLHttpRequest-object"><span class="nav-number">1.5.</span> <span class="nav-text">XMLHttpRequest object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX-发送请求"><span class="nav-number">2.</span> <span class="nav-text">AJAX 发送请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端响应"><span class="nav-number">3.</span> <span class="nav-text">服务端响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX-的-onreadystatechange-事件"><span class="nav-number">4.</span> <span class="nav-text">AJAX 的 onreadystatechange 事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX-和-PHP-脚本的交互"><span class="nav-number">5.</span> <span class="nav-text">AJAX 和 PHP 脚本的交互</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beepony</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"beepony"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

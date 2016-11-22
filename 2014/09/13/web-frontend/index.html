@@ -1,0 +1,715 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="beepony, internet, reading, writing" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在网站获取 HTML 的时候，花费的时间不到总响应时间的 20%，80% 的时间花在了其他组件，例如，图片、JS、CSS、脚本等。在进行时，关键是剖析当前的性能，找到在那里可以获的最大的改进。所以，这种情况下我们应该关注前端性能。
+1.减少 HTTP 请求在性能的黄金法则里，80% 以上的时间都花在了 HTML 文档所引用的组件进行的请求上。因此，改善响应时间的最简单途径就是减少组件的数量，从而减">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网站前端优化">
+<meta property="og:url" content="http://yoursite.com/2014/09/13/web-frontend/index.html">
+<meta property="og:site_name" content="独立思考｜知无不言｜知识平等">
+<meta property="og:description" content="在网站获取 HTML 的时候，花费的时间不到总响应时间的 20%，80% 的时间花在了其他组件，例如，图片、JS、CSS、脚本等。在进行时，关键是剖析当前的性能，找到在那里可以获的最大的改进。所以，这种情况下我们应该关注前端性能。
+1.减少 HTTP 请求在性能的黄金法则里，80% 以上的时间都花在了 HTML 文档所引用的组件进行的请求上。因此，改善响应时间的最简单途径就是减少组件的数量，从而减">
+<meta property="og:updated_time" content="2016-01-24T14:42:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网站前端优化">
+<meta name="twitter:description" content="在网站获取 HTML 的时候，花费的时间不到总响应时间的 20%，80% 的时间花在了其他组件，例如，图片、JS、CSS、脚本等。在进行时，关键是剖析当前的性能，找到在那里可以获的最大的改进。所以，这种情况下我们应该关注前端性能。
+1.减少 HTTP 请求在性能的黄金法则里，80% 以上的时间都花在了 HTML 文档所引用的组件进行的请求上。因此，改善响应时间的最简单途径就是减少组件的数量，从而减">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '8120355',
+      author: 'beepony'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/09/13/web-frontend/"/>
+
+
+
+
+
+  <title> 网站前端优化 | 独立思考｜知无不言｜知识平等 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">独立思考｜知无不言｜知识平等</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/09/13/web-frontend/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="beepony">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="独立思考｜知无不言｜知识平等">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="独立思考｜知无不言｜知识平等" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                网站前端优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-13T15:07:00+08:00">
+                2014-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2014/09/13/web-frontend/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/13/web-frontend/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在网站获取 HTML 的时候，花费的时间不到总响应时间的 20%，80% 的时间花在了其他组件，例如，图片、JS、CSS、脚本等。在进行时，关键是剖析当前的性能，找到在那里可以获的最大的改进。所以，这种情况下我们应该关注前端性能。</p>
+<h2 id="1-减少-HTTP-请求"><a href="#1-减少-HTTP-请求" class="headerlink" title="1.减少 HTTP 请求"></a>1.减少 HTTP 请求</h2><p>在性能的黄金法则里，80% 以上的时间都花在了 HTML 文档所引用的组件进行的请求上。因此，改善响应时间的最简单途径就是减少组件的数量，从而减少 HTTP 请求。包括：图片地图、CSS Sprites、内联图片和脚本、样式表的合并。</p>
+<p>图片地图、CSS Sprites 通过合并图片来减少组件的数量，从而减少 HTTP 请求<br>内联图片则通过 data:URL 可以在 Web 页面包含图片而不需要额外的 HTTP 请求。由于内联在页面中，在跨越页面的时候不会缓存，而且不要内联公司 Logo,会使页面变大。<br>合并脚本和样式表，尽管这跟软件开发追寻的方式和模块化的原则不同。解决的办法就是遵循编译型的文件，保持 JS 的模块化。</p>
+<h2 id="2-使用-CDN"><a href="#2-使用-CDN" class="headerlink" title="2.使用 CDN"></a>2.使用 CDN</h2><p>通过分布在不同地理位置的 Web 服务器，更有效的向用户发布内容。<br>可以提升性能，缩短时间，减少开销，缺点是响应时间可能会受到其他网站影响，无法修改 HTTP 响应头。</p>
+<h2 id="3-添加-Expires-头"><a href="#3-添加-Expires-头" class="headerlink" title="3.添加 Expires 头"></a>3.添加 Expires 头</h2><p>浏览器使用缓存来减少 HTTP 请求的数量，并减少 HTTP 响应的大小，是 Web 页面加载的更快。Web 服务器使用 Expires 头告诉 Web 客户端可以使用组件的副本，知道指定的时间为止。简言<br>之：在这个时间之后，资源失效。</p>
+<p>Exires 很好的改善了性能，但是他要求服务器和客户端的时钟严格同步，而且，过期日期也需要经常检查，并且一旦这天到来了，还需要在服务器的配置中提供一个新的日期。</p>
+<p><strong>有没有更好的方式呢？</strong><br>当然，那就是 Cache-Control 使用 max-age 指定资源被缓存多久。以秒为单位，少于 max-age 则使用缓存。两者都用的时候，Cache-control 优先。</p>
+<p>Expires 很多的利用缓存，减少了 HTTP 请求，有个问题，当资源改变时，如何更新呢？Mark Nottingham 在 Caching Tutorial for Web Authors and Webmasters 中给的建议是：</p>
+<blockquote>
+<p>最有效的解决方案是修改其所有的链接，这样，全新的请求就会从原始服务器上下载最新的内容</p>
+</blockquote>
+<p>在雅虎，是将所有组件的文件名使用变量。更新的时候，只需要在某个地方修改变量，并且将版本号嵌在组件中，这样不仅可以改变文件名，还能调试时更容易准确找到源代码的文件。</p>
+<h2 id="4-Gzip-压缩组件"><a href="#4-Gzip-压缩组件" class="headerlink" title="4.Gzip 压缩组件"></a>4.Gzip 压缩组件</h2><p>Gzip 是通过减小响应包得大小来减少响应时间。Web 客户端是通过 HTTP 请求中的 Accept-Encoding 头来标示对压缩的支持。<br>request:Accept-Encoding:gzip, deflate<br>response:Content-Encoding: gzip</p>
+<h2 id="5-将样式表放在顶部"><a href="#5-将样式表放在顶部" class="headerlink" title="5. 将样式表放在顶部"></a>5. 将样式表放在顶部</h2><p>讲样式表放在页面的底部会阻碍页面逐步呈现，可以通过将文档转移到文档的 HEAD 中解决这个问题。</p>
+<h2 id="6-将脚本放在底部"><a href="#6-将脚本放在底部" class="headerlink" title="6. 将脚本放在底部"></a>6. 将脚本放在底部</h2><p>脚本，比如 javascript 会引起类似的问题，但解决方案恰好相反，将脚本从页面顶部移到底部。</p>
+<p>使用样式表，页面逐逐步呈现会被阻止，知道所有的样式表下载完成。这就是最好将样式表移到文档的 HEAD 中的原因，这样就会先下载他们而不会阻止页面呈现。使用脚本时，对于所有位于脚本一下的内容，逐步呈现都会被阻塞了。将脚本放在页面越靠下的地方，意味着越多的内容能够逐步逐步呈现</p>
+<p>对响应时间影响最大的就是页面组件的数量。浏览器是并行的执行 HTTP 请求， HTTP 1.1 规范建议浏览器从每个主机并行下载两个组件。很多 Web 页面需要从一个主机下载所有的组件，所以你看到的 HTTP 请求是呈阶梯状的。</p>
+<p>并行下载脚本是被禁用的，使用了不同的主机名，浏览器也不会启动其他的下载。这是为了保证脚本能够按照正确的顺序执行。</p>
+<h2 id="7-避免-CSS-表达式"><a href="#7-避免-CSS-表达式" class="headerlink" title="7. 避免 CSS 表达式"></a>7. 避免 CSS 表达式</h2><h2 id="8-使用外部-Javascript-和-CSS"><a href="#8-使用外部-Javascript-和-CSS" class="headerlink" title="8. 使用外部 Javascript 和 CSS"></a>8. 使用外部 Javascript 和 CSS</h2><p>该使用内联还是外部的 JS,CSS 要从三个方面考虑，页面查看、空缓存 or 完整缓存和组件重用</p>
+<p>页面查看越多，使用外部效果越好<br>访问页面缓存的比例越大，外部效果越好<br>如果每个页面都用了相同的 JS 和 CSS，页面组件重用率越高，使用外部效果越好</p>
+<h2 id="9-减少-DNS-查找"><a href="#9-减少-DNS-查找" class="headerlink" title="9. 减少 DNS 查找"></a>9. 减少 DNS 查找</h2><p>DNS 查找可以缓存起来提高性能。可以缓存在 ISP 或者局域网中一台特殊的缓存服务器上，但我们这里要探索的时操作系统的缓存。</p>
+<p>服务器可以表明记录可以被缓存多久。查找返回的 DNS 记录包含了一个存活时间，该值告诉客户端可以对该记录缓存多久。</p>
+<h2 id="10-精简-JavaScript"><a href="#10-精简-JavaScript" class="headerlink" title="10. 精简 JavaScript"></a>10. 精简 JavaScript</h2><p>精简是从代码中一出不必要的字符以减少其大小，进而改善压缩时间，比如删除注释和不必要的空白字符。<br>压缩，使用 gzip 压缩产生的影响最大，但精简能够进一步减小文件大小。<br>精简 CSS，合并相同的类，移除不必要的类等。</p>
+<h2 id="11-避免重定向"><a href="#11-避免重定向" class="headerlink" title="11. 避免重定向"></a>11. 避免重定向</h2><p>重定向用户将用户从一个 URL 重新路由到另外一个 URL。重定向有很多种，301 和 302 是最常用的两种。重定向会使你的页面变慢。</p>
+<h2 id="12-移除重复脚本"><a href="#12-移除重复脚本" class="headerlink" title="12. 移除重复脚本"></a>12. 移除重复脚本</h2><p>导致重复脚本的两个主要因素——团队大小和脚本数量。<br>重复脚本损伤性能的方式有两个——不必要的 HTTP 请求和执行 JavaScript 所浪费的时间。<br>避免重复脚本的一种方法是，在你的模板系统中实现一个脚本管理模块。确保脚本只被包含一次，另外建议使用 getVersion ，这个函数会查找脚本，追加对应的版本号，上面我们介绍了可以设置一个长久的 Expires 头，一旦文件内容发生变化，文件名也必须改变，可以通过像组件中添加版本号来实现。</p>
+<h2 id="13-配置-ETag"><a href="#13-配置-ETag" class="headerlink" title="13. 配置 ETag"></a>13. 配置 ETag</h2><p>ETag （Entity Tag）是 Web 服务器和浏览器用于确认缓存组件的有效性的一种机制。</p>
+<p>ETag 用于检测浏览器缓存中得组件和原始服务器上的组件是否匹配。ETag 是一个字符串，用来唯一标识一个组件。ETag 的加入提供了更加灵活的机制。跟请求头中的 If-Non-Match 搭配使用。如果ETag 是匹配的，就会返回 304 Not Midified</p>
+<p>对于网站服务器集群来说，ETag 不同的服务器值不匹配。例如：你的集群中有 n 台服务器，下一次用户缓存的 ETag 能和服务器匹配的概率是 1/n。而且它还降低了代理缓存的效率。当 ETag 不匹配时，请求会被发送到原始的服务器，原始服务器到代理，再到用户，会产生两个 200 响应。</p>
+<p>所以在要使用 ETag 必须恰当的配置才能发挥最佳效率。</p>
+<h2 id="14-使-Ajax-可缓存"><a href="#14-使-Ajax-可缓存" class="headerlink" title="14. 使 Ajax 可缓存"></a>14. 使 Ajax 可缓存</h2><p>Ajax 表示「异步的 JavaScript 和 XML」,其中 XML 最著名的还是 JSON。Ajax 不是一个单独的、需要许可证的技术，而是一组技术，包括 JavaScript、CSS、DOM 和异步数据获取。其目的是为了突破 Web 本质的开始-停止交互方式。向用户显示一个白屏然后重绘整个页面不是一种好的用户体验。而 Ajax 在 UI 和 Web 服务器之间插入一层。这个 Ajax 层位于客户端，与 Web 服务器进行交互以获取请求的信息，并与表现层交互，仅更新必要的组件。它将 Web 体验从「浏览页面」转变为「与应用程序交互」。</p>
+<p>异步不等于实时（Aynchronous = Instantaneoud?）<br>Ajax 一个明显的优点就是向用户提供了实时的反馈，因为他异步的从后端请求信息。</p>
+<p>用户是否需要等待的关键因素在于 Ajax 的请求是被动的还是主动的。被动请求是为了将来使用而预先发起的，例如基于 Web 的邮件客户端，可能会被动请求在用户真正需要之前下载用户的地址簿。主动请求是基于用户当前操作而发起的。例如查找所有用户搜索匹配的邮件。</p>
+<p>确保 Ajax 请求遵循性能指导，尤其应该具有长久的 Expires.</p>
+<p>注：此文是阅读《High Performance Web Sites》阅读笔记</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/07/12/dns/" rel="next" title="DNS 解析调度过程">
+                <i class="fa fa-chevron-left"></i> DNS 解析调度过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/10/03/shell-summary/" rel="prev" title="SHELL 基本应用">
+                SHELL 基本应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/09/13/web-frontend/"
+           data-title="网站前端优化" data-url="http://yoursite.com/2014/09/13/web-frontend/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126"
+               alt="beepony" />
+          <p class="site-author-name" itemprop="name">beepony</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/beepony" target="_blank" title="GitHub">
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ynopeeb" target="_blank" title="Twitter">
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/beepony" target="_blank" title="Weibo">
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zhihu.com/beepony" target="_blank" title="Zhihu">
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-减少-HTTP-请求"><span class="nav-number">1.</span> <span class="nav-text">1.减少 HTTP 请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用-CDN"><span class="nav-number">2.</span> <span class="nav-text">2.使用 CDN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-添加-Expires-头"><span class="nav-number">3.</span> <span class="nav-text">3.添加 Expires 头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Gzip-压缩组件"><span class="nav-number">4.</span> <span class="nav-text">4.Gzip 压缩组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-将样式表放在顶部"><span class="nav-number">5.</span> <span class="nav-text">5. 将样式表放在顶部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-将脚本放在底部"><span class="nav-number">6.</span> <span class="nav-text">6. 将脚本放在底部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-避免-CSS-表达式"><span class="nav-number">7.</span> <span class="nav-text">7. 避免 CSS 表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-使用外部-Javascript-和-CSS"><span class="nav-number">8.</span> <span class="nav-text">8. 使用外部 Javascript 和 CSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-减少-DNS-查找"><span class="nav-number">9.</span> <span class="nav-text">9. 减少 DNS 查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-精简-JavaScript"><span class="nav-number">10.</span> <span class="nav-text">10. 精简 JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-避免重定向"><span class="nav-number">11.</span> <span class="nav-text">11. 避免重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-移除重复脚本"><span class="nav-number">12.</span> <span class="nav-text">12. 移除重复脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-配置-ETag"><span class="nav-number">13.</span> <span class="nav-text">13. 配置 ETag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-使-Ajax-可缓存"><span class="nav-number">14.</span> <span class="nav-text">14. 使 Ajax 可缓存</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beepony</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"beepony"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
