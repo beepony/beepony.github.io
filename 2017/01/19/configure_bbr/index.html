@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Zero to One notes," />
+  <meta name="keywords" content="beepony, internet, reading, writing" />
 
 
 
@@ -84,19 +84,37 @@
 
 
 
-<meta name="description" content="What important truth do very few people agree with you on ?
-Good answers are close as we can come to looking into the  future.">
+<meta name="description" content="环境：
+
+Linode/Ubuntu 14.04
+
+
+下载 4.9 内核：wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb
+
+安装内核：dpkg -i linux-image-4.9.7*.deb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Zero to One-ch01-The challenge of the future">
-<meta property="og:url" content="http://beepony.com/2016/11/26/Zero-to-One-01-The-challenge-of-the-future/index.html">
+<meta property="og:title" content="如何升级内核，开启 BBR 加速">
+<meta property="og:url" content="http://beepony.com/2017/01/19/configure_bbr/index.html">
 <meta property="og:site_name" content="Beepony's Posts">
-<meta property="og:description" content="What important truth do very few people agree with you on ?
-Good answers are close as we can come to looking into the  future.">
-<meta property="og:updated_time" content="2017-02-23T06:30:02.000Z">
+<meta property="og:description" content="环境：
+
+Linode/Ubuntu 14.04
+
+
+下载 4.9 内核：wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb
+
+安装内核：dpkg -i linux-image-4.9.7*.deb">
+<meta property="og:updated_time" content="2017-02-23T09:29:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zero to One-ch01-The challenge of the future">
-<meta name="twitter:description" content="What important truth do very few people agree with you on ?
-Good answers are close as we can come to looking into the  future.">
+<meta name="twitter:title" content="如何升级内核，开启 BBR 加速">
+<meta name="twitter:description" content="环境：
+
+Linode/Ubuntu 14.04
+
+
+下载 4.9 内核：wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb
+
+安装内核：dpkg -i linux-image-4.9.7*.deb">
 
 
 
@@ -124,13 +142,13 @@ Good answers are close as we can come to looking into the  future.">
 
 
 
-  <link rel="canonical" href="http://beepony.com/2016/11/26/Zero-to-One-01-The-challenge-of-the-future/"/>
+  <link rel="canonical" href="http://beepony.com/2017/01/19/configure_bbr/"/>
 
 
 
 
 
-  <title> Zero to One-ch01-The challenge of the future | Beepony's Posts </title>
+  <title> 如何升级内核，开启 BBR 加速 | Beepony's Posts </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +279,7 @@ Good answers are close as we can come to looking into the  future.">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://beepony.com/2016/11/26/Zero-to-One-01-The-challenge-of-the-future/">
+  <link itemprop="mainEntityOfPage" href="http://beepony.com/2017/01/19/configure_bbr/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="beepony">
@@ -285,7 +303,7 @@ Good answers are close as we can come to looking into the  future.">
             
             
               
-                Zero to One-ch01-The challenge of the future
+                如何升级内核，开启 BBR 加速
               
             
           </h1>
@@ -298,8 +316,8 @@ Good answers are close as we can come to looking into the  future.">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-26T22:58:20+08:00">
-                2016-11-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-19T22:00:00+08:00">
+                2017-01-19
               </time>
             
 
@@ -314,8 +332,8 @@ Good answers are close as we can come to looking into the  future.">
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
-                <a href="/2016/11/26/Zero-to-One-01-The-challenge-of-the-future/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/26/Zero-to-One-01-The-challenge-of-the-future/" itemprop="commentCount"></span>
+                <a href="/2017/01/19/configure_bbr/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/19/configure_bbr/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -341,25 +359,28 @@ Good answers are close as we can come to looking into the  future.">
       
 
       
-        <p>What important truth do very few people agree with you on ?</p>
-<p>Good answers are close as we can come to looking into the  future.</p>
-<a id="more"></a>
-<h2 id="The-Future-of-Progress"><a href="#The-Future-of-Progress" class="headerlink" title="The Future of Progress"></a>The Future of Progress</h2><p>No one can predict the future, but we know two things:</p>
+        <p>环境：</p>
 <ul>
-<li>it’s different from today</li>
-<li>it rooted in today’s world</li>
+<li>Linode/Ubuntu 14.04</li>
 </ul>
-<p>The future of progress can one of two forms.</p>
-<h3 id="Horizontal-or-extensive-progress"><a href="#Horizontal-or-extensive-progress" class="headerlink" title="Horizontal or extensive progress"></a>Horizontal or extensive progress</h3><p>It means copying things that work - going from 1 to n.</p>
-<p>Take one typewriter and build 100</p>
-<p>The single word for horizontal progress is <strong>Globalization</strong>. Taking things that work somewhere and making them work everywhere. China is the paradigmatic example of globalization</p>
-<h3 id="Vertical-or-intensive-progress"><a href="#Vertical-or-intensive-progress" class="headerlink" title="Vertical or intensive progress"></a>Vertical or intensive progress</h3><p>It means doing new things from 0 to 1</p>
-<p>Take one typewriter and build a word processor</p>
-<p>The single word for vertical progress is <strong>technology</strong>. Silicon Valley is example of technology. But echnology should’t be limited to computer. <em>Any new and better way of doing things is technology</em></p>
-<h2 id="Startup-Thinking"><a href="#Startup-Thinking" class="headerlink" title="Startup Thinking"></a>Startup Thinking</h2><p>Why new technology tends to come from new startups?</p>
-<p>it’s hard to develop new things in big organization. Bureaucratic hierarchies (官僚主义) move slowly, entrenched (既得利益者) interests shy away from risk           .</p>
-<p>it’s also hard to do it by yourself.Startups operate on  the principle that you need to work with other people to get stuff done.</p>
-<p>Startups’s most important strength is <strong>new thinking</strong>, <em>question recevied ideas and rethink business from scratch.</em></p>
+<ol>
+<li><p>下载 4.9 内核：wget <a href="http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb" target="_blank" rel="external">http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb</a></p>
+</li>
+<li><p>安装内核：dpkg -i linux-image-4.9.7*.deb</p>
+</li>
+<li><ul>
+<li>dpkg -l|grep linux-image </li>
+<li>apt-get purge 旧内核</li>
+</ul>
+</li>
+<li><ul>
+<li>update-grub or update grub2</li>
+<li>reboot</li>
+</ul>
+</li>
+<li>linode edit 里一定要选择 grub 或者 grub2 启动，根据第四步的 update 来选择</li>
+<li>开启 bbr :<a href="https://github.com/iMeiji/shadowsocks_install/wiki/%E5%BC%80%E5%90%AFTCP-BBR%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95" target="_blank" rel="external">https://github.com/iMeiji/shadowsocks_install/wiki/%E5%BC%80%E5%90%AFTCP-BBR%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95</a></li>
+</ol>
 
       
     </div>
@@ -381,19 +402,13 @@ Good answers are close as we can come to looking into the  future.">
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Zero-to-One-notes/" rel="tag"># Zero to One notes</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/23/JavaScript-for-beginner-in-1-hour/" rel="next" title="JavaScript for beginner in 1 hour">
-                <i class="fa fa-chevron-left"></i> JavaScript for beginner in 1 hour
+              <a href="/2016/11/26/Zero-to-One-01-The-challenge-of-the-future/" rel="next" title="Zero to One-ch01-The challenge of the future">
+                <i class="fa fa-chevron-left"></i> Zero to One-ch01-The challenge of the future
               </a>
             
           </div>
@@ -401,10 +416,6 @@ Good answers are close as we can come to looking into the  future.">
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/19/configure_bbr/" rel="prev" title="如何升级内核，开启 BBR 加速">
-                如何升级内核，开启 BBR 加速 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -430,8 +441,8 @@ Good answers are close as we can come to looking into the  future.">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/26/Zero-to-One-01-The-challenge-of-the-future/"
-           data-title="Zero to One-ch01-The challenge of the future" data-url="http://beepony.com/2016/11/26/Zero-to-One-01-The-challenge-of-the-future/">
+      <div class="ds-thread" data-thread-key="2017/01/19/configure_bbr/"
+           data-title="如何升级内核，开启 BBR 加速" data-url="http://beepony.com/2017/01/19/configure_bbr/">
       </div>
     
   </div>
@@ -455,17 +466,8 @@ Good answers are close as we can come to looking into the  future.">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://beepony.b0.upaiyun.com/avatar.png!/both/126x126"
@@ -541,22 +543,6 @@ Good answers are close as we can come to looking into the  future.">
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Future-of-Progress"><span class="nav-number">1.</span> <span class="nav-text">The Future of Progress</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Horizontal-or-extensive-progress"><span class="nav-number">1.1.</span> <span class="nav-text">Horizontal or extensive progress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vertical-or-intensive-progress"><span class="nav-number">1.2.</span> <span class="nav-text">Vertical or intensive progress</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Startup-Thinking"><span class="nav-number">2.</span> <span class="nav-text">Startup Thinking</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
