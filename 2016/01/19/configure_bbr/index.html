@@ -84,22 +84,37 @@
 
 
 
-<meta name="description" content="Airbnb 的合伙人在 Medium 上发了一篇文章，讲诉刚开始融资的情况，并贴出了 5 封被投资人拒绝的邮件，希望借此鼓励创业者，在被别人拒绝的时候，也不要轻易放弃。PS. Airbnb 现在的估值高达 255 亿美元。">
+<meta name="description" content="环境：
+
+Linode/Ubuntu 14.04
+
+
+下载 4.9 内核：wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb
+
+安装内核：dpkg -i linux-image-4.9.7*.deb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我曾七次被拒绝">
-<meta property="og:url" content="http://beepony.com/2015/07/04/7rejections-airbnb/index.html">
+<meta property="og:title" content="如何升级内核，开启 BBR 加速">
+<meta property="og:url" content="http://beepony.com/2016/01/19/configure_bbr/index.html">
 <meta property="og:site_name" content="Beepony's Posts">
-<meta property="og:description" content="Airbnb 的合伙人在 Medium 上发了一篇文章，讲诉刚开始融资的情况，并贴出了 5 封被投资人拒绝的邮件，希望借此鼓励创业者，在被别人拒绝的时候，也不要轻易放弃。PS. Airbnb 现在的估值高达 255 亿美元。">
-<meta property="og:image" content="https://medium2.global.ssl.fastly.net/max/1600/1*uEdxE5GqIAhP0vhd0vq3nw.png">
-<meta property="og:image" content="https://medium2.global.ssl.fastly.net/max/1600/1*_g9QpLmOjTW9ohQA0svJSA.png">
-<meta property="og:image" content="https://medium2.global.ssl.fastly.net/max/1600/1*Qe-HqzsKSORnHSzqbEn2Ag.png">
-<meta property="og:image" content="https://medium2.global.ssl.fastly.net/max/1600/1*0kjTFkJ6GCrXFMGbBxa1Jw.png">
-<meta property="og:image" content="https://medium2.global.ssl.fastly.net/max/1600/1*aidhrIkElKeDuWESTicp-A.png">
-<meta property="og:updated_time" content="2016-11-22T11:38:58.000Z">
+<meta property="og:description" content="环境：
+
+Linode/Ubuntu 14.04
+
+
+下载 4.9 内核：wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb
+
+安装内核：dpkg -i linux-image-4.9.7*.deb">
+<meta property="og:updated_time" content="2017-02-23T09:26:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我曾七次被拒绝">
-<meta name="twitter:description" content="Airbnb 的合伙人在 Medium 上发了一篇文章，讲诉刚开始融资的情况，并贴出了 5 封被投资人拒绝的邮件，希望借此鼓励创业者，在被别人拒绝的时候，也不要轻易放弃。PS. Airbnb 现在的估值高达 255 亿美元。">
-<meta name="twitter:image" content="https://medium2.global.ssl.fastly.net/max/1600/1*uEdxE5GqIAhP0vhd0vq3nw.png">
+<meta name="twitter:title" content="如何升级内核，开启 BBR 加速">
+<meta name="twitter:description" content="环境：
+
+Linode/Ubuntu 14.04
+
+
+下载 4.9 内核：wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb
+
+安装内核：dpkg -i linux-image-4.9.7*.deb">
 
 
 
@@ -127,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://beepony.com/2015/07/04/7rejections-airbnb/"/>
+  <link rel="canonical" href="http://beepony.com/2016/01/19/configure_bbr/"/>
 
 
 
 
 
-  <title> 我曾七次被拒绝 | Beepony's Posts </title>
+  <title> 如何升级内核，开启 BBR 加速 | Beepony's Posts </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://beepony.com/2015/07/04/7rejections-airbnb/">
+  <link itemprop="mainEntityOfPage" href="http://beepony.com/2016/01/19/configure_bbr/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="beepony">
@@ -288,7 +303,7 @@
             
             
               
-                我曾七次被拒绝
+                如何升级内核，开启 BBR 加速
               
             
           </h1>
@@ -301,8 +316,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-04T01:24:00+08:00">
-                2015-07-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-19T22:00:00+08:00">
+                2016-01-19
               </time>
             
 
@@ -317,8 +332,8 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
-                <a href="/2015/07/04/7rejections-airbnb/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/04/7rejections-airbnb/" itemprop="commentCount"></span>
+                <a href="/2016/01/19/configure_bbr/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/19/configure_bbr/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -344,31 +359,28 @@
       
 
       
-        <p>Airbnb 的合伙人在 Medium 上发了一篇文章，讲诉刚开始融资的情况，并贴出了 5 封被投资人拒绝的邮件，希望借此鼓励创业者，在被别人拒绝的时候，也不要轻易放弃。PS. Airbnb 现在的估值高达 255 亿美元。<br><a id="more"></a></p>
-<p>以下为全文：</p>
-<p>2008 年的 7 月 26 号，我们的朋友 Michael Seibel 给我们介绍了 7 个硅谷著名的投资人。我们当时希望已 150 万美元的估值融资 15 万美元。这意味着你只要花 15 万美元就能买到 Airbnb 百分之十的股份。下面你能看到 5 封拒绝信。还有两个没有回复。</p>
-<p>拒绝我们的投资人都是聪明的家伙，因为我们当时看来真的太不起眼了。</p>
-<p><img src="https://medium2.global.ssl.fastly.net/max/1600/1*uEdxE5GqIAhP0vhd0vq3nw.png" alt="1"></p>
-<p>感谢你的介绍，也非常开心能见到你。这个项目听起来很有意思，但我们不会做的，这不是我们所关注的领域，但是祝你好运。</p>
-<p><img src="https://medium2.global.ssl.fastly.net/max/1600/1*_g9QpLmOjTW9ohQA0svJSA.png" alt="2"></p>
-<p>非常抱歉这么迟才回复你。我们内部讨论过了，很不幸，从一个投资者的角度来看，这并不是个好机会。这个项目的市场潜力不如我们预期的大。</p>
-<p><img src="https://medium2.global.ssl.fastly.net/max/1600/1*Qe-HqzsKSORnHSzqbEn2Ag.png" alt="3"></p>
-<p>我的合伙人跟我说过了，首先这不是我们主要考虑的 5 个目标市场之一，所以我们投资的可能性不大。因此，正式因为这不是我们目前投资的领域，我们的参与也就不能给你们公司最专业的指导。</p>
-<p>我的建议让我们了解你们的进展。如果你们有机会拿到了 A 轮融资，请让我们指导，我们会再看看的。</p>
-<p><img src="https://medium2.global.ssl.fastly.net/max/1600/1*0kjTFkJ6GCrXFMGbBxa1Jw.png" alt="4"></p>
-<p>感谢后续跟进。我周四出城了，所以没接到电话。我确实非常喜欢你们做的这件事儿。但是 Airbnb 和我现在负责的项目之间，特别是已经投资的项目，现阶段我已经没有经历再去谈其他的投资了。我现在最大的担心是：</p>
+        <p>环境：</p>
 <ul>
-<li>要加速 DNC 和 RNC 的进度</li>
-<li>技术性工作</li>
-<li>辛迪加投资</li>
+<li>Linode/Ubuntu 14.04</li>
 </ul>
-<p><img src="https://medium2.global.ssl.fastly.net/max/1600/1*aidhrIkElKeDuWESTicp-A.png" alt="5"></p>
-<p>我们昨天已经决定不再继续谈下下去了。<br>我们一直在犹豫是否该将旅游业当做一个类目。<br>我们认为这是一个顶级的电商类别，但是处于某些原因，我们现在对旅游相关的商业项目不感兴趣。</p>
-<blockquote>
-<p>下一次如果你有了一个非常好的主意被拒绝了，我想你可以看看这些邮件</p>
-</blockquote>
-<p>本文翻译自：<a href="https://medium.com/@bchesky/7-rejections-7d894cbaa084" target="_blank" rel="external">7 Rejections
-</a></p>
+<ol>
+<li><p>下载 4.9 内核：wget <a href="http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb" target="_blank" rel="external">http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.7/linux-image-4.9.7-040907-generic_4.9.7-040907.201702010331_amd64.deb</a></p>
+</li>
+<li><p>安装内核：dpkg -i linux-image-4.9.7*.deb</p>
+</li>
+<li><ul>
+<li>dpkg -l|grep linux-image </li>
+<li>apt-get purge 旧内核</li>
+</ul>
+</li>
+<li><ul>
+<li>update-grub or update grub2</li>
+<li>reboot</li>
+</ul>
+</li>
+<li>linode edit 里一定要选择 grub 或者 grub2 启动，根据第四步的 update 来选择</li>
+<li>开启 bbr :<a href="https://github.com/iMeiji/shadowsocks_install/wiki/%E5%BC%80%E5%90%AFTCP-BBR%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95" target="_blank" rel="external">https://github.com/iMeiji/shadowsocks_install/wiki/%E5%BC%80%E5%90%AFTCP-BBR%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95</a></li>
+</ol>
 
       
     </div>
@@ -395,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/01/board-101/" rel="next" title="广告牌设计法则">
-                <i class="fa fa-chevron-left"></i> 广告牌设计法则
+              <a href="/2016/01/03/feedback/" rel="next" title="如何反馈？">
+                <i class="fa fa-chevron-left"></i> 如何反馈？
               </a>
             
           </div>
@@ -405,8 +417,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/06/sketch-sample/" rel="prev" title="Sketch 小记">
-                Sketch 小记 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/25/install-and-configure-discourse/" rel="prev" title="简洁、纯粹的开源论坛程序 — Discourse">
+                简洁、纯粹的开源论坛程序 — Discourse <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -433,8 +445,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/07/04/7rejections-airbnb/"
-           data-title="我曾七次被拒绝" data-url="http://beepony.com/2015/07/04/7rejections-airbnb/">
+      <div class="ds-thread" data-thread-key="2016/01/19/configure_bbr/"
+           data-title="如何升级内核，开启 BBR 加速" data-url="http://beepony.com/2016/01/19/configure_bbr/">
       </div>
     
   </div>
