@@ -11,7 +11,7 @@ layout: default
       <i class="fa fa-sun-o"></i><time class="date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
       {% if page.tags and page.tags.size > 0 %}
         <i class="fa fa-tag"></i>
-        {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% unless forloop.last %}<span aria-hidden="true"> · </span>{% endunless %}{% endfor %}
       {% endif %}
     </div></div></div>
   </article>
