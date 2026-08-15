@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<div class="post-page">
+  <article class="post animated fadeInDown">
+    <div class="post-title"><h3>{{ page.title }}</h3></div>
+    <div class="post-content">
+      {{ content }}
+    </div>
+    <div class="post-footer"><div class="meta"><div class="info">
+      <i class="fa fa-sun-o"></i><time class="date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+      {% if page.tags and page.tags.size > 0 %}
+        <i class="fa fa-tag"></i>
+        {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      {% endif %}
+    </div></div></div>
+  </article>
+</div>

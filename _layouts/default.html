@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Beepony">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}">
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/blog_basic.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+<body>
+  <aside class="sidebar animated fadeInDown">
+    <div class="logo-title"><div class="title">
+      <a href="/"><img src="/images/logo@2x.png" style="width:127px;" alt="{{ site.title }}"></a>
+      <h3><a href="/">{{ site.title }}</a></h3>
+      <div class="description"><p>{{ site.description }}</p></div>
+    </div></div>
+    <ul class="social-links">
+      <li><a href="https://twitter.com/ynopeeb" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>
+      <li><a href="https://instagram.com/beepony" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
+      <li><a href="/atom.xml" aria-label="RSS"><i class="fa fa-rss"></i></a></li>
+      <li><a href="https://weibo.com/beepony" aria-label="Weibo"><i class="fa fa-weibo"></i></a></li>
+    </ul>
+    <div class="footer"><span>Published with GitHub Pages</span></div>
+  </aside>
+
+  <main class="main">
+    <div class="page-top animated fadeInDown">
+      <nav class="nav" aria-label="主导航">
+        <li><a href="/"{% if page.url == '/' %} class="current"{% endif %}>首页</a></li>
+        <li><a href="/about/"{% if page.url contains '/about/' %} class="current"{% endif %}>关于</a></li>
+        <li><a href="/archives/"{% if page.url contains '/archives/' %} class="current"{% endif %}>归档</a></li>
+      </nav>
+    </div>
+    <div class="autopagerize_page_element"><div class="content">
+      {{ content }}
+    </div></div>
+  </main>
+</body>
+</html>
