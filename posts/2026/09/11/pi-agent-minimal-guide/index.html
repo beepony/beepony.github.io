@@ -1,0 +1,911 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="canonical" href="https://beepony.github.io/posts/2026/09/11/pi-agent-minimal-guide/"><meta name="generator" content="Astro v7.3.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/02154cca78ac33f2.woff") format("woff"), url("/_astro/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/_astro/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a5c5808c25effec9.woff") format("woff"), url("/_astro/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/14314705006234cb.woff") format("woff"), url("/_astro/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c33265ba093eb291.woff") format("woff"), url("/_astro/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/_astro/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/_astro/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/_astro/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/da468df88542c99b.woff") format("woff"), url("/_astro/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/f914de358bc554f6.woff") format("woff"), url("/_astro/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>Pi Agent 极简使用指南 | Beepony</title><meta name="title" content="Pi Agent 极简使用指南 | Beepony"><meta name="description" content="只讲怎么用得更高效：日常高频操作、上下文与分支管理、把重复劳动固化成 skills 与包，一份来自官方文档的精简指南。"><meta name="author" content="Beepony"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Beepony"><meta property="og:title" content="Pi Agent 极简使用指南 | Beepony"><meta property="og:description" content="只讲怎么用得更高效：日常高频操作、上下文与分支管理、把重复劳动固化成 skills 与包，一份来自官方文档的精简指南。"><meta property="og:url" content="https://beepony.github.io/posts/2026/09/11/pi-agent-minimal-guide/"><meta property="og:image" content="https://beepony.github.io/default-og.jpg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://beepony.github.io/posts/2026/09/11/pi-agent-minimal-guide/"><meta property="twitter:title" content="Pi Agent 极简使用指南 | Beepony"><meta property="twitter:description" content="只讲怎么用得更高效：日常高频操作、上下文与分支管理、把重复劳动固化成 skills 与包，一份来自官方文档的精简指南。"><meta property="twitter:image" content="https://beepony.github.io/default-og.jpg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Beepony" href="https://beepony.github.io/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) --><meta property="og:type" content="article"><meta property="article:published_time" content="2026-09-11T03:20:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Pi Agent 极简使用指南 | Beepony","datePublished":"2026-09-11T03:20:00.000Z","author":[{"@type":"Person","name":"Beepony","url":"https://github.com/beepony"}]}</script><!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CYDbzu1r.js"></script><link rel="stylesheet" href="/_astro/Footer.DmiNq5ML.css"><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*),[data-astro-transition-scope]{animation:none!important}}
+.toc[data-astro-cid-p33bl5ka]{font-family:var(--font-google-sans-code), monospace}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka][data-toc-link].toc-active{color:var(--accent);font-weight:500}
+</style><style>[data-astro-transition-scope="astro-bztu2lml-1"] { view-transition-name: ai; }@layer astro { ::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-2"] { view-transition-name: agent; }@layer astro { ::view-transition-old(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">跳到正文</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none">Beepony</a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/posts/" class="active-nav">文章</a></li><li class="col-span-2"><a href="/tags/">标签</a></li><li class="col-span-2"><a href="/about/">关于</a></li><li class="col-span-2"><a href="/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">归档</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">搜索</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span></a></div><script type="module">function e(){let e=document.querySelector(`#back-button`),t=sessionStorage.getItem(`backUrl`);t&&e&&(e.href=t)}document.addEventListener(`astro:page-load`,e),e();</script><main id="main-content" class="app-layout" data-pagefind-body><h1 style="view-transition-name:p-20260911pi-agent-minimal-guide" class="text-accent inline-block text-2xl font-bold sm:text-3xl">Pi Agent 极简使用指南</h1><div class="my-2 flex items-center gap-2"><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time class="text-sm sm:text-base" datetime="2026-09-11T03:20:00.000Z">11 Sep, 2026</time></div><span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/09/11/pi-agent-minimal-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a></div><aside id="toc" class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0" data-astro-cid-p33bl5ka><h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide" data-astro-cid-p33bl5ka>📑 目录</h2><nav aria-label="目录" data-astro-cid-p33bl5ka><ul class="space-y-1" data-astro-cid-p33bl5ka><li data-astro-cid-p33bl5ka><a href="#1-先建立一个正确认知" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="1-先建立一个正确认知" data-astro-cid-p33bl5ka>1. 先建立一个正确认知</a></li><li data-astro-cid-p33bl5ka><a href="#2-日常最高频的-6-个动作" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="2-日常最高频的-6-个动作" data-astro-cid-p33bl5ka>2. 日常最高频的 6 个动作</a></li><li data-astro-cid-p33bl5ka><a href="#3-模型与思考等级按任务难度切" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="3-模型与思考等级按任务难度切" data-astro-cid-p33bl5ka>3. 模型与思考等级：按任务难度切</a></li><li data-astro-cid-p33bl5ka><a href="#4-让它懂你的项目agentsmd-是投入产出比最高的一件事" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="4-让它懂你的项目agentsmd-是投入产出比最高的一件事" data-astro-cid-p33bl5ka>4. 让它「懂你的项目」：AGENTS.md 是投入产出比最高的一件事</a></li><li data-astro-cid-p33bl5ka><a href="#5-上下文是会烧钱的会话--分支--compaction" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="5-上下文是会烧钱的会话--分支--compaction" data-astro-cid-p33bl5ka>5. 上下文是会烧钱的：会话 / 分支 / compaction</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#会话管理" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="会话管理" data-astro-cid-p33bl5ka>会话管理</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#分支不要因为聊歪了就重开" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="分支不要因为聊歪了就重开" data-astro-cid-p33bl5ka>分支：不要因为「聊歪了」就重开</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#compaction自动压缩" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="compaction自动压缩" data-astro-cid-p33bl5ka>Compaction（自动压缩）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#换电脑--分享" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="换电脑--分享" data-astro-cid-p33bl5ka>换电脑 / 分享</a></li><li data-astro-cid-p33bl5ka><a href="#6-把重复劳动固化下来这是高效-build的关键" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="6-把重复劳动固化下来这是高效-build的关键" data-astro-cid-p33bl5ka>6. 把重复劳动固化下来（这是「高效 build」的关键）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#61-prompt-templates--固定话术" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="61-prompt-templates--固定话术" data-astro-cid-p33bl5ka>6.1 Prompt Templates —— 固定话术</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#62-skills--按需加载的能力包渐进式披露" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="62-skills--按需加载的能力包渐进式披露" data-astro-cid-p33bl5ka>6.2 Skills —— 按需加载的能力包（渐进式披露）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#63-pi-packages--把上面这些打包分享--复用" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="63-pi-packages--把上面这些打包分享--复用" data-astro-cid-p33bl5ka>6.3 Pi Packages —— 把上面这些打包分享 / 复用</a></li><li data-astro-cid-p33bl5ka><a href="#7-别打断它消息队列" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="7-别打断它消息队列" data-astro-cid-p33bl5ka>7. 别打断它：消息队列</a></li><li data-astro-cid-p33bl5ka><a href="#8-非交互--脚本化把-pi-塞进流水线" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="8-非交互--脚本化把-pi-塞进流水线" data-astro-cid-p33bl5ka>8. 非交互 &amp; 脚本化：把 pi 塞进流水线</a></li><li data-astro-cid-p33bl5ka><a href="#9-安全与信任边界别跳过" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="9-安全与信任边界别跳过" data-astro-cid-p33bl5ka>9. 安全与信任边界（别跳过）</a></li><li data-astro-cid-p33bl5ka><a href="#10-常用命令速查" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="10-常用命令速查" data-astro-cid-p33bl5ka>10. 常用命令速查</a></li><li data-astro-cid-p33bl5ka><a href="#11-一份高效-build检查清单" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="11-一份高效-build检查清单" data-astro-cid-p33bl5ka>11. 一份「高效 build」检查清单</a></li><li data-astro-cid-p33bl5ka><a href="#官方文档索引" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="官方文档索引" data-astro-cid-p33bl5ka>官方文档索引</a></li></ul></nav></aside><script type="module">function e(){let e=Array.from(document.querySelectorAll(`a[data-toc-link]`));if(e.length===0)return;let t=e.map(e=>e.dataset.tocLink).filter(Boolean).map(e=>document.getElementById(e)).filter(e=>e!==null);if(t.length===0)return;let n=t=>{for(let n of e)n.classList.toggle(`toc-active`,n.dataset.tocLink===t)},r=new IntersectionObserver(e=>{for(let t of e)t.isIntersecting&&n(t.target.id)},{rootMargin:`0px 0px -70% 0px`,threshold:0});for(let e of t)r.observe(e)}document.addEventListener(`astro:page-load`,e);</script><article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"><h1 id="pi-agent-极简使用指南">Pi Agent 极简使用指南</h1>
+<hr>
+<h2 id="1-先建立一个正确认知">1. 先建立一个正确认知</h2>
+<p>Pi 是一个 <strong>minimal terminal coding harness（极简终端编码工具）</strong>。</p>
+<p>它的核心设计原则是：<strong>核心保持最小，工作流交给你自己扩展</strong>（<code>README.md > Philosophy</code>）。</p>
+<p>官方明确说明它<strong>不做</strong>这些内置功能，以及对应的替代方案：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>别人有的功能</th><th>Pi 的态度</th><th>替代做法</th></tr></thead><tbody><tr><td>MCP</td><td>不做</td><td>用 CLI 工具 + README（即 Skills），或写 extension 加 MCP</td></tr><tr><td>Sub-agents</td><td>不做</td><td>tmux 里起多个 pi、自己写 extension、或装第三方包</td></tr><tr><td>权限弹窗</td><td>不做</td><td>跑在容器里，或用 extension 自定义确认流程</td></tr><tr><td>Plan mode</td><td>不做</td><td>把计划写进文件，或用 extension / 包</td></tr><tr><td>内置 Todo</td><td>不做</td><td>用 <code>TODO.md</code> 文件</td></tr><tr><td>后台 bash</td><td>不做</td><td>用 tmux（可观测、可直接交互）</td></tr></tbody></table>
+<p><strong>这意味着：不要等 Pi 给你工作流，直接把你要的工作流做成 skill / prompt / extension / package。</strong></p>
+<p>默认只给模型 4 个工具：<code>read</code>、<code>write</code>、<code>edit</code>、<code>bash</code>；只读的 <code>grep</code>、<code>find</code>、<code>ls</code> 需要显式开启（<code>docs/quickstart.md</code>、<code>docs/usage.md</code>）。</p>
+<hr>
+<h2 id="2-日常最高频的-6-个动作">2. 日常最高频的 6 个动作</h2>
+<p>来源：<code>README.md > Interactive Mode</code>、<code>docs/quickstart.md</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>想干什么</th><th>怎么做</th></tr></thead><tbody><tr><td>引用文件</td><td>编辑框里打 <code>@</code> 模糊搜索项目文件；命令行 <code>pi @src/app.ts "review this"</code></td></tr><tr><td>让模型看到命令输出</td><td><code>!command</code>（输出进上下文）；只想自己跑不想污染上下文用 <code>!!command</code></td></tr><tr><td>贴图</td><td>Ctrl+V（Windows 是 Alt+V），或直接把图片拖进终端</td></tr><tr><td>多行输入</td><td>Shift+Enter（Windows Terminal 用 Ctrl+Enter）</td></tr><tr><td>用外部编辑器写长 prompt</td><td>Ctrl+G（走 <code>externalEditor</code> / <code>$VISUAL</code> / <code>$EDITOR</code>）</td></tr><tr><td>复制上一条回复</td><td>Ctrl+X</td></tr></tbody></table>
+<p>一次性任务（不进交互界面）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -p</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Summarize this codebase</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cat</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> README.md</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -p</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Summarize this text</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">   # stdin 会并入初始 prompt</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -p</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> @screenshot.png</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">What's in this image?</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span></code></pre>
+<hr>
+<h2 id="3-模型与思考等级按任务难度切">3. 模型与思考等级：按任务难度切</h2>
+<p>来源：<code>README.md</code>、<code>docs/settings.md</code></p>
+<ul>
+<li><code>/model</code> 或 <strong>Ctrl+L</strong> 切模型；在选择器里按 <strong>Ctrl+S</strong> 把当前模型存为启动默认。</li>
+<li><code>/thinking</code> 切思考等级；同样 Ctrl+S 存默认。<strong>Shift+Tab</strong> 快速循环。</li>
+<li>等级：<code>off</code> / <code>minimal</code> / <code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> / <code>max</code>。</li>
+<li>Ctrl+P / Shift+Ctrl+P 在「scoped models」之间循环（<code>/scoped-models</code> 或 <code>--models</code> 配置）。</li>
+</ul>
+<p>命令行一次性指定：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --model</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> sonnet:high</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Solve this complex problem</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">   # provider/id + :thinking 简写</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --thinking</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> high</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Solve this complex problem</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --models</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">claude-*,gpt-4o</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                          # 限定可循环的模型</span></span></code></pre>
+<p><strong>省 token 的实用技巧</strong>：简单改动用低思考等级 + 便宜模型，复杂重构再切 high。读多写少的审查类任务可以开只读模式：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --tools</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> read,grep,find,ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -p</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Review the code</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">   # 只读，物理上改不了文件</span></span></code></pre>
+<hr>
+<h2 id="4-让它懂你的项目agentsmd-是投入产出比最高的一件事">4. 让它「懂你的项目」：AGENTS.md 是投入产出比最高的一件事</h2>
+<p>来源：<code>README.md > Context Files</code>、<code>docs/quickstart.md</code></p>
+<p>Pi 启动时会自动加载这些文件并拼接：</p>
+<ol>
+<li><code>~/.pi/agent/AGENTS.md</code>（全局）</li>
+<li>从 cwd 向上逐级父目录的 <code>AGENTS.md</code> 或 <code>CLAUDE.md</code></li>
+<li>当前目录的 <code>AGENTS.md</code> 或 <code>CLAUDE.md</code></li>
+</ol>
+<p>如果某目录有 <code>AGENTS.override.md</code>，该目录就只加载它、忽略 <code>AGENTS.md</code>/<code>CLAUDE.md</code>。</p>
+<p>写什么：项目约定、常用命令、安全红线、偏好。</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># Project Instructions</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 改完代码跑 </span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`npm run check`</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 不要在本地跑生产 migration</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 回复保持简洁</span></span></code></pre>
+<p><strong>要点</strong>：</p>
+<ul>
+<li>改完 context file 后要<strong>重启 pi 或 <code>/reload</code></strong> 才生效。</li>
+<li>想彻底替换系统提示词：<code>.pi/SYSTEM.md</code>（项目）或 <code>~/.pi/agent/SYSTEM.md</code>（全局）；只想追加用 <code>APPEND_SYSTEM.md</code>。</li>
+<li>临时禁用加载：<code>--no-context-files</code> / <code>-nc</code>。</li>
+</ul>
+<hr>
+<h2 id="5-上下文是会烧钱的会话--分支--compaction">5. 上下文是会烧钱的：会话 / 分支 / compaction</h2>
+<p>来源：<code>docs/sessions.md</code>、<code>docs/compaction.md</code></p>
+<h3 id="会话管理">会话管理</h3>
+<ul>
+<li>会话自动存到 <code>~/.pi/agent/sessions/</code>，按工作目录组织，JSONL 树结构。</li>
+<li><code>pi -c</code> 续最近会话；<code>pi -r</code> 浏览选择；<code>pi --no-session</code> 临时不留档；<code>pi --name "xxx"</code> 起名（方便以后在 <code>/resume</code> 里找）。</li>
+<li><code>/new</code> 开新会话、<code>/session</code> 看当前会话信息（文件、ID、token、花费）、<code>/resume</code> 从历史里挑。</li>
+</ul>
+<h3 id="分支不要因为聊歪了就重开">分支：不要因为「聊歪了」就重开</h3>
+<ul>
+<li><strong><code>/tree</code></strong>：在同一个文件里跳回任意历史节点继续（树结构，所有历史都保留）。选用户消息会把它放回编辑框供你改后重发，从而开出新分支；选非用户条目则直接从那继续。</li>
+<li><strong><code>/fork</code></strong>：从某个早期用户消息开一个<strong>新会话文件</strong>。</li>
+<li><strong><code>/clone</code></strong>：把当前分支复制成一个新会话文件。</li>
+<li>从 <code>/tree</code> 切走分支时，Pi 可以把被放弃的分支<strong>总结</strong>后注入新位置，保留上下文。</li>
+</ul>
+<p>一句话选择：想在原地比较多个方案 → <code>/tree</code>；想要独立文件 → <code>/fork</code> / <code>/clone</code>。</p>
+<h3 id="compaction自动压缩">Compaction（自动压缩）</h3>
+<ul>
+<li>触发条件：<code>contextTokens > contextWindow - reserveTokens</code>（默认 reserve 16384）。</li>
+<li>保留最近 <code>keepRecentTokens</code>（默认 20000）不压缩，更早的交给 LLM 总结。</li>
+<li>手动：<code>/compact</code> 或 <code>/compact &#x3C;自定义指示></code>。</li>
+<li><strong>重要</strong>：compaction 是<strong>有损的</strong>。完整历史仍在 JSONL 里，可以用 <code>/tree</code> 回去看；但被总结掉的细节不会自动回到上下文。</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// ~/.pi/agent/settings.json 或 .pi/settings.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{ </span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">"compaction"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> { </span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">"enabled"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#FF5874"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> "reserveTokens"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 16384</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> "keepRecentTokens"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 20000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> } }</span></span></code></pre>
+<h3 id="换电脑--分享">换电脑 / 分享</h3>
+<ul>
+<li><code>/export [file]</code> 导出 HTML 或 JSONL；<code>/import &#x3C;file></code> 导入并续跑。</li>
+<li><code>/share</code> 上传成私有 GitHub gist，得到可分享的 HTML 链接。</li>
+</ul>
+<hr>
+<h2 id="6-把重复劳动固化下来这是高效-build的关键">6. 把重复劳动固化下来（这是「高效 build」的关键）</h2>
+<p>来源：<code>docs/prompt-templates.md</code>、<code>docs/skills.md</code>、<code>README.md > Pi Packages</code></p>
+<h3 id="61-prompt-templates--固定话术">6.1 Prompt Templates —— 固定话术</h3>
+<p>放在 <code>~/.pi/agent/prompts/*.md</code> 或 <code>.pi/prompts/*.md</code>，输入 <code>/文件名</code> 展开。</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">&#x3C;!-- ~/.pi/agent/prompts/review.md --></span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: Review staged git changes</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">argument-hint: "[</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">focus</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Review the staged changes (</span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`git diff --cached`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">). Focus on: ${1:-bugs, security, error handling}</span></span></code></pre>
+<p>支持 <code>$1</code>、<code>$@</code>、<code>$ARGUMENTS</code>、<code>${1:-默认值}</code>、<code>${@:N:L}</code> 切片。</p>
+<h3 id="62-skills--按需加载的能力包渐进式披露">6.2 Skills —— 按需加载的能力包（渐进式披露）</h3>
+<p><strong>机制</strong>：启动时只把 skill 的 <code>name</code> + <code>description</code> 放进系统提示词；任务匹配时模型才用 <code>read</code> 读完整 <code>SKILL.md</code>。所以写 skill 时，<strong><code>description</code> 决定它会不会被触发</strong>。</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">&#x3C;!-- ~/.pi/agent/skills/my-skill/SKILL.md --></span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: my-skill</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: 具体说明做什么、以及什么场景下该用它。要具体。</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># My Skill</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Steps</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> ...</span></span></code></pre>
+<ul>
+<li>位置：<code>~/.pi/agent/skills/</code>、<code>~/.agents/skills/</code>、<code>.pi/skills/</code>、<code>.agents/skills/</code>，或 package 里。</li>
+<li>强制调用：<code>/skill:name</code>，可带参数 <code>/skill:pdf-tools extract</code>。</li>
+<li>可以复用别的 harness 的 skills（写进 settings 即可）：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{ </span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">"skills"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">~/.claude/skills</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">~/.codex/skills</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">] }</span></span></code></pre>
+<h3 id="63-pi-packages--把上面这些打包分享--复用">6.3 Pi Packages —— 把上面这些打包分享 / 复用</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> npm:@foo/pi-tools</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">        # 也支持 git:github.com/user/repo、https://... 、ssh://...</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> npm:@foo/pi-tools@1.2.3</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 锁版本</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> update</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --extensions</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">              # 只更新包</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> update</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --all</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                     # 更新 pi + 所有包</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> config</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                           # 交互式启用/禁用包里的资源</span></span></code></pre>
+<p><code>-l</code> 装到项目本地（<code>.pi/</code>）。包可以只启用其中部分资源（<code>packages</code> 的 object 形式，见 <code>docs/settings.md</code>）。</p>
+<blockquote><p><strong>安全提醒（官方原文）</strong>：Pi packages 拥有完整系统权限，扩展会执行任意代码，skills 也能指示模型执行任何操作。<strong>安装第三方包前先看源码。</strong></p></blockquote>
+<hr>
+<h2 id="7-别打断它消息队列">7. 别打断它：消息队列</h2>
+<p>来源：<code>README.md > Message Queue</code></p>
+<p>Agent 干活时你可以继续输入：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>操作</th><th>效果</th></tr></thead><tbody><tr><td><strong>Enter</strong></td><td>排队成 <em>steering</em> 消息：当前 assistant 回合的工具调用跑完后送达（可以中途纠偏）</td></tr><tr><td><strong>Alt+Enter</strong></td><td>排队成 <em>follow-up</em>：等 agent 全部干完才送达</td></tr><tr><td><strong>Escape</strong></td><td>中止，并把排队消息还原回编辑框</td></tr><tr><td><strong>Alt+Up</strong></td><td>把排队消息取回编辑框</td></tr></tbody></table>
+<p><code>steeringMode</code> / <code>followUpMode</code> 可设为 <code>"one-at-a-time"</code>（默认，等回复）或 <code>"all"</code>（一起发）。</p>
+<hr>
+<h2 id="8-非交互--脚本化把-pi-塞进流水线">8. 非交互 &#x26; 脚本化：把 pi 塞进流水线</h2>
+<p>来源：<code>README.md > Programmatic Usage</code>、<code>docs/usage.md</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模式</th><th>用途</th></tr></thead><tbody><tr><td>默认</td><td>交互式</td></tr><tr><td><code>-p</code> / <code>--print</code></td><td>打印结果就退出</td></tr><tr><td><code>--mode json</code></td><td>所有事件按 JSON Lines 输出</td></tr><tr><td><code>--mode rpc</code></td><td>stdin/stdout 上的 RPC，给非 Node.js 进程集成（严格 LF 分帧，别用 Node <code>readline</code>）</td></tr><tr><td>SDK</td><td><code>import { createAgentSession, ModelRuntime, SessionManager } from "@earendil-works/pi-coding-agent"</code></td></tr></tbody></table>
+<p><code>bash</code> 工具执行时，命令会拿到这些环境变量，方便脚本反查上下文（<code>README.md > Environment Variables</code>）：</p>
+<p><code>PI_SESSION_ID</code>、<code>PI_SESSION_FILE</code>、<code>PI_PROVIDER</code>、<code>PI_MODEL</code>、<code>PI_REASONING_LEVEL</code>；
+另外 CLI/RPC 入口会设 <code>AI_AGENT=pi</code>、<code>PI_CODING_AGENT=true</code> 供子进程识别。</p>
+<hr>
+<h2 id="9-安全与信任边界别跳过">9. 安全与信任边界（别跳过）</h2>
+<p>来源：<code>README.md</code>、<code>docs/usage.md > Project Trust</code>、<code>docs/security.md</code></p>
+<ul>
+<li><strong>没有权限弹窗</strong>——这是设计选择。默认它就能在你的 cwd 里改文件、跑任意命令。</li>
+<li>用 git 或别的 checkpoint 机制兜底回滚。</li>
+<li><strong>Project Trust</strong>：当一个项目目录含项目级 settings / 资源 / <code>.agents/skills</code> 且没有已保存的决定时，交互模式会先问你是否信任。信任后才加载 <code>.pi/settings.json</code>、<code>.pi</code> 资源和项目扩展。
+<ul>
+<li>非交互模式（<code>-p</code>、<code>--mode json/rpc</code>）不弹框，按 <code>defaultProjectTrust</code> 处理：<code>ask</code>（默认）/ <code>never</code> 忽略这些项目资源，<code>always</code> 信任。</li>
+<li>单次覆盖：<code>-a</code> / <code>--approve</code>，或 <code>-na</code> / <code>--no-approve</code>。</li>
+<li><code>/trust</code> 写 <code>~/.pi/agent/trust.json</code>（<strong>当前会话不重载，要重启</strong>）。</li>
+</ul>
+</li>
+<li>危险场景建议：<strong>容器里跑</strong>，或用 extensions 自己实现确认流程；需要后台任务用 <strong>tmux</strong>。</li>
+<li>隐私开关：<code>PI_OFFLINE=1</code> / <code>--offline</code> 关掉全部启动网络请求；<code>PI_SKIP_VERSION_CHECK=1</code> 只关版本检查；<code>enableInstallTelemetry: false</code> 或 <code>PI_TELEMETRY=0</code> 关安装遥测。</li>
+</ul>
+<hr>
+<h2 id="10-常用命令速查">10. 常用命令速查</h2>
+<p>来源：<code>README.md > CLI Reference</code></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 会话</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -c</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                          # 续最近会话</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                          # 浏览历史会话</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --name</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">release audit</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -p</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Audit this repository</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --session</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">path</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">|</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">id</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">>         </span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 打开指定会话</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --fork</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">path</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">|</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">id</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">>            </span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 从指定会话 fork</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 模型</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --provider</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> openai</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --model</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gpt-4o</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">...</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --list-models</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [search]</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 工具控制</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --tools</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> read,grep,find,ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -p</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Review the code</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">   # 只读</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --exclude-tools</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ask_question</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                     # 禁用单个工具</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --no-builtin-tools</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                               # 关内置，保留扩展工具</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 资源控制（精确加载）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --no-extensions</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -e</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ./my-extension.ts</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --no-skills</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --no-context-files</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">              # 或 -nc</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 包管理</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">sourc</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">e</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [-l]</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> remove</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">sourc</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">e</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [-l]</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">pi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> update</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --all</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> --extensions</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> --models</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> --self</span></span></code></pre>
+<p>交互内常用：<code>/model</code> <code>/thinking</code> <code>/resume</code> <code>/new</code> <code>/tree</code> <code>/fork</code> <code>/clone</code> <code>/compact</code> <code>/session</code> <code>/reload</code> <code>/hotkeys</code> <code>/export</code> <code>/share</code> <code>/trust</code> <code>/settings</code> <code>/quit</code>。
+按 <code>/hotkeys</code> 看全部快捷键；自定义写 <code>~/.pi/agent/keybindings.json</code>，改完 <code>/reload</code> 生效。</p>
+<hr>
+<h2 id="11-一份高效-build检查清单">11. 一份「高效 build」检查清单</h2>
+<p>按官方能力拼出来的推荐姿势：</p>
+<ol>
+<li><strong>项目根写 <code>AGENTS.md</code></strong>：命令、约定、红线。一次投入，长期省事。</li>
+<li><strong>启动默认模型/思考等级用 Ctrl+S 存下来</strong>，别每次重切。</li>
+<li><strong>重复的 prompt 做成 prompt template</strong>，别再手打。</li>
+<li><strong>重复的多步流程做成 skill</strong>，<code>description</code> 写清楚触发场景。</li>
+<li><strong>大任务分阶段</strong>：一个阶段一个会话；跑歪了用 <code>/tree</code> 回退而不是重开。</li>
+<li><strong>长会话注意 compaction 是有损的</strong>：关键结论让它落到文件里（<code>TODO.md</code>、设计文档），别只留在上下文。</li>
+<li><strong>需要并行/后台</strong>：tmux 起多个 pi，不要指望内置后台 bash。</li>
+<li><strong>需要审批/护栏</strong>：写 extension 或用 <code>--tools</code> 只读模式，官方不提供弹窗。</li>
+<li><strong>装第三方包前读源码</strong>——它们有完整系统权限。</li>
+<li><strong>非交互流水线</strong>用 <code>-p</code> / <code>--mode json</code> / <code>--mode rpc</code> / SDK。</li>
+</ol>
+<hr>
+<h2 id="官方文档索引">官方文档索引</h2>
+<p>安装目录：<code>/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>想了解</th><th>看这个</th></tr></thead><tbody><tr><td>总览 / 哲学 / CLI 全参数</td><td><code>README.md</code></td></tr><tr><td>上手流程</td><td><code>docs/quickstart.md</code></td></tr><tr><td>日常交互、slash 命令、CLI 参考</td><td><code>docs/usage.md</code></td></tr><tr><td>会话 / 分支 / 恢复</td><td><code>docs/sessions.md</code></td></tr><tr><td>上下文压缩原理与配置</td><td><code>docs/compaction.md</code></td></tr><tr><td>Skills 规范与位置</td><td><code>docs/skills.md</code></td></tr><tr><td>Prompt 模板语法</td><td><code>docs/prompt-templates.md</code></td></tr><tr><td>包管理与安全注意</td><td><code>docs/packages.md</code></td></tr><tr><td>全部 settings 项</td><td><code>docs/settings.md</code></td></tr><tr><td>全部快捷键与自定义</td><td><code>docs/keybindings.md</code></td></tr><tr><td>扩展开发（自定义工具/UI/子代理/权限）</td><td><code>docs/extensions.md</code></td></tr><tr><td>自定义 provider / 模型</td><td><code>docs/custom-provider.md</code>、<code>docs/models.md</code></td></tr><tr><td>各种 provider 认证</td><td><code>docs/providers.md</code></td></tr><tr><td>JSON / RPC / SDK 集成</td><td><code>docs/json.md</code>、<code>docs/rpc.md</code>、<code>docs/sdk.md</code></td></tr><tr><td>安全模型</td><td><code>docs/security.md</code></td></tr><tr><td>容器化 / tmux / 终端适配</td><td><code>docs/containerization.md</code>、<code>docs/tmux.md</code>、<code>docs/terminal-setup.md</code></td></tr><tr><td>环境变量</td><td><code>docs/environment-variables.md</code></td></tr></tbody></table>
+<p>Pi 自带能力：在 pi 里直接问「帮我做一个 skill / prompt template」，官方文档明确写了 <code>pi can create skills</code> / <code>pi can create prompt templates</code>。</p></article><hr class="my-8 border-dashed"><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/09/11/pi-agent-minimal-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a><div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"><button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"><span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><span class="group-hover:text-accent sr-only text-sm md:not-sr-only"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg>回到顶部</span></button></div><script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script><ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/tags/ai/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>AI</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/tags/agent/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Agent</a></li></ul><div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://x.com/intent/post?url=https://beepony.github.io/posts/2026/09/11/pi-agent-minimal-guide/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span></a><a href="https://t.me/share/url?url=https://beepony.github.io/posts/2026/09/11/pi-agent-minimal-guide/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span></a><a href="mailto:?subject=See%20this%20post&amp;body=https://beepony.github.io/posts/2026/09/11/pi-agent-minimal-guide/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span></a></div></div><hr class="my-8 border-dashed"><div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"><a href="/posts/2026/09/06/tesla-api-teslamate/" class="flex w-full gap-1 hover:opacity-75"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><div><span>上一篇</span><div class="text-accent/85 text-sm">Tesla 直连 API 的文档与资料源（官方 + 社区 + TeslaMate 里的逆向证据）</div></div></a><a href="/posts/2026/09/12/andrew-ng-ai-engineering-skills/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"><div><span>下一篇</span><div class="text-accent/85 text-sm">吴恩达 · AI 工程技能图谱：从「实现者」到「塑造者」</div></div><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg></a></div></main><footer class="app-layout mt-auto"><div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"><div class="flex flex-wrap items-center gap-1"><a href="https://github.com/beepony" title="Beepony on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg><span class="sr-only">Beepony on Github</span></a><a href="https://x.com/ynopeeb" title="Beepony on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Beepony on X</span></a></div><div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"><span>版权所有 &#169; 2026</span><span class="hidden sm:inline">&nbsp;|&nbsp;</span><span>保留所有权利。</span></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n),document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,i);let t=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html><script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>

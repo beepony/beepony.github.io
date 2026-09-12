@@ -1,0 +1,1071 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="canonical" href="https://beepony.github.io/posts/2026/08/22/hermes-agent-feishu-setup/"><meta name="generator" content="Astro v7.3.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/02154cca78ac33f2.woff") format("woff"), url("/_astro/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/_astro/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a5c5808c25effec9.woff") format("woff"), url("/_astro/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/14314705006234cb.woff") format("woff"), url("/_astro/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c33265ba093eb291.woff") format("woff"), url("/_astro/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/_astro/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/_astro/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/_astro/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/da468df88542c99b.woff") format("woff"), url("/_astro/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/f914de358bc554f6.woff") format("woff"), url("/_astro/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>Hermes Agent 接入飞书完整指南 | Beepony</title><meta name="title" content="Hermes Agent 接入飞书完整指南 | Beepony"><meta name="description" content="从 0 到 1 把 Hermes Agent 接入飞书私聊和群聊：模型配置、Feishu WebSocket、allowlist、配对机制与真实排错。"><meta name="author" content="Beepony"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Beepony"><meta property="og:title" content="Hermes Agent 接入飞书完整指南 | Beepony"><meta property="og:description" content="从 0 到 1 把 Hermes Agent 接入飞书私聊和群聊：模型配置、Feishu WebSocket、allowlist、配对机制与真实排错。"><meta property="og:url" content="https://beepony.github.io/posts/2026/08/22/hermes-agent-feishu-setup/"><meta property="og:image" content="https://beepony.github.io/default-og.jpg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://beepony.github.io/posts/2026/08/22/hermes-agent-feishu-setup/"><meta property="twitter:title" content="Hermes Agent 接入飞书完整指南 | Beepony"><meta property="twitter:description" content="从 0 到 1 把 Hermes Agent 接入飞书私聊和群聊：模型配置、Feishu WebSocket、allowlist、配对机制与真实排错。"><meta property="twitter:image" content="https://beepony.github.io/default-og.jpg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Beepony" href="https://beepony.github.io/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) --><meta property="og:type" content="article"><meta property="article:published_time" content="2026-08-22T01:00:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hermes Agent 接入飞书完整指南 | Beepony","datePublished":"2026-08-22T01:00:00.000Z","author":[{"@type":"Person","name":"Beepony","url":"https://github.com/beepony"}]}</script><!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CYDbzu1r.js"></script><link rel="stylesheet" href="/_astro/Footer.DmiNq5ML.css"><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*),[data-astro-transition-scope]{animation:none!important}}
+.toc[data-astro-cid-p33bl5ka]{font-family:var(--font-google-sans-code), monospace}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka][data-toc-link].toc-active{color:var(--accent);font-weight:500}
+</style><style>[data-astro-transition-scope="astro-bztu2lml-1"] { view-transition-name: hermes; }@layer astro { ::view-transition-old(hermes) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(hermes) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(hermes) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(hermes) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-2"] { view-transition-name: \98DE\4E66; }@layer astro { ::view-transition-old(\98DE\4E66) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\98DE\4E66) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\98DE\4E66) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\98DE\4E66) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">跳到正文</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none">Beepony</a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/posts/" class="active-nav">文章</a></li><li class="col-span-2"><a href="/tags/">标签</a></li><li class="col-span-2"><a href="/about/">关于</a></li><li class="col-span-2"><a href="/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">归档</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">搜索</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span></a></div><script type="module">function e(){let e=document.querySelector(`#back-button`),t=sessionStorage.getItem(`backUrl`);t&&e&&(e.href=t)}document.addEventListener(`astro:page-load`,e),e();</script><main id="main-content" class="app-layout" data-pagefind-body><h1 style="view-transition-name:p-20260822hermes-agent-feishu-setup" class="text-accent inline-block text-2xl font-bold sm:text-3xl">Hermes Agent 接入飞书完整指南</h1><div class="my-2 flex items-center gap-2"><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time class="text-sm sm:text-base" datetime="2026-08-22T01:00:00.000Z">22 Aug, 2026</time></div><span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/08/22/hermes-agent-feishu-setup.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a></div><aside id="toc" class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0" data-astro-cid-p33bl5ka><h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide" data-astro-cid-p33bl5ka>📑 目录</h2><nav aria-label="目录" data-astro-cid-p33bl5ka><ul class="space-y-1" data-astro-cid-p33bl5ka><li data-astro-cid-p33bl5ka><a href="#一最终效果" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="一最终效果" data-astro-cid-p33bl5ka>一、最终效果</a></li><li data-astro-cid-p33bl5ka><a href="#二整体架构理解" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="二整体架构理解" data-astro-cid-p33bl5ka>二、整体架构理解</a></li><li data-astro-cid-p33bl5ka><a href="#三前置准备" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="三前置准备" data-astro-cid-p33bl5ka>三、前置准备</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#1-已安装-hermes-agent" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="1-已安装-hermes-agent" data-astro-cid-p33bl5ka>1. 已安装 Hermes Agent</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#2-已配置一个可用模型" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="2-已配置一个可用模型" data-astro-cid-p33bl5ka>2. 已配置一个可用模型</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#3-已有飞书开放平台应用" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="3-已有飞书开放平台应用" data-astro-cid-p33bl5ka>3. 已有飞书开放平台应用</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#4-飞书应用已开启-bot-能力" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="4-飞书应用已开启-bot-能力" data-astro-cid-p33bl5ka>4. 飞书应用已开启 Bot 能力</a></li><li data-astro-cid-p33bl5ka><a href="#四先配置-minimax-中国区模型" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="四先配置-minimax-中国区模型" data-astro-cid-p33bl5ka>四、先配置 MiniMax 中国区模型</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#1-正确的-hermes-配置方式" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="1-正确的-hermes-配置方式" data-astro-cid-p33bl5ka>1. 正确的 Hermes 配置方式</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#2-我们这次实际验证可用的配置" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="2-我们这次实际验证可用的配置" data-astro-cid-p33bl5ka>2. 我们这次实际验证可用的配置</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#3-不推荐的错误配置方式" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="3-不推荐的错误配置方式" data-astro-cid-p33bl5ka>3. 不推荐的错误配置方式</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#4-这次实际遇到的-minimax-报错" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="4-这次实际遇到的-minimax-报错" data-astro-cid-p33bl5ka>4. 这次实际遇到的 MiniMax 报错</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#5-正确修复方法" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="5-正确修复方法" data-astro-cid-p33bl5ka>5. 正确修复方法</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#6-如何验证-minimax-中国区模型已经配通" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="6-如何验证-minimax-中国区模型已经配通" data-astro-cid-p33bl5ka>6. 如何验证 MiniMax 中国区模型已经配通</a></li><li data-astro-cid-p33bl5ka><a href="#五官方推荐的飞书配置方式" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="五官方推荐的飞书配置方式" data-astro-cid-p33bl5ka>五、官方推荐的飞书配置方式</a></li><li data-astro-cid-p33bl5ka><a href="#六推荐的最短配置路径" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="六推荐的最短配置路径" data-astro-cid-p33bl5ka>六、推荐的最短配置路径</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第一步先把-minimax-中国区模型配通" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第一步先把-minimax-中国区模型配通" data-astro-cid-p33bl5ka>第一步：先把 MiniMax 中国区模型配通</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第二步在-hermesenv-中加入飞书配置" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第二步在-hermesenv-中加入飞书配置" data-astro-cid-p33bl5ka>第二步：在 ~/.hermes/.env 中加入飞书配置</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第三步确认-hermes-运行飞书所需依赖已经安装" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第三步确认-hermes-运行飞书所需依赖已经安装" data-astro-cid-p33bl5ka>第三步：确认 Hermes 运行飞书所需依赖已经安装</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第四步启动或重启-hermes-gateway" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第四步启动或重启-hermes-gateway" data-astro-cid-p33bl5ka>第四步：启动或重启 Hermes Gateway</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第五步检查-gateway-日志" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第五步检查-gateway-日志" data-astro-cid-p33bl5ka>第五步：检查 Gateway 日志</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第六步去飞书里私聊-bot" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第六步去飞书里私聊-bot" data-astro-cid-p33bl5ka>第六步：去飞书里私聊 Bot</a></li><li data-astro-cid-p33bl5ka><a href="#七第一次使用时一定会遇到的配对机制" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="七第一次使用时一定会遇到的配对机制" data-astro-cid-p33bl5ka>七、第一次使用时一定会遇到的“配对”机制</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#正确处理方式" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="正确处理方式" data-astro-cid-p33bl5ka>正确处理方式</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#如果命令报权限问题" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="如果命令报权限问题" data-astro-cid-p33bl5ka>如果命令报权限问题</a></li><li data-astro-cid-p33bl5ka><a href="#八建议马上补上的安全配置" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="八建议马上补上的安全配置" data-astro-cid-p33bl5ka>八、建议马上补上的安全配置</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#1-把自己的飞书账号加入-allowlist" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="1-把自己的飞书账号加入-allowlist" data-astro-cid-p33bl5ka>1. 把自己的飞书账号加入 allowlist</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#2-设置-feishu_home_channel" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="2-设置-feishu_home_channel" data-astro-cid-p33bl5ka>2. 设置 FEISHU_HOME_CHANNEL</a></li><li data-astro-cid-p33bl5ka><a href="#九群聊中的行为规则" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="九群聊中的行为规则" data-astro-cid-p33bl5ka>九、群聊中的行为规则</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#私聊" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="私聊" data-astro-cid-p33bl5ka>私聊</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#群聊" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="群聊" data-astro-cid-p33bl5ka>群聊</a></li><li data-astro-cid-p33bl5ka><a href="#十我们这次真实接入时遇到的问题与解决方案" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十我们这次真实接入时遇到的问题与解决方案" data-astro-cid-p33bl5ka>十、我们这次真实接入时遇到的问题与解决方案</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-1以为-hermes-不支持飞书" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-1以为-hermes-不支持飞书" data-astro-cid-p33bl5ka>问题 1：以为 Hermes 不支持飞书</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-2minimax-被错误配置成-custom-provider" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-2minimax-被错误配置成-custom-provider" data-astro-cid-p33bl5ka>问题 2：MiniMax 被错误配置成 custom provider</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-3模型名写成-minimax-27" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-3模型名写成-minimax-27" data-astro-cid-p33bl5ka>问题 3：模型名写成 minimax 2.7</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-4飞书依赖没装" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-4飞书依赖没装" data-astro-cid-p33bl5ka>问题 4：飞书依赖没装</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-5hermes-的-venv-里连-pip-都没有" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-5hermes-的-venv-里连-pip-都没有" data-astro-cid-p33bl5ka>问题 5：Hermes 的 venv 里连 pip 都没有</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-6gateway-状态看起来不一致" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-6gateway-状态看起来不一致" data-astro-cid-p33bl5ka>问题 6：Gateway 状态看起来不一致</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-7第一次发消息返回-pairing-code" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-7第一次发消息返回-pairing-code" data-astro-cid-p33bl5ka>问题 7：第一次发消息返回 pairing code</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-8刚连上时被判定为-unauthorized-user" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-8刚连上时被判定为-unauthorized-user" data-astro-cid-p33bl5ka>问题 8：刚连上时被判定为 Unauthorized user</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#问题-9机器人能私聊但群里不回复" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="问题-9机器人能私聊但群里不回复" data-astro-cid-p33bl5ka>问题 9：机器人能私聊，但群里不回复</a></li><li data-astro-cid-p33bl5ka><a href="#十一推荐的最终稳定配置" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十一推荐的最终稳定配置" data-astro-cid-p33bl5ka>十一、推荐的最终稳定配置</a></li><li data-astro-cid-p33bl5ka><a href="#十二推荐排查顺序" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十二推荐排查顺序" data-astro-cid-p33bl5ka>十二、推荐排查顺序</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第-1-步先确认模型是否工作" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第-1-步先确认模型是否工作" data-astro-cid-p33bl5ka>第 1 步：先确认模型是否工作</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第-2-步确认-env-变量是否填对" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第-2-步确认-env-变量是否填对" data-astro-cid-p33bl5ka>第 2 步：确认 .env 变量是否填对</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第-3-步确认依赖是否在-hermes-venv-里" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第-3-步确认依赖是否在-hermes-venv-里" data-astro-cid-p33bl5ka>第 3 步：确认依赖是否在 Hermes venv 里</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第-4-步重启-gateway" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第-4-步重启-gateway" data-astro-cid-p33bl5ka>第 4 步：重启 Gateway</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第-5-步看日志不要只看命令返回" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第-5-步看日志不要只看命令返回" data-astro-cid-p33bl5ka>第 5 步：看日志，不要只看命令返回</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第-6-步私聊-bot-测试" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第-6-步私聊-bot-测试" data-astro-cid-p33bl5ka>第 6 步：私聊 Bot 测试</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#第-7-步处理-pairing" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="第-7-步处理-pairing" data-astro-cid-p33bl5ka>第 7 步：处理 pairing</a></li><li data-astro-cid-p33bl5ka><a href="#十三给第一次使用者的建议" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十三给第一次使用者的建议" data-astro-cid-p33bl5ka>十三、给第一次使用者的建议</a></li><li data-astro-cid-p33bl5ka><a href="#十四常用命令速查" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十四常用命令速查" data-astro-cid-p33bl5ka>十四、常用命令速查</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#查看-hermes-版本" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="查看-hermes-版本" data-astro-cid-p33bl5ka>查看 Hermes 版本</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#查看配置摘要" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="查看配置摘要" data-astro-cid-p33bl5ka>查看配置摘要</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#测试-minimax-中国区模型" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="测试-minimax-中国区模型" data-astro-cid-p33bl5ka>测试 MiniMax 中国区模型</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#检查环境" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="检查环境" data-astro-cid-p33bl5ka>检查环境</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#启动-gateway" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="启动-gateway" data-astro-cid-p33bl5ka>启动 Gateway</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#重启-gateway" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="重启-gateway" data-astro-cid-p33bl5ka>重启 Gateway</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#查看-gateway-状态" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="查看-gateway-状态" data-astro-cid-p33bl5ka>查看 Gateway 状态</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#审批飞书配对码" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="审批飞书配对码" data-astro-cid-p33bl5ka>审批飞书配对码</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#查看已批准用户" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="查看已批准用户" data-astro-cid-p33bl5ka>查看已批准用户</a></li><li data-astro-cid-p33bl5ka><a href="#十五文档结论" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十五文档结论" data-astro-cid-p33bl5ka>十五、文档结论</a></li></ul></nav></aside><script type="module">function e(){let e=Array.from(document.querySelectorAll(`a[data-toc-link]`));if(e.length===0)return;let t=e.map(e=>e.dataset.tocLink).filter(Boolean).map(e=>document.getElementById(e)).filter(e=>e!==null);if(t.length===0)return;let n=t=>{for(let n of e)n.classList.toggle(`toc-active`,n.dataset.tocLink===t)},r=new IntersectionObserver(e=>{for(let t of e)t.isIntersecting&&n(t.target.id)},{rootMargin:`0px 0px -70% 0px`,threshold:0});for(let e of t)r.observe(e)}document.addEventListener(`astro:page-load`,e);</script><article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"><p>这是一份给第一次使用 Hermes Agent、并希望通过飞书和 Hermes 对话的用户准备的实战文档。</p>
+<p>文档目标：</p>
+<ul>
+<li>帮你先把 Hermes 的 MiniMax 中国区模型配置正确</li>
+<li>帮你从 0 到 1 完成 Hermes Agent 接入飞书</li>
+<li>解释每一步为什么要这么配</li>
+<li>记录常见报错和对应解决办法</li>
+<li>尽量避免第一次接入时反复踩坑</li>
+</ul>
+<p>本文基于一次真实接入过程整理而成，已经验证过可行。</p>
+<h2 id="一最终效果">一、最终效果</h2>
+<p>配置完成后，你可以做到：</p>
+<ul>
+<li>使用 MiniMax 中国区模型作为 Hermes 的默认模型</li>
+<li>在飞书私聊 Hermes Agent 机器人直接对话</li>
+<li>在飞书群里 <code>@机器人</code> 和 Hermes 对话</li>
+<li>使用 Hermes 现有模型配置作为飞书消息通道背后的推理模型</li>
+<li>将当前飞书会话配置成 Hermes 的 <code>home channel</code></li>
+<li>通过 allowlist 和 pairing 机制限制只有指定账号可用</li>
+</ul>
+<h2 id="二整体架构理解">二、整体架构理解</h2>
+<p>这套配置推荐按下面顺序理解：</p>
+<ol>
+<li>先把 Hermes 的模型配置正确</li>
+<li>再把飞书作为消息通道接入</li>
+<li>最后补安全和体验配置</li>
+</ol>
+<p>Hermes Agent 的飞书接入，本质上是：</p>
+<ol>
+<li>Hermes Gateway 作为后台消息网关进程运行</li>
+<li>飞书开放平台 App 作为消息入口</li>
+<li>飞书 Bot 将消息送到 Hermes Gateway</li>
+<li>Hermes 调用你配置好的模型</li>
+<li>Hermes 再把结果回发到飞书会话</li>
+</ol>
+<p>飞书接入推荐使用：</p>
+<ul>
+<li><code>websocket</code> 模式</li>
+</ul>
+<p>这是官方推荐模式，优点是：</p>
+<ul>
+<li>不需要公网回调地址</li>
+<li>不需要自己部署 webhook 服务</li>
+<li>本地开发和个人使用最省事</li>
+</ul>
+<h2 id="三前置准备">三、前置准备</h2>
+<p>开始前请先准备好以下内容。</p>
+<h3 id="1-已安装-hermes-agent">1. 已安装 Hermes Agent</h3>
+<p>确认命令可用：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> version</span></span></code></pre>
+<h3 id="2-已配置一个可用模型">2. 已配置一个可用模型</h3>
+<p>例如：</p>
+<ul>
+<li><code>minimax-cn</code></li>
+<li><code>minimax</code></li>
+<li><code>openrouter</code></li>
+<li><code>anthropic</code></li>
+<li><code>openai</code></li>
+</ul>
+<p>如果模型本身没配通，飞书接上之后机器人仍然无法正常回复。</p>
+<h3 id="3-已有飞书开放平台应用">3. 已有飞书开放平台应用</h3>
+<p>你需要提前在飞书开放平台创建应用，并获得：</p>
+<ul>
+<li><code>App ID</code></li>
+<li><code>App Secret</code></li>
+</ul>
+<p>飞书开放平台：</p>
+<ul>
+<li><a href="https://open.feishu.cn/">https://open.feishu.cn/</a></li>
+</ul>
+<h3 id="4-飞书应用已开启-bot-能力">4. 飞书应用已开启 Bot 能力</h3>
+<p>在应用里启用 Bot，否则 Hermes 即使连接成功，也无法按消息机器人方式工作。</p>
+<h2 id="四先配置-minimax-中国区模型">四、先配置 MiniMax 中国区模型</h2>
+<p>如果你在中国大陆使用 Hermes，最推荐的起步方式之一，是先把模型配置成 MiniMax 中国区。</p>
+<p>这是因为：</p>
+<ul>
+<li>国内网络环境下通常更稳定</li>
+<li>Hermes 已经内建了 <code>minimax-cn</code> provider</li>
+<li>配好后再接飞书，排查路径会清晰很多</li>
+</ul>
+<h3 id="1-正确的-hermes-配置方式">1. 正确的 Hermes 配置方式</h3>
+<p>在 <code>~/.hermes/config.yaml</code> 中：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">model</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  default</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  provider</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> minimax-cn</span></span></code></pre>
+<p>在 <code>~/.hermes/.env</code> 中：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">MINIMAX_CN_API_KEY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的中国区MiniMax</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> API</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> Key</span></span></code></pre>
+<p>这就是推荐的最简配置。</p>
+<h3 id="2-我们这次实际验证可用的配置">2. 我们这次实际验证可用的配置</h3>
+<p>实际跑通后的关键配置如下。</p>
+<p><code>~/.hermes/config.yaml</code></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">model</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  default</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  provider</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> minimax-cn</span></span></code></pre>
+<p><code>~/.hermes/.env</code></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">MINIMAX_CN_API_KEY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的中国区MiniMax</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> API</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> Key</span></span></code></pre>
+<h3 id="3-不推荐的错误配置方式">3. 不推荐的错误配置方式</h3>
+<p>这次接入过程中，最先遇到的核心问题并不是飞书，而是模型配置方式不对。</p>
+<p>错误示例：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">model</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  default</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> minimax 2.7</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  provider</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> custom</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  base_url</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> https://api.minimaxi.com/anthropic</span></span></code></pre>
+<p>这种配法容易导致：</p>
+<ul>
+<li><code>404 Not Found</code></li>
+<li>Hermes 实际请求路径不匹配</li>
+<li>模型名不被识别</li>
+</ul>
+<p>原因是：</p>
+<ul>
+<li>Hermes 对 MiniMax 已有内建 provider</li>
+<li>不应该再把 MiniMax 中国区强行配成 <code>custom + anthropic</code></li>
+<li><code>minimax 2.7</code> 也不是 Hermes 这里应使用的正确模型 ID</li>
+</ul>
+<h3 id="4-这次实际遇到的-minimax-报错">4. 这次实际遇到的 MiniMax 报错</h3>
+<p>我们这次真实遇到过两类典型报错：</p>
+<p>第一类：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>404 Not Found</span></span></code></pre>
+<p>这通常意味着：</p>
+<ul>
+<li>请求 URL 错了</li>
+<li>provider 配错了</li>
+<li><code>base_url</code> 指向了不适配的路径</li>
+</ul>
+<p>第二类：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Error code: 400 - {'error': {'message': 'minimax 2.7 is not a valid model ID', 'code': 400}}</span></span></code></pre>
+<p>这说明：</p>
+<ul>
+<li>路由已经到 MiniMax 了</li>
+<li>但模型名仍然是错的</li>
+</ul>
+<h3 id="5-正确修复方法">5. 正确修复方法</h3>
+<p>把配置改成内建 provider：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">model</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  default</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  provider</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> minimax-cn</span></span></code></pre>
+<p>然后在 <code>.env</code> 中填好：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">MINIMAX_CN_API_KEY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的中国区MiniMax</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> API</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> Key</span></span></code></pre>
+<p>不要再保留这类旧写法：</p>
+<ul>
+<li><code>provider: custom</code></li>
+<li><code>base_url: https://api.minimaxi.com/anthropic</code></li>
+<li><code>default: minimax 2.7</code></li>
+</ul>
+<h3 id="6-如何验证-minimax-中国区模型已经配通">6. 如何验证 MiniMax 中国区模型已经配通</h3>
+<p>可以直接运行：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> chat</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -Q</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -q</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Reply with exactly: ok</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --provider</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> minimax-cn</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span></code></pre>
+<p>如果返回：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>ok</span></span></code></pre>
+<p>就说明至少下面这条链路已经通了：</p>
+<ul>
+<li>Hermes 配置正确</li>
+<li><code>MINIMAX_CN_API_KEY</code> 可用</li>
+<li>模型名正确</li>
+<li>provider 正确</li>
+</ul>
+<p>建议一定先把这一步做通，再继续配置飞书。</p>
+<h2 id="五官方推荐的飞书配置方式">五、官方推荐的飞书配置方式</h2>
+<p>Hermes 对飞书的原生接入是支持的，不需要你自己写中间层。</p>
+<p>官方关键配置项如下：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_APP_ID</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的飞书AppID</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_APP_SECRET</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的飞书AppSecret</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_DOMAIN</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">feishu</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_CONNECTION_MODE</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">websocket</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_GROUP_POLICY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">allowlist</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_ALLOWED_USERS</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_HOME_CHANNEL</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span></span></code></pre>
+<p>说明：</p>
+<ul>
+<li><code>FEISHU_DOMAIN=feishu</code> 表示中国区飞书</li>
+<li>如果是国际版 Lark，用 <code>FEISHU_DOMAIN=lark</code></li>
+<li><code>FEISHU_CONNECTION_MODE=websocket</code> 是推荐方式</li>
+<li><code>FEISHU_GROUP_POLICY=allowlist</code> 表示群里只允许白名单用户使用</li>
+<li><code>FEISHU_ALLOWED_USERS</code> 建议第一次接入时只填自己</li>
+<li><code>FEISHU_HOME_CHANNEL</code> 可以后面再补</li>
+</ul>
+<h2 id="六推荐的最短配置路径">六、推荐的最短配置路径</h2>
+<p>如果你是第一次接入，建议直接按下面流程做，不要一开始就追求把所有参数配满。</p>
+<h3 id="第一步先把-minimax-中国区模型配通">第一步：先把 MiniMax 中国区模型配通</h3>
+<p>先确保 Hermes 自己已经能正常调用模型，而不是一上来就配飞书。</p>
+<p>例如可以测试：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> chat</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -Q</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -q</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Reply with exactly: ok</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --provider</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> minimax-cn</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span></code></pre>
+<p>如果这里都不能返回，就先不要继续飞书接入。</p>
+<h3 id="第二步在-hermesenv-中加入飞书配置">第二步：在 <code>~/.hermes/.env</code> 中加入飞书配置</h3>
+<p>编辑：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">~</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">/.hermes/.env</span></span></code></pre>
+<p>加入：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_APP_ID</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">YOUR_FEISHU_APP_ID</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_APP_SECRET</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">YOUR_FEISHU_APP_SECRET</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_DOMAIN</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">feishu</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_CONNECTION_MODE</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">websocket</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_GROUP_POLICY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">allowlist</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_ALLOWED_USERS</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_HOME_CHANNEL</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span></span></code></pre>
+<p>第一次接入时，<code>FEISHU_ALLOWED_USERS</code> 和 <code>FEISHU_HOME_CHANNEL</code> 可以先空着。</p>
+<h3 id="第三步确认-hermes-运行飞书所需依赖已经安装">第三步：确认 Hermes 运行飞书所需依赖已经安装</h3>
+<p>飞书 websocket 模式至少要有这些 Python 依赖：</p>
+<ul>
+<li><code>lark-oapi</code></li>
+<li><code>websockets</code></li>
+</ul>
+<p>可以检查：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/Users/你的用户名/.hermes/hermes-agent/venv/bin/python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> -</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;&#x3C;</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">'PY'</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import importlib</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">for m in ["lark_oapi", "websockets"]:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    try:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        importlib.import_module(m)</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        print(m, "ok")</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    except Exception as e:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        print(m, "missing", e)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">PY</span></span></code></pre>
+<p>如果 Hermes 自己的 venv 里缺依赖，安装到 Hermes 的 venv：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/Users/你的用户名/.hermes/hermes-agent/venv/bin/python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ensurepip</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --upgrade</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/Users/你的用户名/.hermes/hermes-agent/venv/bin/python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pip</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> lark-oapi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> websockets</span></span></code></pre>
+<p>注意：</p>
+<ul>
+<li>要装到 Hermes 自己的 venv</li>
+<li>不要只装到系统 Python</li>
+</ul>
+<h3 id="第四步启动或重启-hermes-gateway">第四步：启动或重启 Hermes Gateway</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gateway</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> start</span></span></code></pre>
+<p>如果已经在运行：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gateway</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> restart</span></span></code></pre>
+<h3 id="第五步检查-gateway-日志">第五步：检查 Gateway 日志</h3>
+<p>重点看：</p>
+<ul>
+<li><code>~/.hermes/logs/gateway.log</code></li>
+<li><code>~/.hermes/logs/gateway.error.log</code></li>
+</ul>
+<p>如果接入成功，日志里通常会看到类似信息：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Connecting to feishu...</span></span>
+<span class="line"><span>Connected in websocket mode (feishu)</span></span>
+<span class="line"><span>Gateway running with 2 platform(s)</span></span></code></pre>
+<p>如果看到这些，说明飞书通道已经连上。</p>
+<h3 id="第六步去飞书里私聊-bot">第六步：去飞书里私聊 Bot</h3>
+<p>第一次建议先从私聊开始，不要一上来就在群里测。</p>
+<p>私聊里发一条简单消息，例如：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>hello</span></span></code></pre>
+<h2 id="七第一次使用时一定会遇到的配对机制">七、第一次使用时一定会遇到的“配对”机制</h2>
+<p>很多人第一次看到 Hermes 的飞书回复会以为是报错，其实不是。</p>
+<p>第一次私聊时，Hermes 很可能会返回类似信息：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Hi~ I don't recognize you yet!</span></span>
+<span class="line"><span>Here's your pairing code: XXXXXXXX</span></span>
+<span class="line"><span>Ask the bot owner to run:</span></span>
+<span class="line"><span>hermes pairing approve feishu XXXXXXXX</span></span></code></pre>
+<p>这表示：</p>
+<ul>
+<li>飞书通道已经通了</li>
+<li>Hermes 收到了你的消息</li>
+<li>但 Hermes 还没有把你这个飞书用户标记为已授权用户</li>
+</ul>
+<h3 id="正确处理方式">正确处理方式</h3>
+<p>在 Hermes 所在机器上执行：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pairing</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> approve</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> feishu</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 你的配对码</span></span></code></pre>
+<p>批准成功后，Hermes 会提示该用户下次消息自动识别。</p>
+<h3 id="如果命令报权限问题">如果命令报权限问题</h3>
+<p>有时会出现无法写入 <code>~/.hermes/pairing/</code> 的情况。</p>
+<p>这通常不是 Hermes 配错，而是当前执行环境没有权限。</p>
+<p>解决方式：</p>
+<ul>
+<li>在有足够权限的本机终端执行</li>
+<li>或者以允许 Hermes 访问 <code>~/.hermes/</code> 的方式执行</li>
+</ul>
+<h2 id="八建议马上补上的安全配置">八、建议马上补上的安全配置</h2>
+<p>第一次能聊通之后，不建议就这样结束，至少还要再做两件事。</p>
+<h3 id="1-把自己的飞书账号加入-allowlist">1. 把自己的飞书账号加入 allowlist</h3>
+<p>一旦你完成 pairing，可以把自己的 <code>open_id</code> 写进：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_ALLOWED_USERS</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的open_id</span></span></code></pre>
+<p>这样以后：</p>
+<ul>
+<li>只有你自己能先使用这个 bot</li>
+<li>即使 bot 被别人发现，也不会随便可用</li>
+</ul>
+<p>Hermes 日志里通常可以看到你的用户 ID，例如：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>user=ou_xxx</span></span></code></pre>
+<h3 id="2-设置-feishu_home_channel">2. 设置 <code>FEISHU_HOME_CHANNEL</code></h3>
+<p>这会告诉 Hermes：</p>
+<ul>
+<li>以后通知往哪里发</li>
+<li>cron 任务结果往哪里发</li>
+<li>某些默认输出往哪个飞书会话发</li>
+</ul>
+<p>可以手动写入：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_HOME_CHANNEL</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">oc_xxx</span></span></code></pre>
+<p>也可以在飞书会话里对 bot 发送：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/sethome</span></span></code></pre>
+<h2 id="九群聊中的行为规则">九、群聊中的行为规则</h2>
+<p>飞书群聊和私聊行为不同。</p>
+<h3 id="私聊">私聊</h3>
+<ul>
+<li>Hermes 会处理你发送的每条消息</li>
+</ul>
+<h3 id="群聊">群聊</h3>
+<ul>
+<li>必须 <code>@机器人</code></li>
+<li>没有 <code>@</code> 时 Hermes 不处理</li>
+<li>如果 <code>FEISHU_GROUP_POLICY=allowlist</code>，还会检查你是否在白名单里</li>
+</ul>
+<p>所以群里“机器人没反应”最常见的原因不是坏了，而是：</p>
+<ul>
+<li>没有 <code>@bot</code></li>
+<li>不在 allowlist</li>
+<li>群策略是 <code>disabled</code></li>
+</ul>
+<h2 id="十我们这次真实接入时遇到的问题与解决方案">十、我们这次真实接入时遇到的问题与解决方案</h2>
+<p>下面这些问题都是真实发生过的，第一次接入很容易遇到。</p>
+<h3 id="问题-1以为-hermes-不支持飞书">问题 1：以为 Hermes 不支持飞书</h3>
+<p>表面现象：</p>
+<ul>
+<li>文档没第一时间看到飞书入口</li>
+<li>怀疑 Hermes 只支持 Telegram / Discord / Slack</li>
+</ul>
+<p>实际原因：</p>
+<ul>
+<li>飞书支持是内建的，只是需要看对应的 <code>Feishu / Lark</code> 文档页</li>
+</ul>
+<p>解决办法：</p>
+<ul>
+<li>确认本地 Hermes 版本包含 <code>gateway/platforms/feishu.py</code></li>
+<li>查阅官方 Feishu/Lark 配置文档</li>
+</ul>
+<h3 id="问题-2minimax-被错误配置成-custom-provider">问题 2：MiniMax 被错误配置成 custom provider</h3>
+<p>表面现象：</p>
+<ul>
+<li>日志里出现 <code>404 Not Found</code></li>
+<li>或者一直请求失败</li>
+</ul>
+<p>实际原因：</p>
+<ul>
+<li>把 MiniMax 错配成了：
+<ul>
+<li><code>provider: custom</code></li>
+<li><code>base_url: https://api.minimaxi.com/anthropic</code></li>
+</ul>
+</li>
+</ul>
+<p>解决办法：</p>
+<ul>
+<li>改回 Hermes 内建 provider：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">model</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  default</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  provider</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> minimax-cn</span></span></code></pre>
+<ul>
+<li>并在 <code>.env</code> 中使用：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">MINIMAX_CN_API_KEY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的中国区MiniMax</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> API</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> Key</span></span></code></pre>
+<h3 id="问题-3模型名写成-minimax-27">问题 3：模型名写成 <code>minimax 2.7</code></h3>
+<p>表面现象：</p>
+<ul>
+<li>日志里出现：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>minimax 2.7 is not a valid model ID</span></span></code></pre>
+<p>实际原因：</p>
+<ul>
+<li>模型路由已经到了 MiniMax</li>
+<li>但模型名不是 Hermes 这里要用的合法 ID</li>
+</ul>
+<p>解决办法：</p>
+<ul>
+<li>改成：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">default</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span></code></pre>
+<h3 id="问题-4飞书依赖没装">问题 4：飞书依赖没装</h3>
+<p>表面现象：</p>
+<ul>
+<li>飞书配置看起来没问题</li>
+<li>但 Gateway 启不来，或者 websocket 模式不可用</li>
+</ul>
+<p>实际原因：</p>
+<ul>
+<li>Hermes 的 venv 中缺少：
+<ul>
+<li><code>lark-oapi</code></li>
+<li><code>websockets</code></li>
+</ul>
+</li>
+</ul>
+<p>解决办法：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/Users/你的用户名/.hermes/hermes-agent/venv/bin/python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ensurepip</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --upgrade</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/Users/你的用户名/.hermes/hermes-agent/venv/bin/python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pip</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> lark-oapi</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> websockets</span></span></code></pre>
+<h3 id="问题-5hermes-的-venv-里连-pip-都没有">问题 5：Hermes 的 venv 里连 pip 都没有</h3>
+<p>表面现象：</p>
+<ul>
+<li>执行安装依赖时报：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>No module named pip</span></span></code></pre>
+<p>解决办法：</p>
+<p>先执行：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/Users/你的用户名/.hermes/hermes-agent/venv/bin/python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ensurepip</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --upgrade</span></span></code></pre>
+<p>然后再安装依赖。</p>
+<h3 id="问题-6gateway-状态看起来不一致">问题 6：Gateway 状态看起来不一致</h3>
+<p>表面现象：</p>
+<ul>
+<li><code>hermes gateway restart</code> 提示成功</li>
+<li>但 <code>hermes gateway status</code> 一度显示没加载</li>
+</ul>
+<p>实际原因：</p>
+<ul>
+<li>launchd 状态刷新有延迟</li>
+<li>或者服务刚 reload 完，状态输出和日志未完全同步</li>
+</ul>
+<p>解决办法：</p>
+<ul>
+<li>不只看 <code>status</code></li>
+<li>同时看 <code>~/.hermes/logs/gateway.log</code></li>
+</ul>
+<p>日志里只要出现：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Connected in websocket mode (feishu)</span></span></code></pre>
+<p>就说明飞书实际已经连上。</p>
+<h3 id="问题-7第一次发消息返回-pairing-code">问题 7：第一次发消息返回 pairing code</h3>
+<p>表面现象：</p>
+<ul>
+<li>机器人不是正常回复，而是返回一串 pairing code</li>
+</ul>
+<p>实际原因：</p>
+<ul>
+<li>这是安全机制，不是错误</li>
+</ul>
+<p>解决办法：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pairing</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> approve</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> feishu</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 你的配对码</span></span></code></pre>
+<h3 id="问题-8刚连上时被判定为-unauthorized-user">问题 8：刚连上时被判定为 Unauthorized user</h3>
+<p>表面现象：</p>
+<ul>
+<li>日志里出现：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Unauthorized user</span></span></code></pre>
+<p>实际原因：</p>
+<ul>
+<li>你还没完成 pairing</li>
+<li>或者还没把自己的 <code>open_id</code> 放进 <code>FEISHU_ALLOWED_USERS</code></li>
+</ul>
+<p>解决办法：</p>
+<ol>
+<li>先完成 pairing</li>
+<li>再把自己的 <code>open_id</code> 填入 allowlist</li>
+</ol>
+<h3 id="问题-9机器人能私聊但群里不回复">问题 9：机器人能私聊，但群里不回复</h3>
+<p>实际原因通常是：</p>
+<ul>
+<li>没有 <code>@机器人</code></li>
+<li>群策略限制</li>
+<li>用户不在白名单</li>
+</ul>
+<p>解决办法：</p>
+<ul>
+<li>群里明确 <code>@bot</code></li>
+<li>检查 <code>FEISHU_GROUP_POLICY</code></li>
+<li>检查 <code>FEISHU_ALLOWED_USERS</code></li>
+</ul>
+<h2 id="十一推荐的最终稳定配置">十一、推荐的最终稳定配置</h2>
+<p>下面是一套适合中国区飞书、个人先用起来的推荐配置。</p>
+<p><code>~/.hermes/config.yaml</code></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">model</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  default</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  provider</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> minimax-cn</span></span></code></pre>
+<p><code>~/.hermes/.env</code></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">MINIMAX_CN_API_KEY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的中国区MiniMax</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> API</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> Key</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_APP_ID</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的AppID</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_APP_SECRET</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的AppSecret</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_DOMAIN</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">feishu</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_CONNECTION_MODE</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">websocket</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_GROUP_POLICY</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">allowlist</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_ALLOWED_USERS</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的open_id</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">FEISHU_HOME_CHANNEL</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">你的chat_id</span></span></code></pre>
+<p>它的特点是：</p>
+<ul>
+<li>配置简单</li>
+<li>不需要公网 webhook</li>
+<li>只有你自己能先使用</li>
+<li>后续再扩展群聊、通知、定时任务都比较顺</li>
+</ul>
+<h2 id="十二推荐排查顺序">十二、推荐排查顺序</h2>
+<p>如果接入失败，建议永远按这个顺序排查。</p>
+<h3 id="第-1-步先确认模型是否工作">第 1 步：先确认模型是否工作</h3>
+<p>不要一上来就怀疑飞书。</p>
+<p>先确认 Hermes 本身能正常调用模型。</p>
+<h3 id="第-2-步确认-env-变量是否填对">第 2 步：确认 <code>.env</code> 变量是否填对</h3>
+<p>重点检查：</p>
+<ul>
+<li><code>provider</code> 是否是 <code>minimax-cn</code></li>
+<li><code>default</code> 是否是 <code>MiniMax-M2.7</code></li>
+<li><code>MINIMAX_CN_API_KEY</code></li>
+<li><code>FEISHU_APP_ID</code></li>
+<li><code>FEISHU_APP_SECRET</code></li>
+<li><code>FEISHU_DOMAIN</code></li>
+<li><code>FEISHU_CONNECTION_MODE</code></li>
+</ul>
+<h3 id="第-3-步确认依赖是否在-hermes-venv-里">第 3 步：确认依赖是否在 Hermes venv 里</h3>
+<p>重点检查：</p>
+<ul>
+<li><code>lark-oapi</code></li>
+<li><code>websockets</code></li>
+</ul>
+<h3 id="第-4-步重启-gateway">第 4 步：重启 Gateway</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gateway</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> restart</span></span></code></pre>
+<h3 id="第-5-步看日志不要只看命令返回">第 5 步：看日志，不要只看命令返回</h3>
+<p>重点看：</p>
+<ul>
+<li><code>~/.hermes/logs/gateway.log</code></li>
+<li><code>~/.hermes/logs/gateway.error.log</code></li>
+</ul>
+<h3 id="第-6-步私聊-bot-测试">第 6 步：私聊 Bot 测试</h3>
+<p>第一次不要先在群里测。</p>
+<h3 id="第-7-步处理-pairing">第 7 步：处理 pairing</h3>
+<p>如果出现 pairing code，就批准它，不要误判为失败。</p>
+<h2 id="十三给第一次使用者的建议">十三、给第一次使用者的建议</h2>
+<p>如果你是第一次用 Hermes Agent，我建议你按下面顺序做：</p>
+<ol>
+<li>先把 MiniMax 中国区模型配通</li>
+<li>再接飞书</li>
+<li>先用私聊验证</li>
+<li>完成 pairing</li>
+<li>再把自己的 <code>open_id</code> 写进 allowlist</li>
+<li>再设置 <code>home channel</code></li>
+<li>最后再去考虑群聊、cron、更多渠道</li>
+</ol>
+<p>这样最不容易绕晕。</p>
+<h2 id="十四常用命令速查">十四、常用命令速查</h2>
+<h3 id="查看-hermes-版本">查看 Hermes 版本</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> version</span></span></code></pre>
+<h3 id="查看配置摘要">查看配置摘要</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> dump</span></span></code></pre>
+<h3 id="测试-minimax-中国区模型">测试 MiniMax 中国区模型</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> chat</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -Q</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -q</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Reply with exactly: ok</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --provider</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> minimax-cn</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MiniMax-M2.7</span></span></code></pre>
+<h3 id="检查环境">检查环境</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> doctor</span></span></code></pre>
+<h3 id="启动-gateway">启动 Gateway</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gateway</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> start</span></span></code></pre>
+<h3 id="重启-gateway">重启 Gateway</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gateway</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> restart</span></span></code></pre>
+<h3 id="查看-gateway-状态">查看 Gateway 状态</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gateway</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> status</span></span></code></pre>
+<h3 id="审批飞书配对码">审批飞书配对码</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pairing</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> approve</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> feishu</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 配对码</span></span></code></pre>
+<h3 id="查看已批准用户">查看已批准用户</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">hermes</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pairing</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span></span></code></pre>
+<h2 id="十五文档结论">十五、文档结论</h2>
+<p>Hermes Agent 接入飞书并不复杂，但第一次配置最容易卡在以下几个点：</p>
+<ul>
+<li>MiniMax provider 配错成 custom</li>
+<li>模型名写成 <code>minimax 2.7</code></li>
+<li>误以为 Hermes 不支持飞书</li>
+<li>只配了 <code>.env</code>，却没装飞书依赖</li>
+<li>依赖装错 Python 环境</li>
+<li>收到 pairing code 时误判为错误</li>
+<li>忘记设置 allowlist 和 home channel</li>
+</ul>
+<p>只要你按本文步骤走，尤其是：</p>
+<ul>
+<li>先把 <code>minimax-cn + MiniMax-M2.7 + MINIMAX_CN_API_KEY</code> 配通</li>
+<li>用 <code>websocket</code></li>
+<li>依赖装到 Hermes 的 venv</li>
+<li>先私聊</li>
+<li>完成 pairing</li>
+<li>再补 allowlist 和 home channel</li>
+</ul>
+<p>通常都可以顺利接通。</p>
+<p>如果你要把这份文档分享给团队成员，建议同时提醒他们：</p>
+<ul>
+<li>不要在文档里保存真实 <code>App Secret</code></li>
+<li>不要把真实 <code>open_id</code>、<code>chat_id</code>、API Key 直接公开</li>
+<li>分享时统一改成占位符</li>
+</ul></article><hr class="my-8 border-dashed"><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/08/22/hermes-agent-feishu-setup.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a><div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"><button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"><span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><span class="group-hover:text-accent sr-only text-sm md:not-sr-only"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg>回到顶部</span></button></div><script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script><ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/tags/hermes/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Hermes</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/tags/飞书/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>飞书</a></li></ul><div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://x.com/intent/post?url=https://beepony.github.io/posts/2026/08/22/hermes-agent-feishu-setup/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span></a><a href="https://t.me/share/url?url=https://beepony.github.io/posts/2026/08/22/hermes-agent-feishu-setup/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span></a><a href="mailto:?subject=See%20this%20post&amp;body=https://beepony.github.io/posts/2026/08/22/hermes-agent-feishu-setup/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span></a></div></div><hr class="my-8 border-dashed"><div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"><a href="/posts/2026/08/18/伯恩斯情绪疗法-核心观点与应用/" class="flex w-full gap-1 hover:opacity-75"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><div><span>上一篇</span><div class="text-accent/85 text-sm">伯恩斯情绪疗法 · 核心观点与应用</div></div></a><a href="/posts/2026/08/25/pw1-koreader-jailbreak-guide/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"><div><span>下一篇</span><div class="text-accent/85 text-sm">Kindle Paperwhite 一代越狱、修复与 KOReader 恢复手册</div></div><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg></a></div></main><footer class="app-layout mt-auto"><div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"><div class="flex flex-wrap items-center gap-1"><a href="https://github.com/beepony" title="Beepony on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg><span class="sr-only">Beepony on Github</span></a><a href="https://x.com/ynopeeb" title="Beepony on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Beepony on X</span></a></div><div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"><span>版权所有 &#169; 2026</span><span class="hidden sm:inline">&nbsp;|&nbsp;</span><span>保留所有权利。</span></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n),document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,i);let t=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html><script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>

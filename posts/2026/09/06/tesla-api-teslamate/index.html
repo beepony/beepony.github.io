@@ -1,0 +1,1531 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="canonical" href="https://beepony.github.io/posts/2026/09/06/tesla-api-teslamate/"><meta name="generator" content="Astro v7.3.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/02154cca78ac33f2.woff") format("woff"), url("/_astro/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/_astro/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a5c5808c25effec9.woff") format("woff"), url("/_astro/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/14314705006234cb.woff") format("woff"), url("/_astro/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c33265ba093eb291.woff") format("woff"), url("/_astro/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/_astro/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/_astro/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/_astro/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/da468df88542c99b.woff") format("woff"), url("/_astro/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/f914de358bc554f6.woff") format("woff"), url("/_astro/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>Tesla 直连 API 的文档与资料源（官方 + 社区 + TeslaMate 里的逆向证据） | Beepony</title><meta name="title" content="Tesla 直连 API 的文档与资料源（官方 + 社区 + TeslaMate 里的逆向证据） | Beepony"><meta name="description" content="|"><meta name="author" content="Beepony"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Beepony"><meta property="og:title" content="Tesla 直连 API 的文档与资料源（官方 + 社区 + TeslaMate 里的逆向证据） | Beepony"><meta property="og:description" content="|"><meta property="og:url" content="https://beepony.github.io/posts/2026/09/06/tesla-api-teslamate/"><meta property="og:image" content="https://beepony.github.io/default-og.jpg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://beepony.github.io/posts/2026/09/06/tesla-api-teslamate/"><meta property="twitter:title" content="Tesla 直连 API 的文档与资料源（官方 + 社区 + TeslaMate 里的逆向证据） | Beepony"><meta property="twitter:description" content="|"><meta property="twitter:image" content="https://beepony.github.io/default-og.jpg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Beepony" href="https://beepony.github.io/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) --><meta property="og:type" content="article"><meta property="article:published_time" content="2026-09-06T01:00:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Tesla 直连 API 的文档与资料源（官方 + 社区 + TeslaMate 里的逆向证据） | Beepony","datePublished":"2026-09-06T01:00:00.000Z","author":[{"@type":"Person","name":"Beepony","url":"https://github.com/beepony"}]}</script><!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CYDbzu1r.js"></script><link rel="stylesheet" href="/_astro/Footer.DmiNq5ML.css"><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*),[data-astro-transition-scope]{animation:none!important}}
+.toc[data-astro-cid-p33bl5ka]{font-family:var(--font-google-sans-code), monospace}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka][data-toc-link].toc-active{color:var(--accent);font-weight:500}
+</style><style>[data-astro-transition-scope="astro-bztu2lml-1"] { view-transition-name: tesla; }@layer astro { ::view-transition-old(tesla) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tesla) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tesla) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tesla) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-2"] { view-transition-name: api; }@layer astro { ::view-transition-old(api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-3"] { view-transition-name: fleet-api; }@layer astro { ::view-transition-old(fleet-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(fleet-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(fleet-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(fleet-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-4"] { view-transition-name: owner-api; }@layer astro { ::view-transition-old(owner-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(owner-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(owner-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(owner-api) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-5"] { view-transition-name: streaming; }@layer astro { ::view-transition-old(streaming) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(streaming) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(streaming) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(streaming) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-6"] { view-transition-name: oauth; }@layer astro { ::view-transition-old(oauth) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(oauth) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(oauth) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(oauth) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-7"] { view-transition-name: mqtt; }@layer astro { ::view-transition-old(mqtt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(mqtt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(mqtt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(mqtt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-7"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-7"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-8"] { view-transition-name: teslamate; }@layer astro { ::view-transition-old(teslamate) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(teslamate) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(teslamate) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(teslamate) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-8"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-8"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-8"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-8"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">跳到正文</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none">Beepony</a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/posts/" class="active-nav">文章</a></li><li class="col-span-2"><a href="/tags/">标签</a></li><li class="col-span-2"><a href="/about/">关于</a></li><li class="col-span-2"><a href="/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">归档</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">搜索</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span></a></div><script type="module">function e(){let e=document.querySelector(`#back-button`),t=sessionStorage.getItem(`backUrl`);t&&e&&(e.href=t)}document.addEventListener(`astro:page-load`,e),e();</script><main id="main-content" class="app-layout" data-pagefind-body><h1 style="view-transition-name:p-20260906tesla-api-teslamate" class="text-accent inline-block text-2xl font-bold sm:text-3xl">Tesla 直连 API 的文档与资料源（官方 + 社区 + TeslaMate 里的逆向证据）</h1><div class="my-2 flex items-center gap-2"><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time class="text-sm sm:text-base" datetime="2026-09-06T01:00:00.000Z">6 Sep, 2026</time></div><span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/09/06/tesla-api-teslamate.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a></div><aside id="toc" class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0" data-astro-cid-p33bl5ka><h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide" data-astro-cid-p33bl5ka>📑 目录</h2><nav aria-label="目录" data-astro-cid-p33bl5ka><ul class="space-y-1" data-astro-cid-p33bl5ka><li data-astro-cid-p33bl5ka><a href="#0-顶层结论先看这张表" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="0-顶层结论先看这张表" data-astro-cid-p33bl5ka>0. 顶层结论（先看这张表）</a></li><li data-astro-cid-p33bl5ka><a href="#1-官方-api最权威但分散在三个地方" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="1-官方-api最权威但分散在三个地方" data-astro-cid-p33bl5ka>1. 官方 API（最权威，但分散在三个地方）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#11-tesla-developer-portal注册--文档总入口" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="11-tesla-developer-portal注册--文档总入口" data-astro-cid-p33bl5ka>1.1 Tesla Developer Portal（注册 + 文档总入口）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#12-oauth-20-登录端点auth" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="12-oauth-20-登录端点auth" data-astro-cid-p33bl5ka>1.2 OAuth 2.0 登录端点（Auth）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#13-官方-api-域名表按区域" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="13-官方-api-域名表按区域" data-astro-cid-p33bl5ka>1.3 官方 API 域名表（按区域）</a></li><li data-astro-cid-p33bl5ka><a href="#2-owner-streamingwebsocket-秒级数据最值得用" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="2-owner-streamingwebsocket-秒级数据最值得用" data-astro-cid-p33bl5ka>2. Owner Streaming（WebSocket 秒级数据，最值得用）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#21-websocket-端点" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="21-websocket-端点" data-astro-cid-p33bl5ka>2.1 WebSocket 端点</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#22-协议来自-teslamate-libtesla_apistreamex已确认可用" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="22-协议来自-teslamate-libtesla_apistreamex已确认可用" data-astro-cid-p33bl5ka>2.2 协议（来自 TeslaMate lib/tesla_api/stream.ex，已确认可用）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#23-退订--心跳" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="23-退订--心跳" data-astro-cid-p33bl5ka>2.3 退订 + 心跳</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#24-与-fleet-telemetry-的取舍" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="24-与-fleet-telemetry-的取舍" data-astro-cid-p33bl5ka>2.4 与 Fleet Telemetry 的取舍</a></li><li data-astro-cid-p33bl5ka><a href="#3-owner-api-命令端点解锁开空调等" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="3-owner-api-命令端点解锁开空调等" data-astro-cid-p33bl5ka>3. Owner API 命令端点（解锁/开空调等）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#31-owner-api-命令端点社区共识" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="31-owner-api-命令端点社区共识" data-astro-cid-p33bl5ka>3.1 Owner API 命令端点（社区共识）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#32-fleet-api-命令官方但复杂" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="32-fleet-api-命令官方但复杂" data-astro-cid-p33bl5ka>3.2 Fleet API 命令（官方但复杂）</a></li><li data-astro-cid-p33bl5ka><a href="#4-第三方代理最省事的方案" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="4-第三方代理最省事的方案" data-astro-cid-p33bl5ka>4. 第三方代理（最省事的方案）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#41-myteslamate免费最接近-teslamate-风格" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="41-myteslamate免费最接近-teslamate-风格" data-astro-cid-p33bl5ka>4.1 MyTeslaMate（免费，最接近 TeslaMate 风格）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#42-teslemetry付费" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="42-teslemetry付费" data-astro-cid-p33bl5ka>4.2 Teslemetry（付费）</a></li><li data-astro-cid-p33bl5ka><a href="#5-teslamate-仓库里的逆向证据清单" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="5-teslamate-仓库里的逆向证据清单" data-astro-cid-p33bl5ka>5. TeslaMate 仓库里的”逆向证据”清单</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#51-完整文件索引" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="51-完整文件索引" data-astro-cid-p33bl5ka>5.1 完整文件索引</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#52-关键-state-字段表" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="52-关键-state-字段表" data-astro-cid-p33bl5ka>5.2 关键 State 字段表</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#53-url--路径速查" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="53-url--路径速查" data-astro-cid-p33bl5ka>5.3 URL / 路径速查</a></li><li data-astro-cid-p33bl5ka><a href="#6-社区生态看这里能摸到最新动态" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="6-社区生态看这里能摸到最新动态" data-astro-cid-p33bl5ka>6. 社区生态（看这里能”摸到”最新动态）</a></li><li data-astro-cid-p33bl5ka><a href="#7-给做自己-app的实操建议" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="7-给做自己-app的实操建议" data-astro-cid-p33bl5ka>7. 给”做自己 App”的实操建议</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#71-最小可行方案个人玩具" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="71-最小可行方案个人玩具" data-astro-cid-p33bl5ka>7.1 最小可行方案（个人玩具）</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#72-生产-app-选型" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="72-生产-app-选型" data-astro-cid-p33bl5ka>7.2 生产 App 选型</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#73-必须看的法律--风险-红线" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="73-必须看的法律--风险-红线" data-astro-cid-p33bl5ka>7.3 必须看的”法律 / 风险” 红线</a></li><li data-astro-cid-p33bl5ka><a href="#8-速查url--端点--库粘到笔记里随时翻" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="8-速查url--端点--库粘到笔记里随时翻" data-astro-cid-p33bl5ka>8. 速查：URL / 端点 / 库（粘到笔记里随时翻）</a></li><li data-astro-cid-p33bl5ka><a href="#9-参考源码位置汇总" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="9-参考源码位置汇总" data-astro-cid-p33bl5ka>9. 参考源码位置（汇总）</a></li></ul></nav></aside><script type="module">function e(){let e=Array.from(document.querySelectorAll(`a[data-toc-link]`));if(e.length===0)return;let t=e.map(e=>e.dataset.tocLink).filter(Boolean).map(e=>document.getElementById(e)).filter(e=>e!==null);if(t.length===0)return;let n=t=>{for(let n of e)n.classList.toggle(`toc-active`,n.dataset.tocLink===t)},r=new IntersectionObserver(e=>{for(let t of e)t.isIntersecting&&n(t.target.id)},{rootMargin:`0px 0px -70% 0px`,threshold:0});for(let e of t)r.observe(e)}document.addEventListener(`astro:page-load`,e);</script><article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"><h1 id="tesla-直连-api-的文档与资料源">Tesla 直连 API 的文档与资料源</h1>
+<blockquote><p>做自己的特斯拉 App 时，<strong>TeslaMate 不能告诉你”怎么发命令给车”</strong>——它只读数据 + 控制自家日志启停。要触发解锁、开空调、鸣笛等命令，或者拿到 TeslaMate 没暴露的字段，必须直连 Tesla API。
+下面把能找到 Tesla API 文档的<strong>所有正规渠道</strong>列清楚，每条都标了”能拿到什么 / 适合什么场景”。</p></blockquote>
+<hr>
+<h2 id="0-顶层结论先看这张表">0. 顶层结论（先看这张表）</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>你想做的事</th><th>用哪个 API</th><th>文档在哪里</th></tr></thead><tbody><tr><td>读车辆状态（电池/位置/温度/门窗…）</td><td><strong>Owner API</strong>（默认）或 <strong>Fleet API vehicle_data</strong></td><td>见 §1</td></tr><tr><td><strong>实时</strong> 数据（秒级）</td><td><strong>Owner Streaming</strong>（WebSocket，OAuth 模式）或 <strong>Fleet Telemetry</strong>（PubSub，最少 1 分钟）</td><td>见 §2</td></tr><tr><td>触发命令（解锁/开空调/鸣笛/寻车/充电控制/召唤…）</td><td><strong>Owner API commands</strong> 或 <strong>Fleet API commands</strong></td><td>见 §3</td></tr><tr><td>注册 App、申请 OAuth client_id</td><td><strong>Tesla Developer Portal</strong></td><td>§1.1</td></tr><tr><td>OAuth 登录流程（PKCE / SSO）</td><td><code>auth.tesla.com/oauth2/v3</code></td><td>§1.2</td></tr><tr><td>不知道字段在哪、看不懂返回结构</td><td>逆向 TeslaMate 的 <code>tesla_api/</code> 目录</td><td>见 §5</td></tr><tr><td>想走捷径、不想自己搞 OAuth</td><td><strong>第三方代理</strong>（MyTeslaMate、Teslemetry）</td><td>§4</td></tr></tbody></table>
+<hr>
+<h2 id="1-官方-api最权威但分散在三个地方">1. 官方 API（最权威，但分散在三个地方）</h2>
+<h3 id="11-tesla-developer-portal注册--文档总入口">1.1 Tesla Developer Portal（注册 + 文档总入口）</h3>
+<ul>
+<li><strong>URL</strong>：<a href="https://developer.tesla.com">https://developer.tesla.com</a></li>
+<li>注册一个 Tesla 账号，进入”Apps” 创建一个第三方应用，得到：
+<ul>
+<li><code>client_id</code> / <code>client_secret</code></li>
+<li>一个”tagged”应用，可申请 Fleet API / Telemetry 权限</li>
+</ul>
+</li>
+<li><strong>文档中心</strong>（登录后才能完整看）：<a href="https://developer.tesla.com/docs">https://developer.tesla.com/docs</a>
+<ul>
+<li><strong>Fleet API</strong>：<a href="https://developer.tesla.com/docs/fleet-api">https://developer.tesla.com/docs/fleet-api</a>
+<ul>
+<li>涵盖 OAuth、命令、车辆数据、<code>vehicle_data</code> 端点列表</li>
+</ul>
+</li>
+<li><strong>Fleet Telemetry</strong>：<a href="https://developer.tesla.com/docs/fleet-telemetry">https://developer.tesla.com/docs/fleet-telemetry</a>
+<ul>
+<li>PubSub 模式，最低 1 分钟一次（不能秒级！）</li>
+</ul>
+</li>
+<li><strong>Vehicle Command Protocol</strong>：<a href="https://developer.tesla.com/docs/vehicle-command/vehicle-command">https://developer.tesla.com/docs/vehicle-command/vehicle-command</a>
+<ul>
+<li>描述命令的底层 mTLS + HTTP 协议（Fleet API 命令最终走这个）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Membership Levels / 限流</strong>：<a href="https://developer.tesla.com/docs/fleet-api#membership-levels">https://developer.tesla.com/docs/fleet-api#membership-levels</a>
+<ul>
+<li>关键：免费 tier 限制 <code>vehicle_data</code> 的轮询次数（一般几小时 1 次）；超过会被限流到 24h 1 次</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-oauth-20-登录端点auth">1.2 OAuth 2.0 登录端点（Auth）</h3>
+<p>来自 TeslaMate 源码 <code>lib/tesla_api/auth.ex</code>，<strong>官方文档写得非常隐晦</strong>，这里整理出来：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>端点</th><th>用途</th></tr></thead><tbody><tr><td><code>https://auth.tesla.com/oauth2/v3</code></td><td>全球用户 OAuth 2.0 端点</td></tr><tr><td><code>https://auth.tesla.cn/oauth2/v3</code></td><td>中国用户（<code>TESLA_AUTH_HOST</code> 环境变量可切换）</td></tr><tr><td><code>client_id = ownerapi</code></td><td>Owner API 时代的”老” client_id，TeslaMate 还在用</td></tr><tr><td><code>redirect_uri = https://auth.tesla.com/void/callback</code></td><td>TeslaMate 内部 OAuth 回调</td></tr><tr><td><code>scope = openid email offline_access vehicle_device_data vehicle_cmds vehicle_charging_cmds vehicle_location</code></td><td>必需 scope（具体见 Fleet API 文档）</td></tr></tbody></table>
+<p>OAuth 流程：</p>
+<ol>
+<li><strong>浏览器登录</strong>（PKCE code flow）：<code>https://auth.tesla.com/oauth2/v3/authorize?...</code></li>
+<li><strong>回调拿到 code</strong>，POST 到 <code>/oauth2/v3/token</code> 换 <code>access_token</code> + <code>refresh_token</code></li>
+<li><code>access_token</code> 寿命约 <strong>8 小时</strong>；<code>refresh_token</code> 寿命约 <strong>3 个月</strong></li>
+<li>过期前主动用 <code>refresh_token</code> POST <code>/oauth2/v3/token</code> 续期</li>
+</ol>
+<blockquote><p><strong>注意</strong>：Tesla 在 2023 年开始推 <strong>Fleet API</strong>，旧的 Owner API 客户端（<code>ownerapi</code>）<strong>不再被新 App 注册</strong>。但是已经有 token 的 App（包括 TeslaMate）可以继续用——这就是为什么 TeslaMate 同时支持两种模式（看 <code>lib/tesla_api/middleware/fleet_auth.ex</code>）。</p></blockquote>
+<h3 id="13-官方-api-域名表按区域">1.3 官方 API 域名表（按区域）</h3>
+<p>来自 TeslaMate <code>lib/tesla_api/auth.ex</code> + <code>lib/tesla_api/vehicle.ex</code>：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>区域</th><th>Owner / Fleet API 主机</th><th>Streaming WebSocket</th></tr></thead><tbody><tr><td>全球（北美、欧、亚）</td><td><code>https://owner-api.teslamotors.com</code></td><td><code>wss://streaming.vn.teslamotors.com/streaming/</code></td></tr><tr><td>中国</td><td><code>https://owner-api.vn.cloud.tesla.cn</code></td><td><code>wss://streaming.vn.cloud.tesla.cn/streaming/</code></td></tr><tr><td>Fleet API（NA）</td><td><code>https://fleet-api.prd.na.vn.cloud.tesla.com</code></td><td>-</td></tr><tr><td>Fleet API（EU）</td><td><code>https://fleet-api.prd.eu.vn.cloud.tesla.com</code></td><td>-</td></tr><tr><td>Fleet API（CN）</td><td><code>https://fleet-api.prd.cn.vn.cloud.tesla.cn</code></td><td>-</td></tr></tbody></table>
+<p>判断逻辑：解码 access_token 的 JWT，看 <code>iss</code>（issuer）的 TLD，是 <code>cn</code> 就是中国，否则全球。</p>
+<hr>
+<h2 id="2-owner-streamingwebsocket-秒级数据最值得用">2. Owner Streaming（WebSocket 秒级数据，<strong>最值得用</strong>）</h2>
+<blockquote><p>这部分是 Tesla 官方文档<strong>没完整写</strong>的，但 TeslaMate 通过逆向工程稳定使用了 5+ 年，是<strong>做”实时显示 App”的关键</strong>。</p></blockquote>
+<h3 id="21-websocket-端点">2.1 WebSocket 端点</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>wss://streaming.vn.teslamotors.com/streaming/</span></span></code></pre>
+<h3 id="22-协议来自-teslamate-libtesla_apistreamex已确认可用">2.2 协议（来自 TeslaMate <code>lib/tesla_api/stream.ex</code>，已确认可用）</h3>
+<p><strong>建立连接后</strong>立刻发一帧订阅消息（JSON）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "msg_type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">data:subscribe_oauth</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "token"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">&#x3C;access_token></span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "value"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">speed,odometer,soc,elevation,est_heading,est_lat,est_lng,power,shift_state,range,est_range,heading</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "tag"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">&#x3C;vehicle_id></span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>订阅的列（<strong>12 个字段</strong>，顺序固定）：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>列名</th><th>含义</th><th>单位</th></tr></thead><tbody><tr><td><code>speed</code></td><td>车速</td><td>mph</td></tr><tr><td><code>odometer</code></td><td>累计里程</td><td>mi</td></tr><tr><td><code>soc</code></td><td>State of Charge（电池百分比）</td><td>%</td></tr><tr><td><code>elevation</code></td><td>海拔</td><td>m</td></tr><tr><td><code>est_heading</code></td><td>估算航向（GPS 计算）</td><td>°</td></tr><tr><td><code>est_lat</code></td><td>估算纬度</td><td>°</td></tr><tr><td><code>est_lng</code></td><td>估算经度</td><td>°</td></tr><tr><td><code>power</code></td><td>实时功率（正=放电，负=充电）</td><td>kW</td></tr><tr><td><code>shift_state</code></td><td>档位</td><td><code>P</code> / <code>D</code> / <code>N</code> / <code>R</code> / <code>""</code></td></tr><tr><td><code>range</code></td><td>标称续航（电池百分比对应的）</td><td>mi</td></tr><tr><td><code>est_range</code></td><td>估算续航</td><td>mi</td></tr><tr><td><code>heading</code></td><td>罗盘航向</td><td>°</td></tr></tbody></table>
+<blockquote><p><strong>注意单位</strong>：streaming 返回的是 <strong>英制</strong>（mph/mi），而 Owner API 的 <code>vehicle_data</code> 是 <strong>公制</strong>（km/h/km）。两边都对得上，自己乘 <code>0.621371</code> / <code>1.60934</code> 即可。</p></blockquote>
+<p><strong>收到数据</strong>：每帧格式是 <code>data: &#x3C;csv></code>，列顺序与订阅字符串一致，例如：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>data: 45,12345.6,82,120,180,37.7749,-122.4194,-12,P,250,238,180</span></span></code></pre>
+<p><strong>TeslaMate 解析示例</strong>（<code>lib/tesla_api/stream.ex</code> <code>decode_frame!/1</code>）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="elixir"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#D6DEEB">Enum</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">zip</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">([</span><span style="--shiki-light:#24292EFF;--shiki-dark:#82AAFF">:time</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478"> @columns</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#6F42C1;--shiki-dark:#D6DEEB"> String</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">split</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(value</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#C5E478"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">,</span><span style="--shiki-light:#22863A;--shiki-dark:#C5E478">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">))</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">|></span><span style="--shiki-light:#6F42C1;--shiki-dark:#D6DEEB"> Enum</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">into</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(%</span><span style="--shiki-light:#6F42C1;--shiki-dark:#D6DEEB">Map</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{})</span></span></code></pre>
+<h3 id="23-退订--心跳">2.3 退订 + 心跳</h3>
+<ul>
+<li>退订：<code>{"msg_type": "data:unsubscribe", "tag": "&#x3C;vid>"}</code></li>
+<li>心跳：服务端 <code>control:hello</code> 帧携带 <code>connection_timeout</code>（秒），客户端必须在此之前有任何动作（不然会被断）</li>
+<li>错误帧：<code>data:error</code>，<code>error_type</code> ∈ <code>vehicle_disconnected</code> / <code>vehicle_error</code> / <code>client_error</code></li>
+</ul>
+<h3 id="24-与-fleet-telemetry-的取舍">2.4 与 Fleet Telemetry 的取舍</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>Owner Streaming</th><th>Fleet Telemetry</th></tr></thead><tbody><tr><td>频率</td><td><strong>1 Hz</strong>（实际 1-5 秒）</td><td>最低 <strong>1 分钟</strong>（按你配置的字段）</td></tr><tr><td>协议</td><td>WebSocket（双向）</td><td>Google PubSub 推送（单向）</td></tr><tr><td>部署复杂度</td><td>中（要保活 WebSocket）</td><td>高（要 GCP PubSub + 公网回调）</td></tr><tr><td>Tesla 官方推荐</td><td>过渡方案</td><td>新方案</td></tr><tr><td><strong>个人 App 推荐</strong></td><td>✅ <strong>是</strong></td><td>跑路用</td></tr><tr><td>字段丰富度</td><td>12 个核心字段</td><td>可配置 100+ 个字段</td></tr></tbody></table>
+<p>→ <strong>做手机 App / 个人项目首选 Owner Streaming</strong>。Fleet Telemetry 适合”公司级 / 多车批量监控”。</p>
+<hr>
+<h2 id="3-owner-api-命令端点解锁开空调等">3. Owner API 命令端点（解锁/开空调等）</h2>
+<blockquote><p><strong>Tesla 官方</strong>：Fleet API 文档里”Commands” 章节（<a href="https://developer.tesla.com/docs/fleet-api#commands%EF%BC%89%E2%80%94%E2%80%94%E9%9C%80%E8%A6%81">https://developer.tesla.com/docs/fleet-api#commands）——需要</a> Fleet API 注册 + 走 Vehicle Command Protocol（mTLS + 私钥签名）。</p><p><strong>Owner API（TeslaMate 用的非官方接口）</strong>：命令端点<strong>没有官方文档</strong>，是社区多年来从 Tesla App 反向工程出来的。</p></blockquote>
+<h3 id="31-owner-api-命令端点社区共识">3.1 Owner API 命令端点（社区共识）</h3>
+<blockquote><p>这些端点 Tesla 没明确文档化，随时可能改。但<strong>至今（2026 年）仍在用</strong>。</p></blockquote>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>POST /api/1/vehicles/{id}/command/{command_name}</span></span></code></pre>
+<p>常见命令（来自 TeslaMate 之外的社区项目 <code>tesla-api</code> Python 库，以及多个 GitHub Issue 共识）：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>命令</th><th>作用</th><th>必需参数</th></tr></thead><tbody><tr><td><code>wake_up</code></td><td>唤醒车辆</td><td>-</td></tr><tr><td><code>lock</code> / <code>unlock</code></td><td>锁车</td><td>-</td></tr><tr><td><code>honk_horn</code></td><td>鸣笛</td><td>-</td></tr><tr><td><code>flash_lights</code></td><td>闪灯</td><td>-</td></tr><tr><td><code>climate_start</code> / <code>climate_stop</code></td><td>开/关空调</td><td>-</td></tr><tr><td><code>set_temps</code></td><td>设置温度</td><td><code>driver_temp</code>, <code>passenger_temp</code></td></tr><tr><td><code>set_preconditioning_max</code></td><td>“MAX” 模式</td><td>-</td></tr><tr><td><code>auto_conditioning_start</code> / <code>stop</code></td><td>自动空调</td><td>-</td></tr><tr><td><code>charge_start</code> / <code>charge_stop</code></td><td>开始/停止充电</td><td>-</td></tr><tr><td><code>set_charge_limit</code></td><td>设置充电上限</td><td><code>percent</code></td></tr><tr><td><code>set_charging_amp</code></td><td>设置充电电流</td><td><code>charging_amps</code></td></tr><tr><td><code>charge_port_door_open</code> / <code>close</code></td><td>充电口盖</td><td>-</td></tr><tr><td><code>actuate_trunk</code></td><td>打开后备箱（部分车型）</td><td><code>which_trunk</code></td></tr><tr><td><code>remote_start_drive</code></td><td>远程启动</td><td><code>password</code></td></tr><tr><td><code>share</code></td><td>分享车机导航/数据</td><td>-</td></tr><tr><td><code>schedule_software_update</code></td><td>预约 OTA</td><td><code>scheduled_time</code></td></tr><tr><td><code>cancel_software_update</code></td><td>取消预约</td><td>-</td></tr><tr><td><code>media_toggle_playback</code> / <code>next_track</code> / <code>prev_track</code> / <code>volume_up</code> / <code>volume_down</code></td><td>媒体控制</td><td>-</td></tr><tr><td><code>trigger_homelink</code></td><td>触发 Homelink（车库门）</td><td><code>lat</code>, <code>lon</code></td></tr><tr><td><code>set_sentry_mode</code></td><td>哨兵模式</td><td><code>on</code></td></tr><tr><td><code>set_valet_mode</code></td><td>代客模式</td><td><code>on</code>, <code>password</code></td></tr><tr><td><code>reset_valet_pin</code></td><td>重置代客密码</td><td>-</td></tr><tr><td><code>speed_limit_set_limit</code></td><td>限速</td><td><code>limit_mph</code></td></tr><tr><td><code>speed_limit_activate</code> / <code>deactivate</code> / <code>clear_pin</code></td><td>限速控制</td><td>-</td></tr><tr><td><code>enable_calendar_sync</code></td><td>同步日历</td><td>-</td></tr><tr><td><code>add_favorite</code> / <code>remove_favorite</code></td><td>收藏点</td><td><code>id</code> (favorite id)</td></tr></tbody></table>
+<blockquote><p>⚠️ <strong>警告</strong>：这些端点<strong>没有 SLA</strong>。Tesla 可能随时改、删、限流。生产环境用 Fleet API 命令接口。</p></blockquote>
+<h3 id="32-fleet-api-命令官方但复杂">3.2 Fleet API 命令（官方但复杂）</h3>
+<p>走 <strong>Vehicle Command Protocol</strong>：</p>
+<ol>
+<li>生成 ECDSA P-256 密钥对，私钥自存</li>
+<li>在 Tesla Developer Portal 把公钥绑定到 App</li>
+<li>车主在 Tesla App 收到 “Pairing Request”，同意后产生 signed “vehicle command authorization”</li>
+<li>之后每个命令 = HTTP POST 到 <code>https://fleet-api.prd.&#x3C;region>.vn.cloud.tesla.com/api/1/vehicles/{id}/command/&#x3C;cmd></code> + HTTP body 里包含 <strong>经过私钥签名的 JWT 消息</strong></li>
+</ol>
+<p>详细规范：<a href="https://developer.tesla.com/docs/vehicle-command/vehicle-command">https://developer.tesla.com/docs/vehicle-command/vehicle-command</a>
+参考实现：<a href="https://github.com/teslamotors/vehicle-command">https://github.com/teslamotors/vehicle-command</a></p>
+<hr>
+<h2 id="4-第三方代理最省事的方案">4. 第三方代理（<strong>最省事的方案</strong>）</h2>
+<p>如果不想自己搞 OAuth + 命令签名 + 公网回调，第三方已经做完了：</p>
+<h3 id="41-myteslamate免费最接近-teslamate-风格">4.1 MyTeslaMate（免费，最接近 TeslaMate 风格）</h3>
+<ul>
+<li>官网：<a href="https://www.myteslamate.com">https://www.myteslamate.com</a></li>
+<li>注册后获得 <code>TOKEN</code>，直接调 <code>https://api.myteslamate.com/...</code></li>
+<li>它也把 Fleet Telemetry 重新打包成 Owner-style WebSocket（项目：<a href="https://github.com/MyTeslaMate/websocket%EF%BC%89">https://github.com/MyTeslaMate/websocket）</a></li>
+<li><strong>优点</strong>：免费、接口简单、和 TeslaMate 兼容</li>
+<li><strong>缺点</strong>：依赖第三方服务可用性、自己数据被别人看到</li>
+</ul>
+<h3 id="42-teslemetry付费">4.2 Teslemetry（付费）</h3>
+<ul>
+<li>官网：<a href="https://teslemetry.com">https://teslemetry.com</a></li>
+<li>按使用量付费（<code>vehicle_data</code> 是 pay-per-call）</li>
+<li>提供<strong>自己配的</strong> Fleet API endpoint + 自家的 streaming</li>
+<li>⚠️ <strong>重要</strong>：Teslemetry 的 streaming <strong>不兼容 TeslaMate</strong>，用了就得关掉 TeslaMate 自己的 streaming（见 <code>website/docs/configuration/api.md</code>）</li>
+</ul>
+<hr>
+<h2 id="5-teslamate-仓库里的逆向证据清单">5. TeslaMate 仓库里的”逆向证据”清单</h2>
+<blockquote><p>这是<strong>最关键的隐藏资源</strong>。TeslaMate 把所有 Tesla API 调用都写在 <code>lib/tesla_api/</code> 里，<strong>整个目录就是一份逆向文档</strong>。</p></blockquote>
+<h3 id="51-完整文件索引">5.1 完整文件索引</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>文件</th><th>内容</th><th>用途</th></tr></thead><tbody><tr><td><code>lib/tesla_api.ex</code></td><td>基础 HTTP client（Tesla + Finch）</td><td>看 User-Agent、base URL</td></tr><tr><td><code>lib/tesla_api/auth.ex</code></td><td>OAuth 客户端 + 区域判断</td><td>看 <code>auth.tesla.com</code> 端点、区域检测逻辑（JWT iss 解码）</td></tr><tr><td><code>lib/tesla_api/auth/refresh.ex</code></td><td>refresh_token 续期</td><td>看 <code>/oauth2/v3/token</code> 请求体</td></tr><tr><td><code>lib/tesla_api/stream.ex</code></td><td><strong>WebSocket streaming 实现</strong></td><td>看订阅协议、列名、心跳</td></tr><tr><td><code>lib/tesla_api/vehicle.ex</code></td><td><code>/api/1/products</code>、<code>/api/1/vehicles/{id}</code>、<code>/vehicle_data</code></td><td>看读数据端点</td></tr><tr><td><code>lib/tesla_api/vehicle/state.ex</code></td><td>车辆 state 字段定义</td><td><strong>最完整的字段字典</strong>——所有 Owner API 返回字段都在这里</td></tr><tr><td><code>lib/tesla_api/middleware/fleet_auth.ex</code></td><td>Fleet API token 切换</td><td>看 <code>qts-</code>/<code>eu-</code>/<code>cn-</code> token 前缀的来源</td></tr><tr><td><code>lib/tesla_api/middleware/token_auth.ex</code></td><td>Owner API bearer token</td><td>看 <code>Authorization: Bearer ...</code> 怎么注入</td></tr><tr><td><code>lib/tesla_api/error.ex</code></td><td>错误码定义</td><td>看 <code>unauthorized</code> / <code>vehicle_not_found</code> / <code>vehicle_in_service</code> / <code>too_many_request</code> / <code>timeout</code></td></tr></tbody></table>
+<h3 id="52-关键-state-字段表">5.2 关键 State 字段表</h3>
+<p><code>lib/tesla_api/vehicle/state.ex</code> 定义了 <code>Charge</code> / <code>Climate</code> / <code>Drive</code> / <code>VehicleConfig</code> / <code>VehicleState</code> 五个模块，每个模块就是一个字段表。<strong>和 Owner API <code>/vehicle_data</code> 返回的字段一一对应</strong>。</p>
+<p>例如 <code>VehicleState.result/1</code> 包含：</p>
+<ul>
+<li><code>api_version</code>、<code>autopark_state_v2</code>、<code>autopark_style</code>、<code>calendar_supported</code>、<code>car_version</code>、<code>car_type</code>、<code>center_display_state</code>、<code>dark_rims</code>、<code>df</code>/<code>dr</code>/<code>pf</code>/<code>pr</code>（门状态）、<code>driven_enforced</code>、<code>exterior_color</code>、<code>fd_window</code>/<code>fp_window</code>/<code>rd_window</code>/<code>rp_window</code>（车窗）、<code>ft</code>/<code>rt</code>（前后备箱）、<code>homelink_device_count</code>、<code>homelink_enabled</code>、<code>is_user_present</code>、<code>last_autopark_error</code>、<code>locked</code>、<code>media_state</code>、<code>notifications_supported</code>、<code>odometer</code>、<code>parsed_calendar_supported</code>、<code>perf_config</code>、<code>pin_to_drive_enabled</code>、<code>rt</code>/<code>ft</code>、<code>seat_heater_left</code>/<code>right</code>、<code>sentry_mode</code>、<code>service_mode</code>、<code>spoiler_type</code>、<code>sun_roof_installed</code>、<code>sun_roof_state</code>、<code>sun_roof_percent_open</code>、<code>third_row_seats</code>、<code>time_to_full_charge</code>、<code>tpms_pressure_fl/fr/rl/rr</code>、<code>tpms_soft_warning_*</code>、<code>valet_mode</code>、<code>vehicle_name</code>、<code>wheel_type</code>、<code>software_update.{status,version,download_perc,install_perc,...}</code>…</li>
+</ul>
+<p>→ <strong>完整字段表以这个文件为准</strong>。一份文件抵 10 篇博客文章。</p>
+<h3 id="53-url--路径速查">5.3 URL / 路径速查</h3>
+<p>来源：TeslaMate <code>lib/tesla_api/vehicle.ex</code> + 官方文档交叉验证：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>用途</th><th>路径</th></tr></thead><tbody><tr><td>列出所有产品（车 + 能源产品）</td><td><code>GET /api/1/products</code></td></tr><tr><td>列出我的车</td><td><code>GET /api/1/vehicles</code>（从 <code>/products</code> 过滤 <code>vehicle_id</code> 字段）</td></tr><tr><td>车辆基本信息</td><td><code>GET /api/1/vehicles/{id}</code></td></tr><tr><td>车辆完整状态（charge/climate/drive/vehicle_config/vehicle_state 等）</td><td><code>GET /api/1/vehicles/{id}/vehicle_data?endpoints=charge_state;climate_state;closures_state;drive_state;gui_settings;location_data;vehicle_config;vehicle_state;vehicle_data_combo</code></td></tr><tr><td>单个端点（更快）</td><td><code>GET /api/1/vehicles/{id}/data/{endpoint_name}</code></td></tr><tr><td>近距离数据</td><td><code>GET /api/1/vehicles/{id}/data_request/{nearby_sites,charge_history,...}</code></td></tr><tr><td>移动近场召唤</td><td><code>GET /api/1/vehicles/{id}/data_request/drive_state_v2</code></td></tr><tr><td>命令</td><td><code>POST /api/1/vehicles/{id}/command/{cmd_name}</code>（body 看 §3.1）</td></tr><tr><td>分享</td><td><code>POST /api/1/vehicles/{id}/share</code></td></tr><tr><td>移动状态</td><td><code>GET /api/1/vehicles/{id}/mobile_enabled</code></td></tr></tbody></table>
+<hr>
+<h2 id="6-社区生态看这里能摸到最新动态">6. 社区生态（看这里能”摸到”最新动态）</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>资源</th><th>URL</th><th>价值</th></tr></thead><tbody><tr><td><strong><code>teslamate-org/teslamate</code></strong></td><td><a href="https://github.com/teslamate-org/teslamate">https://github.com/teslamate-org/teslamate</a></td><td>逆向实现的参考实现</td></tr><tr><td><strong><code>teslamotors/vehicle-command</code></strong></td><td><a href="https://github.com/teslamotors/vehicle-command">https://github.com/teslamotors/vehicle-command</a></td><td>官方命令协议 + Go SDK</td></tr><tr><td><strong><code>teslamotors/fleet-telemetry</code></strong></td><td><a href="https://github.com/teslamotors/fleet-telemetry">https://github.com/teslamotors/fleet-telemetry</a></td><td>官方 telemetry 服务的 Go 实现（看 dispatchers）</td></tr><tr><td><strong><code>MyTeslaMate/websocket</code></strong></td><td><a href="https://github.com/MyTeslaMate/websocket">https://github.com/MyTeslaMate/websocket</a></td><td>把 Fleet Telemetry 重新打包成 Owner streaming 协议的项目</td></tr><tr><td><strong><code>timdorr/tesla-api</code></strong></td><td><a href="https://github.com/timdorr/tesla-api">https://github.com/timdorr/tesla-api</a></td><td>经典的 Tesla API 文档（2020 年起，最全的”非官方文档”）——但 Tesla 改过多次，<strong>部分已过时</strong></td></tr><tr><td><strong><code>Python tesla-api</code> lib</strong></td><td><a href="https://github.com/tdorssers/TeslaPy">https://github.com/tdorssers/TeslaPy</a></td><td>Python 库，最近还在更新</td></tr><tr><td><strong><code>TeslaMate Discord / Forum</code></strong></td><td><a href="https://discord.gg/teslamate">https://discord.gg/teslamate</a></td><td>任何 API 变更，最早在这里有人贴 issue</td></tr><tr><td><strong><code>developer.tesla.com forums</code></strong></td><td><a href="https://forums.tesla.com/categories/developer">https://forums.tesla.com/categories/developer</a></td><td>官方回复（慢）</td></tr></tbody></table>
+<hr>
+<h2 id="7-给做自己-app的实操建议">7. 给”做自己 App”的实操建议</h2>
+<h3 id="71-最小可行方案个人玩具">7.1 最小可行方案（个人玩具）</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 1. 注册：https://developer.tesla.com → 创建 App，记下 client_id</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 2. 用 PKCE 流程登录（timdorr/tesla-api 文档有图解）</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 3. 拿 access_token 调：</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">curl</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -H</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Authorization: Bearer </span><span style="--shiki-light:#22863A;--shiki-dark:#C5E478">$TOKEN</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">     "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">https://owner-api.teslamotors.com/api/1/vehicles</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># → 列出车</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">curl</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -H</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Authorization: Bearer </span><span style="--shiki-light:#22863A;--shiki-dark:#C5E478">$TOKEN</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">     "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">https://owner-api.teslamotors.com/api/1/vehicles/</span><span style="--shiki-light:#22863A;--shiki-dark:#C5E478">$ID</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">/data_request/charge_state</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># → 电池状态（最低频次 API，更宽松的限流）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 4. 接 WebSocket：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">wscat</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -c</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> wss://streaming.vn.teslamotors.com/streaming/</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 发：{"msg_type":"data:subscribe_oauth","token":"...","value":"speed,soc,est_lat,est_lng","tag":"$VID"}</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 收：data: 0,12345.6,82,...,...</span></span></code></pre>
+<h3 id="72-生产-app-选型">7.2 生产 App 选型</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>阶段</th><th>方案</th><th>原因</th></tr></thead><tbody><tr><td>MVP / 个人</td><td><strong>Owner API + Owner Streaming</strong></td><td>直接、不绕弯、限流够用</td></tr><tr><td>付费产品</td><td><strong>Fleet API + Fleet Telemetry</strong></td><td>官方、稳定、有 SLA</td></tr><tr><td>不愿意养基础设施</td><td><strong>MyTeslaMate / Teslemetry 代理</strong></td><td>直接拿 JSON，不用管 OAuth/mTLS/PubSub</td></tr><tr><td>想监控<strong>别人</strong>的车（车队）</td><td><strong>Fleet API</strong> + 自己署 Telemetry 服务器</td><td>唯一合法方案</td></tr></tbody></table>
+<h3 id="73-必须看的法律--风险-红线">7.3 必须看的”法律 / 风险” 红线</h3>
+<ul>
+<li>Tesla <strong>不正式支持</strong>第三方 App 调用 Owner API（这是逆向的）——理论上 Token 随时可能失效。</li>
+<li><strong>不要</strong>用 Tesla 账号干自动化营销 / 抓取所有用户数据。</li>
+<li><strong>不要</strong>绕过命令签名（Vehicle Command Protocol 是为了防劫持）。</li>
+<li>Fleet API 有明确的 ToS，注册时仔细看。</li>
+<li>流式 API 频率高了会被 429（限流），TeslaMate 内部做了指数退避（见 <code>lib/tesla_api/stream.ex</code> 的 <code>exp_backoff_ms/2</code>）——<strong>自己的 App 一定要加这个</strong>。</li>
+</ul>
+<hr>
+<h2 id="8-速查url--端点--库粘到笔记里随时翻">8. 速查：URL / 端点 / 库（粘到笔记里随时翻）</h2>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>─────────────────────────────────────────────</span></span>
+<span class="line"><span>OAuth / Auth</span></span>
+<span class="line"><span>  https://auth.tesla.com/oauth2/v3/authorize  (PKCE flow)</span></span>
+<span class="line"><span>  https://auth.tesla.com/oauth2/v3/token      (token / refresh)</span></span>
+<span class="line"><span>  client_id (Owner API, 老):  ownerapi</span></span>
+<span class="line"><span>  client_id (Fleet API, 新):  &#x3C;your-app-client-id></span></span>
+<span class="line"><span>  scopes: openid email offline_access vehicle_device_data vehicle_cmds vehicle_charging_cmds vehicle_location</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>─────────────────────────────────────────────</span></span>
+<span class="line"><span>Owner / Fleet REST API hosts</span></span>
+<span class="line"><span>  Global:  https://owner-api.teslamotors.com</span></span>
+<span class="line"><span>  China:   https://owner-api.vn.cloud.tesla.cn</span></span>
+<span class="line"><span>  Fleet NA: https://fleet-api.prd.na.vn.cloud.tesla.com</span></span>
+<span class="line"><span>  Fleet EU: https://fleet-api.prd.eu.vn.cloud.tesla.com</span></span>
+<span class="line"><span>  Fleet CN: https://fleet-api.prd.cn.vn.cloud.tesla.cn</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>─────────────────────────────────────────────</span></span>
+<span class="line"><span>Read endpoints (Owner style)</span></span>
+<span class="line"><span>  GET /api/1/products</span></span>
+<span class="line"><span>  GET /api/1/vehicles</span></span>
+<span class="line"><span>  GET /api/1/vehicles/{id}</span></span>
+<span class="line"><span>  GET /api/1/vehicles/{id}/vehicle_data?endpoints=charge_state;...;vehicle_state</span></span>
+<span class="line"><span>  GET /api/1/vehicles/{id}/data_request/{charge_state,climate_state,drive_state,vehicle_state,gui_settings,location_data,vehicle_config,closures_state,nearby_sites,...}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>─────────────────────────────────────────────</span></span>
+<span class="line"><span>Command endpoints (Owner style, undocumented, may break)</span></span>
+<span class="line"><span>  POST /api/1/vehicles/{id}/command/{wake_up,lock,unlock,honk_horn,flash_lights,</span></span>
+<span class="line"><span>       climate_start,climate_stop,set_temps,set_preconditioning_max,</span></span>
+<span class="line"><span>       auto_conditioning_start,auto_conditioning_stop,</span></span>
+<span class="line"><span>       charge_start,charge_stop,set_charge_limit,set_charging_amp,</span></span>
+<span class="line"><span>       charge_port_door_open,charge_port_door_close,</span></span>
+<span class="line"><span>       actuate_trunk,remote_start_drive,</span></span>
+<span class="line"><span>       media_toggle_playback,media_next_track,media_prev_track,</span></span>
+<span class="line"><span>       media_volume_up,media_volume_down,</span></span>
+<span class="line"><span>       trigger_homelink,set_sentry_mode,set_valet_mode,reset_valet_pin,</span></span>
+<span class="line"><span>       speed_limit_set_limit,speed_limit_activate,speed_limit_deactivate,</span></span>
+<span class="line"><span>       schedule_software_update,cancel_software_update,</span></span>
+<span class="line"><span>       share,add_favorite,remove_favorite,enable_calendar_sync}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>─────────────────────────────────────────────</span></span>
+<span class="line"><span>Streaming (Owner style, seconds-level)</span></span>
+<span class="line"><span>  wss://streaming.vn.teslamotors.com/streaming/</span></span>
+<span class="line"><span>  Send: {"msg_type":"data:subscribe_oauth","token":"&#x3C;access_token>",</span></span>
+<span class="line"><span>         "value":"speed,odometer,soc,elevation,est_heading,est_lat,est_lng,</span></span>
+<span class="line"><span>                  power,shift_state,range,est_range,heading",</span></span>
+<span class="line"><span>         "tag":"&#x3C;vehicle_id>"}</span></span>
+<span class="line"><span>  Recv: data: &#x3C;csv with 12 values in same order, prefixed by timestamp></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>─────────────────────────────────────────────</span></span>
+<span class="line"><span>Telemetry (Fleet style, minutes-level)</span></span>
+<span class="line"><span>  https://developer.tesla.com/docs/fleet-telemetry</span></span>
+<span class="line"><span>  → GCP PubSub → 你的 webhook → 你的 App</span></span>
+<span class="line"><span>─────────────────────────────────────────────</span></span></code></pre>
+<hr>
+<h2 id="9-参考源码位置汇总">9. 参考源码位置（汇总）</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>内容</th><th>路径（TeslaMate 仓库）</th></tr></thead><tbody><tr><td>HTTP client</td><td><code>lib/tesla_api.ex</code></td></tr><tr><td>OAuth 流程</td><td><code>lib/tesla_api/auth.ex</code>、<code>lib/tesla_api/auth/refresh.ex</code></td></tr><tr><td>Fleet vs Owner 切换</td><td><code>lib/tesla_api/middleware/fleet_auth.ex</code>、<code>lib/tesla_api/middleware/token_auth.ex</code></td></tr><tr><td><code>/api/1/products</code>、<code>/vehicles</code>、<code>/vehicle_data</code></td><td><code>lib/tesla_api/vehicle.ex</code></td></tr><tr><td><strong>完整字段字典（必看）</strong></td><td><code>lib/tesla_api/vehicle/state.ex</code></td></tr><tr><td><strong>Streaming 协议</strong></td><td><code>lib/tesla_api/stream.ex</code></td></tr><tr><td>官方文档（中文翻译后的摘要）</td><td><code>website/docs/configuration/api.md</code></td></tr></tbody></table></article><hr class="my-8 border-dashed"><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/09/06/tesla-api-teslamate.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a><div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"><button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"><span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><span class="group-hover:text-accent sr-only text-sm md:not-sr-only"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg>回到顶部</span></button></div><script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script><ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/tags/tesla/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>tesla</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/tags/api/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>api</a></li><li><a data-astro-transition-scope="astro-bztu2lml-3" href="/tags/fleet-api/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>fleet-api</a></li><li><a data-astro-transition-scope="astro-bztu2lml-4" href="/tags/owner-api/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>owner-api</a></li><li><a data-astro-transition-scope="astro-bztu2lml-5" href="/tags/streaming/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>streaming</a></li><li><a data-astro-transition-scope="astro-bztu2lml-6" href="/tags/oauth/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>oauth</a></li><li><a data-astro-transition-scope="astro-bztu2lml-7" href="/tags/mqtt/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>mqtt</a></li><li><a data-astro-transition-scope="astro-bztu2lml-8" href="/tags/teslamate/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>teslamate</a></li></ul><div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://x.com/intent/post?url=https://beepony.github.io/posts/2026/09/06/tesla-api-teslamate/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span></a><a href="https://t.me/share/url?url=https://beepony.github.io/posts/2026/09/06/tesla-api-teslamate/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span></a><a href="mailto:?subject=See%20this%20post&amp;body=https://beepony.github.io/posts/2026/09/06/tesla-api-teslamate/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span></a></div></div><hr class="my-8 border-dashed"><div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"><a href="/posts/2026/08/25/pw1-koreader-jailbreak-guide/" class="flex w-full gap-1 hover:opacity-75"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><div><span>上一篇</span><div class="text-accent/85 text-sm">Kindle Paperwhite 一代越狱、修复与 KOReader 恢复手册</div></div></a><a href="/posts/2026/09/11/pi-agent-minimal-guide/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"><div><span>下一篇</span><div class="text-accent/85 text-sm">Pi Agent 极简使用指南</div></div><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg></a></div></main><footer class="app-layout mt-auto"><div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"><div class="flex flex-wrap items-center gap-1"><a href="https://github.com/beepony" title="Beepony on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg><span class="sr-only">Beepony on Github</span></a><a href="https://x.com/ynopeeb" title="Beepony on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Beepony on X</span></a></div><div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"><span>版权所有 &#169; 2026</span><span class="hidden sm:inline">&nbsp;|&nbsp;</span><span>保留所有权利。</span></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n),document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,i);let t=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html><script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>

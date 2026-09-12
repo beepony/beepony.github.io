@@ -1,0 +1,1157 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="canonical" href="https://beepony.github.io/posts/2026/08/15/learn-agent-through-a-use-case/"><meta name="generator" content="Astro v7.3.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/02154cca78ac33f2.woff") format("woff"), url("/_astro/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/_astro/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a5c5808c25effec9.woff") format("woff"), url("/_astro/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/14314705006234cb.woff") format("woff"), url("/_astro/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c33265ba093eb291.woff") format("woff"), url("/_astro/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/_astro/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/_astro/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/_astro/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/da468df88542c99b.woff") format("woff"), url("/_astro/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/f914de358bc554f6.woff") format("woff"), url("/_astro/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>Pi Agent：从一句话到查看桌面文件的完整工作机制 | Beepony</title><meta name="title" content="Pi Agent：从一句话到查看桌面文件的完整工作机制 | Beepony"><meta name="description" content="通过一个简单场景，理解 Agent 的运作过程"><meta name="author" content="Beepony"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Beepony"><meta property="og:title" content="Pi Agent：从一句话到查看桌面文件的完整工作机制 | Beepony"><meta property="og:description" content="通过一个简单场景，理解 Agent 的运作过程"><meta property="og:url" content="https://beepony.github.io/posts/2026/08/15/learn-agent-through-a-use-case/"><meta property="og:image" content="https://beepony.github.io/default-og.jpg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://beepony.github.io/posts/2026/08/15/learn-agent-through-a-use-case/"><meta property="twitter:title" content="Pi Agent：从一句话到查看桌面文件的完整工作机制 | Beepony"><meta property="twitter:description" content="通过一个简单场景，理解 Agent 的运作过程"><meta property="twitter:image" content="https://beepony.github.io/default-og.jpg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Beepony" href="https://beepony.github.io/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) --><meta property="og:type" content="article"><meta property="article:published_time" content="2026-08-15T01:00:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Pi Agent：从一句话到查看桌面文件的完整工作机制 | Beepony","datePublished":"2026-08-15T01:00:00.000Z","author":[{"@type":"Person","name":"Beepony","url":"https://github.com/beepony"}]}</script><!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CYDbzu1r.js"></script><link rel="stylesheet" href="/_astro/Footer.DmiNq5ML.css"><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*),[data-astro-transition-scope]{animation:none!important}}
+.toc[data-astro-cid-p33bl5ka]{font-family:var(--font-google-sans-code), monospace}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka][data-toc-link].toc-active{color:var(--accent);font-weight:500}
+</style><style>[data-astro-transition-scope="astro-bztu2lml-1"] { view-transition-name: ai; }@layer astro { ::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-2"] { view-transition-name: agent; }@layer astro { ::view-transition-old(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">跳到正文</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none">Beepony</a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/posts/" class="active-nav">文章</a></li><li class="col-span-2"><a href="/tags/">标签</a></li><li class="col-span-2"><a href="/about/">关于</a></li><li class="col-span-2"><a href="/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">归档</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">搜索</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span></a></div><script type="module">function e(){let e=document.querySelector(`#back-button`),t=sessionStorage.getItem(`backUrl`);t&&e&&(e.href=t)}document.addEventListener(`astro:page-load`,e),e();</script><main id="main-content" class="app-layout" data-pagefind-body><h1 style="view-transition-name:p-20260815learn-agent-through-a-use-case" class="text-accent inline-block text-2xl font-bold sm:text-3xl">Pi Agent：从一句话到查看桌面文件的完整工作机制</h1><div class="my-2 flex items-center gap-2"><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time class="text-sm sm:text-base" datetime="2026-08-15T01:00:00.000Z">15 Aug, 2026</time></div><span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/08/15/learn-agent-through-a-use-case.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a></div><aside id="toc" class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0" data-astro-cid-p33bl5ka><h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide" data-astro-cid-p33bl5ka>📑 目录</h2><nav aria-label="目录" data-astro-cid-p33bl5ka><ul class="space-y-1" data-astro-cid-p33bl5ka><li data-astro-cid-p33bl5ka><a href="#1-先建立一个正确认识" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="1-先建立一个正确认识" data-astro-cid-p33bl5ka>1. 先建立一个正确认识</a></li><li data-astro-cid-p33bl5ka><a href="#2-一张总览图" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="2-一张总览图" data-astro-cid-p33bl5ka>2. 一张总览图</a></li><li data-astro-cid-p33bl5ka><a href="#3-参与者每个组件到底负责什么" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="3-参与者每个组件到底负责什么" data-astro-cid-p33bl5ka>3. 参与者：每个组件到底负责什么？</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-0pi-启动时已经做了哪些准备" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-0pi-启动时已经做了哪些准备" data-astro-cid-p33bl5ka>步骤 0：Pi 启动时已经做了哪些准备？</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#01-确定当前工作目录" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="01-确定当前工作目录" data-astro-cid-p33bl5ka>0.1 确定当前工作目录</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#02-加载规则与上下文文件" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="02-加载规则与上下文文件" data-astro-cid-p33bl5ka>0.2 加载规则与上下文文件</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#03-注册工具并把工具说明交给模型" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="03-注册工具并把工具说明交给模型" data-astro-cid-p33bl5ka>0.3 注册工具，并把工具说明交给模型</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-1你在终端输入请求" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-1你在终端输入请求" data-astro-cid-p33bl5ka>步骤 1：你在终端输入请求</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-2用户消息进入-session" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-2用户消息进入-session" data-astro-cid-p33bl5ka>步骤 2：用户消息进入 Session</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-3pi-构造模型请求" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-3pi-构造模型请求" data-astro-cid-p33bl5ka>步骤 3：Pi 构造模型请求</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-4pi-通过-provider-把请求发送给模型" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-4pi-通过-provider-把请求发送给模型" data-astro-cid-p33bl5ka>步骤 4：Pi 通过 Provider 把请求发送给模型</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-5大模型决定我需要观察真实桌面" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-5大模型决定我需要观察真实桌面" data-astro-cid-p33bl5ka>步骤 5：大模型决定“我需要观察真实桌面”</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#重要谁决定使用什么命令" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="重要谁决定使用什么命令" data-astro-cid-p33bl5ka>重要：谁决定使用什么命令？</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-6pi-接住-tool-call并调度对应工具" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-6pi-接住-tool-call并调度对应工具" data-astro-cid-p33bl5ka>步骤 6：Pi 接住 Tool Call，并调度对应工具</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-7bash-工具如何和-macos-交互" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-7bash-工具如何和-macos-交互" data-astro-cid-p33bl5ka>步骤 7：bash 工具如何和 macOS 交互？</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-8工具执行过程中的实时输出截断取消和错误" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-8工具执行过程中的实时输出截断取消和错误" data-astro-cid-p33bl5ka>步骤 8：工具执行过程中的实时输出、截断、取消和错误</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#81-实时输出" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="81-实时输出" data-astro-cid-p33bl5ka>8.1 实时输出</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#82-输出截断" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="82-输出截断" data-astro-cid-p33bl5ka>8.2 输出截断</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#83-用户取消" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="83-用户取消" data-astro-cid-p33bl5ka>8.3 用户取消</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#84-超时" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="84-超时" data-astro-cid-p33bl5ka>8.4 超时</a></li><li class="ml-4 text-xs" data-astro-cid-p33bl5ka><a href="#85-文件不存在或没有权限" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="85-文件不存在或没有权限" data-astro-cid-p33bl5ka>8.5 文件不存在或没有权限</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-9stdout-变成结构化-tool-result" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-9stdout-变成结构化-tool-result" data-astro-cid-p33bl5ka>步骤 9：stdout 变成结构化 Tool Result</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-10pi-将结果重新发给模型" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-10pi-将结果重新发给模型" data-astro-cid-p33bl5ka>步骤 10：Pi 将结果重新发给模型</a></li><li data-astro-cid-p33bl5ka><a href="#步骤-11模型生成最终回答" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="步骤-11模型生成最终回答" data-astro-cid-p33bl5ka>步骤 11：模型生成最终回答</a></li><li data-astro-cid-p33bl5ka><a href="#skill" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="skill" data-astro-cid-p33bl5ka>Skill</a></li><li data-astro-cid-p33bl5ka><a href="#extension" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="extension" data-astro-cid-p33bl5ka>Extension</a></li><li data-astro-cid-p33bl5ka><a href="#111-llm-是大脑但不是整个-agent" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="111-llm-是大脑但不是整个-agent" data-astro-cid-p33bl5ka>11.1 LLM 是大脑，但不是整个 Agent</a></li><li data-astro-cid-p33bl5ka><a href="#112-工具输出必须成为模型的下一轮上下文" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="112-工具输出必须成为模型的下一轮上下文" data-astro-cid-p33bl5ka>11.2 工具输出必须成为模型的下一轮上下文</a></li><li data-astro-cid-p33bl5ka><a href="#113-生产级难点在控制系统而不在-tool-call-格式" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="113-生产级难点在控制系统而不在-tool-call-格式" data-astro-cid-p33bl5ka>11.3 生产级难点在控制系统，而不在 Tool Call 格式</a></li><li data-astro-cid-p33bl5ka><a href="#参考pi-本地相关实现与文档" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="参考pi-本地相关实现与文档" data-astro-cid-p33bl5ka>参考：Pi 本地相关实现与文档</a></li></ul></nav></aside><script type="module">function e(){let e=Array.from(document.querySelectorAll(`a[data-toc-link]`));if(e.length===0)return;let t=e.map(e=>e.dataset.tocLink).filter(Boolean).map(e=>document.getElementById(e)).filter(e=>e!==null);if(t.length===0)return;let n=t=>{for(let n of e)n.classList.toggle(`toc-active`,n.dataset.tocLink===t)},r=new IntersectionObserver(e=>{for(let t of e)t.isIntersecting&&n(t.target.id)},{rootMargin:`0px 0px -70% 0px`,threshold:0});for(let e of t)r.observe(e)}document.addEventListener(`astro:page-load`,e);</script><article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"><h1 id="pi-agent从一句话到查看桌面文件的完整工作机制">Pi Agent：从一句话到查看桌面文件的完整工作机制</h1>
+<blockquote><p>场景：你对 Pi 说：<strong>“帮我看一下桌面上有哪些文件。”</strong><br>
+目标：理解 Agent 如何调用模型、工具、操作系统、会话存储和终端界面。<br>
+本文使用 ASCII 图，而非 Mermaid，方便在 Sublime Text 的 Markdown 预览中直接查看。</p></blockquote>
+<hr>
+<h2 id="1-先建立一个正确认识">1. 先建立一个正确认识</h2>
+<p>Pi 不会自己“理解”你的中文，也不会自己决定运行 <code>ls</code>、<code>find</code> 等命令。</p>
+<p>Pi 是一个 <strong>Agent Harness / Runtime（智能体运行环境）</strong>。大模型负责理解和决策；Pi 负责：</p>
+<ul>
+<li>把用户输入、系统规则、历史记录和工具说明组织成模型请求；</li>
+<li>接收模型提出的工具调用请求；</li>
+<li>让工具与本机 Shell、文件系统等外部世界交互；</li>
+<li>将工具结果安全地、结构化地交回模型；</li>
+<li>保存会话并在终端里展示整个过程。</li>
+</ul>
+<p>可以用一句话概括：</p>
+<blockquote><p><strong>模型负责想；Pi 负责让模型可靠地看见和行动。</strong></p></blockquote>
+<hr>
+<h2 id="2-一张总览图">2. 一张总览图</h2>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>┌─────────┐</span></span>
+<span class="line"><span>│   你    │</span></span>
+<span class="line"><span>└────┬────┘</span></span>
+<span class="line"><span>     │ 输入：“帮我看一下桌面上有哪些文件”</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌──────────────────────────┐</span></span>
+<span class="line"><span>│ Pi TUI（终端交互界面）     │</span></span>
+<span class="line"><span>│ 接收输入、显示过程与结果    │</span></span>
+<span class="line"><span>└────┬─────────────────────┘</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌──────────────────────────┐</span></span>
+<span class="line"><span>│ AgentSession / Agent Core │</span></span>
+<span class="line"><span>│ 会话、上下文、工具、队列    │</span></span>
+<span class="line"><span>└────┬─────────────────────┘</span></span>
+<span class="line"><span>     │ 发送：规则 + 历史 + 工具 schema + 用户问题</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌──────────────────────────┐</span></span>
+<span class="line"><span>│         大模型 API         │</span></span>
+<span class="line"><span>│ 理解任务，决定调用工具      │</span></span>
+<span class="line"><span>└────┬─────────────────────┘</span></span>
+<span class="line"><span>     │ tool call：bash("find ~/Desktop ...")</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌──────────────────────────┐</span></span>
+<span class="line"><span>│ Pi Tool Runtime           │</span></span>
+<span class="line"><span>│ 参数、取消、输出收集与转换  │</span></span>
+<span class="line"><span>└────┬─────────────────────┘</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌──────────────────────────┐</span></span>
+<span class="line"><span>│ Shell / macOS 文件系统     │</span></span>
+<span class="line"><span>│ zsh/bash → find/ls → Desktop│</span></span>
+<span class="line"><span>└────┬─────────────────────┘</span></span>
+<span class="line"><span>     │ stdout / stderr / exit code</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌──────────────────────────┐</span></span>
+<span class="line"><span>│ ToolResult + Session JSONL│</span></span>
+<span class="line"><span>│ 结果记录、交还模型          │</span></span>
+<span class="line"><span>└────┬─────────────────────┘</span></span>
+<span class="line"><span>     │ 追加一次模型请求</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌──────────────────────────┐</span></span>
+<span class="line"><span>│ 大模型生成最终自然语言回答   │</span></span>
+<span class="line"><span>└────┬─────────────────────┘</span></span>
+<span class="line"><span>     ▼</span></span>
+<span class="line"><span>┌─────────┐</span></span>
+<span class="line"><span>│   你    │</span></span>
+<span class="line"><span>└─────────┘</span></span></code></pre>
+<p>通常至少有两次模型请求：</p>
+<ol>
+<li><strong>决策请求</strong>：模型读到问题后，决定要使用哪个工具；</li>
+<li><strong>总结请求</strong>：模型读到工具返回的真实目录内容后，组织成给人的回答。</li>
+</ol>
+<hr>
+<h2 id="3-参与者每个组件到底负责什么">3. 参与者：每个组件到底负责什么？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>组件</th><th>主要职责</th><th>不负责什么</th></tr></thead><tbody><tr><td>Pi TUI</td><td>输入、展示文本/工具调用/结果、处理快捷键</td><td>不理解自然语言，不决定命令</td></tr><tr><td><code>AgentSession</code></td><td>管理会话、工具、消息队列、持久化、上下文压缩</td><td>不自己判断应该调用何种工具</td></tr><tr><td>Agent Core</td><td>驱动“模型 → 工具 → 模型”的循环</td><td>不直接访问桌面</td></tr><tr><td>Model Runtime</td><td>按选定的 Provider 和 Model 发起网络请求</td><td>不执行本机程序</td></tr><tr><td>大模型</td><td>理解意图、选择工具、解释工具结果</td><td>没有本机文件系统访问权</td></tr><tr><td>Tool Registry</td><td>向模型公开可用工具及参数结构</td><td>不替模型做决策</td></tr><tr><td><code>bash</code> / <code>ls</code> / <code>find</code> 工具</td><td>执行受控的本机操作、返回结果</td><td>不理解“桌面文件”背后的用户意图</td></tr><tr><td>Shell 和 macOS</td><td>运行命令、读取文件系统</td><td>不知道 Pi、模型或会话</td></tr><tr><td>Session Manager</td><td>用 JSONL 保存消息、工具结果、模型切换等</td><td>不参与推理</td></tr><tr><td>Extension / Skill</td><td>额外增加工具、规则、界面或事件处理</td><td>默认不是 Pi 最小核心的一部分</td></tr></tbody></table>
+<hr>
+<h1 id="4-详细过程逐步发生了什么">4. 详细过程：逐步发生了什么？</h1>
+<h2 id="步骤-0pi-启动时已经做了哪些准备">步骤 0：Pi 启动时已经做了哪些准备？</h2>
+<p>在你输入前，Pi 已完成运行环境初始化。</p>
+<h3 id="01-确定当前工作目录">0.1 确定当前工作目录</h3>
+<p>Pi 有一个当前工作目录（Current Working Directory，cwd）。例如本次环境可能是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/Users/bw</span></span></code></pre>
+<p>而“桌面”通常对应：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/Users/bw/Desktop</span></span></code></pre>
+<p>模型可以在工具参数中使用绝对路径，也可能使用 Shell 可识别的简写：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">~</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">/Desktop</span></span></code></pre>
+<p>其中 <code>~</code> 会被 Shell 展开为当前用户的主目录，例如 <code>/Users/bw</code>。</p>
+<h3 id="02-加载规则与上下文文件">0.2 加载规则与上下文文件</h3>
+<p>Pi 会按范围读取 <code>AGENTS.md</code> 或 <code>CLAUDE.md</code> 等上下文文件，例如：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>~/.pi/agent/AGENTS.md             全局规则</span></span>
+<span class="line"><span>父目录中的 AGENTS.md / CLAUDE.md  项目或目录规则</span></span>
+<span class="line"><span>当前目录中的 AGENTS.md            当前项目规则</span></span></code></pre>
+<p>这些内容会影响模型的行为，例如：</p>
+<ul>
+<li>有哪些可用工具；</li>
+<li>读取文件应该使用 <code>read</code> 还是 <code>bash</code>；</li>
+<li>哪些命令或目录受到限制；</li>
+<li>是否应先读取某个 Skill；</li>
+<li>输出的格式和语言。</li>
+</ul>
+<h3 id="03-注册工具并把工具说明交给模型">0.3 注册工具，并把工具说明交给模型</h3>
+<p>Pi 会将当前启用的工具提供给模型。不同安装方式、Extension 和启动参数下，可用工具可能不同。</p>
+<p>常见的内建或环境提供工具包括：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>read    读取文件或图片</span></span>
+<span class="line"><span>write   写入新文件</span></span>
+<span class="line"><span>edit    精准修改已有文件</span></span>
+<span class="line"><span>bash    执行 Shell 命令</span></span>
+<span class="line"><span>find    查找文件</span></span>
+<span class="line"><span>ls      列出目录</span></span>
+<span class="line"><span>grep    搜索文本</span></span></code></pre>
+<p>模型看到的并不是可执行程序本体，而是“工具说明书”。例如概念上，<code>bash</code> 的定义类似：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "name"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">bash</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "description"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">执行 bash 命令，例如 ls、grep、find。</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "parameters"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">string</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "timeout"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">number，可选</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>这份结构通常被称为 <strong>Tool Schema（工具模式）</strong> 或 <strong>Function Definition（函数定义）</strong>。</p>
+<blockquote><p>模型不是天然拥有操作电脑的能力；它是根据工具说明，输出一个“请帮我调用工具”的结构化请求。</p></blockquote>
+<hr>
+<h2 id="步骤-1你在终端输入请求">步骤 1：你在终端输入请求</h2>
+<p>你输入：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>帮我看一下桌面上有哪些文件</span></span></code></pre>
+<p>按下 Enter 后，TUI 会把文本交给 <code>AgentSession.prompt()</code>。</p>
+<p><code>AgentSession</code> 可以看作 Pi 的“会话总管”，它负责：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>- 保存与恢复会话</span></span>
+<span class="line"><span>- 管理当前模型、Provider 和思考等级</span></span>
+<span class="line"><span>- 管理当前启用的工具</span></span>
+<span class="line"><span>- 接收 Agent 的事件</span></span>
+<span class="line"><span>- 处理消息队列</span></span>
+<span class="line"><span>- 处理上下文压缩与重试</span></span>
+<span class="line"><span>- 将关键记录写入 JSONL</span></span></code></pre>
+<p>如果你在 Agent 工作中再次按 Enter，Pi 默认会将消息作为 <strong>steering message（引导/插话）</strong> 排队；如果使用 Alt+Enter，则会作为 <strong>follow-up（后续请求）</strong>，等当前工作完全完成后再处理。</p>
+<hr>
+<h2 id="步骤-2用户消息进入-session">步骤 2：用户消息进入 Session</h2>
+<p>Pi 会把这句话作为用户消息放入当前会话状态，并默认追加写入 Session JSONL 文件。</p>
+<p>概念上像这样：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">message</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "id"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">a1b2c3d4</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "parentId"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">上一条消息的 ID</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "timestamp"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">2026-08-14T10:00:00.000Z</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "message"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "role"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">user</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "content"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">帮我看一下桌面上有哪些文件</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>默认 Session 文件会保存在：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>~/.pi/agent/sessions/</span></span></code></pre>
+<p>Pi 的 Session 使用 JSONL（JSON Lines）：每一行是一个 JSON 对象。这样做的好处是容易追加、恢复、导出和调试。</p>
+<hr>
+<h2 id="步骤-3pi-构造模型请求">步骤 3：Pi 构造模型请求</h2>
+<p>Pi 不会只把你的这句话裸发给模型。它要构造完整上下文，抽象后大概是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>┌──────────────────────────────────────┐</span></span>
+<span class="line"><span>│ System Prompt                         │</span></span>
+<span class="line"><span>│ “你是一个 coding agent……”              │</span></span>
+<span class="line"><span>│ 工具使用规则、行为约束                  │</span></span>
+<span class="line"><span>├──────────────────────────────────────┤</span></span>
+<span class="line"><span>│ Context Files / Skills                │</span></span>
+<span class="line"><span>│ AGENTS.md、Skill 的专项说明            │</span></span>
+<span class="line"><span>├──────────────────────────────────────┤</span></span>
+<span class="line"><span>│ Tool Definitions                      │</span></span>
+<span class="line"><span>│ read / bash / edit / write 的名称、说明、参数 │</span></span>
+<span class="line"><span>├──────────────────────────────────────┤</span></span>
+<span class="line"><span>│ Conversation History                  │</span></span>
+<span class="line"><span>│ 当前 Session 分支上的历史消息和工具结果  │</span></span>
+<span class="line"><span>├──────────────────────────────────────┤</span></span>
+<span class="line"><span>│ Current User Message                  │</span></span>
+<span class="line"><span>│ “帮我看一下桌面上有哪些文件”             │</span></span>
+<span class="line"><span>└──────────────────────────────────────┘</span></span></code></pre>
+<p>其中“历史消息”不是简单地把所有旧消息无限拼接。长会话接近模型上下文窗口限制时，Pi 可使用 compaction（压缩）：将较早历史概括成摘要，保留最近消息，降低 Token 使用量。</p>
+<hr>
+<h2 id="步骤-4pi-通过-provider-把请求发送给模型">步骤 4：Pi 通过 Provider 把请求发送给模型</h2>
+<p>Pi 的 Model Runtime 根据当前设置，选择：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Provider：例如 DeepSeek / Anthropic / OpenAI / Gemini</span></span>
+<span class="line"><span>Model：例如某个具体模型 ID</span></span>
+<span class="line"><span>认证方式：API Key 或订阅登录凭证</span></span>
+<span class="line"><span>传输方式：SSE、WebSocket 或自动选择</span></span></code></pre>
+<p>然后向模型服务发送 HTTP 请求，并开始接收流式响应。</p>
+<p>流式响应意味着：模型的文字、思考块（若 Provider 支持）、工具调用块可能会逐段到达。Pi 会把这些增量事件传给终端界面，因此你通常能看到内容逐渐出现，而不是等全部完成。</p>
+<hr>
+<h2 id="步骤-5大模型决定我需要观察真实桌面">步骤 5：大模型决定“我需要观察真实桌面”</h2>
+<p>模型看到你的问题后，通常会推理：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>用户询问的是当前电脑上的真实文件。</span></span>
+<span class="line"><span>我不能凭训练知识回答。</span></span>
+<span class="line"><span>我有 bash / ls / find 等工具。</span></span>
+<span class="line"><span>应该先列出 ~/Desktop 的内容。</span></span></code></pre>
+<p>于是模型可能生成工具调用，例如：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">toolCall</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "id"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">call_abc123</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "name"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">bash</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "arguments"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">find ~/Desktop -maxdepth 1 -type f -print</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>它也可能选择：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -la</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/Desktop</span></span></code></pre>
+<p>或者在工具集中有独立 <code>ls</code> / <code>find</code> 工具时，直接调用相应工具。</p>
+<h3 id="重要谁决定使用什么命令">重要：谁决定使用什么命令？</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>决策</th><th>主要责任方</th></tr></thead><tbody><tr><td>是否需要读取真实环境</td><td>大模型</td></tr><tr><td>使用 <code>bash</code>、<code>find</code>、<code>ls</code> 还是其他工具</td><td>大模型</td></tr><tr><td>命令参数、路径、筛选条件</td><td>大模型</td></tr><tr><td>工具是否存在、是否启用</td><td>Pi Runtime / 配置</td></tr><tr><td>工具调用如何真正执行</td><td>Pi 工具实现</td></tr><tr><td>Shell 如何访问文件系统</td><td>操作系统</td></tr></tbody></table>
+<p>换句话说，Pi 提供“手和眼”，模型决定何时、如何使用它们。</p>
+<hr>
+<h2 id="步骤-6pi-接住-tool-call并调度对应工具">步骤 6：Pi 接住 Tool Call，并调度对应工具</h2>
+<p>模型不能直接执行本机命令；它只能返回一个结构化的“工具调用意图”。</p>
+<p>Pi 的 Agent Runtime 收到后，会：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>1. 找到 name = "bash" 对应的工具定义；</span></span>
+<span class="line"><span>2. 读取 arguments.command；</span></span>
+<span class="line"><span>3. 为本次操作创建可取消的 AbortSignal；</span></span>
+<span class="line"><span>4. 发出工具调用事件，供 TUI 和 Extension 观察；</span></span>
+<span class="line"><span>5. 调用 bash 工具的 execute()；</span></span>
+<span class="line"><span>6. 等待工具成功、失败、超时或被取消。</span></span></code></pre>
+<p>因此，你在 Pi 终端里看到的：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>$ find ~/Desktop -maxdepth 1 -type f -print</span></span></code></pre>
+<p>是 TUI 对“工具调用事件”的渲染，不是模型真的拥有一个终端窗口。</p>
+<hr>
+<h2 id="步骤-7bash-工具如何和-macos-交互">步骤 7：<code>bash</code> 工具如何和 macOS 交互？</h2>
+<p>Pi 的本地 <code>bash</code> 工具通过 Node.js 的子进程能力启动 Shell。概念上类似：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">spawn</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(shell</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> shellArguments </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">+</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [command]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  cwd</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> currentWorkingDirectory</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  env</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> environment</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  stdio</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">/* stdin, stdout, stderr */</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">})</span></span></code></pre>
+<p>实际链路：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Pi bash 工具</span></span>
+<span class="line"><span>  │ Node.js child_process.spawn()</span></span>
+<span class="line"><span>  ▼</span></span>
+<span class="line"><span>macOS 的 Shell（zsh / bash）</span></span>
+<span class="line"><span>  │ 解释命令和 ~ 路径</span></span>
+<span class="line"><span>  ▼</span></span>
+<span class="line"><span>find 或 ls 等系统命令</span></span>
+<span class="line"><span>  │ 系统调用</span></span>
+<span class="line"><span>  ▼</span></span>
+<span class="line"><span>macOS 文件系统</span></span>
+<span class="line"><span>  │ 返回目录条目</span></span>
+<span class="line"><span>  ▼</span></span>
+<span class="line"><span>stdout / stderr + exit code</span></span>
+<span class="line"><span>  │</span></span>
+<span class="line"><span>  ▼</span></span>
+<span class="line"><span>Pi bash 工具</span></span></code></pre>
+<p>例如：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">find</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/Desktop</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -maxdepth</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -type</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> f</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -print</span></span></code></pre>
+<p>Shell 会把 <code>~</code> 展开成：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/Users/bw</span></span></code></pre>
+<p>最终被访问的目录就是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/Users/bw/Desktop</span></span></code></pre>
+<p>假设其中有：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/Users/bw/Desktop/项目说明.md</span></span>
+<span class="line"><span>/Users/bw/Desktop/截图.png</span></span>
+<span class="line"><span>/Users/bw/Desktop/测试数据.xlsx</span></span></code></pre>
+<p>这些文本会从命令的标准输出（stdout）返回给 Pi。</p>
+<hr>
+<h2 id="步骤-8工具执行过程中的实时输出截断取消和错误">步骤 8：工具执行过程中的实时输出、截断、取消和错误</h2>
+<h3 id="81-实时输出">8.1 实时输出</h3>
+<p><code>bash</code> 工具会监听子进程的：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>stdout：正常输出</span></span>
+<span class="line"><span>stderr：错误输出</span></span></code></pre>
+<p>如果命令运行很久且不断输出，Pi 可以边收到边向 TUI 发更新事件，让界面显示部分结果。</p>
+<h3 id="82-输出截断">8.2 输出截断</h3>
+<p>如果输出极大，Pi 不会无上限地把所有内容塞入模型上下文。工具会保留有限的行数和字节数；被截断时会提示模型：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>输出已截断；完整输出保存到了某个临时文件。</span></span></code></pre>
+<p>这是 Agent 工程中很重要的一点：<strong>工具输出也是上下文，会消耗 Token。</strong></p>
+<h3 id="83-用户取消">8.3 用户取消</h3>
+<p>当你按 Escape 时，典型链路是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>你按 Escape</span></span>
+<span class="line"><span>  → TUI 调用 session.abort()</span></span>
+<span class="line"><span>  → Agent / Tool 收到 AbortSignal</span></span>
+<span class="line"><span>  → bash 工具终止 Shell 及其进程树</span></span>
+<span class="line"><span>  → 当前工具调用以 aborted 结束</span></span>
+<span class="line"><span>  → Pi 更新界面和会话状态</span></span></code></pre>
+<h3 id="84-超时">8.4 超时</h3>
+<p>若工具调用配置了 timeout：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>时间超过限制</span></span>
+<span class="line"><span>  → bash 工具终止进程树</span></span>
+<span class="line"><span>  → 返回“命令超时”错误</span></span>
+<span class="line"><span>  → 错误作为工具结果交给模型</span></span></code></pre>
+<h3 id="85-文件不存在或没有权限">8.5 文件不存在或没有权限</h3>
+<p>例如目录不存在，Shell 可能返回：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>find: /Users/bw/Desktop: No such file or directory</span></span></code></pre>
+<p>Pi 不会把错误吞掉，而是包装成 <code>isError: true</code> 的工具结果。模型看到后可：</p>
+<ul>
+<li>解释错误；</li>
+<li>尝试其他路径；</li>
+<li>询问用户；</li>
+<li>停止执行。</li>
+</ul>
+<hr>
+<h2 id="步骤-9stdout-变成结构化-tool-result">步骤 9：stdout 变成结构化 Tool Result</h2>
+<p>工具运行结束后，Pi 将输出转换为结构化消息，并和原始调用 ID 关联：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "role"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">toolResult</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "toolCallId"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">call_abc123</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "toolName"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">bash</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "content"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">      "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">text</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">      "text"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">/Users/bw/Desktop/项目说明.md</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\n</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">/Users/bw/Desktop/截图.png</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\n</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">/Users/bw/Desktop/测试数据.xlsx</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  ]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "isError"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#FF5874"> false</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>这里最重要的是 <code>toolCallId</code>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>assistant 的 toolCall.id  = call_abc123</span></span>
+<span class="line"><span>工具结果的 toolCallId      = call_abc123</span></span></code></pre>
+<p>这让模型、Pi、会话记录和 UI 都知道：<strong>这个结果属于哪次工具调用。</strong></p>
+<p>工具结果也会追加到 JSONL Session 中，因此之后可以恢复、导出、回放和审查。</p>
+<hr>
+<h2 id="步骤-10pi-将结果重新发给模型">步骤 10：Pi 将结果重新发给模型</h2>
+<p>此时 Pi 再发起一轮模型请求。模型看到的局部上下文类似：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>用户：帮我看一下桌面上有哪些文件</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>助手：我将调用 bash 工具查看目录。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>助手工具调用：</span></span>
+<span class="line"><span>find ~/Desktop -maxdepth 1 -type f -print</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>工具结果：</span></span>
+<span class="line"><span>/Users/bw/Desktop/项目说明.md</span></span>
+<span class="line"><span>/Users/bw/Desktop/截图.png</span></span>
+<span class="line"><span>/Users/bw/Desktop/测试数据.xlsx</span></span></code></pre>
+<p>注意：模型并没有直接读取你的硬盘。</p>
+<blockquote><p>模型只读取 Pi 交给它的 Tool Result。<br>
+Tool Result 是模型观察真实外部世界的“感官输入”。</p></blockquote>
+<hr>
+<h2 id="步骤-11模型生成最终回答">步骤 11：模型生成最终回答</h2>
+<p>模型此时有了真实数据，于是可以生成：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>桌面上目前有 3 个文件：</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>- 项目说明.md</span></span>
+<span class="line"><span>- 截图.png</span></span>
+<span class="line"><span>- 测试数据.xlsx</span></span></code></pre>
+<p>如果模型不再发起工具调用，Provider 会用类似 <code>stop</code> 的结束原因标记本轮输出完成。</p>
+<p>Pi 于是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>1. 接收最终 AssistantMessage；</span></span>
+<span class="line"><span>2. 写入 Session JSONL；</span></span>
+<span class="line"><span>3. 更新 Token、缓存命中率和成本统计；</span></span>
+<span class="line"><span>4. 发出 Agent 结束/稳定事件；</span></span>
+<span class="line"><span>5. TUI 将最终文本展示给你。</span></span></code></pre>
+<hr>
+<h1 id="5-用时序图再看一遍">5. 用时序图再看一遍</h1>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>你             Pi TUI        AgentSession       LLM API        bash 工具        Shell / 文件系统</span></span>
+<span class="line"><span>│                 │                │                │                │                  │</span></span>
+<span class="line"><span>│ 输入问题         │                │                │                │                  │</span></span>
+<span class="line"><span>├────────────────>│                │                │                │                  │</span></span>
+<span class="line"><span>│                 │ prompt()       │                │                │                  │</span></span>
+<span class="line"><span>│                 ├───────────────>│                │                │                  │</span></span>
+<span class="line"><span>│                 │                │ 保存 user msg  │                │                  │</span></span>
+<span class="line"><span>│                 │                │ 组装上下文     │                │                  │</span></span>
+<span class="line"><span>│                 │                ├───────────────>│                │                  │</span></span>
+<span class="line"><span>│                 │                │                │ 分析并决定调用 bash              │</span></span>
+<span class="line"><span>│                 │                │&#x3C;───────────────┤ toolCall        │                  │</span></span>
+<span class="line"><span>│                 │ 显示工具调用    │                │                │                  │</span></span>
+<span class="line"><span>│                 │&#x3C;───────────────┤                │                │                  │</span></span>
+<span class="line"><span>│                 │                │ execute()      │                │                  │</span></span>
+<span class="line"><span>│                 │                ├───────────────────────────────>│                  │</span></span>
+<span class="line"><span>│                 │                │                │                │ spawn zsh/find   │</span></span>
+<span class="line"><span>│                 │                │                │                ├─────────────────>│</span></span>
+<span class="line"><span>│                 │                │                │                │ 目录内容         │</span></span>
+<span class="line"><span>│                 │                │                │                │&#x3C;─────────────────┤</span></span>
+<span class="line"><span>│                 │                │                │ ToolResult     │                  │</span></span>
+<span class="line"><span>│                 │                │&#x3C;───────────────────────────────┤                  │</span></span>
+<span class="line"><span>│                 │ 显示工具结果    │                │                │                  │</span></span>
+<span class="line"><span>│                 │&#x3C;───────────────┤                │                │                  │</span></span>
+<span class="line"><span>│                 │                │ 将 ToolResult 放入下一次请求    │                  │</span></span>
+<span class="line"><span>│                 │                ├───────────────>│                │                  │</span></span>
+<span class="line"><span>│                 │                │                │ 生成最终自然语言回答             │</span></span>
+<span class="line"><span>│                 │                │&#x3C;───────────────┤                │                  │</span></span>
+<span class="line"><span>│ 最终回答         │                │ 保存 assistant msg              │                  │</span></span>
+<span class="line"><span>│&#x3C;────────────────┤&#x3C;───────────────┤                │                │                  │</span></span></code></pre>
+<hr>
+<h1 id="6-agent-的核心循环到底是什么">6. Agent 的核心循环到底是什么？</h1>
+<p>最简化的 Agent Loop 可以写成伪代码：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#D6DEEB">messages</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">push</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(userMessage)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">while</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="--shiki-light:#1976D2;--shiki-dark:#FF5874">true</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> response</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic"> await</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#D6DEEB;--shiki-dark-font-style:italic"> llm</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">generate</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#24292EFF;--shiki-dark:#C792EA">{</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#D6DEEB;--shiki-dark-font-style:italic">    systemPrompt</span><span style="--shiki-light:#212121;--shiki-dark:#C792EA">,</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#D6DEEB;--shiki-dark-font-style:italic">    tools</span><span style="--shiki-light:#212121;--shiki-dark:#C792EA">,</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#D6DEEB;--shiki-dark-font-style:italic">    messages</span><span style="--shiki-light:#212121;--shiki-dark:#C792EA">,</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C792EA">  }</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#D6DEEB">  messages</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">push</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#D6DEEB">response</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">assistantMessage</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  if</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="--shiki-light:#1976D2;--shiki-dark:#D6DEEB">response</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">toolCalls</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#1976D2;--shiki-dark:#7FDBCA">length</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> ===</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    showToUser</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#D6DEEB">response</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">text</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">    break</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">  for</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> toolCall</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> of</span><span style="--shiki-light:#1976D2;--shiki-dark:#D6DEEB"> response</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">toolCalls</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">    const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> result</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic"> await</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#D6DEEB;--shiki-dark-font-style:italic"> tools</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">execute</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#D6DEEB;--shiki-dark-font-style:italic">toolCall</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#D6DEEB">    messages</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">push</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(result)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>对于“列桌面文件”的情况，循环通常跑两次：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>第 1 圈：用户问题 → 模型请求 bash 工具</span></span>
+<span class="line"><span>第 2 圈：工具结果 → 模型输出自然语言答案</span></span></code></pre>
+<p>对于“修复一个项目中的 Bug”这类复杂任务，循环可能运行很多次：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>读文件 → 搜索代码 → 修改文件 → 运行测试 → 读取报错 → 再修改 → 再测试 → 最终回答</span></span></code></pre>
+<p>这就是 Coding Agent 能持续完成复杂工作的根本机制。</p>
+<hr>
+<h1 id="7-为什么说-tool-result-是-agent-的感官">7. 为什么说 Tool Result 是 Agent 的“感官”？</h1>
+<p>大模型本身只有输入上下文和输出文本/结构化调用能力。它没有真实世界的直接访问权限。</p>
+<p>不同工具为它提供不同“感官”：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>工具</th><th>模型借此感知什么？</th></tr></thead><tbody><tr><td><code>read</code></td><td>文件内容、代码、图片</td></tr><tr><td><code>find</code> / <code>ls</code></td><td>文件和目录结构</td></tr><tr><td><code>grep</code></td><td>某个关键词在文件中的位置</td></tr><tr><td><code>bash</code></td><td>命令执行结果、Git 状态、测试结果、系统信息</td></tr><tr><td>浏览器工具</td><td>网页和 DOM 内容</td></tr><tr><td>数据库工具</td><td>业务数据、查询结果</td></tr><tr><td>HTTP/API 工具</td><td>外部服务返回的数据</td></tr><tr><td>子 Agent</td><td>另一个专门执行单元的报告</td></tr></tbody></table>
+<p>因此，一个 Agent 并不是“模型突然变得无所不能”，而是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>模型的规划能力</span></span>
+<span class="line"><span>+ 结构化工具调用协议</span></span>
+<span class="line"><span>+ 外部工具带回的事实</span></span>
+<span class="line"><span>+ Runtime 管理的循环和状态</span></span>
+<span class="line"><span>= 可行动的 Agent</span></span></code></pre>
+<hr>
+<h1 id="8-pi-中的会话为什么重要">8. Pi 中的会话为什么重要？</h1>
+<p>Pi 默认将 Session 存为 JSONL，且使用 <code>id</code> 和 <code>parentId</code> 形成树，而不是只有一条不可分叉的聊天记录。</p>
+<p>这支持：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/resume  恢复旧会话</span></span>
+<span class="line"><span>/tree    回到某个历史节点继续，保留多个分支</span></span>
+<span class="line"><span>/fork    从某条用户消息创建新会话</span></span>
+<span class="line"><span>/clone   复制当前分支</span></span>
+<span class="line"><span>/compact 长会话压缩上下文</span></span>
+<span class="line"><span>/export  导出 HTML 或 JSONL</span></span></code></pre>
+<p>Session 中可记录：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>- 用户消息</span></span>
+<span class="line"><span>- 助手消息</span></span>
+<span class="line"><span>- tool call 与 tool result</span></span>
+<span class="line"><span>- 模型切换</span></span>
+<span class="line"><span>- thinking level 切换</span></span>
+<span class="line"><span>- 上下文压缩摘要</span></span>
+<span class="line"><span>- 扩展写入的 custom state 或 custom message</span></span></code></pre>
+<p>这意味着 Pi 不只是“终端聊天窗口”；它是一个带历史、状态、分支和可恢复能力的 Agent Runtime。</p>
+<hr>
+<h1 id="9-extension-和-skill-会在哪里介入">9. Extension 和 Skill 会在哪里介入？</h1>
+<p>Pi 的核心设计是保持最小，同时允许扩展。</p>
+<h2 id="skill">Skill</h2>
+<p>Skill 本质上通常是一份按需加载的 Markdown 指令。它可以告诉模型：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>遇到某类任务时：</span></span>
+<span class="line"><span>1. 先读哪些文件；</span></span>
+<span class="line"><span>2. 使用什么工具；</span></span>
+<span class="line"><span>3. 遵守哪些限制；</span></span>
+<span class="line"><span>4. 如何验证结果。</span></span></code></pre>
+<p>它主要改变的是模型的“工作方法”和上下文，而不是直接执行代码。</p>
+<h2 id="extension">Extension</h2>
+<p>Extension 是 TypeScript 代码，可更深地介入运行时，例如：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>- 注册自定义工具</span></span>
+<span class="line"><span>- 在 tool_call 前做校验或审批</span></span>
+<span class="line"><span>- 替换工具实现</span></span>
+<span class="line"><span>- 增加命令和快捷键</span></span>
+<span class="line"><span>- 监听 Agent 事件</span></span>
+<span class="line"><span>- 自定义 TUI 界面</span></span>
+<span class="line"><span>- 接入远程 Shell、沙箱、MCP 或业务 API</span></span>
+<span class="line"><span>- 实现子 Agent、Plan Mode 等高级工作流</span></span></code></pre>
+<p>因此，一个 Extension 可以把原本的：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>bash → 本机 Shell</span></span></code></pre>
+<p>替换为：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>bash → 审批层 → Docker 沙箱 / SSH 服务器 / 云端执行器</span></span></code></pre>
+<p>模型依然只是在调用名为 <code>bash</code> 的抽象工具；底层执行位置可以改变。</p>
+<hr>
+<h1 id="10-安全边界模型为什么不能直接接管电脑">10. 安全边界：模型为什么不能直接接管电脑？</h1>
+<p>模型的输出只是文本或结构化 Tool Call，不能直接在你的系统执行。</p>
+<p>真正执行动作的是 Pi 注册的工具。也就是说，权限边界应放在：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>模型</span></span>
+<span class="line"><span>  ↓ 请求</span></span>
+<span class="line"><span>Tool Schema / Tool Registry</span></span>
+<span class="line"><span>  ↓ 调度</span></span>
+<span class="line"><span>权限与审批策略（可由 Extension 实现）</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>具体工具实现</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Shell / 文件系统 / 网络 / 数据库</span></span></code></pre>
+<p>Pi 的哲学是：它默认保持最小，不内置固定的权限弹窗、沙箱方案或子 Agent 方案；你可以运行在容器中，或通过 Extension 加入符合自己环境的审批和安全策略。</p>
+<p>这提醒我们：</p>
+<blockquote><p>“模型会不会调用危险命令”是模型行为问题；<br>
+“危险命令能不能真正执行”必须由 Runtime 和工具层控制。</p></blockquote>
+<hr>
+<h1 id="11-对-agent-学习者最重要的三点启发">11. 对 Agent 学习者最重要的三点启发</h1>
+<h2 id="111-llm-是大脑但不是整个-agent">11.1 LLM 是大脑，但不是整个 Agent</h2>
+<p>LLM 负责：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>理解意图、选择工具、规划下一步、解释结果。</span></span></code></pre>
+<p>但它不负责：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>访问文件、执行命令、保存会话、终止进程、展示 UI、限制权限。</span></span></code></pre>
+<p>这些是 Harness / Runtime 的职责。</p>
+<h2 id="112-工具输出必须成为模型的下一轮上下文">11.2 工具输出必须成为模型的下一轮上下文</h2>
+<p>模型执行工具后，不是“自动知道结果”，而是需要 Runtime 将结果包装为 Tool Result，再发回模型。</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>模型请求工具</span></span>
+<span class="line"><span>→ Runtime 执行</span></span>
+<span class="line"><span>→ Runtime 生成 ToolResult</span></span>
+<span class="line"><span>→ ToolResult 加入下一轮模型上下文</span></span>
+<span class="line"><span>→ 模型据此推理</span></span></code></pre>
+<p>这就是 Agent 的观察—行动闭环。</p>
+<h2 id="113-生产级难点在控制系统而不在-tool-call-格式">11.3 生产级难点在控制系统，而不在 Tool Call 格式</h2>
+<p>一个 Demo 很容易：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>用户 → 模型 → 工具 → 模型回答</span></span></code></pre>
+<p>生产系统还必须处理：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>多轮循环、工具并发、超时、取消、重试、权限、会话恢复、</span></span>
+<span class="line"><span>上下文压缩、输出截断、成本统计、可观测性、审计和扩展。</span></span></code></pre>
+<p>这些“模型以外的工程”决定了 Agent 是否真正可用。</p>
+<hr>
+<h1 id="12-最终总结">12. 最终总结</h1>
+<p>当你让 Pi “看一下桌面有哪些文件”时，真实发生的不是一句自然语言直接变成系统命令，而是一个闭环：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>用户意图</span></span>
+<span class="line"><span>  → Pi 组装上下文和工具说明</span></span>
+<span class="line"><span>  → 大模型决定调用工具</span></span>
+<span class="line"><span>  → Pi 调度工具</span></span>
+<span class="line"><span>  → Shell / 操作系统读取真实世界</span></span>
+<span class="line"><span>  → Pi 将结果记录并包装为 ToolResult</span></span>
+<span class="line"><span>  → 大模型根据真实结果生成回答</span></span>
+<span class="line"><span>  → Pi 保存会话并呈现给用户</span></span></code></pre>
+<p>最简短地说：</p>
+<blockquote><p><strong>模型负责决定“看什么、怎么问”；工具负责实际“看”；Pi 负责让两者可靠地来回协作。</strong></p></blockquote>
+<hr>
+<h2 id="参考pi-本地相关实现与文档">参考：Pi 本地相关实现与文档</h2>
+<ul>
+<li>Pi 总览：<code>/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/README.md</code></li>
+<li>会话格式：<code>/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/docs/session-format.md</code></li>
+<li><code>AgentSession</code> 类型：<code>dist/core/agent-session.d.ts</code></li>
+<li><code>bash</code> 工具实现：<code>dist/core/tools/bash.js</code></li>
+<li><code>read</code> 工具实现：<code>dist/core/tools/read.js</code></li>
+</ul></article><hr class="my-8 border-dashed"><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/08/15/learn-agent-through-a-use-case.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a><div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"><button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"><span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><span class="group-hover:text-accent sr-only text-sm md:not-sr-only"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg>回到顶部</span></button></div><script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script><ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/tags/ai/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>AI</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/tags/agent/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Agent</a></li></ul><div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://x.com/intent/post?url=https://beepony.github.io/posts/2026/08/15/learn-agent-through-a-use-case/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span></a><a href="https://t.me/share/url?url=https://beepony.github.io/posts/2026/08/15/learn-agent-through-a-use-case/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span></a><a href="mailto:?subject=See%20this%20post&amp;body=https://beepony.github.io/posts/2026/08/15/learn-agent-through-a-use-case/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span></a></div></div><hr class="my-8 border-dashed"><div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"><a href="/posts/2026/08/11/欧美职场剧经典表达-中英对照/" class="flex w-full gap-1 hover:opacity-75"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><div><span>上一篇</span><div class="text-accent/85 text-sm">欧美职场剧经典表达（中英对照 + 释义）</div></div></a><a href="/posts/2026/08/18/中年人皮质醇管理方案/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"><div><span>下一篇</span><div class="text-accent/85 text-sm">中年人皮质醇管理实用方案</div></div><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg></a></div></main><footer class="app-layout mt-auto"><div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"><div class="flex flex-wrap items-center gap-1"><a href="https://github.com/beepony" title="Beepony on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg><span class="sr-only">Beepony on Github</span></a><a href="https://x.com/ynopeeb" title="Beepony on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Beepony on X</span></a></div><div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"><span>版权所有 &#169; 2026</span><span class="hidden sm:inline">&nbsp;|&nbsp;</span><span>保留所有权利。</span></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n),document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,i);let t=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html><script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
