@@ -8,3 +8,4 @@ dist/
 
 # Pagefind generated search index (regenerated on build)
 public/pagefind/
+.github/
