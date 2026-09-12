@@ -21,6 +21,9 @@ import config from "./astro-paper.config";
 
 export default defineConfig({
   site: config.site.url,
+  build: {
+    assets: "assets",  // 避免下划线前缀（GitHub Pages 不服务 _ 开头的目录）
+  },
   integrations: [
     mdx(),
     sitemap({

@@ -1,0 +1,61 @@
+name: Deploy Astro site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Allow the build job to push to the master branch (for the deployed site)
+permissions:
+  contents: write
+
+# Avoid running concurrent deploys
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
+        env:
+          # 让 sitemap / canonical URL 正确解析
+          NODE_OPTIONS: "--max-old-space-size=4096"
+
+      - name: Prepare deploy (preserve GH Pages meta files)
+        run: |
+          # 保留可能的 CNAME、自定义 404、nojekyll
+          if [ -f dist/CNAME ]; then echo "CNAME preserved"; fi
+          if [ ! -f dist/.nojekyll ]; then touch dist/.nojekyll; fi
+
+      - name: Deploy to master branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: master
+          force_orphan: true
+          keep_files: false
+          enable_jekyll: false
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: "deploy: Astro build ${{ github.sha }}"
