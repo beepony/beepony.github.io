@@ -33,17 +33,21 @@ const homePath = getRelativeLocaleUrl(locale, "");
     class="app-layout my-1"
   >
     <section id="hero" class="border-border border-b pt-8 pb-6">
-      <div class="hero-logo flex items-baseline gap-3">
-        <span class="hero-mark inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-2xl font-bold text-white sm:h-16 sm:w-16 sm:text-3xl">B</span>
-        <h1 class="hero-title my-4 inline-block text-4xl font-bold italic sm:my-8 sm:text-5xl">
-          eepony
-        </h1>
+      <div class="hero-logo flex flex-col items-center gap-3 text-center">
+        <img
+          src="/images/logo@2x.png"
+          alt={config.site.title}
+          width="128"
+          height="128"
+          class="hero-mark h-24 w-24 rounded-2xl shadow-md sm:h-32 sm:w-32"
+        />
+        <h1 class="hero-title sr-only">{config.site.title}</h1>
+        <p class="hero-tagline text-muted-foreground text-base italic sm:text-lg">
+          Connecting the Dots.
+        </p>
       </div>
-      <p class="hero-tagline text-muted-foreground mt-1 text-base italic sm:text-lg">
-        Connecting the Dots.
-      </p>
 
-      <p>
+      <p class="mt-4">
         这个博客记录了我在 AI 时代折腾过的工具、读过的书、走过的路。
         从 2013 年开始，断断续续写到现在。
       </p>
