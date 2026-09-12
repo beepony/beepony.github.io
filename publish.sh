@@ -5,11 +5,14 @@ set -e
 
 MSG="${1:-deploy: 更新文章}"
 
-echo "▶ 1/4 构建 Astro 站点..."
+echo "▶ 1/5 构建 Astro 站点..."
 cd "$(dirname "$0")"
 npm run build
 
-echo "▶ 2/4 同步到 ~/beepony.github.io..."
+echo "▶ 2/5 生成历史归档索引页 (/legacy/)..."
+node build-legacy-index.mjs
+
+echo "▶ 3/5 同步到 ~/beepony.github.io..."
 cd ~/beepony.github.io
 git rm -rf . > /dev/null 2>&1 || true
 cp -R ~/beepony-astro/dist/. .
@@ -19,11 +22,11 @@ touch .nojekyll
 *.log
 EOF
 
-echo "▶ 3/4 提交..."
+echo "▶ 4/5 提交..."
 git add -A
 git commit -q -m "$MSG"
 
-echo "▶ 4/4 推送到 master..."
+echo "▶ 5/5 推送到 master..."
 git push --force origin master
 
 echo ""
