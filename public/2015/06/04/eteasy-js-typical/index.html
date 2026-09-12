@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Ben Wong,wenbinben@gmail.com"><title>[前端]Javascript 程序设计—类型系统—基本类型 · null</title><meta name="description" content="主要介绍6种基本类型（Undefine、Null、Boolean、Number、String、Object）、原生类型及引用类型概念等.
+标准类型标准类型分为原始类型和引用对象，原始类型(primitive)包括
+
+Undefined
+Null
+Boolean
+String
+Number
+Objec"><meta name="keywords" content="Hexo,HTML,Ben,CSS,安卓,android,Linux,linuxdeepin"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/"></a></h3><div class="description"><p>Connecting the Dots.</p></div></div></div><ul class="social-links"><li><a href="https://twitter.com/ynopeeb"><i class="fa fa-twitter"></i></a></li><li><a href="http://instagram.com/beepony"><i class="fa fa-instagram"></i></a></li><li><a href="/atom.xml"><i class="fa fa-rss"></i></a></li><li><a href="http://weibo.com/beepony"><i class="fa fa-weibo"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai</a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>[前端]Javascript 程序设计—类型系统—基本类型</a></h3></div><div class="post-content"><p>主要介绍6种基本类型（Undefine、Null、Boolean、Number、String、Object）、原生类型及引用类型概念等.<br><a id="more"></a></p>
+<h2 id="标准类型"><a href="#标准类型" class="headerlink" title="标准类型"></a>标准类型</h2><p>标准类型分为原始类型和引用对象，原始类型(primitive)包括</p>
+<ul>
+<li>Undefined</li>
+<li>Null</li>
+<li>Boolean</li>
+<li>String</li>
+<li>Number</li>
+<li>Object</li>
+</ul>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><ul>
+<li>Object</li>
+</ul>
+<h2 id="原始类型和引用类型在栈内存中的区别"><a href="#原始类型和引用类型在栈内存中的区别" class="headerlink" title="原始类型和引用类型在栈内存中的区别"></a>原始类型和引用类型在栈内存中的区别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var a;</div><div class="line">var b = null;</div><div class="line">var c = true;</div><div class="line">var d = 123;</div><div class="line">var e = &quot;hello&quot;;</div><div class="line">var f = &#123;a:1&#125;;</div><div class="line">// a,b,c,d,e 都是原始类型，f 是引用类型</div></pre></td></tr></table></figure>
+<p>原始类型在栈内存中的情况<br>| a |undefined(Undefined 类型)|<br>|—|—:|<br>|b  |   null(Null 类型)|<br>|c  |   true(Boolean 类型)|<br>|d  |   123(Number 类型)|<br>|e  |   “hello”(String 类型)|<br>|f  |   Object 类型|<br>原始类型都是保存在栈内存中，而引用类型在栈内存内存中只是一个地址，该地址指向堆内存，如图所示</p>
+<p><img src="http://pic-bin.b0.upaiyun.com/wangyi/yinyongleixing.png" alt="yinyongleixing"></p>
+<p>由上图可以推断出，原始类型的复制都是在栈内存中复制一份，而引用类型只是复制了指向堆内存的地址，如下图。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;a:1&#125;;</div><div class="line">var obj2 = obj1;</div></pre></td></tr></table></figure>
+<p><img src="http://pic-bin.b0.upaiyun.com/wangyi/yuanshi-yinyong-qubie.png" alt="qubie"></p>
+<p>下面详细的说明原始类型的用法</p>
+<h3 id="Undefined"><a href="#Undefined" class="headerlink" title="Undefined"></a>Undefined</h3><h4 id="1-类型说明"><a href="#1-类型说明" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>该类型的值就是：undefined</p>
+<h4 id="2-出现场景"><a href="#2-出现场景" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><ul>
+<li>已经声明但是没有赋值的变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a;</div><div class="line">console.log(a);</div><div class="line">console.log(b)</div><div class="line">// 只定义，未赋值</div></pre></td></tr></table></figure>
+<ul>
+<li><p>获取对象不存在的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;a:1,b:2&#125;;</div><div class="line">console.log(obj.c);</div><div class="line">// obj 不存在 c 属性</div></pre></td></tr></table></figure>
+</li>
+<li><p>无返回值的函数的执行结果</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">    alert(&quot;test&quot;);</div><div class="line">&#125;</div><div class="line">var ret = f();</div><div class="line">console.log(ret);</div></pre></td></tr></table></figure>
+<ul>
+<li>函数的参数没有传入<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">functiom f(i,j)&#123;</div><div class="line">    console.log(i);</div><div class="line">    console.log(j);</div><div class="line">&#125;;</div><div class="line">f(1);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-类型转换"><a href="#3-类型转换" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><p>undefined ＝&gt; Boolean，在判断该属性是否存在时使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;a:1,b:function()&#123;&#125;,...&#125;;</div><div class="line">if(obj.c)&#123;</div><div class="line">    console.log(obj.c);</div><div class="line">&#125;</div><div class="line">// 结果为 false</div></pre></td></tr></table></figure>
+<p>undefined ＝&gt; Number<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var count;</div><div class="line">count + 1;</div><div class="line">//结果为 NaN</div></pre></td></tr></table></figure></p>
+<p>undefined ＝&gt; String<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(function(a)&#123;</div><div class="line">    console.log(&quot;a:&quot; + a);</div><div class="line">&#125;)()</div></pre></td></tr></table></figure></p>
+<h3 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h3><h4 id="1-类型说明-1"><a href="#1-类型说明-1" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>值为 null</p>
+<h4 id="2-出现场景-1"><a href="#2-出现场景-1" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><p>对象不存在时为 null<br><code>document.getElementById(&#39;notExistElement&#39;);</code></p>
+<h4 id="3-类型转换-1"><a href="#3-类型转换-1" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><p>null =&gt; Boolean，结果为 false<br>null =&gt; Number， 结果为 0<br>null =&gt; String， 结果为 “null”</p>
+<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><h4 id="1-类型说明-2"><a href="#1-类型说明-2" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>值为 true,false</p>
+<h4 id="2-出现场景-2"><a href="#2-出现场景-2" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><ul>
+<li>条件语句导致系统执行的隐式类型转换<br><code>if(document.getElementById(&#39;notExistElement&#39;)){...}else{...}</code><br>当元素不存在的时候，会返回 null,条件语句会隐式的转换为 false，执行 else 语句。</li>
+<li>字面量或者定义变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">true</div><div class="line">var a = true;</div></pre></td></tr></table></figure>
+<h4 id="3-类型转换-2"><a href="#3-类型转换-2" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">Number</th>
+<th style="text-align:center">String</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td style="text-align:right">1</td>
+<td style="text-align:center">“null”</td>
+</tr>
+<tr>
+<td>false</td>
+<td style="text-align:right">0</td>
+<td style="text-align:center">“false”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><h4 id="1-类型说明-3"><a href="#1-类型说明-3" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>由单引号或者双引号括起来的字符序列</p>
+<h4 id="2-出现场景-3"><a href="#2-出现场景-3" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&apos;hello world!&apos;</div><div class="line">var s = &apos;name = &quot;myform&quot;&apos;;</div></pre></td></tr></table></figure>
+<h4 id="3-类型转换-3"><a href="#3-类型转换-3" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">Number</th>
+<th style="text-align:center">Boolean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“”</td>
+<td style="text-align:right">0</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td>“123”</td>
+<td style="text-align:right">123</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td>“1a”</td>
+<td style="text-align:right">true</td>
+<td style="text-align:center">NaN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><h4 id="1-类型说明-4"><a href="#1-类型说明-4" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>整形直接量，八进制(0)直接量，十六进制(0x)直接量，浮点型直接量</p>
+<h4 id="2-出现场景-4"><a href="#2-出现场景-4" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">10</div><div class="line">1.4</div><div class="line">1.2e5</div><div class="line">var count = 0x10;</div></pre></td></tr></table></figure>
+<h4 id="3-类型转换-4"><a href="#3-类型转换-4" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">String</th>
+<th style="text-align:center">Boolean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td style="text-align:right">“0”</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align:right">“1”</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td>Infinity</td>
+<td style="text-align:right">“Infinity”</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td>NaN</td>
+<td style="text-align:right">“NaN”</td>
+<td style="text-align:center">false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><h4 id="1-类型说明-5"><a href="#1-类型说明-5" class="headerlink" title="1. 类型说明"></a>1. 类型说明</h4><p>Object 类型是一组属性的集合</p>
+<h4 id="2-出现场景-5"><a href="#2-出现场景-5" class="headerlink" title="2. 出现场景"></a>2. 出现场景</h4><p><code>var obj = {name:&#39;jerry&#39;, age: 0};</code></p>
+<h4 id="3-类型转换-5"><a href="#3-类型转换-5" class="headerlink" title="3. 类型转换"></a>3. 类型转换</h4><table>
+<thead>
+<tr>
+<th>转换</th>
+<th style="text-align:right">String</th>
+<th style="text-align:center">Boolean</th>
+<th style="text-align:center">Number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{}</td>
+<td style="text-align:right">“[object Object]”</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">NaN</td>
+</tr>
+</tbody>
+</table>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2015-06-04</span><i class="fa fa-comment-o"></i><a href="/2015/06/04/eteasy-js-typical/#comments">评论</a><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"> <a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"> <a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"> <a href="http://twitter.com/home?status=,http://beepony.com/2015/06/04/eteasy-js-typical/,null,[前端]Javascript 程序设计—类型系统—基本类型,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2015/07/01/don't-make-me-think/" title="Krug 可用性三定律" class="btn">上一篇</a></li><li class="next pagbuttons"><a role="navigation" href="/2015/06/02/neteasy-js-debug/" title="[前端] JavaScript 程序设计-调试" class="btn">下一篇</a></li></ul></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'beepony';
+var disqus_identifier = '2015/06/04/eteasy-js-typical/';
+var disqus_title = '[前端]Javascript 程序设计—类型系统—基本类型';
+var disqus_url = 'http://beepony.com/2015/06/04/eteasy-js-typical/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//beepony.disqus.com/count.js" async></script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

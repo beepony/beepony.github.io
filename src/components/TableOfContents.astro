@@ -1,0 +1,86 @@
+---
+import type { MarkdownHeading } from "astro";
+
+type Props = {
+  headings: MarkdownHeading[];
+};
+
+const { headings } = Astro.props;
+const tocItems = headings.filter(h => h.depth >= 2 && h.depth <= 3);
+---
+
+{tocItems.length > 0 && (
+  <aside
+    id="toc"
+    class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0"
+  >
+    <h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide">
+      📑 目录
+    </h2>
+    <nav aria-label="目录">
+      <ul class="space-y-1">
+        {tocItems.map(h => (
+          <li class:list={[h.depth === 3 && "ml-4 text-xs"]}>
+            <a
+              href={`#${h.slug}`}
+              class="hover:text-accent block py-0.5 transition-colors"
+              data-toc-link={h.slug}
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </aside>
+)}
+
+<style>
+  .toc {
+    font-family: var(--font-google-sans-code), monospace;
+  }
+  .toc a[data-toc-link].toc-active {
+    color: var(--accent);
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  function setupTocScrollSpy() {
+    const tocLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>("a[data-toc-link]"),
+    );
+    if (tocLinks.length === 0) return;
+
+    const headingIds = tocLinks.map(l => l.dataset.tocLink!).filter(Boolean);
+    const headings = headingIds
+      .map(id => document.getElementById(id))
+      .filter((h): h is HTMLElement => h !== null);
+
+    if (headings.length === 0) return;
+
+    const setActive = (slug: string) => {
+      for (const link of tocLinks) {
+        link.classList.toggle(
+          "toc-active",
+          link.dataset.tocLink === slug,
+        );
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -70% 0px", threshold: 0 },
+    );
+
+    for (const h of headings) observer.observe(h);
+  }
+
+  document.addEventListener("astro:page-load", setupTocScrollSpy);
+</script>
