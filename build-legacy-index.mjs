@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "dist");
 const LEGACY_DIR = join(DIST, "legacy");
-const YEARS = ["2013", "2014", "2015", "2016", "2017"];
+const YEARS = ["2017", "2016", "2015", "2014", "2013"];  // 倒序：由近及远
 
 function extractTitle(html) {
   // 优先级 1：<title> 标签，但要清理 " · null"、"· null" 之类的原 Jekyll 残留
@@ -183,7 +183,7 @@ function renderHtml(yearGroups) {
     <header class="legacy-header">
       <a class="legacy-back" href="/">← 回到新博客</a>
       <h1 class="legacy-title">历史归档</h1>
-      <p class="legacy-desc">2013–2017 年间的早期文章，保留原 Jekyll 静态页风格。共 <strong>${yearGroups.reduce((s, y) => s + y.count, 0)}</strong> 篇。</p>
+      <p class="legacy-desc">2013–2017 年间的早期文章，保留原 Jekyll 静态页风格。共 <strong>${yearGroups.reduce((s, y) => s + y.count, 0)}</strong> 篇。默认按时间由近及远排列。</p>
     </header>
     <main>
 ${sections}
