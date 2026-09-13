@@ -34,3 +34,7 @@
   --muted-foreground: #afb9ca;
   --border: #ab4b08;
 }
+
+.theme-avatar-night { display: none; }
+[data-theme="dark"] .theme-avatar-day { display: none; }
+[data-theme="dark"] .theme-avatar-night { display: block; }
