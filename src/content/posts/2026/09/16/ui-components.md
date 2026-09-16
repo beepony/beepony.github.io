@@ -12,9 +12,9 @@ timezone: Asia/Shanghai
 
 # UI 产品组件中英对照图鉴
 
-> **资料来源与署名：**本学习资料根据 [The Component Gallery 的 Components 目录](https://component.gallery/components/) 整理；原站由 [Iain Bean](https://component.gallery/about/) 创建。组件分类及原站实例归原作者与各设计系统所有。下文英文释义和中文解释为重新表述，配图为本学习文档重新绘制的示意图，并非原站截图。请访问每项“原站实例”查看真实设计系统图片与最新说明。
+> **资料来源与署名：** 本学习资料根据 [The Component Gallery 的 Components 目录](https://component.gallery/components/) 整理；原站由 [Iain Bean](https://component.gallery/about/) 创建。组件分类及原站实例归原作者与各设计系统所有。下文英文释义和中文解释为重新表述，配图为本学习文档重新绘制的示意图，并非原站截图。请访问每项“原站实例”查看真实设计系统图片与最新说明。
 
-> **引用地址：** https://component.gallery/components/ 　**整理日期：**2026-09-16。本文供个人学习；转载时请保留以上来源与署名。
+> **引用地址：** https://component.gallery/components/ 　**整理日期：** 2026-09-16。本文供个人学习；转载时请保留以上来源与署名。
 
 原站目录共列出 **60 类组件**。下方每项均附有英文名称、中文名称、英语释义、中文解释、示意图及原站实例链接。
 
@@ -89,9 +89,9 @@ timezone: Asia/Shanghai
 
 **English:** A set of headings that open and close their associated content panels.
 
-**中文：**按标题展开或收起内容面板，适合分组展示较长的信息。
+**中文：** 按标题展开或收起内容面板，适合分组展示较长的信息。
 
-**原站实例：**[The Component Gallery · Accordion](https://component.gallery/components/accordion/)
+**原站实例：** [The Component Gallery · Accordion](https://component.gallery/components/accordion/)
 
 
 ## 2. Alert · 提示信息
@@ -102,9 +102,9 @@ timezone: Asia/Shanghai
 
 **English:** A prominent message that calls attention to a change, warning, or result.
 
-**中文：**突出显示变化、警告或操作结果，让用户及时注意。
+**中文：** 突出显示变化、警告或操作结果，让用户及时注意。
 
-**原站实例：**[The Component Gallery · Alert](https://component.gallery/components/alert/)
+**原站实例：** [The Component Gallery · Alert](https://component.gallery/components/alert/)
 
 
 ## 3. Avatar · 头像
@@ -115,9 +115,9 @@ timezone: Asia/Shanghai
 
 **English:** A small visual that identifies a person, often a photo, illustration, or initials.
 
-**中文：**用照片、插画或姓名首字母代表用户。
+**中文：** 用照片、插画或姓名首字母代表用户。
 
-**原站实例：**[The Component Gallery · Avatar](https://component.gallery/components/avatar/)
+**原站实例：** [The Component Gallery · Avatar](https://component.gallery/components/avatar/)
 
 
 ## 4. Badge · 徽标
@@ -128,9 +128,9 @@ timezone: Asia/Shanghai
 
 **English:** A compact label that communicates a status or attribute near another element.
 
-**中文：**附在其他元素附近的小标签，用来表示状态或属性。
+**中文：** 附在其他元素附近的小标签，用来表示状态或属性。
 
-**原站实例：**[The Component Gallery · Badge](https://component.gallery/components/badge/)
+**原站实例：** [The Component Gallery · Badge](https://component.gallery/components/badge/)
 
 
 ## 5. Breadcrumbs · 面包屑导航
@@ -141,9 +141,9 @@ timezone: Asia/Shanghai
 
 **English:** A trail of links that shows where the current page sits in a hierarchy.
 
-**中文：**用逐级链接显示当前页面在网站层级中的位置。
+**中文：** 用逐级链接显示当前页面在网站层级中的位置。
 
-**原站实例：**[The Component Gallery · Breadcrumbs](https://component.gallery/components/breadcrumbs/)
+**原站实例：** [The Component Gallery · Breadcrumbs](https://component.gallery/components/breadcrumbs/)
 
 
 ## 6. Button · 按钮
@@ -154,9 +154,9 @@ timezone: Asia/Shanghai
 
 **English:** A control the user presses to start an action.
 
-**中文：**用户点击后触发提交、切换或其他操作的控件。
+**中文：** 用户点击后触发提交、切换或其他操作的控件。
 
-**原站实例：**[The Component Gallery · Button](https://component.gallery/components/button/)
+**原站实例：** [The Component Gallery · Button](https://component.gallery/components/button/)
 
 
 ## 7. Button group · 按钮组
@@ -167,9 +167,9 @@ timezone: Asia/Shanghai
 
 **English:** Several related buttons presented as one coordinated control.
 
-**中文：**把相关按钮并排组织起来，便于选择或执行相关操作。
+**中文：** 把相关按钮并排组织起来，便于选择或执行相关操作。
 
-**原站实例：**[The Component Gallery · Button group](https://component.gallery/components/button-group/)
+**原站实例：** [The Component Gallery · Button group](https://component.gallery/components/button-group/)
 
 
 ## 8. Card · 卡片
@@ -180,9 +180,9 @@ timezone: Asia/Shanghai
 
 **English:** A bounded surface that groups information about one item or entity.
 
-**中文：**在独立容器中展示一篇文章、一个任务或其他单项内容。
+**中文：** 在独立容器中展示一篇文章、一个任务或其他单项内容。
 
-**原站实例：**[The Component Gallery · Card](https://component.gallery/components/card/)
+**原站实例：** [The Component Gallery · Card](https://component.gallery/components/card/)
 
 
 ## 9. Carousel · 轮播
@@ -193,9 +193,9 @@ timezone: Asia/Shanghai
 
 **English:** A view that displays a sequence of content panels one or a few at a time.
 
-**中文：**一次展示一个或少量内容项，可通过滑动或按钮切换。
+**中文：** 一次展示一个或少量内容项，可通过滑动或按钮切换。
 
-**原站实例：**[The Component Gallery · Carousel](https://component.gallery/components/carousel/)
+**原站实例：** [The Component Gallery · Carousel](https://component.gallery/components/carousel/)
 
 
 ## 10. Checkbox · 复选框
@@ -206,9 +206,9 @@ timezone: Asia/Shanghai
 
 **English:** A selectable control for a yes/no choice or multiple choices in a group.
 
-**中文：**单独使用表示是或否；成组使用时可选择多个选项。
+**中文：** 单独使用表示是或否；成组使用时可选择多个选项。
 
-**原站实例：**[The Component Gallery · Checkbox](https://component.gallery/components/checkbox/)
+**原站实例：** [The Component Gallery · Checkbox](https://component.gallery/components/checkbox/)
 
 
 ## 11. Color picker · 颜色选择器
@@ -219,9 +219,9 @@ timezone: Asia/Shanghai
 
 **English:** An input for choosing a color value.
 
-**中文：**帮助用户选择并输入颜色值。
+**中文：** 帮助用户选择并输入颜色值。
 
-**原站实例：**[The Component Gallery · Color picker](https://component.gallery/components/color-picker/)
+**原站实例：** [The Component Gallery · Color picker](https://component.gallery/components/color-picker/)
 
 
 ## 12. Combobox · 组合框
@@ -232,9 +232,9 @@ timezone: Asia/Shanghai
 
 **English:** A searchable choice control that combines text entry with a list of options.
 
-**中文：**结合输入和候选列表，可输入文字筛选选项。
+**中文：** 结合输入和候选列表，可输入文字筛选选项。
 
-**原站实例：**[The Component Gallery · Combobox](https://component.gallery/components/combobox/)
+**原站实例：** [The Component Gallery · Combobox](https://component.gallery/components/combobox/)
 
 
 ## 13. Date input · 日期输入框
@@ -245,9 +245,9 @@ timezone: Asia/Shanghai
 
 **English:** One or more fields used to enter a date directly.
 
-**中文：**通过文本或分开的年、月、日字段直接输入日期。
+**中文：** 通过文本或分开的年、月、日字段直接输入日期。
 
-**原站实例：**[The Component Gallery · Date input](https://component.gallery/components/date-input/)
+**原站实例：** [The Component Gallery · Date input](https://component.gallery/components/date-input/)
 
 
 ## 14. Datepicker · 日期选择器
@@ -258,9 +258,9 @@ timezone: Asia/Shanghai
 
 **English:** A calendar interface for selecting a date visually.
 
-**中文：**通过日历界面直观地选择日期。
+**中文：** 通过日历界面直观地选择日期。
 
-**原站实例：**[The Component Gallery · Datepicker](https://component.gallery/components/datepicker/)
+**原站实例：** [The Component Gallery · Datepicker](https://component.gallery/components/datepicker/)
 
 
 ## 15. Drawer · 抽屉
@@ -271,9 +271,9 @@ timezone: Asia/Shanghai
 
 **English:** A panel that slides into view from a screen edge.
 
-**中文：**从屏幕边缘滑入的面板，常放补充内容或操作。
+**中文：** 从屏幕边缘滑入的面板，常放补充内容或操作。
 
-**原站实例：**[The Component Gallery · Drawer](https://component.gallery/components/drawer/)
+**原站实例：** [The Component Gallery · Drawer](https://component.gallery/components/drawer/)
 
 
 ## 16. Dropdown menu · 下拉菜单
@@ -284,9 +284,9 @@ timezone: Asia/Shanghai
 
 **English:** A hidden list of commands or links revealed by a trigger.
 
-**中文：**点击触发器后显示操作或导航项；通常不是表单取值控件。
+**中文：** 点击触发器后显示操作或导航项；通常不是表单取值控件。
 
-**原站实例：**[The Component Gallery · Dropdown menu](https://component.gallery/components/dropdown-menu/)
+**原站实例：** [The Component Gallery · Dropdown menu](https://component.gallery/components/dropdown-menu/)
 
 
 ## 17. Empty state · 空状态
@@ -297,9 +297,9 @@ timezone: Asia/Shanghai
 
 **English:** A view shown when there is no content to display, often with a next step.
 
-**中文：**没有数据时的说明界面，通常提示下一步可做什么。
+**中文：** 没有数据时的说明界面，通常提示下一步可做什么。
 
-**原站实例：**[The Component Gallery · Empty state](https://component.gallery/components/empty-state/)
+**原站实例：** [The Component Gallery · Empty state](https://component.gallery/components/empty-state/)
 
 
 ## 18. Fieldset · 表单字段组
@@ -310,9 +310,9 @@ timezone: Asia/Shanghai
 
 **English:** A semantic grouping of related form controls.
 
-**中文：**把相关表单字段放在一组，便于理解和填写。
+**中文：** 把相关表单字段放在一组，便于理解和填写。
 
-**原站实例：**[The Component Gallery · Fieldset](https://component.gallery/components/fieldset/)
+**原站实例：** [The Component Gallery · Fieldset](https://component.gallery/components/fieldset/)
 
 
 ## 19. File · 文件项
@@ -323,9 +323,9 @@ timezone: Asia/Shanghai
 
 **English:** An interface representation of an attachment or downloadable file.
 
-**中文：**在界面中表示附件或可下载文件。
+**中文：** 在界面中表示附件或可下载文件。
 
-**原站实例：**[The Component Gallery · File](https://component.gallery/components/file/)
+**原站实例：** [The Component Gallery · File](https://component.gallery/components/file/)
 
 
 ## 20. File upload · 文件上传
@@ -336,9 +336,9 @@ timezone: Asia/Shanghai
 
 **English:** A control for selecting or dropping a file from the device.
 
-**中文：**让用户从设备选择文件或拖入文件进行上传。
+**中文：** 让用户从设备选择文件或拖入文件进行上传。
 
-**原站实例：**[The Component Gallery · File upload](https://component.gallery/components/file-upload/)
+**原站实例：** [The Component Gallery · File upload](https://component.gallery/components/file-upload/)
 
 
 ## 21. Footer · 页脚
@@ -349,9 +349,9 @@ timezone: Asia/Shanghai
 
 **English:** The closing area of a page that often holds legal and utility links.
 
-**中文：**页面底部区域，常放版权、法律信息和辅助链接。
+**中文：** 页面底部区域，常放版权、法律信息和辅助链接。
 
-**原站实例：**[The Component Gallery · Footer](https://component.gallery/components/footer/)
+**原站实例：** [The Component Gallery · Footer](https://component.gallery/components/footer/)
 
 
 ## 22. Form · 表单
@@ -362,9 +362,9 @@ timezone: Asia/Shanghai
 
 **English:** A collection of inputs that gathers information for submission.
 
-**中文：**收集并提交信息的一组输入控件。
+**中文：** 收集并提交信息的一组输入控件。
 
-**原站实例：**[The Component Gallery · Form](https://component.gallery/components/form/)
+**原站实例：** [The Component Gallery · Form](https://component.gallery/components/form/)
 
 
 ## 23. Header · 页眉
@@ -375,9 +375,9 @@ timezone: Asia/Shanghai
 
 **English:** The top area of a site or page, often containing identity and primary navigation.
 
-**中文：**页面顶部区域，通常包含站点名称和主导航。
+**中文：** 页面顶部区域，通常包含站点名称和主导航。
 
-**原站实例：**[The Component Gallery · Header](https://component.gallery/components/header/)
+**原站实例：** [The Component Gallery · Header](https://component.gallery/components/header/)
 
 
 ## 24. Heading · 标题
@@ -388,9 +388,9 @@ timezone: Asia/Shanghai
 
 **English:** Text that introduces a page or section and establishes its hierarchy.
 
-**中文：**引出页面或章节的标题，帮助建立内容层级。
+**中文：** 引出页面或章节的标题，帮助建立内容层级。
 
-**原站实例：**[The Component Gallery · Heading](https://component.gallery/components/heading/)
+**原站实例：** [The Component Gallery · Heading](https://component.gallery/components/heading/)
 
 
 ## 25. Hero · 主视觉横幅
@@ -401,9 +401,9 @@ timezone: Asia/Shanghai
 
 **English:** A large introductory section that highlights the main message of a page.
 
-**中文：**页面开头的大面积重点区域，常含标题、图片和行动按钮。
+**中文：** 页面开头的大面积重点区域，常含标题、图片和行动按钮。
 
-**原站实例：**[The Component Gallery · Hero](https://component.gallery/components/hero/)
+**原站实例：** [The Component Gallery · Hero](https://component.gallery/components/hero/)
 
 
 ## 26. Icon · 图标
@@ -414,9 +414,9 @@ timezone: Asia/Shanghai
 
 **English:** A small graphic symbol that conveys an action, object, or concept.
 
-**中文：**用简洁图形表达操作、对象或概念。
+**中文：** 用简洁图形表达操作、对象或概念。
 
-**原站实例：**[The Component Gallery · Icon](https://component.gallery/components/icon/)
+**原站实例：** [The Component Gallery · Icon](https://component.gallery/components/icon/)
 
 
 ## 27. Image · 图片元素
@@ -427,9 +427,9 @@ timezone: Asia/Shanghai
 
 **English:** A component that displays a picture within an interface.
 
-**中文：**在界面中展示照片、插画等图像内容。
+**中文：** 在界面中展示照片、插画等图像内容。
 
-**原站实例：**[The Component Gallery · Image](https://component.gallery/components/image/)
+**原站实例：** [The Component Gallery · Image](https://component.gallery/components/image/)
 
 
 ## 28. Label · 字段标签
@@ -440,9 +440,9 @@ timezone: Asia/Shanghai
 
 **English:** Text that names a form control and clarifies what value it expects.
 
-**中文：**说明表单字段名称及需要填写的内容。
+**中文：** 说明表单字段名称及需要填写的内容。
 
-**原站实例：**[The Component Gallery · Label](https://component.gallery/components/label/)
+**原站实例：** [The Component Gallery · Label](https://component.gallery/components/label/)
 
 
 ## 29. Link · 链接
@@ -453,9 +453,9 @@ timezone: Asia/Shanghai
 
 **English:** A reference that takes the user to another resource or position.
 
-**中文：**指向其他页面、资源或当前页面位置的可点击引用。
+**中文：** 指向其他页面、资源或当前页面位置的可点击引用。
 
-**原站实例：**[The Component Gallery · Link](https://component.gallery/components/link/)
+**原站实例：** [The Component Gallery · Link](https://component.gallery/components/link/)
 
 
 ## 30. List · 列表
@@ -466,9 +466,9 @@ timezone: Asia/Shanghai
 
 **English:** A structured collection of related items in a defined sequence or grouping.
 
-**中文：**按顺序或无序方式组织相关项目。
+**中文：** 按顺序或无序方式组织相关项目。
 
-**原站实例：**[The Component Gallery · List](https://component.gallery/components/list/)
+**原站实例：** [The Component Gallery · List](https://component.gallery/components/list/)
 
 
 ## 31. Modal · 模态对话框
@@ -479,9 +479,9 @@ timezone: Asia/Shanghai
 
 **English:** An overlay that requires attention before returning to the underlying page.
 
-**中文：**覆盖在页面之上的交互层，用户处理后才能回到背景内容。
+**中文：** 覆盖在页面之上的交互层，用户处理后才能回到背景内容。
 
-**原站实例：**[The Component Gallery · Modal](https://component.gallery/components/modal/)
+**原站实例：** [The Component Gallery · Modal](https://component.gallery/components/modal/)
 
 
 ## 32. Navigation · 导航
@@ -492,9 +492,9 @@ timezone: Asia/Shanghai
 
 **English:** A collection of links that helps users move between destinations.
 
-**中文：**组织页面或章节链接，帮助用户前往目标位置。
+**中文：** 组织页面或章节链接，帮助用户前往目标位置。
 
-**原站实例：**[The Component Gallery · Navigation](https://component.gallery/components/navigation/)
+**原站实例：** [The Component Gallery · Navigation](https://component.gallery/components/navigation/)
 
 
 ## 33. Pagination · 分页
@@ -505,9 +505,9 @@ timezone: Asia/Shanghai
 
 **English:** Controls for moving through content divided into separate pages.
 
-**中文：**把大量内容分成多页，并提供页码或前后页切换。
+**中文：** 把大量内容分成多页，并提供页码或前后页切换。
 
-**原站实例：**[The Component Gallery · Pagination](https://component.gallery/components/pagination/)
+**原站实例：** [The Component Gallery · Pagination](https://component.gallery/components/pagination/)
 
 
 ## 34. Popover · 弹出层
@@ -518,9 +518,9 @@ timezone: Asia/Shanghai
 
 **English:** A contextual panel anchored to another element and able to hold interactive content.
 
-**中文：**依附于触发元素显示的浮层，可包含可交互内容。
+**中文：** 依附于触发元素显示的浮层，可包含可交互内容。
 
-**原站实例：**[The Component Gallery · Popover](https://component.gallery/components/popover/)
+**原站实例：** [The Component Gallery · Popover](https://component.gallery/components/popover/)
 
 
 ## 35. Progress bar · 进度条
@@ -531,9 +531,9 @@ timezone: Asia/Shanghai
 
 **English:** A horizontal measure of how far a continuous task has advanced.
 
-**中文：**用水平条表示持续任务目前完成的比例。
+**中文：** 用水平条表示持续任务目前完成的比例。
 
-**原站实例：**[The Component Gallery · Progress bar](https://component.gallery/components/progress-bar/)
+**原站实例：** [The Component Gallery · Progress bar](https://component.gallery/components/progress-bar/)
 
 
 ## 36. Progress indicator · 步骤进度指示器
@@ -544,9 +544,9 @@ timezone: Asia/Shanghai
 
 **English:** A display of the current position within a sequence of distinct steps.
 
-**中文：**显示用户在多个离散步骤中走到了哪一步。
+**中文：** 显示用户在多个离散步骤中走到了哪一步。
 
-**原站实例：**[The Component Gallery · Progress indicator](https://component.gallery/components/progress-indicator/)
+**原站实例：** [The Component Gallery · Progress indicator](https://component.gallery/components/progress-indicator/)
 
 
 ## 37. Quote · 引文
@@ -557,9 +557,9 @@ timezone: Asia/Shanghai
 
 **English:** A presentation of cited text or a highlighted passage.
 
-**中文：**展示来自他人的引述，或突出文章中的一段文字。
+**中文：** 展示来自他人的引述，或突出文章中的一段文字。
 
-**原站实例：**[The Component Gallery · Quote](https://component.gallery/components/quote/)
+**原站实例：** [The Component Gallery · Quote](https://component.gallery/components/quote/)
 
 
 ## 38. Radio button · 单选按钮
@@ -570,9 +570,9 @@ timezone: Asia/Shanghai
 
 **English:** A control for choosing exactly one option from a set.
 
-**中文：**从一组选项中选择且只选择一个。
+**中文：** 从一组选项中选择且只选择一个。
 
-**原站实例：**[The Component Gallery · Radio button](https://component.gallery/components/radio-button/)
+**原站实例：** [The Component Gallery · Radio button](https://component.gallery/components/radio-button/)
 
 
 ## 39. Rating · 评分
@@ -583,9 +583,9 @@ timezone: Asia/Shanghai
 
 **English:** A control or display for expressing an evaluation, often with stars.
 
-**中文：**用星级等形式展示评价，或让用户提交评价。
+**中文：** 用星级等形式展示评价，或让用户提交评价。
 
-**原站实例：**[The Component Gallery · Rating](https://component.gallery/components/rating/)
+**原站实例：** [The Component Gallery · Rating](https://component.gallery/components/rating/)
 
 
 ## 40. Rich text editor · 富文本编辑器
@@ -596,9 +596,9 @@ timezone: Asia/Shanghai
 
 **English:** An editing area that supports formatting as well as plain text.
 
-**中文：**可输入并设置粗体、链接等格式的编辑区域。
+**中文：** 可输入并设置粗体、链接等格式的编辑区域。
 
-**原站实例：**[The Component Gallery · Rich text editor](https://component.gallery/components/rich-text-editor/)
+**原站实例：** [The Component Gallery · Rich text editor](https://component.gallery/components/rich-text-editor/)
 
 
 ## 41. Search input · 搜索框
@@ -609,9 +609,9 @@ timezone: Asia/Shanghai
 
 **English:** A text field where users enter terms to find matching content.
 
-**中文：**输入关键词以查找匹配内容的文本框。
+**中文：** 输入关键词以查找匹配内容的文本框。
 
-**原站实例：**[The Component Gallery · Search input](https://component.gallery/components/search-input/)
+**原站实例：** [The Component Gallery · Search input](https://component.gallery/components/search-input/)
 
 
 ## 42. Segmented control · 分段控件
@@ -622,9 +622,9 @@ timezone: Asia/Shanghai
 
 **English:** A row of mutually related options used to switch a mode or view.
 
-**中文：**一排相互关联的选项，用于切换模式或视图。
+**中文：** 一排相互关联的选项，用于切换模式或视图。
 
-**原站实例：**[The Component Gallery · Segmented control](https://component.gallery/components/segmented-control/)
+**原站实例：** [The Component Gallery · Segmented control](https://component.gallery/components/segmented-control/)
 
 
 ## 43. Select · 下拉选择框
@@ -635,9 +635,9 @@ timezone: Asia/Shanghai
 
 **English:** A form control that picks one value from predefined choices.
 
-**中文：**从预先给定的选项里选取一个表单值。
+**中文：** 从预先给定的选项里选取一个表单值。
 
-**原站实例：**[The Component Gallery · Select](https://component.gallery/components/select/)
+**原站实例：** [The Component Gallery · Select](https://component.gallery/components/select/)
 
 
 ## 44. Separator · 分隔线
@@ -648,9 +648,9 @@ timezone: Asia/Shanghai
 
 **English:** A visual divider between nearby areas or items.
 
-**中文：**在相邻内容之间建立视觉分界。
+**中文：** 在相邻内容之间建立视觉分界。
 
-**原站实例：**[The Component Gallery · Separator](https://component.gallery/components/separator/)
+**原站实例：** [The Component Gallery · Separator](https://component.gallery/components/separator/)
 
 
 ## 45. Skeleton · 骨架屏
@@ -661,9 +661,9 @@ timezone: Asia/Shanghai
 
 **English:** A placeholder shaped like content while the actual content loads.
 
-**中文：**加载期间用灰色占位块提示即将出现的内容结构。
+**中文：** 加载期间用灰色占位块提示即将出现的内容结构。
 
-**原站实例：**[The Component Gallery · Skeleton](https://component.gallery/components/skeleton/)
+**原站实例：** [The Component Gallery · Skeleton](https://component.gallery/components/skeleton/)
 
 
 ## 46. Skip link · 跳转链接
@@ -674,9 +674,9 @@ timezone: Asia/Shanghai
 
 **English:** A keyboard-friendly shortcut to bypass repeated content and reach a section.
 
-**中文：**让键盘用户跳过重复内容，直接到达主要区域。
+**中文：** 让键盘用户跳过重复内容，直接到达主要区域。
 
-**原站实例：**[The Component Gallery · Skip link](https://component.gallery/components/skip-link/)
+**原站实例：** [The Component Gallery · Skip link](https://component.gallery/components/skip-link/)
 
 
 ## 47. Slider · 滑块
@@ -687,9 +687,9 @@ timezone: Asia/Shanghai
 
 **English:** A track and thumb used to choose a value within a range.
 
-**中文：**拖动轨道上的滑块，在给定范围内选取数值。
+**中文：** 拖动轨道上的滑块，在给定范围内选取数值。
 
-**原站实例：**[The Component Gallery · Slider](https://component.gallery/components/slider/)
+**原站实例：** [The Component Gallery · Slider](https://component.gallery/components/slider/)
 
 
 ## 48. Spinner · 加载转圈
@@ -700,9 +700,9 @@ timezone: Asia/Shanghai
 
 **English:** An animated cue that background work is still in progress.
 
-**中文：**用旋转等动态标记提示后台操作仍在进行。
+**中文：** 用旋转等动态标记提示后台操作仍在进行。
 
-**原站实例：**[The Component Gallery · Spinner](https://component.gallery/components/spinner/)
+**原站实例：** [The Component Gallery · Spinner](https://component.gallery/components/spinner/)
 
 
 ## 49. Stack · 间距堆叠容器
@@ -713,9 +713,9 @@ timezone: Asia/Shanghai
 
 **English:** A layout wrapper that applies consistent spacing between child elements.
 
-**中文：**给一组子元素设置统一间距的布局容器。
+**中文：** 给一组子元素设置统一间距的布局容器。
 
-**原站实例：**[The Component Gallery · Stack](https://component.gallery/components/stack/)
+**原站实例：** [The Component Gallery · Stack](https://component.gallery/components/stack/)
 
 
 ## 50. Stepper · 数值步进器
@@ -726,9 +726,9 @@ timezone: Asia/Shanghai
 
 **English:** A numeric input with controls to increase or decrease its value.
 
-**中文：**通过加减按钮调整数字，例如商品数量。
+**中文：** 通过加减按钮调整数字，例如商品数量。
 
-**原站实例：**[The Component Gallery · Stepper](https://component.gallery/components/stepper/)
+**原站实例：** [The Component Gallery · Stepper](https://component.gallery/components/stepper/)
 
 
 ## 51. Table · 表格
@@ -739,9 +739,9 @@ timezone: Asia/Shanghai
 
 **English:** Information arranged in rows and columns for scanning and comparison.
 
-**中文：**用行和列组织数据，便于浏览与比较。
+**中文：** 用行和列组织数据，便于浏览与比较。
 
-**原站实例：**[The Component Gallery · Table](https://component.gallery/components/table/)
+**原站实例：** [The Component Gallery · Table](https://component.gallery/components/table/)
 
 
 ## 52. Tabs · 选项卡
@@ -752,9 +752,9 @@ timezone: Asia/Shanghai
 
 **English:** A set of labels that switches between content panels in the same area.
 
-**中文：**在同一空间中切换不同内容面板，减少页面拥挤。
+**中文：** 在同一空间中切换不同内容面板，减少页面拥挤。
 
-**原站实例：**[The Component Gallery · Tabs](https://component.gallery/components/tabs/)
+**原站实例：** [The Component Gallery · Tabs](https://component.gallery/components/tabs/)
 
 
 ## 53. Text input · 单行文本输入框
@@ -765,9 +765,9 @@ timezone: Asia/Shanghai
 
 **English:** A field for entering one line of text.
 
-**中文：**输入姓名、标题等单行文字的字段。
+**中文：** 输入姓名、标题等单行文字的字段。
 
-**原站实例：**[The Component Gallery · Text input](https://component.gallery/components/text-input/)
+**原站实例：** [The Component Gallery · Text input](https://component.gallery/components/text-input/)
 
 
 ## 54. Textarea · 多行文本框
@@ -778,9 +778,9 @@ timezone: Asia/Shanghai
 
 **English:** A field for entering or editing multiple lines of text.
 
-**中文：**输入备注、描述等多行文字的字段。
+**中文：** 输入备注、描述等多行文字的字段。
 
-**原站实例：**[The Component Gallery · Textarea](https://component.gallery/components/textarea/)
+**原站实例：** [The Component Gallery · Textarea](https://component.gallery/components/textarea/)
 
 
 ## 55. Toast · 浮动通知
@@ -791,9 +791,9 @@ timezone: Asia/Shanghai
 
 **English:** A brief message shown over the interface after an event.
 
-**中文：**操作后短暂浮在界面上的反馈消息。
+**中文：** 操作后短暂浮在界面上的反馈消息。
 
-**原站实例：**[The Component Gallery · Toast](https://component.gallery/components/toast/)
+**原站实例：** [The Component Gallery · Toast](https://component.gallery/components/toast/)
 
 
 ## 56. Toggle · 开关
@@ -804,9 +804,9 @@ timezone: Asia/Shanghai
 
 **English:** A control that switches a setting between two states.
 
-**中文：**在开与关等两个状态之间切换。
+**中文：** 在开与关等两个状态之间切换。
 
-**原站实例：**[The Component Gallery · Toggle](https://component.gallery/components/toggle/)
+**原站实例：** [The Component Gallery · Toggle](https://component.gallery/components/toggle/)
 
 
 ## 57. Tooltip · 工具提示
@@ -817,9 +817,9 @@ timezone: Asia/Shanghai
 
 **English:** A small explanation shown beside an element on hover, focus, or tap.
 
-**中文：**鼠标悬停、聚焦或点击时，显示元素的简短说明。
+**中文：** 鼠标悬停、聚焦或点击时，显示元素的简短说明。
 
-**原站实例：**[The Component Gallery · Tooltip](https://component.gallery/components/tooltip/)
+**原站实例：** [The Component Gallery · Tooltip](https://component.gallery/components/tooltip/)
 
 
 ## 58. Tree view · 树形视图
@@ -830,9 +830,9 @@ timezone: Asia/Shanghai
 
 **English:** A nested display of hierarchical items that can often be expanded.
 
-**中文：**按层级嵌套展示目录或其他结构，通常可以展开节点。
+**中文：** 按层级嵌套展示目录或其他结构，通常可以展开节点。
 
-**原站实例：**[The Component Gallery · Tree view](https://component.gallery/components/tree-view/)
+**原站实例：** [The Component Gallery · Tree view](https://component.gallery/components/tree-view/)
 
 
 ## 59. Video · 视频播放器
@@ -843,9 +843,9 @@ timezone: Asia/Shanghai
 
 **English:** An interface for displaying video, usually with playback controls.
 
-**中文：**展示视频并提供播放、暂停等控制。
+**中文：** 展示视频并提供播放、暂停等控制。
 
-**原站实例：**[The Component Gallery · Video](https://component.gallery/components/video/)
+**原站实例：** [The Component Gallery · Video](https://component.gallery/components/video/)
 
 
 ## 60. Visually hidden · 视觉隐藏内容
@@ -856,7 +856,7 @@ timezone: Asia/Shanghai
 
 **English:** Text hidden from sight but available to assistive technologies.
 
-**中文：**视觉上不显示、却供屏幕阅读器理解界面的补充文字。
+**中文：** 视觉上不显示、却供屏幕阅读器理解界面的补充文字。
 
-**原站实例：**[The Component Gallery · Visually hidden](https://component.gallery/components/visually-hidden/)
+**原站实例：** [The Component Gallery · Visually hidden](https://component.gallery/components/visually-hidden/)
 
