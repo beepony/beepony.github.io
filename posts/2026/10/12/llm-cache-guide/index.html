@@ -1,0 +1,908 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" sizes="64x64" data-theme-icon data-light="/theme-day/favicon.png?v=20260913-dual" data-dark="/theme-night/favicon.png?v=20260913-dual" href="/theme-day/favicon.png?v=20260913-dual"><link rel="icon" data-theme-icon data-light="/theme-day/favicon.ico?v=20260913-dual" data-dark="/theme-night/favicon.ico?v=20260913-dual" href="/theme-day/favicon.ico?v=20260913-dual"><link rel="canonical" href="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta name="generator" content="Astro v7.3.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/02154cca78ac33f2.woff") format("woff"), url("/assets/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/assets/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/a5c5808c25effec9.woff") format("woff"), url("/assets/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/14314705006234cb.woff") format("woff"), url("/assets/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/c33265ba093eb291.woff") format("woff"), url("/assets/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/assets/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/assets/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/assets/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/da468df88542c99b.woff") format("woff"), url("/assets/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/f914de358bc554f6.woff") format("woff"), url("/assets/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱 | Beepony</title><meta name="title" content="拿到牙科报告后，应该怎么看？从牙片入门的图文指南 | Beepony"><meta name="description" content="用 12 节把 Context / KV Cache / Prefix Cache / Prompt Cache 讲透,为什么改 prompt 的一个字可能多花 10 倍钱,以及 5 条让缓存多命中的实战经验。"><meta name="author" content="Beepony"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Beepony"><meta property="og:title" content="大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱 | Beepony"><meta property="og:description" content="用 12 节把 Context / KV Cache / Prefix Cache / Prompt Cache 讲透,为什么改 prompt 的一个字可能多花 10 倍钱,以及 5 条让缓存多命中的实战经验。"><meta property="og:url" content="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta property="og:image" content="https://beepony.github.io/default-og.jpg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://beepony.github.io/posts/2026/09/13/dental-report-guide/"><meta property="twitter:title" content="拿到牙科报告后，应该怎么看？从牙片入门的图文指南 | Beepony"><meta property="twitter:description" content="结合9张原视频截图，读懂牙片的黑白影像、常见检查，以及智齿、蛀牙、牙周炎和种植牙复查；附报告阅读步骤与复诊问题。"><meta property="twitter:image" content="https://beepony.github.io/default-og.jpg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Beepony" href="https://beepony.github.io/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) --><meta property="og:type" content="article"><meta property="article:published_time" content="2026-09-13T14:45:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"拿到牙科报告后，应该怎么看？从牙片入门的图文指南 | Beepony","datePublished":"2026-09-13T14:45:00.000Z","author":[{"@type":"Person","name":"Beepony","url":"https://github.com/beepony"}]}</script><!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        document.querySelectorAll("[data-theme-icon]").forEach(icon => {
+          icon.setAttribute("href", icon.getAttribute(theme === "dark" ? "data-dark" : "data-light"));
+        });
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/assets/ClientRouter.astro_astro_type_script_index_0_lang.CYDbzu1r.js"></script><link rel="stylesheet" href="/assets/Footer.BvtwbtC7.css"><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*),[data-astro-transition-scope]{animation:none!important}}
+.toc[data-astro-cid-p33bl5ka]{font-family:var(--font-google-sans-code), monospace}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka][data-toc-link].toc-active{color:var(--accent);font-weight:500}
+</style><style>[data-astro-transition-scope="astro-bztu2lml-1"] { view-transition-name: \79D1\666E; }@layer astro { ::view-transition-old(\79D1\666E) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\79D1\666E) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\79D1\666E) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\79D1\666E) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-2"] { view-transition-name: \53E3\8154\5065\5EB7; }@layer astro { ::view-transition-old(\53E3\8154\5065\5EB7) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\53E3\8154\5065\5EB7) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\53E3\8154\5065\5EB7) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\53E3\8154\5065\5EB7) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-3"] { view-transition-name: \7259\79D1\62A5\544A; }@layer astro { ::view-transition-old(\7259\79D1\62A5\544A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\7259\79D1\62A5\544A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\7259\79D1\62A5\544A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\7259\79D1\62A5\544A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-bztu2lml-4"] { view-transition-name: \7259\7247; }@layer astro { ::view-transition-old(\7259\7247) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\7259\7247) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\7259\7247) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\7259\7247) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-bztu2lml-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-bztu2lml-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">跳到正文</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/" class="absolute flex items-center gap-2 py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none" aria-label="Beepony"><img src="/theme-day/images/logo@2x.png?v=20260913-dual" alt="Beepony" width="40" height="40" class="theme-avatar-day h-8 w-8 rounded-md sm:h-10 sm:w-10"><img src="/theme-night/images/logo@2x.png?v=20260913-dual" alt="Beepony" width="40" height="40" class="theme-avatar-night h-8 w-8 rounded-md sm:h-10 sm:w-10"></a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/posts/" class="active-nav">文章</a></li><li class="col-span-2"><a href="/tags/">标签</a></li><li class="col-span-2"><a href="/about/">关于</a></li><li class="col-span-2"><a href="/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">归档</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">搜索</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span></a></div><script type="module">function e(){let e=document.querySelector(`#back-button`),t=sessionStorage.getItem(`backUrl`);t&&e&&(e.href=t)}document.addEventListener(`astro:page-load`,e),e();</script><main id="main-content" class="app-layout" data-pagefind-body><h1 style="view-transition-name:p-20260913dental-report-guide" class="text-accent inline-block text-2xl font-bold sm:text-3xl">拿到牙科报告后，应该怎么看？从牙片入门的图文指南</h1><div class="my-2 flex items-center gap-2"><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time>12 Oct, 2026</time></div><span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/09/13/dental-report-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a></div><aside id="toc" class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0" data-astro-cid-p33bl5ka><h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide" data-astro-cid-p33bl5ka>📑 目录</h2><nav aria-label="目录" data-astro-cid-p33bl5ka><ul class="space-y-1" data-astro-cid-p33bl5ka><li data-astro-cid-p33bl5ka><a href="#从牙片入门读懂智齿蛀牙牙周炎与种植牙复查" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="从牙片入门读懂智齿蛀牙牙周炎与种植牙复查" data-astro-cid-p33bl5ka>从牙片入门，读懂智齿、蛀牙、牙周炎与种植牙复查</a></li><li data-astro-cid-p33bl5ka><a href="#一先分清牙片影像报告和治疗方案" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="一先分清牙片影像报告和治疗方案" data-astro-cid-p33bl5ka>一、先分清：牙片、影像报告和治疗方案</a></li><li data-astro-cid-p33bl5ka><a href="#二牙片上的黑白分别是什么意思" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="二牙片上的黑白分别是什么意思" data-astro-cid-p33bl5ka>二、牙片上的黑白，分别是什么意思？</a></li><li data-astro-cid-p33bl5ka><a href="#三四种常见牙片解决的问题不同" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="三四种常见牙片解决的问题不同" data-astro-cid-p33bl5ka>三、四种常见牙片，解决的问题不同</a></li><li data-astro-cid-p33bl5ka><a href="#四智齿先看位置再讨论是否拔除" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="四智齿先看位置再讨论是否拔除" data-astro-cid-p33bl5ka>四、智齿：先看位置，再讨论是否拔除</a></li><li data-astro-cid-p33bl5ka><a href="#五蛀牙关注异常的深度而不是只找黑点" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="五蛀牙关注异常的深度而不是只找黑点" data-astro-cid-p33bl5ka>五、蛀牙：关注异常的深度，而不是只找黑点</a></li><li data-astro-cid-p33bl5ka><a href="#六牙周炎看支撑牙齿的骨也要查牙龈" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="六牙周炎看支撑牙齿的骨也要查牙龈" data-astro-cid-p33bl5ka>六、牙周炎：看支撑牙齿的骨，也要查牙龈</a></li><li data-astro-cid-p33bl5ka><a href="#七缺牙与种植牙片子不仅看有没有牙" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="七缺牙与种植牙片子不仅看有没有牙" data-astro-cid-p33bl5ka>七、缺牙与种植牙：片子不仅看“有没有牙”</a></li><li data-astro-cid-p33bl5ka><a href="#八带着这五个问题去复诊" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="八带着这五个问题去复诊" data-astro-cid-p33bl5ka>八、带着这五个问题去复诊</a></li></ul></nav></aside><script type="module">function e(){let e=Array.from(document.querySelectorAll(`a[data-toc-link]`));if(e.length===0)return;let t=e.map(e=>e.dataset.tocLink).filter(Boolean).map(e=>document.getElementById(e)).filter(e=>e!==null);if(t.length===0)return;let n=t=>{for(let n of e)n.classList.toggle(`toc-active`,n.dataset.tocLink===t)},r=new IntersectionObserver(e=>{for(let t of e)t.isIntersecting&&n(t.target.id)},{rootMargin:`0px 0px -70% 0px`,threshold:0});for(let e of t)r.observe(e)}document.addEventListener(`astro:page-load`,e);</script><article>
+<h1>大模型 Cache（缓存）通俗指南</h1>
+<blockquote>一句话核心：**大模型靠"别重复算"变快；改一字让前面的努力白费，是这种设计的代价。**</blockquote>
+<hr>
+<h2>阅读地图</h2>
+<table>
+<thead><tr>
+<th>章节</th>
+<th>内容</th>
+<th>解决什么问题</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>一、先说结论</td>
+<td>大模型不每次重算、用 Cache 省时间</td>
+<td>整体在讲什么</td>
+</tr>
+<tr>
+<td>二、为什么和你有关</td>
+<td>改一字可能多花钱、命中能提速 5-10 倍</td>
+<td>我为啥要读完</td>
+</tr>
+<tr>
+<td>三、什么是 Context</td>
+<td>模型能看到的历史对话 ≠ 命中缓存</td>
+<td>别把"看到"和"记下"搞混</td>
+</tr>
+<tr>
+<td>四、Token 是什么</td>
+<td>模型不认字、只认编号</td>
+<td>后面所有推理的基础</td>
+</tr>
+<tr>
+<td>五、模型在算什么</td>
+<td>Token → 一大堆数字</td>
+<td>为啥 Cache 能省事</td>
+</tr>
+<tr>
+<td>六、KV Cache</td>
+<td>模型做完的"阅读笔记"</td>
+<td>会话内的缓存</td>
+</tr>
+<tr>
+<td>七、Prefix Cache</td>
+<td>把笔记升级到班级共享</td>
+<td>跨请求的缓存</td>
+</tr>
+<tr>
+<td>八、Prompt Cache</td>
+<td>服务商主动保存的历史结果</td>
+<td>API 商业层的缓存</td>
+</tr>
+<tr>
+<td>九、怎么验证真的命中</td>
+<td>看 `cached_tokens` 数字</td>
+<td>钱花得值不值</td>
+</tr>
+<tr>
+<td>十、为什么改一字就失效</td>
+<td>苹果→华为、火车变轨</td>
+<td>失效原因可视化</td>
+</tr>
+<tr>
+<td>十一、写 prompt 的 5 条经验</td>
+<td>怎么让缓存多命中</td>
+<td>实战速查</td>
+</tr>
+<tr>
+<td>十二、一句话总结</td>
+<td>4 个概念 + 主类比</td>
+<td>复习用</td>
+</tr>
+</tbody></table>
+<hr>
+<h1>一、先说结论</h1>
+<p>很多人以为：</p>
+<blockquote>大模型每次回答问题，都要把整个聊天记录重新读一遍。</blockquote>
+<p>实际上并不完全是这样。</p>
+<p>现代大模型通常会使用各种缓存机制（Cache），避免重复计算已经处理过的内容。</p>
+<p>最常见的是：</p>
+<p>1. <strong>Context</strong>（上下文）</p>
+<p>2. <strong>KV Cache</strong>（推理缓存）</p>
+<p>3. <strong>Prefix Cache</strong>（前缀缓存）</p>
+<p>4. <strong>Prompt Cache</strong>（提示词缓存）</p>
+<p>其中四个概念的关系：</p>
+<table>
+<thead><tr>
+<th>概念</th>
+<th>作用范围</th>
+<th>类比</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>**Context**</td>
+<td>模型能看到的历史对话</td>
+<td>老师发给学生的整本教材</td>
+</tr>
+<tr>
+<td>**KV Cache**</td>
+<td>单次会话内复用</td>
+<td>学生做好的读书笔记</td>
+</tr>
+<tr>
+<td>**Prefix Cache**</td>
+<td>跨请求/跨会话复用相同前缀</td>
+<td>班级共享笔记本</td>
+</tr>
+<tr>
+<td>**Prompt Cache**</td>
+<td>服务商主动保存的历史计算结果</td>
+<td>学校图书馆系统</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：这四个东西都在干同一件事——<strong>别让模型重算算过的东西</strong>，只是"地理范围"越来越大。</p>
+<hr>
+<h1>二、为什么和你有关？</h1>
+<p>读这份指南的最大动力不是技术好奇心，是<strong>钱和速度</strong>。</p>
+<ul>
+<li>✅ 同样问题，**改 prompt 的一个字可能多花 10 倍钱**（改前面最贵）</li>
+<li>✅ 同样的回复，速度可以差 **5-10 倍**（命中 vs 不命中）</li>
+<li>✅ 看懂 API 返回的 <code>cached_tokens</code>，**能帮你判断钱花得值不值**</li>
+</ul>
+<blockquote>后面所有概念，都是为这三条服务的。</blockquote>
+<hr>
+<h1>三、什么是 Context（上下文）？</h1>
+<p>假设你连续提问：</p>
+<pre><code class="language-text">A：法国首都是哪里？
+A1：人口多少？
+A2：GDP 多少？
+A3：面积多大？
+A4：官方语言是什么？
+A5：哪个城市最有名？</code></pre>
+<p>当你问 A5 时，模型实际收到的内容<strong>通常</strong>会包含此前的对话，因此 A5 能"看到"A~A4。这叫<strong>上下文（Context）</strong>。</p>
+<p>但请注意：</p>
+<blockquote>**看到的 ≠ 记下的**</blockquote>
+<blockquote></blockquote>
+<blockquote>学生面前有教材（Context），不等于他翻过笔记。</blockquote>
+<blockquote>老师给一本教材（Context），不等于学生做了笔记（KV Cache）。</blockquote>
+<blockquote></blockquote>
+<blockquote>**能看到历史内容 ≠ 命中缓存**。</blockquote>
+<p>这个区别是理解整篇指南的关键，后面 KV Cache / Prefix Cache 都是"已经记下来的"，而不是"已经看到的"。</p>
+<hr>
+<h1>四、Token 是什么？（前面概念的基础）</h1>
+<p>模型不认字，只认编号。</p>
+<p>比如：</p>
+<pre><code class="language-text">"法国"</code></pre>
+<p>在模型眼里可能是编号 <code>3847</code>，"我喜欢苹果"可能是 <code>[127, 8034, 5217]</code>。</p>
+<p>一句话会被切成很多个编号，每个编号叫一个 <strong>Token</strong>。</p>
+<blockquote>**你给模型发 1 万字 ≈ 发 1 万个编号。**</blockquote>
+<blockquote></blockquote>
+<blockquote>这就是为什么"字数"对大模型来说特别重要——**Token 越多，越慢，越贵。**</blockquote>
+<hr>
+<h1>五、模型到底在计算什么？</h1>
+<p>每个 Token 会被转换成一串数字，比如：</p>
+<pre><code class="language-text">"法国"  →  [0.12, -0.34, 0.78, -0.05, ...]</code></pre>
+<p>这串数字不是随机的，而是<strong>编码了</strong>：</p>
+<ul>
+<li>词义（"法国"是个国家名）</li>
+<li>语法角色（在这句里是主语）</li>
+<li>上下文关系（和"首都"是一对）</li>
+<li>位置信息（在第几个字）</li>
+</ul>
+<blockquote>**你不用理解这些数字怎么算出来的**，只需要知道：</blockquote>
+<blockquote>**每个 Token 背后都跟着一大堆数字。**</blockquote>
+<blockquote></blockquote>
+<blockquote>第一次见到一个新 Token，模型要把这一大堆数字全算出来——**这一步很贵**。</blockquote>
+<p>而缓存的本质就是：<strong>别让模型第二次算同一批数字</strong>。</p>
+<hr>
+<h1>六、KV Cache——模型做好的"阅读笔记"</h1>
+<blockquote>**KV Cache 可以理解为：大模型已经做好的阅读笔记。**</blockquote>
+<p>KV = Key + Value，模型分析完前面的内容后，会把<strong>后续推理需要的重要中间结果</strong>保存下来。</p>
+<p>下次遇到相同前缀时，直接使用这些笔记，而不是重新阅读整段内容。</p>
+<h2>第 1 轮 vs 第 2 轮对比</h2>
+<pre><code class="language-text">第 1 轮
+─────────────────────────────────
+读 10000 字 → 算 10000 个 Token → 回答
+              ↑
+          全部从头算
+
+
+第 2 轮
+─────────────────────────────────
+读 10000 + 100 字
+         ↑
+     这部分直接翻笔记（KV Cache）
+              ↓
+只算新增的 100 个 Token → 回答
+              ↑
+         实际只算了 1%</code></pre>
+<p><strong>所以速度能差 5-10 倍</strong>——你看到的差距不是优化出来的，是"跳过了 99% 的工作"。</p>
+<hr>
+<h1>七、Prefix Cache——把笔记升级到"班级共享"</h1>
+<p><strong>KV Cache 的局限</strong>：笔记只放在<strong>你这次对话</strong>里，下个会话就没了。</p>
+<p><strong>Prefix Cache 是什么</strong>：把笔记升级成"班级共享笔记本"——<strong>跨请求、跨会话也能用</strong>。</p>
+<pre><code class="language-text">A → A1 → A2 → A3 → A4  ← 你之前算过
+
+现在又来一段：
+A → A1 → A2 → A3 → A4 → A5
+                            ↑
+                       只算 A5</code></pre>
+<blockquote>**类比升级**：</blockquote>
+<blockquote>- KV Cache = 你书桌抽屉里的笔记（只你用）</blockquote>
+<blockquote>- Prefix Cache = 班级共享笔记本（同一个 prefix 谁都能借）</blockquote>
+<p>注意：prefix 必须<strong>完全一致</strong>才能命中。前缀里改了一个字，整条笔记作废。</p>
+<hr>
+<h1>八、Prompt Cache——服务商主动保存的结果</h1>
+<p>KV Cache 像是当前会话里的临时笔记，<strong>Prompt Cache 则是服务商额外保存的历史计算结果</strong>。</p>
+<p>例如下面这段很长的系统提示词：</p>
+<pre><code class="language-text">A + A1 + A2 + A3 + A4   ← 已经被某个用户算过</code></pre>
+<p>之后<strong>任何用户</strong>再次提交相同前缀时，服务商<strong>可能</strong>直接复用以前的结果。</p>
+<table>
+<thead><tr>
+<th>API 提供方</th>
+<th>缓存形式</th>
+<th>计费方式</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>OpenAI</td>
+<td>Prompt Caching</td>
+<td>缓存命中的 Token 半价</td>
+</tr>
+<tr>
+<td>Anthropic</td>
+<td>Prompt Caching</td>
+<td>缓存写入 1.25x、命中 0.1x</td>
+</tr>
+<tr>
+<td>Gemini</td>
+<td>Context Caching</td>
+<td>按缓存时长收费</td>
+</tr>
+</tbody></table>
+<blockquote>**和 Prefix Cache 的区别**：</blockquote>
+<blockquote>Prefix Cache 通常是**服务端机制**（对用户透明），Prompt Cache 是**服务商主动卖的功能**（用户可选、有计费规则）。</blockquote>
+<blockquote></blockquote>
+<blockquote>普通人理解成一个事就行：**别让模型重算算过的东西**。</blockquote>
+<hr>
+<h1>九、怎么验证真的命中缓存？</h1>
+<p>部分 API 会返回类似信息：</p>
+<pre><code class="language-json">{
+  "input_tokens": 10000,
+  "cached_tokens": 9500
+}</code></pre>
+<p>含义：</p>
+<pre><code class="language-text">总输入 Token：10000
+缓存命中 Token：9500   ← 不用再算的部分
+重新计算 Token：500    ← 真正花了算力的</code></pre>
+<p><strong>怎么用这个数字</strong>：</p>
+<ul>
+<li><code>cached_tokens</code> 占比高（>80%）→ 你的 prompt 结构稳定，**钱花得值**</li>
+<li><code>cached_tokens</code> 一直是 0 → 你的 prompt 在反复变化，**钱大概率白花了**</li>
+</ul>
+<hr>
+<h1>十、为什么改一个字就失效？</h1>
+<p>因为 Transformer 是一个<strong>自回归</strong>结构：</p>
+<blockquote>**后面的 Token 理解，严格依赖前面的 Token。**</blockquote>
+<h2>例 1：苹果 → 华为</h2>
+<p>原文：</p>
+<pre><code class="language-text">我喜欢苹果手机</code></pre>
+<p>改成：</p>
+<pre><code class="language-text">我喜欢华为手机</code></pre>
+<p>从"苹果"开始，后面的语义状态全部变了。</p>
+<h2>例 2：火车模型</h2>
+<pre><code class="language-text">原来
+🚃 A → 🚃 B → 🚃 C → 🚃 D → 🚃 E
+
+改成
+🚃 A → 🚃 B → 🚃 X → 🚃 D → 🚃 E
+              ↑      ↑      ↑
+        重新挂车厢  重新挂车厢  重新挂车厢
+
+后面的车厢之所以要重挂，
+是因为它们以前是挂在 C 后面的，
+现在挂到 X 后面，挂钩方式变了。</code></pre>
+<h2>例 3：改开头最惨</h2>
+<pre><code class="language-text">原文：我喜欢苹果手机
+改成：他喜欢苹果手机</code></pre>
+<p>虽然只改了一个字，但<strong>后面所有 Token 的计算都可能受影响</strong>。</p>
+<blockquote>**改得越靠前，影响越大；改得越靠后，越容易命中缓存。**</blockquote>
+<hr>
+<h1>十一、写 prompt 的 5 条经验（避坑速查）</h1>
+<blockquote>[!tip] 让缓存多命中的实战原则</blockquote>
+<blockquote></blockquote>
+<blockquote>1. **系统提示词放最前面**——一旦稳定下来就别动，改它 = 全军覆没</blockquote>
+<blockquote>2. **固定少改的部分放前缀**——能最大化命中</blockquote>
+<blockquote>3. **每次要变的部分放最后**——用户问题 / 变量 → 放最后</blockquote>
+<blockquote>4. **想加新约束？尽量追加到固定段之后**，别插队</blockquote>
+<blockquote>5. **看 API 返回的 `cached_tokens`**——如果一直是 0，说明你的 prompt 结构在反复变化</blockquote>
+<hr>
+<h1>十二、一句话总结</h1>
+<h2>Context</h2>
+<pre><code class="language-text">模型看到的历史对话</code></pre>
+<h2>KV Cache</h2>
+<pre><code class="language-text">模型已经做好的阅读笔记</code></pre>
+<h2>Prefix Cache</h2>
+<pre><code class="language-text">相同前缀直接复用</code></pre>
+<h2>Prompt Cache</h2>
+<pre><code class="language-text">服务商保存的历史计算结果</code></pre>
+<h2>为什么改一个字可能失效？</h2>
+<pre><code class="language-text">后面的理解建立在前面的内容之上。
+
+改得越靠前，影响越大；
+改得越靠后，越容易命中缓存。</code></pre>
+<hr>
+<h1>最形象的记忆方式</h1>
+<pre><code class="language-text">上下文(Context)
+= 老师发给学生的整本教材
+
+KV Cache
+= 学生做好的读书笔记
+
+命中缓存
+= 直接翻笔记
+
+缓存失效
+= 重新读教材
+
+Prompt Cache
+= 学校图书馆保存的共享笔记</code></pre>
+<hr>
+<h1>参考资料</h1>
+<ul>
+<li>原始 Copilot 初稿：<code>/Users/bw/.hermes/cache/documents/doc_460c26220db8_大模型Cache通俗指南.md</code></li>
+<li>Hermes Review 重点：补 Token 铺垫、区分三个 Cache 层级、加"和我有啥关系"钩子、前移 cached_tokens 章节、火车模型升级、加避坑速查</li>
+</ul>
+</article><hr class="my-8 border-dashed"><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/src/content/posts/2026/09/13/dental-report-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a><div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"><button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"><span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><span class="group-hover:text-accent sr-only text-sm md:not-sr-only"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg>回到顶部</span></button></div><script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script><ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/tags/科普/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>科普</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/tags/口腔健康/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>口腔健康</a></li><li><a data-astro-transition-scope="astro-bztu2lml-3" href="/tags/牙科报告/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>牙科报告</a></li><li><a data-astro-transition-scope="astro-bztu2lml-4" href="/tags/牙片/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>牙片</a></li></ul><div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://x.com/intent/post?url=https://beepony.github.io/posts/2026/09/13/dental-report-guide/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span></a><a href="https://t.me/share/url?url=https://beepony.github.io/posts/2026/09/13/dental-report-guide/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span></a><a href="mailto:?subject=See%20this%20post&amp;body=https://beepony.github.io/posts/2026/09/13/dental-report-guide/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span></a></div></div><hr class="my-8 border-dashed"><div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"><a href="/posts/2026/09/12/andrew-ng-ai-engineering-skills/" class="flex w-full gap-1 hover:opacity-75"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><div><span>上一篇</span><div class="text-accent/85 text-sm">吴恩达 · AI 工程技能图谱：从「实现者」到「塑造者」</div></div></a><a href="/posts/2026/09/16/ui-components/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"><div><span>下一篇</span><div class="text-accent/85 text-sm">UI 产品组件中英对照图鉴：60 类组件学习笔记</div></div><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg></a></div></main><footer class="app-layout mt-auto"><div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"><div class="flex flex-wrap items-center gap-1"><a href="https://github.com/beepony" title="Beepony on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg><span class="sr-only">Beepony on Github</span></a><a href="https://x.com/ynopeeb" title="Beepony on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Beepony on X</span></a></div><div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"><span>版权所有 &#169; 2026</span><span class="hidden sm:inline">&nbsp;|&nbsp;</span><span>保留所有权利。</span></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n),document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,i),document.querySelectorAll(`[data-theme-icon]`).forEach(e=>{let t=i===n?e.dataset.dark:e.dataset.light;t&&(e.href=t)});let t=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html><script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
