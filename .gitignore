@@ -1,0 +1,22 @@
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artefacts that shouldn't be committed raw
+node_modules/
+*.log
+.env
+.env.local
+
+# OS metadata
+._*
