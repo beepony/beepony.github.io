@@ -1,4 +1,4 @@
-<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" sizes="64x64" data-theme-icon data-light="/theme-day/favicon.png?v=20260913-dual" data-dark="/theme-night/favicon.png?v=20260913-dual" href="/theme-day/favicon.png?v=20260913-dual"><link rel="icon" data-theme-icon data-light="/theme-day/favicon.ico?v=20260913-dual" data-dark="/theme-night/favicon.ico?v=20260913-dual" href="/theme-day/favicon.ico?v=20260913-dual"><link rel="canonical" href="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta name="generator" content="Astro v7.3.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/02154cca78ac33f2.woff") format("woff"), url("/assets/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/assets/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/a5c5808c25effec9.woff") format("woff"), url("/assets/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/14314705006234cb.woff") format("woff"), url("/assets/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/c33265ba093eb291.woff") format("woff"), url("/assets/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/assets/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/assets/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/assets/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/da468df88542c99b.woff") format("woff"), url("/assets/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/f914de358bc554f6.woff") format("woff"), url("/assets/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱 | Beepony</title><meta name="title" content="大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱 | Beepony"><meta name="description" content="用 12 节把 Context / KV Cache / Prefix Cache / Prompt Cache 讲透,为什么改 prompt 的一个字可能多花 10 倍钱,以及 5 条让缓存多命中的实战经验。"><meta name="author" content="Beepony"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Beepony"><meta property="og:title" content="大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱 | Beepony"><meta property="og:description" content="用 12 节把 Context / KV Cache / Prefix Cache / Prompt Cache 讲透,为什么改 prompt 的一个字可能多花 10 倍钱,以及 5 条让缓存多命中的实战经验。"><meta property="og:url" content="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta property="og:image" content="https://beepony.github.io/default-og.jpg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta property="twitter:title" content="大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱 | Beepony"><meta property="twitter:description" content="用 12 节把 Context / KV Cache / Prefix Cache / Prompt Cache 讲透,为什么改 prompt 的一个字可能多花 10 倍钱,以及 5 条让缓存多命中的实战经验。"><meta property="twitter:image" content="https://beepony.github.io/default-og.jpg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Beepony" href="https://beepony.github.io/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) --><meta property="og:type" content="article"><meta property="article:published_time" content="2026-09-13T14:45:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱","datePublished":"2026-09-13T14:45:00.000Z","author":[{"@type":"Person","name":"Beepony","url":"https://github.com/beepony"}]}</script><!--
+<!DOCTYPE html><html dir="ltr" lang="en" class="overflow-y-scroll scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" sizes="64x64" data-theme-icon data-light="/theme-day/favicon.png?v=20260913-dual" data-dark="/theme-night/favicon.png?v=20260913-dual" href="/theme-day/favicon.png?v=20260913-dual"><link rel="icon" data-theme-icon data-light="/theme-day/favicon.ico?v=20260913-dual" data-dark="/theme-night/favicon.ico?v=20260913-dual" href="/theme-day/favicon.ico?v=20260913-dual"><link rel="canonical" href="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta name="generator" content="Astro v7.3.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/02154cca78ac33f2.woff") format("woff"), url("/assets/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/assets/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/a5c5808c25effec9.woff") format("woff"), url("/assets/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/14314705006234cb.woff") format("woff"), url("/assets/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/c33265ba093eb291.woff") format("woff"), url("/assets/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/assets/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/assets/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/assets/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/da468df88542c99b.woff") format("woff"), url("/assets/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/assets/fonts/f914de358bc554f6.woff") format("woff"), url("/assets/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>A Plain-English Guide to LLM Caching: Why Changing One Character Can Cost You 10x (No Coding Required) | Beepony</title><meta name="title" content="A Plain-English Guide to LLM Caching: Why Changing One Character Can Cost You 10x (No Coding Required) | Beepony"><meta name="description" content="Twelve sections that explain Context, KV Cache, Prefix Cache, and Prompt Cache: why changing one character in a prompt can cost 10x more, plus five practical ways to get more cache hits."><meta name="author" content="Beepony"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Beepony"><meta property="og:title" content="A Plain-English Guide to LLM Caching: Why Changing One Character Can Cost You 10x (No Coding Required) | Beepony"><meta property="og:description" content="Twelve sections that explain Context, KV Cache, Prefix Cache, and Prompt Cache: why changing one character in a prompt can cost 10x more, plus five practical ways to get more cache hits."><meta property="og:url" content="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta property="og:image" content="https://beepony.github.io/default-og.jpg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://beepony.github.io/posts/2026/10/12/llm-cache-guide/"><meta property="twitter:title" content="A Plain-English Guide to LLM Caching: Why Changing One Character Can Cost You 10x (No Coding Required) | Beepony"><meta property="twitter:description" content="Twelve sections that explain Context, KV Cache, Prefix Cache, and Prompt Cache: why changing one character in a prompt can cost 10x more, plus five practical ways to get more cache hits."><meta property="twitter:image" content="https://beepony.github.io/default-og.jpg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Beepony" href="https://beepony.github.io/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) --><meta property="og:type" content="article"><meta property="article:published_time" content="2026-09-13T14:45:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"A Plain-English Guide to LLM Caching: Why Changing One Character Can Cost You 10x (No Coding Required) | Beepony","datePublished":"2026-09-13T14:45:00.000Z","author":[{"@type":"Person","name":"Beepony","url":"https://github.com/beepony"}]}</script><!--
       Inline FOUC-prevention script: sets data-theme on <html> before
       the browser paints. Runs synchronously, no defer/async.
     --><script>
@@ -163,320 +163,320 @@
 	animation-duration: 180ms;
 	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
 	animation-fill-mode: both;
-	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">跳到正文</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/" class="absolute flex items-center gap-2 py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none" aria-label="Beepony"><img src="/theme-day/images/logo@2x.png?v=20260913-dual" alt="Beepony" width="40" height="40" class="theme-avatar-day h-8 w-8 rounded-md sm:h-10 sm:w-10"><img src="/theme-night/images/logo@2x.png?v=20260913-dual" alt="Beepony" width="40" height="40" class="theme-avatar-night h-8 w-8 rounded-md sm:h-10 sm:w-10"></a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/posts/" class="active-nav">文章</a></li><li class="col-span-2"><a href="/tags/">标签</a></li><li class="col-span-2"><a href="/about/">关于</a></li><li class="col-span-2"><a href="/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">归档</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">搜索</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span></a></div><script type="module">function e(){let e=document.querySelector(`#back-button`),t=sessionStorage.getItem(`backUrl`);t&&e&&(e.href=t)}document.addEventListener(`astro:page-load`,e),e();</script><main id="main-content" class="app-layout" data-pagefind-body><h1>大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱</h1><div class="my-2 flex items-center gap-2"><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time>12 Oct, 2026</time></div><span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/2026-10-12-llm-cache-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a></div><aside id="toc" class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0" data-astro-cid-p33bl5ka><h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide" data-astro-cid-p33bl5ka>📑 目录</h2><nav aria-label="目录" data-astro-cid-p33bl5ka><ul class="space-y-1" data-astro-cid-p33bl5ka><li data-astro-cid-p33bl5ka><a href="#阅读地图" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="阅读地图" data-astro-cid-p33bl5ka>阅读地图</a></li><li data-astro-cid-p33bl5ka><a href="#一-先说结论" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="一-先说结论" data-astro-cid-p33bl5ka>一、先说结论</a></li><li data-astro-cid-p33bl5ka><a href="#二-为什么和你有关" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="二-为什么和你有关" data-astro-cid-p33bl5ka>二、为什么和你有关？</a></li><li data-astro-cid-p33bl5ka><a href="#三-什么是-context-上下文" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="三-什么是-context-上下文" data-astro-cid-p33bl5ka>三、什么是 Context（上下文）？</a></li><li data-astro-cid-p33bl5ka><a href="#四-token-是什么-前面概念的基础" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="四-token-是什么-前面概念的基础" data-astro-cid-p33bl5ka>四、Token 是什么？（前面概念的基础）</a></li><li data-astro-cid-p33bl5ka><a href="#五-模型到底在计算什么" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="五-模型到底在计算什么" data-astro-cid-p33bl5ka>五、模型到底在计算什么？</a></li><li data-astro-cid-p33bl5ka><a href="#六-kv-cache-模型做好的-阅读笔记" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="六-kv-cache-模型做好的-阅读笔记" data-astro-cid-p33bl5ka>六、KV Cache——模型做好的"阅读笔记"</a></li><li data-astro-cid-p33bl5ka><a href="#七-prefix-cache-把笔记升级到-班级共享" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="七-prefix-cache-把笔记升级到-班级共享" data-astro-cid-p33bl5ka>七、Prefix Cache——把笔记升级到"班级共享"</a></li><li data-astro-cid-p33bl5ka><a href="#八-prompt-cache-服务商主动保存的结果" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="八-prompt-cache-服务商主动保存的结果" data-astro-cid-p33bl5ka>八、Prompt Cache——服务商主动保存的结果</a></li><li data-astro-cid-p33bl5ka><a href="#九-怎么验证真的命中缓存" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="九-怎么验证真的命中缓存" data-astro-cid-p33bl5ka>九、怎么验证真的命中缓存？</a></li><li data-astro-cid-p33bl5ka><a href="#十-为什么改一个字就失效" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十-为什么改一个字就失效" data-astro-cid-p33bl5ka>十、为什么改一个字就失效？</a></li><li data-astro-cid-p33bl5ka><a href="#十一-写-prompt-的-5-条经验-避坑速查" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十一-写-prompt-的-5-条经验-避坑速查" data-astro-cid-p33bl5ka>十一、写 prompt 的 5 条经验（避坑速查）</a></li><li data-astro-cid-p33bl5ka><a href="#十二-一句话总结" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="十二-一句话总结" data-astro-cid-p33bl5ka>十二、一句话总结</a></li><li data-astro-cid-p33bl5ka><a href="#最形象的记忆方式" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="最形象的记忆方式" data-astro-cid-p33bl5ka>最形象的记忆方式</a></li><li data-astro-cid-p33bl5ka><a href="#参考资料" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="参考资料" data-astro-cid-p33bl5ka>参考资料</a></li></ul></nav></aside><script type="module">function e(){let e=Array.from(document.querySelectorAll(`a[data-toc-link]`));if(e.length===0)return;let t=e.map(e=>e.dataset.tocLink).filter(Boolean).map(e=>document.getElementById(e)).filter(e=>e!==null);if(t.length===0)return;let n=t=>{for(let n of e)n.classList.toggle(`toc-active`,n.dataset.tocLink===t)},r=new IntersectionObserver(e=>{for(let t of e)t.isIntersecting&&n(t.target.id)},{rootMargin:`0px 0px -70% 0px`,threshold:0});for(let e of t)r.observe(e)}document.addEventListener(`astro:page-load`,e);</script><article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)">
-<h2>大模型 Cache（缓存）通俗指南</h2>
-<blockquote>一句话核心：<strong>大模型靠"别重复算"变快；改一字让前面的努力白费，是这种设计的代价。</strong></blockquote>
+	animation-name: astroFadeIn; }</style></head><body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"><a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4">Skip to content</a><header class="app-layout flex flex-col items-center justify-between sm:flex-row"><div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"><a href="/" class="absolute flex items-center gap-2 py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none" aria-label="Beepony"><img src="/theme-day/images/logo@2x.png?v=20260913-dual" alt="Beepony" width="40" height="40" class="theme-avatar-day h-8 w-8 rounded-md sm:h-10 sm:w-10"><img src="/theme-night/images/logo@2x.png?v=20260913-dual" alt="Beepony" width="40" height="40" class="theme-avatar-night h-8 w-8 rounded-md sm:h-10 sm:w-10"></a><nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"><button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="menu-items" data-label-open="Open menu" data-label-close="Close menu"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg></button><ul id="menu-items" class="[&amp;&gt;li&gt;a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&amp;&gt;li]:h-8 [&amp;&gt;li&gt;a]:block [&amp;&gt;li&gt;a]:px-4 [&amp;&gt;li&gt;a]:py-3 [&amp;&gt;li&gt;a]:text-center [&amp;&gt;li&gt;a]:font-medium sm:[&amp;&gt;li&gt;a]:px-2 sm:[&amp;&gt;li&gt;a]:py-1"><li class="col-span-2"><a href="/posts/" class="active-nav">Posts</a></li><li class="col-span-2"><a href="/tags/">Tags</a></li><li class="col-span-2"><a href="/about/">About</a></li><li class="col-span-2"><a href="/archives/" title="Archives" aria-label="Archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg><span class="sm:sr-only">Archives</span></a></li><li class="col-span-1 flex items-center justify-center"><a href="/search/" title="Search" aria-label="Search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg><span class="sr-only">Search</span></a></li><li class="col-span-1 flex items-center justify-center"><button id="theme-btn" class="focus-outline hover:[&amp;&gt;svg]:stroke-accent relative size-12 p-4 sm:size-8" title="Toggle theme" aria-label="auto" aria-live="polite"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg></button></li></ul></nav></div></header><script type="module">function e(){let e=document.querySelector(`#menu-btn`),t=document.querySelector(`#menu-items`),n=document.querySelector(`#menu-icon`),r=document.querySelector(`#close-icon`);if(!e||!t||!n||!r)return;let i=e.dataset.labelOpen??`Open menu`,a=e.dataset.labelClose??`Close menu`;e.addEventListener(`click`,()=>{let o=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,o?`false`:`true`),e.setAttribute(`aria-label`,o?i:a),t.classList.toggle(`hidden`),t.classList.toggle(`grid`),n.classList.toggle(`hidden`),r.classList.toggle(`hidden`)})}function t(){let e=document.getElementById(`skip-to-content`);e&&e.addEventListener(`click`,e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;e.preventDefault();let t=document.getElementById(`main-content`);t&&(t.setAttribute(`tabindex`,`-1`),t.addEventListener(`blur`,()=>t.removeAttribute(`tabindex`),{once:!0}),t.focus(),t.scrollIntoView({behavior:`smooth`}))})}e(),document.addEventListener(`astro:after-swap`,e),t(),document.addEventListener(`astro:after-swap`,t);</script><div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>Back</span></a></div><script type="module">function e(){let e=document.querySelector(`#back-button`),t=sessionStorage.getItem(`backUrl`);t&&e&&(e.href=t)}document.addEventListener(`astro:page-load`,e),e();</script><main id="main-content" class="app-layout" data-pagefind-body><h1>A Plain-English Guide to LLM Caching: Why Changing One Character Can Cost 10x More</h1><div class="my-2 flex items-center gap-2"><div class="text-muted-foreground flex items-center gap-x-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg><time>12 Oct, 2026</time></div><span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/2026-10-12-llm-cache-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>Edit post</span></a></div><aside id="toc" class="toc not-prose border-border bg-background/60 text-foreground/80 my-4 rounded-lg border p-4 text-sm backdrop-blur sm:my-0" data-astro-cid-p33bl5ka><h2 class="toc-title text-foreground mb-2 text-base font-semibold tracking-wide" data-astro-cid-p33bl5ka>📑 Contents</h2><nav aria-label="Contents" data-astro-cid-p33bl5ka><ul class="space-y-1" data-astro-cid-p33bl5ka><li data-astro-cid-p33bl5ka><a href="#reading-map" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="reading-map" data-astro-cid-p33bl5ka>Reading Map</a></li><li data-astro-cid-p33bl5ka><a href="#1-the-bottom-line-first" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="1-the-bottom-line-first" data-astro-cid-p33bl5ka>1. The Bottom Line First</a></li><li data-astro-cid-p33bl5ka><a href="#2-why-should-you-care" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="2-why-should-you-care" data-astro-cid-p33bl5ka>2. Why Should You Care?</a></li><li data-astro-cid-p33bl5ka><a href="#3-what-is-context" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="3-what-is-context" data-astro-cid-p33bl5ka>3. What Is Context?</a></li><li data-astro-cid-p33bl5ka><a href="#4-what-is-a-token-the-foundation-for-everything-above" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="4-what-is-a-token-the-foundation-for-everything-above" data-astro-cid-p33bl5ka>4. What Is a Token? (The Foundation for Everything Above)</a></li><li data-astro-cid-p33bl5ka><a href="#5-what-is-the-model-actually-computing" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="5-what-is-the-model-actually-computing" data-astro-cid-p33bl5ka>5. What Is the Model Actually Computing?</a></li><li data-astro-cid-p33bl5ka><a href="#6-kv-cache-the-models-reading-notes" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="6-kv-cache-the-models-reading-notes" data-astro-cid-p33bl5ka>6. KV Cache: The Model's "Reading Notes"</a></li><li data-astro-cid-p33bl5ka><a href="#7-prefix-cache-upgrading-the-notes-to-shared-with-the-whole-class" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="7-prefix-cache-upgrading-the-notes-to-shared-with-the-whole-class" data-astro-cid-p33bl5ka>7. Prefix Cache: Upgrading the Notes to "Shared with the Whole Class"</a></li><li data-astro-cid-p33bl5ka><a href="#8-prompt-cache-results-saved-proactively-by-the-provider" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="8-prompt-cache-results-saved-proactively-by-the-provider" data-astro-cid-p33bl5ka>8. Prompt Cache: Results Saved Proactively by the Provider</a></li><li data-astro-cid-p33bl5ka><a href="#9-how-do-you-verify-a-cache-hit" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="9-how-do-you-verify-a-cache-hit" data-astro-cid-p33bl5ka>9. How Do You Verify a Cache Hit?</a></li><li data-astro-cid-p33bl5ka><a href="#10-why-does-changing-one-character-break-it" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="10-why-does-changing-one-character-break-it" data-astro-cid-p33bl5ka>10. Why Does Changing One Character Break It?</a></li><li data-astro-cid-p33bl5ka><a href="#11-5-lessons-for-writing-prompts-pitfall-cheat-sheet" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="11-5-lessons-for-writing-prompts-pitfall-cheat-sheet" data-astro-cid-p33bl5ka>11. 5 Lessons for Writing Prompts (Pitfall Cheat Sheet)</a></li><li data-astro-cid-p33bl5ka><a href="#12-summary-in-one-sentence" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="12-summary-in-one-sentence" data-astro-cid-p33bl5ka>12. Summary in One Sentence</a></li><li data-astro-cid-p33bl5ka><a href="#the-most-memorable-way-to-remember-it" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="the-most-memorable-way-to-remember-it" data-astro-cid-p33bl5ka>The Most Memorable Way to Remember It</a></li><li data-astro-cid-p33bl5ka><a href="#references" class="hover:text-accent block py-0.5 transition-colors" data-toc-link="references" data-astro-cid-p33bl5ka>References</a></li></ul></nav></aside><script type="module">function e(){let e=Array.from(document.querySelectorAll(`a[data-toc-link]`));if(e.length===0)return;let t=e.map(e=>e.dataset.tocLink).filter(Boolean).map(e=>document.getElementById(e)).filter(e=>e!==null);if(t.length===0)return;let n=t=>{for(let n of e)n.classList.toggle(`toc-active`,n.dataset.tocLink===t)},r=new IntersectionObserver(e=>{for(let t of e)t.isIntersecting&&n(t.target.id)},{rootMargin:`0px 0px -70% 0px`,threshold:0});for(let e of t)r.observe(e)}document.addEventListener(`astro:page-load`,e);</script><article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)">
+<h2>A Plain-English Guide to LLM Caching</h2>
+<blockquote>The core in one sentence: <strong>LLMs get faster by "not recomputing things"; changing one character and wasting all that earlier work is the price of this design.</strong></blockquote>
 <hr>
-<h2 id="阅读地图">阅读地图</h2>
+<h2 id="reading-map">Reading Map</h2>
 <table><thead><tr>
-<th>章节</th>
-<th>内容</th>
-<th>解决什么问题</th>
+<th>Section</th>
+<th>Content</th>
+<th>What it answers</th>
 </tr></thead><tbody>
 <tr>
-<td>一、先说结论</td>
-<td>大模型不每次重算、用 Cache 省时间</td>
-<td>整体在讲什么</td>
+<td>1. The Bottom Line First</td>
+<td>LLMs don't recompute every time; they use caching to save time</td>
+<td>What the whole guide is about</td>
 </tr>
 <tr>
-<td>二、为什么和你有关</td>
-<td>改一字可能多花钱、命中能提速 5-10 倍</td>
-<td>我为啥要读完</td>
+<td>2. Why You Should Care</td>
+<td>Changing one character can cost more; cache hits can be 5-10x faster</td>
+<td>Why read to the end</td>
 </tr>
 <tr>
-<td>三、什么是 Context</td>
-<td>模型能看到的历史对话 ≠ 命中缓存</td>
-<td>别把"看到"和"记下"搞混</td>
+<td>3. What Is Context</td>
+<td>History the model can see ≠ a cache hit</td>
+<td>Don't confuse "seeing" with "taking notes"</td>
 </tr>
 <tr>
-<td>四、Token 是什么</td>
-<td>模型不认字、只认编号</td>
-<td>后面所有推理的基础</td>
+<td>4. What Is a Token</td>
+<td>Models don't read words, only ID numbers</td>
+<td>The foundation for everything that follows</td>
 </tr>
 <tr>
-<td>五、模型在算什么</td>
-<td>Token → 一大堆数字</td>
-<td>为啥 Cache 能省事</td>
+<td>5. What the Model Computes</td>
+<td>Token → a big pile of numbers</td>
+<td>Why caching saves work</td>
 </tr>
 <tr>
-<td>六、KV Cache</td>
-<td>模型做完的"阅读笔记"</td>
-<td>会话内的缓存</td>
+<td>6. KV Cache</td>
+<td>The model's finished "reading notes"</td>
+<td>Cache within a session</td>
 </tr>
 <tr>
-<td>七、Prefix Cache</td>
-<td>把笔记升级到班级共享</td>
-<td>跨请求的缓存</td>
+<td>7. Prefix Cache</td>
+<td>Upgrading the notes to "shared with the class"</td>
+<td>Cache across requests</td>
 </tr>
 <tr>
-<td>八、Prompt Cache</td>
-<td>服务商主动保存的历史结果</td>
-<td>API 商业层的缓存</td>
+<td>8. Prompt Cache</td>
+<td>Past results saved proactively by the provider</td>
+<td>Cache at the API business layer</td>
 </tr>
 <tr>
-<td>九、怎么验证真的命中</td>
-<td>看 <code>cached_tokens</code> 数字</td>
-<td>钱花得值不值</td>
+<td>9. How to Verify a Hit</td>
+<td>Check the <code>cached_tokens</code> number</td>
+<td>Is your money well spent?</td>
 </tr>
 <tr>
-<td>十、为什么改一字就失效</td>
-<td>苹果→华为、火车变轨</td>
-<td>失效原因可视化</td>
+<td>10. Why One Changed Character Breaks It</td>
+<td>Apple → Huawei, a train switching tracks</td>
+<td>Visualizing why the cache breaks</td>
 </tr>
 <tr>
-<td>十一、写 prompt 的 5 条经验</td>
-<td>怎么让缓存多命中</td>
-<td>实战速查</td>
+<td>11. 5 Lessons for Writing Prompts</td>
+<td>How to get more cache hits</td>
+<td>Practical cheat sheet</td>
 </tr>
 <tr>
-<td>十二、一句话总结</td>
-<td>4 个概念 + 主类比</td>
-<td>复习用</td>
+<td>12. Summary in One Sentence</td>
+<td>4 concepts + the main analogy</td>
+<td>For review</td>
 </tr>
 </tbody></table>
 <hr>
-<h2 id="一-先说结论">一、先说结论</h2>
-<p>很多人以为：</p>
-<blockquote>大模型每次回答问题，都要把整个聊天记录重新读一遍。</blockquote>
-<p>实际上并不完全是这样。</p>
-<p>现代大模型通常会使用各种缓存机制（Cache），避免重复计算已经处理过的内容。</p>
-<p>最常见的是：</p>
+<h2 id="1-the-bottom-line-first">1. The Bottom Line First</h2>
+<p>Many people think:</p>
+<blockquote>Every time an LLM answers a question, it has to reread the entire chat history.</blockquote>
+<p>That's not entirely true.</p>
+<p>Modern LLMs usually use various caching mechanisms to avoid recomputing content they've already processed.</p>
+<p>The most common are:</p>
 <ol>
-<li><strong>Context</strong>（上下文）</li>
-<li><strong>KV Cache</strong>（推理缓存）</li>
-<li><strong>Prefix Cache</strong>（前缀缓存）</li>
-<li><strong>Prompt Cache</strong>（提示词缓存）</li>
+<li><strong>Context</strong></li>
+<li><strong>KV Cache</strong> (inference cache)</li>
+<li><strong>Prefix Cache</strong></li>
+<li><strong>Prompt Cache</strong></li>
 </ol>
-<p>其中四个概念的关系：</p>
+<p>How the four concepts relate:</p>
 <table><thead><tr>
-<th>概念</th>
-<th>作用范围</th>
-<th>类比</th>
+<th>Concept</th>
+<th>Scope</th>
+<th>Analogy</th>
 </tr></thead><tbody>
 <tr>
 <td><strong>Context</strong></td>
-<td>模型能看到的历史对话</td>
-<td>老师发给学生的整本教材</td>
+<td>The conversation history the model can see</td>
+<td>The whole textbook the teacher hands to the student</td>
 </tr>
 <tr>
 <td><strong>KV Cache</strong></td>
-<td>单次会话内复用</td>
-<td>学生做好的读书笔记</td>
+<td>Reused within a single session</td>
+<td>The reading notes the student has made</td>
 </tr>
 <tr>
 <td><strong>Prefix Cache</strong></td>
-<td>跨请求/跨会话复用相同前缀</td>
-<td>班级共享笔记本</td>
+<td>Reuses identical prefixes across requests/sessions</td>
+<td>A notebook shared by the whole class</td>
 </tr>
 <tr>
 <td><strong>Prompt Cache</strong></td>
-<td>服务商主动保存的历史计算结果</td>
-<td>学校图书馆系统</td>
+<td>Past computation results saved proactively by the provider</td>
+<td>The school library system</td>
 </tr>
 </tbody></table>
-<p><strong>一句话</strong>：这四个东西都在干同一件事——<strong>别让模型重算算过的东西</strong>，只是"地理范围"越来越大。</p>
+<p><strong>In one sentence</strong>: all four do the same thing, <strong>keeping the model from recomputing what it has already computed</strong>; they just cover a bigger and bigger "area."</p>
 <hr>
-<h2 id="二-为什么和你有关">二、为什么和你有关？</h2>
-<p>读这份指南的最大动力不是技术好奇心，是<strong>钱和速度</strong>。</p>
+<h2 id="2-why-should-you-care">2. Why Should You Care?</h2>
+<p>The biggest reason to read this guide isn't technical curiosity; it's <strong>money and speed</strong>.</p>
 <ul>
-<li>✅ 同样问题，<strong>改 prompt 的一个字可能多花 10 倍钱</strong>（改前面最贵）</li>
-<li>✅ 同样的回复，速度可以差 <strong>5-10 倍</strong>（命中 vs 不命中）</li>
-<li>✅ 看懂 API 返回的 <code>cached_tokens</code>，<strong>能帮你判断钱花得值不值</strong></li>
+<li>✅ For the same question, <strong>changing one character in the prompt can cost 10x more</strong> (changes near the start cost the most)</li>
+<li>✅ The same reply can differ in speed by <strong>5-10x</strong> (hit vs. miss)</li>
+<li>✅ Understanding the <code>cached_tokens</code> returned by the API <strong>helps you judge whether your money is well spent</strong></li>
 </ul>
-<blockquote>后面所有概念，都是为这三条服务的。</blockquote>
+<blockquote>Every concept that follows serves these three points.</blockquote>
 <hr>
-<h2 id="三-什么是-context-上下文">三、什么是 Context（上下文）？</h2>
-<p>假设你连续提问：</p>
-<pre><code class="language-text">A：法国首都是哪里？
-A1：人口多少？
-A2：GDP 多少？
-A3：面积多大？
-A4：官方语言是什么？
-A5：哪个城市最有名？</code></pre>
-<p>当你问 A5 时，模型实际收到的内容<strong>通常</strong>会包含此前的对话，因此 A5 能"看到"A~A4。这叫<strong>上下文（Context）</strong>。</p>
-<p>但请注意：</p>
-<blockquote><strong>看到的 ≠ 记下的</strong></blockquote>
+<h2 id="3-what-is-context">3. What Is Context?</h2>
+<p>Suppose you ask a series of questions:</p>
+<pre><code class="language-text">A: What's the capital of France?
+A1: What's its population?
+A2: What's its GDP?
+A3: How big is it?
+A4: What's the official language?
+A5: Which city is the most famous?</code></pre>
+<p>When you ask A5, what the model actually receives <strong>usually</strong> includes the earlier conversation, so A5 can "see" A through A4. This is called <strong>context</strong>.</p>
+<p>But note:</p>
+<blockquote><strong>Seen ≠ noted down</strong></blockquote>
 <p>></p>
-<blockquote>学生面前有教材（Context），不等于他翻过笔记。<br>老师给一本教材（Context），不等于学生做了笔记（KV Cache）。</blockquote>
+<blockquote>Having a textbook in front of a student (context) doesn't mean they've looked at their notes.<br>A teacher handing out a textbook (context) doesn't mean the student has taken notes (KV Cache).</blockquote>
 <p>></p>
-<blockquote><strong>能看到历史内容 ≠ 命中缓存</strong>。</blockquote>
-<p>这个区别是理解整篇指南的关键，后面 KV Cache / Prefix Cache 都是"已经记下来的"，而不是"已经看到的"。</p>
+<blockquote><strong>Being able to see past content ≠ a cache hit</strong>.</blockquote>
+<p>This distinction is the key to understanding the whole guide. KV Cache and Prefix Cache are about what's "already noted down," not what's "already seen."</p>
 <hr>
-<h2 id="四-token-是什么-前面概念的基础">四、Token 是什么？（前面概念的基础）</h2>
-<p>模型不认字，只认编号。</p>
-<p>比如：</p>
-<pre><code class="language-text">"法国"</code></pre>
-<p>在模型眼里可能是编号 <code>3847</code>，"我喜欢苹果"可能是 <code>[127, 8034, 5217]</code>。</p>
-<p>一句话会被切成很多个编号，每个编号叫一个 <strong>Token</strong>。</p>
-<blockquote><strong>你给模型发 1 万字 ≈ 发 1 万个编号。</strong></blockquote>
+<h2 id="4-what-is-a-token-the-foundation-for-everything-above">4. What Is a Token? (The Foundation for Everything Above)</h2>
+<p>Models don't read words; they only recognize ID numbers.</p>
+<p>For example:</p>
+<pre><code class="language-text">"France"</code></pre>
+<p>might be ID <code>3847</code> to the model, and "I like Apple" might be <code>[127, 8034, 5217]</code>.</p>
+<p>A sentence gets split into many IDs, and each ID is called a <strong>token</strong>.</p>
+<blockquote><strong>Sending the model 10,000 words ≈ sending it 10,000 IDs.</strong></blockquote>
 <p>></p>
-<blockquote>这就是为什么"字数"对大模型来说特别重要——<strong>Token 越多，越慢，越贵。</strong></blockquote>
+<blockquote>That's why "length" matters so much for LLMs: <strong>more tokens means slower and more expensive.</strong></blockquote>
 <hr>
-<h2 id="五-模型到底在计算什么">五、模型到底在计算什么？</h2>
-<p>每个 Token 会被转换成一串数字，比如：</p>
-<pre><code class="language-text">"法国"  →  [0.12, -0.34, 0.78, -0.05, ...]</code></pre>
-<p>这串数字不是随机的，而是<strong>编码了</strong>：</p>
+<h2 id="5-what-is-the-model-actually-computing">5. What Is the Model Actually Computing?</h2>
+<p>Each token is turned into a string of numbers, for example:</p>
+<pre><code class="language-text">"France"  →  [0.12, -0.34, 0.78, -0.05, ...]</code></pre>
+<p>These numbers aren't random; they <strong>encode</strong>:</p>
 <ul>
-<li>词义（"法国"是个国家名）</li>
-<li>语法角色（在这句里是主语）</li>
-<li>上下文关系（和"首都"是一对）</li>
-<li>位置信息（在第几个字）</li>
+<li>Meaning ("France" is the name of a country)</li>
+<li>Grammatical role (it's the subject in this sentence)</li>
+<li>Contextual relationships (it pairs with "capital")</li>
+<li>Position (which word it is)</li>
 </ul>
-<blockquote><strong>你不用理解这些数字怎么算出来的</strong>，只需要知道：<br><strong>每个 Token 背后都跟着一大堆数字。</strong></blockquote>
+<blockquote><strong>You don't need to understand how these numbers are computed</strong>; just know:<br><strong>behind every token is a big pile of numbers.</strong></blockquote>
 <p>></p>
-<blockquote>第一次见到一个新 Token，模型要把这一大堆数字全算出来——<strong>这一步很贵</strong>。</blockquote>
-<p>而缓存的本质就是：<strong>别让模型第二次算同一批数字</strong>。</p>
+<blockquote>The first time the model sees a new token, it has to compute that whole pile of numbers, and <strong>this step is expensive</strong>.</blockquote>
+<p>And the essence of caching is: <strong>don't make the model compute the same numbers twice</strong>.</p>
 <hr>
-<h2 id="六-kv-cache-模型做好的-阅读笔记">六、KV Cache——模型做好的"阅读笔记"</h2>
-<blockquote><strong>KV Cache 可以理解为：大模型已经做好的阅读笔记。</strong></blockquote>
-<p>KV = Key + Value，模型分析完前面的内容后，会把<strong>后续推理需要的重要中间结果</strong>保存下来。</p>
-<p>下次遇到相同前缀时，直接使用这些笔记，而不是重新阅读整段内容。</p>
-<h3 id="第-1-轮-vs-第-2-轮对比">第 1 轮 vs 第 2 轮对比</h3>
-<pre><code class="language-text">第 1 轮
+<h2 id="6-kv-cache-the-models-reading-notes">6. KV Cache: The Model's "Reading Notes"</h2>
+<blockquote><strong>Think of KV Cache as the reading notes an LLM has already made.</strong></blockquote>
+<p>KV = Key + Value. After the model analyzes earlier content, it saves <strong>the important intermediate results needed for later reasoning</strong>.</p>
+<p>The next time it sees the same prefix, it uses those notes directly instead of rereading the whole passage.</p>
+<h3 id="round-1-vs-round-2">Round 1 vs. Round 2</h3>
+<pre><code class="language-text">Round 1
 ─────────────────────────────────
-读 10000 字 → 算 10000 个 Token → 回答
+Read 10000 words → compute 10000 tokens → answer
               ↑
-          全部从头算
+       everything from scratch
 
 
-第 2 轮
+Round 2
 ─────────────────────────────────
-读 10000 + 100 字
+Read 10000 + 100 words
          ↑
-     这部分直接翻笔记（KV Cache）
+     this part just uses the notes (KV Cache)
               ↓
-只算新增的 100 个 Token → 回答
+Compute only the 100 new tokens → answer
               ↑
-         实际只算了 1%</code></pre>
-<p><strong>所以速度能差 5-10 倍</strong>——你看到的差距不是优化出来的，是"跳过了 99% 的工作"。</p>
+       actually computed only 1%</code></pre>
+<p><strong>That's why speed can differ by 5-10x</strong>. The gap you see isn't from optimization; it's from "skipping 99% of the work."</p>
 <hr>
-<h2 id="七-prefix-cache-把笔记升级到-班级共享">七、Prefix Cache——把笔记升级到"班级共享"</h2>
-<p><strong>KV Cache 的局限</strong>：笔记只放在<strong>你这次对话</strong>里，下个会话就没了。</p>
-<p><strong>Prefix Cache 是什么</strong>：把笔记升级成"班级共享笔记本"——<strong>跨请求、跨会话也能用</strong>。</p>
-<pre><code class="language-text">A → A1 → A2 → A3 → A4  ← 你之前算过
+<h2 id="7-prefix-cache-upgrading-the-notes-to-shared-with-the-whole-class">7. Prefix Cache: Upgrading the Notes to "Shared with the Whole Class"</h2>
+<p><strong>The limit of KV Cache</strong>: the notes stay only in <strong>this conversation</strong> and are gone in the next session.</p>
+<p><strong>What Prefix Cache is</strong>: upgrading the notes to a "notebook shared by the whole class," <strong>usable across requests and sessions</strong>.</p>
+<pre><code class="language-text">A → A1 → A2 → A3 → A4  ← computed before
 
-现在又来一段：
+Now a new request comes in:
 A → A1 → A2 → A3 → A4 → A5
                             ↑
-                       只算 A5</code></pre>
-<blockquote><strong>类比升级</strong>：<br>- KV Cache = 你书桌抽屉里的笔记（只你用）<br>- Prefix Cache = 班级共享笔记本（同一个 prefix 谁都能借）</blockquote>
-<p>注意：prefix 必须<strong>完全一致</strong>才能命中。前缀里改了一个字，整条笔记作废。</p>
+                    compute only A5</code></pre>
+<blockquote><strong>The upgraded analogy</strong>:<br>- KV Cache = notes in your desk drawer (only you use them)<br>- Prefix Cache = a notebook shared by the class (anyone with the same prefix can borrow it)</blockquote>
+<p>Note: the prefix must be <strong>exactly the same</strong> to hit. Change one character in the prefix and the whole set of notes is void.</p>
 <hr>
-<h2 id="八-prompt-cache-服务商主动保存的结果">八、Prompt Cache——服务商主动保存的结果</h2>
-<p>KV Cache 像是当前会话里的临时笔记，<strong>Prompt Cache 则是服务商额外保存的历史计算结果</strong>。</p>
-<p>例如下面这段很长的系统提示词：</p>
-<pre><code class="language-text">A + A1 + A2 + A3 + A4   ← 已经被某个用户算过</code></pre>
-<p>之后<strong>任何用户</strong>再次提交相同前缀时，服务商<strong>可能</strong>直接复用以前的结果。</p>
+<h2 id="8-prompt-cache-results-saved-proactively-by-the-provider">8. Prompt Cache: Results Saved Proactively by the Provider</h2>
+<p>If KV Cache is like temporary notes in the current session, <strong>Prompt Cache is past computation results the provider saves separately</strong>.</p>
+<p>For example, take this long system prompt:</p>
+<pre><code class="language-text">A + A1 + A2 + A3 + A4   ← already computed by some user</code></pre>
+<p>Later, when <strong>any user</strong> submits the same prefix again, the provider <strong>may</strong> reuse the earlier results directly.</p>
 <table><thead><tr>
-<th>API 提供方</th>
-<th>缓存形式</th>
-<th>计费方式</th>
+<th>API provider</th>
+<th>Cache type</th>
+<th>Pricing</th>
 </tr></thead><tbody>
 <tr>
 <td>OpenAI</td>
 <td>Prompt Caching</td>
-<td>缓存命中的 Token 半价</td>
+<td>Cache-hit tokens at half price</td>
 </tr>
 <tr>
 <td>Anthropic</td>
 <td>Prompt Caching</td>
-<td>缓存写入 1.25x、命中 0.1x</td>
+<td>Cache writes 1.25x, hits 0.1x</td>
 </tr>
 <tr>
 <td>Gemini</td>
 <td>Context Caching</td>
-<td>按缓存时长收费</td>
+<td>Charged by cache duration</td>
 </tr>
 </tbody></table>
-<blockquote><strong>和 Prefix Cache 的区别</strong>：<br>Prefix Cache 通常是<strong>服务端机制</strong>（对用户透明），Prompt Cache 是<strong>服务商主动卖的功能</strong>（用户可选、有计费规则）。</blockquote>
+<blockquote><strong>How it differs from Prefix Cache</strong>:<br>Prefix Cache is usually a <strong>server-side mechanism</strong> (invisible to users), while Prompt Cache is <strong>a feature the provider actively sells</strong> (optional for users, with pricing rules).</blockquote>
 <p>></p>
-<blockquote>普通人理解成一个事就行：<strong>别让模型重算算过的东西</strong>。</blockquote>
+<blockquote>For most people, just remember one thing: <strong>don't make the model recompute what it has already computed</strong>.</blockquote>
 <hr>
-<h2 id="九-怎么验证真的命中缓存">九、怎么验证真的命中缓存？</h2>
-<p>部分 API 会返回类似信息：</p>
+<h2 id="9-how-do-you-verify-a-cache-hit">9. How Do You Verify a Cache Hit?</h2>
+<p>Some APIs return something like this:</p>
 <pre><code class="language-json">{
   "input_tokens": 10000,
   "cached_tokens": 9500
 }</code></pre>
-<p>含义：</p>
-<pre><code class="language-text">总输入 Token：10000
-缓存命中 Token：9500   ← 不用再算的部分
-重新计算 Token：500    ← 真正花了算力的</code></pre>
-<p><strong>怎么用这个数字</strong>：</p>
+<p>What it means:</p>
+<pre><code class="language-text">Total input tokens: 10000
+Cache-hit tokens:   9500   ← the part that doesn't need recomputing
+Recomputed tokens:  500    ← what actually used compute</code></pre>
+<p><strong>How to use this number</strong>:</p>
 <ul>
-<li><code>cached_tokens</code> 占比高（>80%）→ 你的 prompt 结构稳定，<strong>钱花得值</strong></li>
-<li><code>cached_tokens</code> 一直是 0 → 你的 prompt 在反复变化，<strong>钱大概率白花了</strong></li>
+<li>A high <code>cached_tokens</code> share (>80%) → your prompt structure is stable and <strong>your money is well spent</strong></li>
+<li><code>cached_tokens</code> is always 0 → your prompt keeps changing, and <strong>you're probably wasting money</strong></li>
 </ul>
 <hr>
-<h2 id="十-为什么改一个字就失效">十、为什么改一个字就失效？</h2>
-<p>因为 Transformer 是一个<strong>自回归</strong>结构：</p>
-<blockquote><strong>后面的 Token 理解，严格依赖前面的 Token。</strong></blockquote>
-<h3 id="例-1-苹果-华为">例 1：苹果 → 华为</h3>
-<p>原文：</p>
-<pre><code class="language-text">我喜欢苹果手机</code></pre>
-<p>改成：</p>
-<pre><code class="language-text">我喜欢华为手机</code></pre>
-<p>从"苹果"开始，后面的语义状态全部变了。</p>
-<h3 id="例-2-火车模型">例 2：火车模型</h3>
-<pre><code class="language-text">原来
+<h2 id="10-why-does-changing-one-character-break-it">10. Why Does Changing One Character Break It?</h2>
+<p>Because the Transformer is an <strong>autoregressive</strong> structure:</p>
+<blockquote><strong>How later tokens are understood depends strictly on earlier tokens.</strong></blockquote>
+<h3 id="example-1-apple-huawei">Example 1: Apple → Huawei</h3>
+<p>Original:</p>
+<pre><code class="language-text">I like Apple phones</code></pre>
+<p>Change it to:</p>
+<pre><code class="language-text">I like Huawei phones</code></pre>
+<p>From "Apple" onward, every later semantic state changes.</p>
+<h3 id="example-2-the-train-model">Example 2: The Train Model</h3>
+<pre><code class="language-text">Before
 🚃 A → 🚃 B → 🚃 C → 🚃 D → 🚃 E
 
-改成
+After
 🚃 A → 🚃 B → 🚃 X → 🚃 D → 🚃 E
               ↑      ↑      ↑
-        重新挂车厢  重新挂车厢  重新挂车厢
+          recouple recouple recouple
 
-后面的车厢之所以要重挂，
-是因为它们以前是挂在 C 后面的，
-现在挂到 X 后面，挂钩方式变了。</code></pre>
-<h3 id="例-3-改开头最惨">例 3：改开头最惨</h3>
-<pre><code class="language-text">原文：我喜欢苹果手机
-改成：他喜欢苹果手机</code></pre>
-<p>虽然只改了一个字，但<strong>后面所有 Token 的计算都可能受影响</strong>。</p>
-<blockquote><strong>改得越靠前，影响越大；改得越靠后，越容易命中缓存。</strong></blockquote>
+The later cars have to be recoupled
+because they used to hang behind C;
+now they hang behind X, so the coupling changed.</code></pre>
+<h3 id="example-3-changing-the-start-hurts-most">Example 3: Changing the Start Hurts Most</h3>
+<pre><code class="language-text">Original: I like Apple phones
+Changed:  He likes Apple phones</code></pre>
+<p>Even though only one word changed, <strong>the computation for every later token may be affected</strong>.</p>
+<blockquote><strong>The earlier the change, the bigger the impact; the later the change, the easier it is to hit the cache.</strong></blockquote>
 <hr>
-<h2 id="十一-写-prompt-的-5-条经验-避坑速查">十一、写 prompt 的 5 条经验（避坑速查）</h2>
-<blockquote>[!tip] 让缓存多命中的实战原则</blockquote>
+<h2 id="11-5-lessons-for-writing-prompts-pitfall-cheat-sheet">11. 5 Lessons for Writing Prompts (Pitfall Cheat Sheet)</h2>
+<blockquote>[!tip] Practical rules for more cache hits</blockquote>
 <p>></p>
-<blockquote>1. <strong>系统提示词放最前面</strong>——一旦稳定下来就别动，改它 = 全军覆没<br>2. <strong>固定少改的部分放前缀</strong>——能最大化命中<br>3. <strong>每次要变的部分放最后</strong>——用户问题 / 变量 → 放最后<br>4. <strong>想加新约束？尽量追加到固定段之后</strong>，别插队<br>5. <strong>看 API 返回的 <code>cached_tokens</code></strong>——如果一直是 0，说明你的 prompt 结构在反复变化</blockquote>
+<blockquote>1. <strong>Put the system prompt first</strong>: once it's stable, don't touch it; changing it = losing everything<br>2. <strong>Put fixed, rarely changed parts in the prefix</strong>: this maximizes hits<br>3. <strong>Put the parts that change every time at the end</strong>: user questions / variables → go last<br>4. <strong>Want to add a new constraint? Append it after the fixed section</strong> rather than cutting in line<br>5. <strong>Check the <code>cached_tokens</code> returned by the API</strong>: if it's always 0, your prompt structure keeps changing</blockquote>
 <hr>
-<h2 id="十二-一句话总结">十二、一句话总结</h2>
+<h2 id="12-summary-in-one-sentence">12. Summary in One Sentence</h2>
 <h3 id="context">Context</h3>
-<pre><code class="language-text">模型看到的历史对话</code></pre>
+<pre><code class="language-text">The conversation history the model sees</code></pre>
 <h3 id="kv-cache">KV Cache</h3>
-<pre><code class="language-text">模型已经做好的阅读笔记</code></pre>
+<pre><code class="language-text">The reading notes the model has already made</code></pre>
 <h3 id="prefix-cache">Prefix Cache</h3>
-<pre><code class="language-text">相同前缀直接复用</code></pre>
+<pre><code class="language-text">Reuse identical prefixes directly</code></pre>
 <h3 id="prompt-cache">Prompt Cache</h3>
-<pre><code class="language-text">服务商保存的历史计算结果</code></pre>
-<h3 id="为什么改一个字可能失效">为什么改一个字可能失效？</h3>
-<pre><code class="language-text">后面的理解建立在前面的内容之上。
+<pre><code class="language-text">Past computation results saved by the provider</code></pre>
+<h3 id="why-can-changing-one-character-break-it">Why can changing one character break it?</h3>
+<pre><code class="language-text">Later understanding builds on earlier content.
 
-改得越靠前，影响越大；
-改得越靠后，越容易命中缓存。</code></pre>
+The earlier the change, the bigger the impact;
+the later the change, the easier it is to hit the cache.</code></pre>
 <hr>
-<h2 id="最形象的记忆方式">最形象的记忆方式</h2>
-<pre><code class="language-text">上下文(Context)
-= 老师发给学生的整本教材
+<h2 id="the-most-memorable-way-to-remember-it">The Most Memorable Way to Remember It</h2>
+<pre><code class="language-text">Context
+= the whole textbook the teacher hands out
 
 KV Cache
-= 学生做好的读书笔记
+= the reading notes the student made
 
-命中缓存
-= 直接翻笔记
+Cache hit
+= flipping straight to the notes
 
-缓存失效
-= 重新读教材
+Cache miss
+= rereading the textbook
 
 Prompt Cache
-= 学校图书馆保存的共享笔记</code></pre>
+= shared notes kept in the school library</code></pre>
 <hr>
-<h2 id="参考资料">参考资料</h2>
+<h2 id="references">References</h2>
 <ul>
-<li>原始 Copilot 初稿：<code>/Users/bw/.hermes/cache/documents/doc_460c26220db8_大模型Cache通俗指南.md</code></li>
-<li>Hermes Review 重点：补 Token 铺垫、区分三个 Cache 层级、加"和我有啥关系"钩子、前移 cached_tokens 章节、火车模型升级、加避坑速查</li>
+<li>Original Copilot first draft: <code>/Users/bw/.hermes/cache/documents/doc_460c26220db8_LLM-Cache-Guide.md</code></li>
+<li>Hermes review focus: add a token primer, distinguish the three cache layers, add a "why should I care" hook, move the cached_tokens section earlier, upgrade the train model, add a pitfall cheat sheet</li>
 </ul>
-</article><hr class="my-8 border-dashed"><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/2026-10-12-llm-cache-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑文章</span></a><div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"><button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"><span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><span class="group-hover:text-accent sr-only text-sm md:not-sr-only"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg>回到顶部</span></button></div><script data-astro-rerun>
+</article><hr class="my-8 border-dashed"><a href="https://github.com/beepony/beepony.github.io/edit/main/src/content/posts/2026-10-12-llm-cache-guide.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>Edit post</span></a><div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"><button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"><span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><span class="group-hover:text-accent sr-only text-sm md:not-sr-only"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg>Back to top</span></button></div><script data-astro-rerun>
   function backToTop() {
     const rootElement = document.documentElement;
     const btnContainer = document.querySelector("#btt-btn-container");
@@ -525,7 +525,7 @@ Prompt Cache
     });
   }
   backToTop();
-</script><ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/tags/科普/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>科普</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/tags/口腔健康/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>口腔健康</a></li><li><a data-astro-transition-scope="astro-bztu2lml-3" href="/tags/牙科报告/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>牙科报告</a></li><li><a data-astro-transition-scope="astro-bztu2lml-4" href="/tags/AI/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>AI</a></li></ul><div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://x.com/intent/post?url=https://beepony.github.io/posts/2026/10/12/llm-cache-guide/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span></a><a href="https://t.me/share/url?url=https://beepony.github.io/posts/2026/10/12/llm-cache-guide/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span></a><a href="mailto:?subject=See%20this%20post&amp;body=https://beepony.github.io/posts/2026/10/12/llm-cache-guide/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span></a></div></div><hr class="my-8 border-dashed"><div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"><a href="/posts/2026/09/12/andrew-ng-ai-engineering-skills/" class="flex w-full gap-1 hover:opacity-75"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><div><span>上一篇</span><div class="text-accent/85 text-sm">吴恩达 · AI 工程技能图谱：从「实现者」到「塑造者」</div></div></a><a href="/posts/2026/09/16/ui-components/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"><div><span>下一篇</span><div class="text-accent/85 text-sm">UI 产品组件中英对照图鉴：60 类组件学习笔记</div></div><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg></a></div></main><footer class="app-layout mt-auto"><div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"><div class="flex flex-wrap items-center gap-1"><a href="https://github.com/beepony" title="Beepony on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg><span class="sr-only">Beepony on Github</span></a><a href="https://x.com/ynopeeb" title="Beepony on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Beepony on X</span></a></div><div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"><span>版权所有 &#169; 2026</span><span class="hidden sm:inline">&nbsp;|&nbsp;</span><span>保留所有权利。</span></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n),document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,i),document.querySelectorAll(`[data-theme-icon]`).forEach(e=>{let t=i===n?e.dataset.dark:e.dataset.light;t&&(e.href=t)});let t=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html><script data-astro-rerun>
+</script><ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"><li><a data-astro-transition-scope="astro-bztu2lml-1" href="/tags/explainers/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Explainers</a></li><li><a data-astro-transition-scope="astro-bztu2lml-2" href="/tags/oral-health/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Oral Health</a></li><li><a data-astro-transition-scope="astro-bztu2lml-3" href="/tags/dental-reports/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>Dental Reports</a></li><li><a data-astro-transition-scope="astro-bztu2lml-4" href="/tags/AI/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg>AI</a></li></ul><div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post:</span><div class="text-center"><a href="https://x.com/intent/post?url=https://beepony.github.io/posts/2026/10/12/llm-cache-guide/" title="Share on X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Share on X</span></a><a href="https://t.me/share/url?url=https://beepony.github.io/posts/2026/10/12/llm-cache-guide/" title="Share on Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">Share on Telegram</span></a><a href="mailto:?subject=See%20this%20post&amp;body=https://beepony.github.io/posts/2026/10/12/llm-cache-guide/" title="Share via email" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">Share via email</span></a></div></div><hr class="my-8 border-dashed"><div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"><a href="/posts/2026/09/12/andrew-ng-ai-engineering-skills/" class="flex w-full gap-1 hover:opacity-75"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg><div><span>Previous post</span><div class="text-accent/85 text-sm">Andrew Ng's AI Engineering Skill Map: From "Implementer" to "Shaper"</div></div></a><a href="/posts/2026/09/16/ui-components/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"><div><span>Next post</span><div class="text-accent/85 text-sm">UI 产品组件中英对照图鉴：60 类组件学习笔记</div></div><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg></a></div></main><footer class="app-layout mt-auto"><div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"><div class="flex flex-wrap items-center gap-1"><a href="https://github.com/beepony" title="Beepony on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg><span class="sr-only">Beepony on Github</span></a><a href="https://x.com/ynopeeb" title="Beepony on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Beepony on X</span></a></div><div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"><span>Copyright &#169; 2026</span><span class="hidden sm:inline">&nbsp;|&nbsp;</span><span>All rights reserved.</span></div></div></footer><script type="module">var e=`theme`,t=`light`,n=`dark`;function r(){return localStorage.getItem(e)||(window.matchMedia(`(prefers-color-scheme: dark)`).matches?n:t)}var i=window.__theme?.value??r();function a(){localStorage.setItem(e,i),o()}function o(){let e=document.firstElementChild;e?.setAttribute(`data-theme`,i),e?.classList.toggle(`dark`,i===n),document.querySelector(`#theme-btn`)?.setAttribute(`aria-label`,i),document.querySelectorAll(`[data-theme-icon]`).forEach(e=>{let t=i===n?e.dataset.dark:e.dataset.light;t&&(e.href=t)});let t=window.getComputedStyle(document.body).backgroundColor;document.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}function s(){o(),document.querySelector(`#theme-btn`)?.addEventListener(`click`,()=>{i=i===t?n:t,a()})}s(),document.addEventListener(`astro:after-swap`,s),document.addEventListener(`astro:before-swap`,e=>{let t=document.querySelector(`meta[name='theme-color']`)?.getAttribute(`content`);t&&e.newDocument.querySelector(`meta[name='theme-color']`)?.setAttribute(`content`,t)}),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,({matches:e})=>{i=e?n:t,a()});</script></body></html><script data-astro-rerun>
   function createProgressBar() {
     const progressContainer = document.createElement("div");
     progressContainer.className =

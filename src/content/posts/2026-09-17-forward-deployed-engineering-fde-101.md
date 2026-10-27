@@ -1,8 +1,8 @@
 ---
 author: Beepony
-title: "Forward Deployed Engineering 101 — Palantir FDE 模型的起源、本质与 AI 时代的再生"
+title: "Forward Deployed Engineering 101: The Origins and Essence of Palantir's FDE Model, and Its Rebirth in the AI Era"
 pubDatetime: 2026-09-17T12:00:00+08:00
-description: Kevin（Anthropic MTS, ex-Palantir / Rippling）讲 FDE 101：什么是 FDE、为什么 Palantir 选 FDE 做 GTM、2026 年 AI 时代为什么所有 agentic 平台都被迫变成"Palantir"。
+description: "Kevin (Anthropic MTS, ex-Palantir / Rippling) on FDE 101: what an FDE is, why Palantir chose FDE for go-to-market, and why in the 2026 AI era every agentic platform is being forced to become \"Palantir.\""
 tags:
   - FDE
   - Forward Deployed Engineering
@@ -10,163 +10,170 @@ tags:
   - Anthropic
   - AI Agent
   - GTM
-  - 平台策略
+  - Platform Strategy
 timezone: Asia/Shanghai
 ---
 
-# Forward Deployed Engineering 101
+## Forward Deployed Engineering 101
 
-> 把工程师派到客户现场，不是为了"做咨询"，而是**替客户解决业务问题**。
-> FDE 的核心，是"卖结果"，不是"卖软件"或"卖人"。
+> Sending engineers to the customer site isn't about "consulting"; it's about \*\*solving business problems for the customer\*\*.
 
-> **出处**：本笔记整理自 Kevin 在 Anthropic 公开演讲《Forward Deployed Engineering 101》（YouTube, 2026），全长约 17 分钟（含 Q&A）。Kevin 是 Anthropic Member of Technical Staff, Applied AI 团队；此前为 Palantir 早期员工，并在 Rippling 担任 FDE 团队第 1 号员工，一年内将团队扩展到约 25 人。
-> 视频链接：https://youtu.be/KwhgfwOSToQ
+> The core of FDE is "selling outcomes," not "selling software" or "selling people."
 
----
+> \*\*Source\*\*: These notes are based on Kevin's public talk at Anthropic, "Forward Deployed Engineering 101" (YouTube, 2026), about 17 minutes long (including Q&A). Kevin is a Member of Technical Staff on Anthropic's Applied AI team; previously he was an early Palantir employee and employee No. 1 on Rippling's FDE team, which he grew to about 25 people within a year.
 
-## 一、核心命题：FDE 只解决一种特定场景
-
-Kevin 画了一个 2×2 矩阵：
-
-| 卖的东西 \ 买家 | **技术买家**（CTO/CIO/工程师） | **非技术买家**（业务负责人） |
-|---|---|---|
-| **复杂产品**（GitHub、Datadog） | ✅ DevRel / 开发者生态 | ⚠️ **Palantir 处境** → FDE |
-| **简单/可配置产品**（Slack、Jira、Rippling） | ✅ 销售主导 SLG | ✅ 销售主导 SLG |
-
-**只有当你的产品高度复杂、买家却完全技术门外汉时，FDE 才是答案。**
-
-> 投行、石油天然气、政府、大型企业客户——他们雇不到、留不住深度工程师，但他们要的是「货架再多摆 10%」「销售吞吐更高」，**他们不在乎数据怎么组织，更不该在乎**。
+> Video link: https://youtu.be/KwhgfwOSToQ
 
 ---
 
-## 二、Palantir 的破局思路：从"卖软件"到"卖结果"
+## 1. The Core Thesis: FDE Solves Only One Specific Scenario
 
-纯软件生意的两个死结：
+Kevin draws a 2×2 matrix:
 
-1. **价值解释成本高** — "我帮你把数据组织好了"，但业务方不买账
-2. **客户成功全靠他自己** — 客户不仅付费，还要培训自己团队，才能用起来 → **这是糟糕的生意模型**
+| What you sell \ Buyer | \*\*Technical buyer\*\* (CTO/CIO/engineers) | \*\*Non-technical buyer\*\* (business owner) |
+| --- | --- | --- |
+| \*\*Complex product\*\* (GitHub, Datadog) | ✅ DevRel / developer ecosystem | ⚠️ \*\*Palantir's situation\*\* → FDE |
+| \*\*Simple/configurable product\*\* (Slack, Jira, Rippling) | ✅ Sales-led growth (SLG) | ✅ Sales-led growth (SLG) |
 
-Palantir 的解法：**产品和服务的捆绑销售**。
+**FDE is the answer only when your product is highly complex and your buyer is completely non-technical.**
 
-> 客户买的既不是软件，也不是某人的工时。
-> 客户买的是 **outcome**。
-> 你派过去的是懂 Foundry 平台的工程师，他深入客户业务，搞清楚问题，然后在 Foundry 上**直接搭出解决方案**。
-
-类比：**高级餐厅的服务员**——客户不需要懂后厨，服务员负责"为你搞定一切"。
-
-**验证数据**：Fortune 500 公开 SaaS 公司按 ACV 排名
-
-- Palantir：**$4M**
-- ServiceNow：$1.2M
-- Workday：$600K
-- 其余**没有任何一家** ACV 过 $500K
-
-数人头也很离谱：**几千人公司做到荒谬估值**。
+> Investment banks, oil and gas, government, large enterprises: they can't hire or retain deep engineering talent, but what they want is "10% more on the shelves" or "higher sales throughput." \*\*They don't care how the data is organized, and they shouldn't have to.\*\*
 
 ---
 
-## 三、FDE 的本质：把"设计伙伴关系"工业化到企业级
+## 2. Palantir's Breakthrough: From "Selling Software" to "Selling Outcomes"
+
+Two dead ends of a pure software business:
+
+1. **Explaining value is expensive**: "I organized your data for you," but the business side isn't buying it
+2. **Customer success depends entirely on the customer**: the customer not only pays but also has to train their own team before they can use it → **a terrible business model**
+
+Palantir's solution: **bundle the product and the service**.
+
+> The customer isn't buying software, or someone's hours.
+
+> The customer is buying an \*\*outcome\*\*.
+
+> You send an engineer who knows the Foundry platform; they dig into the customer's business, figure out the problem, and then \*\*build the solution directly\*\* on Foundry.
+
+Analogy: **a waiter at a fine-dining restaurant**. The customer doesn't need to understand the kitchen; the waiter "takes care of everything for you."
+
+**The data**: Fortune 500 public SaaS companies ranked by ACV
+
+- Palantir: **$4M**
+- ServiceNow: $1.2M
+- Workday: $600K
+- **None of the others** has an ACV above $500K
+
+The headcount is wild too: **a company of a few thousand people reached an absurd valuation**.
+
+---
+
+## 3. The Essence of FDE: Industrializing "Design Partnerships" at Enterprise Scale
 
 **FDE = Design Partnership × Enterprise Scale**
 
-早期 B2B startup 找 PMF 的方式就是设计伙伴（design partnership）：
+Early-stage B2B startups find product-market fit through design partnerships:
 
-- 创始人和客户一起工作
-- 创始人花时间、花精力、花技术、花资源
-- 客户只需要提供问题上下文
-- 创始人交付一个真正贴合需求的方案
+- The founder works side by side with the customer
+- The founder invests time, effort, technology, and resources
+- The customer only provides context on the problem
+- The founder delivers a solution that truly fits the need
 
-Palantir 的断言：**谁说设计伙伴关系只能用在 startup 早期？把它 scale 到 enterprise 就行了。**
+Palantir's claim: **who says design partnerships are only for early-stage startups? Just scale them to the enterprise.**
 
-### 但你必须有平台
+### But You Must Have a Platform
 
-⚠️ **FDE 不是 dev shop**
+⚠️ **FDE is not a dev shop**
 
-如果你让每个 FDE 从零写代码给客户：
+If every FDE writes code from scratch for customers:
 
-- 你会有 55 个 repo，没人想接
-- 维护成本吃光利润
-- 工程师跑光
+- You end up with 55 repos nobody wants to take over
+- Maintenance costs eat all your profit
+- Your engineers quit
 
-> FDE 的关键特征：**永远在平台之上构建，不写 from-scratch 代码**。
-> 平台提供 primitives，FDE 用 primitives 拼装出 workflow / app / solution。
+> The defining trait of FDE: \*\*always build on top of the platform; never write from-scratch code\*\*.
 
----
-
-## 四、要不要建 FDE 团队？先问自己两个问题
-
-### 问题 1：我的业务是否处在"卖复杂产品给非技术买家"这个象限？
-
-- 如果不是 → FDE **不适合你**
-  - 复杂产品 + 技术买家 → DevRel
-  - 简单产品 + 非技术买家 → SLG 销售
-
-### 问题 2：我有没有平台（或愿意投一个）？
-
-- 没有平台 → **别动**
-- 有平台但 primitives 不够 → FDE 是你探路的眼睛
-- 有强平台 → 可以开干
-
-> Kevin 原话："I could not begin to stress the amount of maintenance burden that will be on your team even if you have a robust platform, never mind if you don't."
+> The platform provides primitives, and FDEs assemble those primitives into workflows / apps / solutions.
 
 ---
 
-## 五、AI 时代为什么所有人都"被迫"变成 Palantir
+## 4. Should You Build an FDE Team? Ask Yourself Two Questions First
 
-2026 年的范式转移：**几乎所有平台都在变 agentic = 几乎所有平台都在变得可定制**。
+### Question 1: Is my business in the "selling a complex product to non-technical buyers" quadrant?
 
-后果：
+- If not → FDE **isn't for you**
+- Complex product + technical buyer → DevRel
+- Simple product + non-technical buyer → sales-led growth
 
-1. **你卖的所有产品**，客户都不知道你到底在卖什么
-2. **客户成功完全寄托在客户的实施能力上**——他们根本没有
-3. 无论你要往上游卖（upsell），还是横向/纵向扩张（land-and-expand），**纯靠客户自己上手是行不通的**
+### Question 2: Do I have a platform (or am I willing to invest in one)?
 
-> Kevin 的判断：这不是"大家突然发现 FDE 好然后抄"，而是**做生意这件事本身变了**——平台变 agentic = 每个平台都需要实施伙伴，而 FDE 就是规模化版本的实施伙伴。
+- No platform → **don't do it**
+- A platform with insufficient primitives → FDEs are your scouts
+- A strong platform → go for it
+
+> Kevin's words: "I could not begin to stress the amount of maintenance burden that will be on your team even if you have a robust platform, never mind if you don't."
 
 ---
 
-## 六、Q&A 关键问答
+## 5. Why Everyone Is "Forced" to Become Palantir in the AI Era
 
-### Q1：Primitives 该有多"原子"？
+The 2026 paradigm shift: **almost every platform is becoming agentic = almost every platform is becoming customizable**.
 
-**答：看场景**。
+The consequences:
 
-- 一种极端：app 已经 60% 做好，用户只定制 40% → primitives 粗
-- 另一种极端：极度细粒度配置、面向广泛客户 → 像 AWS 的 DynamoDB 那样给你最底层的拼图
-- **判断标准：你的用户群跨度有多广**
+1. **For every product you sell**, customers don't really know what you're selling
+2. **Customer success depends entirely on the customer's ability to implement**, which they simply don't have
+3. Whether you're trying to upsell or land-and-expand, **relying on customers to get started on their own doesn't work**
 
-### Q2：多个 FDE 在同一个项目上协作怎么搞？
+> Kevin's take: this isn't "everyone suddenly realized FDE is great and copied it." Rather, \*\*the business itself has changed\*\*: platforms becoming agentic = every platform needs an implementation partner, and FDE is the scaled version of an implementation partner.
 
-**答：强烈鼓励**。
+---
 
-- 防止单点故障——一个人度假，项目就瘫
-- 跨公司协作的，**本质就是承包商关系**，要明确谁负责什么
+## 6. Key Q&A
 
-### Q3：FDE 写的代码 vs 平台团队写的代码怎么划分？
+### Q1: How "atomic" should primitives be?
 
-**答：黄金法则**：
+**A: It depends**.
 
-- **客户专属 → 留在 FDE 侧**
-- **可泛化 → 长期要吸收回平台**
+- One extreme: the app is 60% done and users customize only 40% → coarse primitives
+- The other extreme: highly granular configuration for a broad range of customers → like AWS DynamoDB, which gives you the lowest-level puzzle pieces
+- **The deciding factor: how broad your user base is**
 
-FDE 早期 primitives 不全？**没关系**。FDE 本身是"探针"——你用它发现客户反复需要什么，反过来定义平台下一阶段该造什么。
+### Q2: How should multiple FDEs collaborate on the same project?
 
-### Q4：完美 FDE 画像是什么？
+**A: Strongly encouraged**.
 
-**答：**
+- It prevents a single point of failure: one person goes on vacation and the project stalls
+- Cross-company collaboration is **essentially a contractor relationship**; be clear about who owns what
+
+### Q3: How do you split code written by FDEs vs. the platform team?
+
+**A: The golden rule**:
+
+- **Customer-specific → stays on the FDE side**
+- **Generalizable → eventually absorbed back into the platform**
+
+Early on the primitives aren't complete? **That's fine**. FDEs are "probes": you use them to discover what customers repeatedly need, which in turn defines what the platform should build next.
+
+### Q4: What does the perfect FDE look like?
+
+**A:**
 
 > "FDE is nothing more than a customer-facing software engineer."
 
-- 你会招他当软件工程师（技术过关）
-- 你也会把他放在客户面前（沟通+业务过关）
-- **其余细节，得你自己在实践中磨出来**
+- You'd hire them as a software engineer (technically strong)
+- You'd also put them in front of customers (strong in communication + business)
+- **The rest you have to figure out through practice**
 
 ---
 
-## 参考
+## References
 
-- **视频原文**：Kevin, *Forward Deployed Engineering 101*, YouTube, 2026.
-  https://youtu.be/KwhgfwOSToQ
-- **演讲者**：Anthropic Applied AI · Member of Technical Staff；前 Palantir / Rippling FDE
+- **Original video**: Kevin, \*Forward Deployed Engineering 101\*, YouTube, 2026.
 
-> 本笔记由 Hermes Agent 根据视频 transcript 整理，去除了「给作者个人延伸思考」等主观内容，仅保留演讲者的核心观点、框架与 Q&A 关键问答。
+https://youtu.be/KwhgfwOSToQ
+
+- **Speaker**: Anthropic Applied AI · Member of Technical Staff; former FDE at Palantir / Rippling
+
+> These notes were compiled by Hermes Agent from the video transcript. Subjective content such as "further thoughts for the author" was removed; only the speaker's key ideas, frameworks, and Q&A are kept.

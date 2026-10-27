@@ -1,311 +1,320 @@
 ---
 author: Beepony
-title: "如何练出薄肌？训练、饮食、减脂一次讲透"
+title: "How to Build a Lean, Athletic Physique: Training, Diet, and Fat Loss Explained"
 pubDatetime: 2026-10-11T12:00:00+08:00
-description: 邵艾伦 Alan B 站 18 分钟讲透薄肌训练原则与饮食策略:Progressive Overload、四大项、一周三练、蛋白质公式、无添加糖,99% 的人只需要关注这 4 个变量。
-tags: ['健身', '薄肌', '减脂', '增肌', '力量训练', '饮食', 'B站', '科普']
+description: "Alan Shao's 18-minute Bilibili guide to lean-muscle training and nutrition: progressive overload, the big four lifts, three workouts a week, a protein formula, and no added sugar. For 99% of people, these are the only four variables that matter."
+tags:
+  - Fitness
+  - Slim Muscle
+  - Fat Loss
+  - Muscle Building
+  - Strength Training
+  - Diet
+  - Bilibili
+  - Explainers
 timezone: Asia/Shanghai
 ---
 
-# 如何练出薄肌？训练、饮食、减脂一次讲透
+> **Source**: These notes are based on Alan Shao's Bilibili video "How to Build a Lean Physique: Training, Diet, and Fat Loss Explained," 18 minutes 22 seconds long, with 930K+ views. Compiled by Hermes Agent from the video transcript, keeping the original structure and key points without adding subjective commentary.
 
-> **出处**:本笔记整理自邵艾伦Alan 在 B 站的视频《如何练出薄肌？训练、饮食、减脂一次讲透》,全长 18 分 22 秒,观看量 93 万+。本笔记由 Hermes Agent 根据视频 transcript 整理,保留原文框架与核心观点,不做主观延伸。
+## The Core in One Sentence
 
-## 一句话核心
+> **Lean physique = a decent amount of muscle + low body fat**. Do two things: ① build muscle through progressive overload; ② reveal it by cutting fat with a calorie deficit. **Daily protein in grams = your body weight in jin (1 jin = 0.5 kg), i.e., about 2 g per kg**. Strength train three times a week; 99% of people don't need to study fancier variables.
 
-> **薄肌 = 一定肌肉量 + 低体脂率**。做两件事:① 通过 Progressive Overload 长肌肉;② 通过热量缺口把脂肪露出来。**蛋白质量 = 体重斤数(克数)**;一周三次力量训练,99% 的人不需要研究更花哨的变量。
+## Reading Map
 
-## 阅读地图
-
-| 章节 | 主题 | 解决的问题 |
-|---|---|---|
-| **S1 什么是薄肌** | 概念 + 体脂率画质 | 什么叫薄肌?体脂要到多少? |
-| **S2 训练原则** | Progressive Overload + 自重兜底 | 怎么练?一定要去健身房吗? |
-| **S3 训练计划** | 一周三天的薄肌战神计划 | 具体练哪几个动作? |
-| **S4 饮食策略** | 蛋白质 + 热量 + 无添加糖 | 怎么吃?要不要吃欺骗餐? |
-| **S5 健身哲学** | 意志力肌 + 正循环 | 为什么要练?练的意义是什么? |
+| Section | Topic | Question it answers |
+| --- | --- | --- |
+| **S1 What Is a Lean Physique** | The concept + body fat "resolution" | What is a lean physique? How low does body fat need to be? |
+| **S2 Training Principles** | Progressive overload + bodyweight as a fallback | How to train? Do you have to go to a gym? |
+| **S3 Training Plan** | A three-day-a-week lean physique plan | Which exercises exactly? |
+| **S4 Diet Strategy** | Protein + calories + no added sugar | What to eat? Should you have cheat meals? |
+| **S5 Fitness Philosophy** | The willpower muscle + a positive cycle | Why train? What's the point? |
 
 ---
 
-## S1 什么是薄肌
+## S1 What Is a Lean Physique
 
-### 1.1 薄肌的真正定义
+### 1.1 What a Lean Physique Really Means
 
-> 薄肌不是一个独立肌肉群(没有"薄肌"这种肉)。它是 **「一定的肌肉量」+「低的体脂率」** 的视觉状态。
+> A lean physique isn't a separate muscle group (there's no such muscle as "lean muscle"). It's the visual result of **"a decent amount of muscle" + "low body fat"**.
 
-邵艾伦原话:"这世界上不存在这种肌肉叫薄肌,所以不要试图去练薄肌,做什么薄肌卧推薄肌飞鸟,不要磨症了。薄肌这个东西就是有一定的肌肉量,同时配合低的体脂比,你就成形了。"
+In Alan Shao's words: "There's no such muscle in the world called lean muscle, so don't try to train lean muscle, doing 'lean bench presses' or 'lean flyes.' Don't overthink it. A lean physique is just having a decent amount of muscle combined with low body fat, and you've got it."
 
-**视觉表现**:
-- 穿衣显瘦、脱衣有肉
-- 脸干净清爽、五官立体、有下颌线
-- 肩、胸有厚度,背阔肌可见训练痕迹
-- 腰干净无坠肉,腹肌用力可显形
-- 手臂 flex 有线条感
+**What it looks like**:
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S1_什么是薄肌.jpg" alt="薄肌的真正定义:一定的肌肉量 + 低的体脂率" loading="lazy" />
+- Slim in clothes, muscular without them
+- A clean, sharp face with defined features and a visible jawline
+- Shoulders and chest with some thickness, lats showing signs of training
+- A clean waist with no overhang; abs visible when flexed
+- Arms show definition when you flex
 
-### 1.2 体脂率画质论(衡量标准)
+![What a lean physique really means: a decent amount of muscle + low body fat](/images/posts/2026/10/11/slim-muscle-guide/S1_what-is-slim-muscle.jpg)
 
-邵艾伦用了一个极其实用的比喻 —— 把体脂率等同于视频画质:
+### 1.2 The Body Fat "Resolution" Theory (How to Measure It)
 
-| 体脂率 | 画质比喻 | 视觉效果 |
-|---|---|---|
-| **< 10%** | **传奇皮肤** | 走到哪都吸睛,五官立体,硬帅(目标定到这里) |
-| **13%** | **原皮肤** | 脸好、五官清楚,基本入场券,但不那么 impressive |
-| **> 15%** | **720P** | 五官被脂肪吃掉,有点模糊 |
-| **> 18%** | **480P** | 基本没法看 |
+Alan Shao uses a very practical metaphor: think of body fat percentage as video resolution:
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S1_体脂率画质表.jpg" alt="体脂率画质论:传奇皮肤 vs 720P vs 480P" loading="lazy" />
+| Body fat | Resolution metaphor | How it looks |
+| --- | --- | --- |
+| **< 10%** | **Legendary skin** | Eye-catching everywhere, well-defined features, strikingly handsome (aim for this) |
+| **13%** | **Default skin** | Good face and clear features; the basic entry ticket, but not that impressive |
+| **> 15%** | **720P** | Features get swallowed by fat and look a bit blurry |
+| **> 18%** | **480P** | Basically unwatchable |
 
-### 1.3 为什么体脂率比肌肉量更影响颜值?
+![Body fat resolution theory: legendary skin vs. 720P vs. 480P](/images/posts/2026/10/11/slim-muscle-guide/S1_body-fat-levels.jpg)
 
-- **低体脂** = 五官立体 + 下颌线清晰 + 接近基因颜值上限
-- **高体脂** = 吃五官立体度,吃掉下颌线,显得"胖"
-- 即使瘦成竹竿/精神小火,**脱衣也会缩**,营养不良状态撑不起"薄肌战神"称号
+### 1.3 Why Body Fat Affects Looks More Than Muscle Mass
 
-### 1.4 实战技巧:目标定低,留缓冲
+- **Low body fat** = defined features + a clear jawline + close to your genetic ceiling for looks
+- **High body fat** = blurs your features, hides your jawline, makes you look "chubby"
+- Even if you're skinny as a rail, **you'll look shrunken without a shirt**; an undernourished body can't pull off the "lean physique" look
 
-> "Aim really low, and then land in the lower region."
-> —— 把目标体脂率定到 10%-11%,这样即使生活波动反弹 2-3%,也不会一下从"传奇皮肤"跌到"720P"。
+### 1.4 A Practical Tip: Aim Low and Leave a Buffer
 
----
-
-## S2 训练原则
-
-### 2.1 99% 的人只需要关注 4 个变量
-
-健美圈喜欢把简单事情复杂化(几下一组、空腹有氧还是饭后、高脂还是高碳、蛋白质的黄金窗口…),这些 **根本不重要**。
-
-真正决定身材的 4 个变量:
-
-| # | 指标 | 为什么 |
-|---|---|---|
-| 1 | **训练重量有没有增加** | 肌肉只在乎你给它的压力是否变大 |
-| 2 | **蛋白质有没有吃够** | 肌肉合成的原料 |
-| 3 | **总热量是 surplus 还是 deficit** | 决定增肌还是减脂 |
-| 4 | **有没有长期坚持** | 时间维度 |
-
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S2_训练核心指标.jpg" alt="训练重量增加 + 蛋白质吃够 = 健身真正决定因素" loading="lazy" />
-
-### 2.2 Progressive Overload(渐进超负荷)— 唯一要记的词
-
-> **渐进超负荷**:每次训练都比上一次更重(或多做 1 下)。
-> 因为肌肉承受更大压力 → 为适应 → 必须长大。**Numbers don't lie**。
-
-两个落地方法:
-1. **重量增加**:本周 40kg 卧推 6 下 → 下周 42.5kg 6 下 → 再下周 45kg 6 下
-2. **次数增加**:重量已到上限就加次数,90kg 4 下 → 5 下 → 6 下(多做一下都是进步)
-
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S2_肌肉承受更大压力.jpg" alt="肌肉承受更大压力 → 必须长大" loading="lazy" />
-
-### 2.3 自重训练兜底(没钱/没时间/学生党)
-
-> 即使一分钱没有、还欠债,**也能练薄肌**。地板还不收费,趁免费练一下。
-
-三个基础动作:**俯卧撑 + 引体向上 + 深蹲**。应用 Progressive Overload:
-- 俯卧撑从 100 个 → 150 个 → 200 个
-- 背包装书/杂物逐步加重
-
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S2_自重训练兜底.jpg" alt="没钱也能练:自重训练 + progressive overload" loading="lazy" />
+> "Aim really low, and then land in the lower region."  
+> Set your body fat target at 10%-11%. That way, even if life bumps it up 2-3%, you won't suddenly drop from "legendary skin" to "720P."
 
 ---
 
-## S3 训练计划(薄肌战神计划 — 一周三天)
+## S2 Training Principles
 
-> 收益最大的 4 个复合动作(**四大项 Compound Movement**):
-> **深蹲、硬拉、卧推、杠铃推举**。
-> 只练这 4 个,肌肉量都会暴涨。
+### 2.1 99% of People Only Need to Focus on 4 Variables
 
-### 3.1 一周三天的安排
+The bodybuilding world loves to overcomplicate simple things (how many reps per set, fasted cardio or after meals, high-fat or high-carb, the protein "golden window"…). These **don't really matter**.
 
-#### Day 1 — 推日(胸、肩、三头)
+The 4 variables that really determine your physique:
 
-| 优先级 | 动作 |
-|---|---|
-| **核心** | 上斜卧推(Incline Bench Press) |
-| **核心** | 卧推(Bench Press) |
-| **核心** | 杠铃肩推(Shoulder Press) |
-| 可选 | 侧平飞鸟(Lateral Raise) |
-| 可选 | 三头(任意三头器械) |
+| # | Metric | Why |
+| --- | --- | --- |
+| 1 | **Are your training weights going up?** | Muscle only cares whether the stress you put on it increases |
+| 2 | **Are you eating enough protein?** | The raw material for building muscle |
+| 3 | **Are your total calories in surplus or deficit?** | Determines whether you build muscle or lose fat |
+| 4 | **Are you sticking with it long term?** | The time dimension |
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S3_Day1_推日.jpg" alt="Day 1 推日训练计划" loading="lazy" />
+![Increasing training weights + enough protein = what really determines results](/images/posts/2026/10/11/slim-muscle-guide/S2_training-key-metrics.jpg)
 
-#### Day 2 — 拉日(背、二头)
+### 2.2 Progressive Overload: The Only Term You Need to Remember
 
-| 优先级 | 动作 |
-|---|---|
-| **核心** | 硬拉(Deadlift)— 要技巧,别急加重量 |
-| **核心** | 引体向上(Pull Ups) |
-| **核心** | 划船(Row) |
-| 可选 | 后束飞鸟(Rear Delt) |
-| 可选 | 面拉(Facepull)— **对体态帮助巨大** |
-| 可选 | 二头弯举(Bicep Curls) |
+> **Progressive overload**: every session, lift a bit heavier than last time (or do 1 more rep).  
+> Because the muscle is under more stress → to adapt → it has to grow. **Numbers don't lie**.
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S3_Day1+Day2_计划图.jpg" alt="Day 1 + Day 2 完整计划图" loading="lazy" />
+Two ways to apply it:
 
-#### Day 3 — 腿 + 薄肌外形补强
+1. **Add weight**: this week 40kg bench press for 6 reps → next week 42.5kg for 6 → the week after 45kg for 6
+2. **Add reps**: once you've maxed out the weight, add reps: 90kg for 4 → 5 → 6 (even one more rep is progress)
 
-| 优先级 | 动作 |
-|---|---|
-| **核心** | 深蹲(Squat) |
-| **核心** | 杠铃肩推(Shoulder Press) |
-| 可选 | 面拉(Facepull)— 体态 |
-| 可选 | 侧平飞鸟(Lateral Raise) |
-| 可选 | 腹肌(任意腹部动作) |
-| 可选 | 臀桥(Glutes) |
+![The muscle is under more stress → it has to grow](/images/posts/2026/10/11/slim-muscle-guide/S2_progressive-overload.jpg)
 
-设计逻辑:**男生身材视觉 ROI 最高的地方 = 肩膀 + 上胸 + 腹肌 + 体态**。Day 3 加一次肩 + 体态动作来提升外形分。
+### 2.3 Bodyweight Training as a Fallback (No Money / No Time / Students)
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S3_三天计划总览表.jpg" alt="Day 1+2+3 三天计划总览表" loading="lazy" />
+> Even if you're broke and in debt, **you can still build a lean physique**. The floor is free, so train while it still is.
 
-### 3.2 次数 + 节奏
+Three basic exercises: **push-ups + pull-ups + squats**. Apply progressive overload:
 
-| 类型 | 组数 | 次数 |
-|---|---|---|
-| **四大项**(大动作) | 3 组 | 每组 4-6 下 |
-| **可选**(小动作) | 3-4 组 | 每组 8-12 下 |
+- Push-ups from 100 → 150 → 200
+- Load a backpack with books or stuff and gradually add weight
 
-**关键**:每次训练都要 **先热身 → 慢慢加重量 → 达到训练组重量 → 正式开练**。
-
-### 3.3 必须记录每组的重量和次数
-
-> 不记录 → 无法贯彻 Progressive Overload。
-> 每次都比上次更重或多一下,**记录是前提**。
-> (邵艾伦本人因已到维持期不记录,初学者一定要记。)
-
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S3_训练记录要求.jpg" alt="每次训练都要记录重量和次数" loading="lazy" />
+![Train with no money: bodyweight training + progressive overload](/images/posts/2026/10/11/slim-muscle-guide/S2_bodyweight-fallback.jpg)
 
 ---
 
-## S4 饮食策略
+## S3 Training Plan (The Lean Physique Plan: Three Days a Week)
 
-### 4.1 蛋白质公式 — 全视频最重要的数字
+> The 4 compound movements with the biggest payoff (**the Big Four compound movements**):  
+> **squat, deadlift, bench press, barbell overhead press**.  
+> Train just these 4 and your muscle mass will shoot up.
 
-> **体重多少斤 → 每天吃多少克蛋白质**。
-> 例:130 斤 → 每天 130g 蛋白质。**大部分人吃不到**,必须刻意补。
+### 3.1 The Three-Day Weekly Schedule
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S4_蛋白质J数g公式.jpg" alt="蛋白质公式:体重斤数 = 蛋白质克数" loading="lazy" />
+#### Day 1: Push Day (Chest, Shoulders, Triceps)
 
-蛋白质来源(从便宜到贵):
-- **鸡蛋**(蛋黄也吃,是优质脂肪)— 大学生最优
-- 牛肉 / 鸡肉 / 鱼
-- 无糖 Greek Yogurt / 脱脂牛奶
-- **蛋白粉**(不是科技,是肉的替代品,放心喝)
+| Priority | Action |
+| --- | --- |
+| **Core** | Incline Bench Press |
+| **Core** | Bench Press |
+| **Core** | Barbell Shoulder Press |
+| Optional | Lateral Raise |
+| Optional | Triceps (any triceps machine) |
 
-### 4.2 热量:动态调整 surplus / deficit
+![Day 1 push day training plan](/images/posts/2026/10/11/slim-muscle-guide/S3_day1-push.jpg)
 
-> 健身饮食核心: **Calories in / Calories out**。
+#### Day 2: Pull Day (Back, Biceps)
 
-| 当前体型 | 策略 |
-|---|---|
-| 很瘦,没鸡肉 | **小幅度热量盈余**(增肌) |
-| 有一点点胖(大部分人) | **小-中幅度热量缺口**,**但蛋白质一定要拉满** |
-| 比较胖 / 特别胖 | **大幅度热量缺口**,瘦下来再调策略 |
+| Priority | Action |
+| --- | --- |
+| **Core** | Deadlift: needs technique; don't rush to add weight |
+| **Core** | Pull Ups |
+| **Core** | Row |
+| Optional | Rear Delt Fly |
+| Optional | Face Pull: **huge help for posture** |
+| Optional | Bicep Curls |
 
-> **新手福利期**:高蛋白 + 高质量力量训练 + 适度热量缺口,**可以同时增肌减脂**。镜子一天一个样。
+![Full Day 1 + Day 2 plan](/images/posts/2026/10/11/slim-muscle-guide/S3_day1-day2-plan.jpg)
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S4_热量缺口策略.jpg" alt="根据体型选热量策略:盈余 / 小缺口 / 大缺口" loading="lazy" />
+#### Day 3: Legs + Lean-Look Boosters
 
-### 4.3 碳水 vs 脂肪 — 不要搞宗教战争
+| Priority | Action |
+| --- | --- |
+| **Core** | Squat |
+| **Core** | Barbell Shoulder Press |
+| Optional | Face Pull: posture |
+| Optional | Lateral Raise |
+| Optional | Abs (any ab exercise) |
+| Optional | Glute Bridge (Glutes) |
 
-> 碳水和脂肪 **都可以放心吃**。
-> 脂肪偏高 → 碳水少吃一点;碳水偏高 → 脂肪少吃一点。
-> 中国人必须吃饭,自然碳水必须吃,水果可以吃。
+The logic: **the highest visual ROI on a man's physique = shoulders + upper chest + abs + posture**. Day 3 adds another shoulder + posture session to boost your look.
 
-### 4.4 唯一铁律:NO PROCESSED SUGAR
+![Day 1+2+3 overview of the three-day plan](/images/posts/2026/10/11/slim-muscle-guide/S3_three-day-plan-overview.jpg)
 
-> **任何形式的人造添加糖一律不吃**:饼干、可乐、奶茶、冰淇淋。
-> 水果(自然糖)可以吃,饭(自然碳水)可以吃。
+### 3.2 Reps + Tempo
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S4_NoProcessedSugar.jpg" alt="No Processed Sugar:不吃加工糖" loading="lazy" />
+| Type | Sets | Reps |
+| --- | --- | --- |
+| **Big Four** (major lifts) | 3 sets | 4-6 reps per set |
+| **Optional** (accessory lifts) | 3-4 sets | 8-12 reps per set |
 
-### 4.5 没有欺骗餐(No Cheat Meals)
+**Key**: every session, **warm up first → add weight gradually → reach your working-set weight → start the real sets**.
 
-> 欺骗餐 = 借口。
-> 平时 6 天没吃多干净 → 第 7 天报复性乱吃 → 进度归零 → 永远卡在 480P/720P。
+### 3.3 Always Log the Weight and Reps for Each Set
 
-**核心逻辑**:**要么惯性向上,要么惯性向下,没有"上上下下"**。
-只要开了第一次口子 → 接下来会越想开 → 进入惯性向下的 momentum。
-**直接一路冲到传奇皮肤,不去乱杀,不开倒车**。
+> No log → no way to follow progressive overload.  
+> Going heavier or doing one more rep each time **requires a log**.  
+> (Alan Shao himself doesn't log because he's in maintenance mode, but beginners definitely should.)
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S4_欺骗餐不存在.jpg" alt="欺骗餐不存在,no fucking cheat meals" loading="lazy" />
-
-### 4.6 补剂(可选)
-
-| 补剂 | 建议 |
-|---|---|
-| **蛋白粉** | 蛋白质吃不够就补,放心喝 |
-| **肌酸 Creatine** | 每天 5-10g,**尽量中午前喝完**,免得影响睡眠 |
-| 其他 | 随意,吃不吃都不影响练薄肌 |
-
-### 4.7 有氧
-
-> 有氧可以做,但 **没那么重要**。
-> 高质量力量训练 + 控制饮食 > 有氧。
-> 邵艾伦自己喜欢"饭后散步 1 万步"(无痛有氧)。不必逼自己跑 1-2 小时。
+![Log the weight and reps every session](/images/posts/2026/10/11/slim-muscle-guide/S3_training-log.jpg)
 
 ---
 
-## S5 健身哲学
+## S4 Diet Strategy
 
-### 5.1 多久能练出薄肌?
+### 4.1 The Protein Formula: The Most Important Number in the Video
 
-> **认真练 3-6 个月,外形明显变化,完全做得到**。
-> 新手福利期效果非常明显,**赶紧去享受**。
+> **Your body weight in jin (half-kilograms) → grams of protein per day**.  
+> Example: 130 jin (65 kg) → 130g of protein per day. **Most people don't get this much**, so you have to make a deliberate effort.
 
-### 5.2 有了薄肌就能泡到妞吗?
+![Protein formula: body weight in jin = grams of protein](/images/posts/2026/10/11/slim-muscle-guide/S4_protein-formula.jpg)
 
-大概率是。但 **先做到再说**。
+Protein sources (cheapest to most expensive):
 
-### 5.3 意志力肌 — 健身最大的隐藏收益
+- **Eggs** (eat the yolk too; it's quality fat): best for college students
+- Beef / chicken / fish
+- Unsweetened Greek yogurt / skim milk
+- **Protein powder** (it's not some lab product; it's a substitute for meat, drink it without worry)
 
-> **健身真正锻炼的不只是身体,是对意志力的提升**。
-> 它锻炼了一块看不到的肌肉 — **意志力肌**。
+### 4.2 Calories: Adjust Surplus / Deficit Dynamically
 
-健身让你 **comfortable with being uncomfortable**(习惯做不想做但对自己有益的事)。
+> The core of a fitness diet: **Calories in / Calories out**.
 
-这块意志力肌:
-- 帮你拿回人生的主动权
-- 在生活各方面显出来
-- 进入正循环:健完身自然吃得更好 → 睡得更好 → 社交更自信 → 全方位提升
+| Current body type | Strategy |
+| --- | --- |
+| Very skinny, no muscle | **A small calorie surplus** (build muscle) |
+| A little chubby (most people) | **A small-to-moderate calorie deficit**, **but max out your protein** |
+| Fairly or very overweight | **A large calorie deficit**; adjust your strategy once you've slimmed down |
 
-> "我想不出一个坚持健身的坏处,我也想不出一个薄肌的坏处。"
+> **The beginner bonus period**: high protein + quality strength training + a moderate calorie deficit **lets you build muscle and lose fat at the same time**. You'll see a difference in the mirror every day.
 
-<img src="/images/posts/2026/10/11/slim-muscle-guide/S5_意志力肌.jpg" alt="意志力肌 — 健身真正锻炼的隐藏肌肉" loading="lazy" />
+![Choose a calorie strategy by body type: surplus / small deficit / large deficit](/images/posts/2026/10/11/slim-muscle-guide/S4_calorie-deficit.jpg)
+
+### 4.3 Carbs vs. Fat: Don't Start a Holy War
+
+> You can eat **both carbs and fat** without worry.  
+> Higher fat → eat a bit fewer carbs; higher carbs → eat a bit less fat.  
+> For Chinese people, rice is a must, so naturally you eat carbs, and fruit is fine.
+
+### 4.4 The One Iron Rule: NO PROCESSED SUGAR
+
+> **No added sugar of any kind**: cookies, cola, milk tea, ice cream.  
+> Fruit (natural sugar) is fine, and rice (natural carbs) is fine.
+
+![No Processed Sugar: avoid processed sugar](/images/posts/2026/10/11/slim-muscle-guide/S4_NoProcessedSugar.jpg)
+
+### 4.5 No Cheat Meals
+
+> Cheat meals = an excuse.  
+> You don't eat that clean for 6 days → binge on day 7 → progress resets → stuck at 480P/720P forever.
+
+**The core logic**: **momentum goes either up or down; there's no "up and down."** Once you make the first exception → you'll want to make more → you enter downward momentum. **Go straight to legendary skin, no detours, no going backward**.
+
+![Cheat meals don't exist, no fucking cheat meals](/images/posts/2026/10/11/slim-muscle-guide/S4_no-cheat-meals.jpg)
+
+### 4.6 Supplements (Optional)
+
+| Supplement | Recommendation |
+| --- | --- |
+| **Protein powder** | Use it if you can't get enough protein; drink it without worry |
+| **Creatine** | 5-10g a day, **ideally before noon** so it doesn't affect your sleep |
+| Others | Up to you; they won't affect building a lean physique either way |
+
+### 4.7 Cardio
+
+> You can do cardio, but it's **not that important**.  
+> Quality strength training + diet control > cardio.  
+> Alan Shao himself likes "a 10,000-step walk after meals" (painless cardio). No need to force yourself to run for 1-2 hours.
 
 ---
 
-## 速查表 — 整期视频压缩到一张表
+## S5 Fitness Philosophy
 
-| 维度       | 核心要点                                  |
-| -------- | ------------------------------------- |
-| **定义**   | 薄肌 = 一定肌肉量 + 低体脂率                     |
-| **体脂目标** | < 10%(传奇皮肤),设目标低一点留缓冲                 |
-| **训练变量** | 训练重量 ↑、蛋白质够、热量 surplus/deficit、坚持     |
-| **唯一原则** | **Progressive Overload**(每次更重或多 1 下)  |
-| **训练计划** | 一周 3 天:推(Day 1)/ 拉(Day 2)/ 腿+肩(Day 3) |
-| **四大项**  | 深蹲 / 硬拉 / 卧推 / 杠铃推举                   |
-| **次数**   | 大动作 4-6 下 × 3 组;小动作 8-12 下 × 3-4 组    |
-| **蛋白质**  | **体重多少斤 = 每天多少克蛋白质**                  |
-| **热量**   | 瘦 → 盈余;微胖 → 小-中缺口 + 蛋白质拉满             |
-| **唯一铁律** | **No Processed Sugar**(不人造添加糖)        |
-| **欺骗餐**  | **不存在**(no cheat meals,一路冲到传奇)        |
-| **记录**   | 每次训练记录重量和次数                           |
-| **补剂**   | 蛋白粉(必要)、肌酸 5-10g/天(可选)                |
-| **有氧**   | 可选,饭后散步代替                             |
-| **效果时间** | 认真练 3-6 个月外形明显变化                      |
-| **隐藏收益** | 意志力肌 → 人生正循环                          |
+### 5.1 How Long Does It Take to Get a Lean Physique?
+
+> **Train seriously for 3-6 months and you'll see clear changes; it's totally doable**.  
+> The beginner bonus period is very noticeable, so **go enjoy it**.
+
+### 5.2 Will a Lean Physique Help You Get Dates?
+
+Probably. But **get there first**.
+
+### 5.3 The Willpower Muscle: Fitness's Biggest Hidden Benefit
+
+> **What fitness really trains isn't just your body; it builds your willpower**.  
+> It trains a muscle you can't see: **the willpower muscle**.
+
+Fitness makes you **comfortable with being uncomfortable** (used to doing things you don't want to do but that are good for you).
+
+This willpower muscle:
+
+- Helps you take back control of your life
+- Shows up in every area of life
+- Starts a positive cycle: after working out you naturally eat better → sleep better → feel more confident socially → improve across the board
+
+> "I can't think of a single downside to sticking with fitness, and I can't think of a single downside to a lean physique."
+
+![The willpower muscle: the hidden muscle fitness really trains](/images/posts/2026/10/11/slim-muscle-guide/S5_willpower-muscle.jpg)
 
 ---
 
-## 参考
+## Cheat Sheet: The Whole Video in One Table
 
-- **视频链接**:https://www.bilibili.com/video/BV1httT6LEfy/
-- **视频时长**:18 分 22 秒(1102 秒)
-- **演讲者**:邵艾伦Alan(B站 UP 主,主业为英语教学,本期为健身科普向跨界)
-- **观看数据**(截至整理时):播放量 93 万+,点赞 3.3 万,收藏 4.7 万,转发 1 万
-- **核心引用书籍**:《Bigger Leaner Stronger》(Michael Matthews 著)
-- **本笔记整理方法**:faster-whisper small(int8,Mac M 系列 CPU)语音转写 + 关键节点截图 + 框架重组,共 855 个转写片段
-- **整理时间**:2026-10-11
+| Dimension | Key Points |
+| --- | --- |
+| **Definition** | Lean physique = a decent amount of muscle + low body fat |
+| **Body fat target** | < 10% (legendary skin); aim a bit lower to leave a buffer |
+| **Training variables** | Training weights ↑, enough protein, calorie surplus/deficit, consistency |
+| **The one principle** | **Progressive Overload** (heavier or 1 more rep each time) |
+| **Training plan** | 3 days a week: push (Day 1) / pull (Day 2) / legs + shoulders (Day 3) |
+| **Big Four** | Squat / deadlift / bench press / barbell overhead press |
+| **Reps** | Major lifts 4-6 reps × 3 sets; accessory lifts 8-12 reps × 3-4 sets |
+| **Protein** | **Body weight in jin = grams of protein per day (about 2 g/kg)** |
+| **Calories** | Skinny → surplus; a bit chubby → small-to-moderate deficit + max protein |
+| **The one iron rule** | **No Processed Sugar** (no added sugar) |
+| **Cheat meals** | **Don't exist** (no cheat meals; go straight to legendary) |
+| **Logging** | Log weight and reps every session |
+| **Supplements** | Protein powder (as needed), creatine 5-10g/day (optional) |
+| **Cardio** | Optional; replace with a walk after meals |
+| **Time to results** | 3-6 months of serious training for clear visible changes |
+| **Hidden benefit** | The willpower muscle → a positive cycle in life |
 
-> 本笔记由 Hermes Agent 根据视频 transcript 整理,保留了原文核心框架、案例与数据,**去除了演讲者个人风格化的修辞(传奇皮肤 / 版本答案 / Lingard 等网络梗)做了语义澄清**。**未添加任何 agent 个人延伸思考或评论**,内容均可在视频原声中找到对应段落。
+---
+
+## References
+
+- **Video link**: https://www.bilibili.com/video/BV1httT6LEfy/
+- **Video length**: 18 minutes 22 seconds (1102 seconds)
+- **Speaker**: Alan Shao (a Bilibili creator who mainly teaches English; this episode is a crossover into fitness)
+- **View stats** (at the time of writing): 930K+ views, 33K likes, 47K saves, 10K shares
+- **Main book cited**: *Bigger Leaner Stronger* (by Michael Matthews)
+- **How these notes were made**: faster-whisper small (int8, Mac M-series CPU) transcription + screenshots of key moments + restructuring, from 855 transcript segments
+- **Compiled on**: 2026-10-11
+
+> These notes were compiled by Hermes Agent from the video transcript, keeping the original framework, examples, and data. **The speaker's stylized expressions (internet memes like "legendary skin," "the meta answer," and Lingard) were clarified for meaning**. **No agent commentary or further thoughts were added**; everything can be traced to a passage in the original video.

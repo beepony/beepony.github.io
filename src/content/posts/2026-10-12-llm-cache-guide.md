@@ -1,380 +1,396 @@
 ---
 author: Beepony
-title: "大模型 Cache 通俗指南——非开发也能看懂为什么改一个字可能多花 10 倍钱"
+title: "A Plain-English Guide to LLM Caching: Why Changing One Character Can Cost You 10x (No Coding Required)"
 pubDatetime: 2026-10-12T12:00:00+08:00
-description: 用 12 节把 Context / KV Cache / Prefix Cache / Prompt Cache 讲透,为什么改 prompt 的一个字可能多花 10 倍钱,以及 5 条让缓存多命中的实战经验。
-tags: [AI, 大模型, Cache, 性能优化, 科普]
+description: "Twelve sections that explain Context, KV Cache, Prefix Cache, and Prompt Cache: why changing one character in a prompt can cost 10x more, plus five practical ways to get more cache hits."
+tags:
+  - AI
+  - LLM
+  - Cache
+  - Performance Optimization
+  - Explainers
 timezone: Asia/Shanghai
 ---
 
-# 大模型 Cache（缓存）通俗指南
+## A Plain-English Guide to LLM Caching
 
-> 一句话核心：**大模型靠"别重复算"变快；改一字让前面的努力白费，是这种设计的代价。**
-
----
-
-## 阅读地图
-
-| 章节 | 内容 | 解决什么问题 |
-|---|---|---|
-| 一、先说结论 | 大模型不每次重算、用 Cache 省时间 | 整体在讲什么 |
-| 二、为什么和你有关 | 改一字可能多花钱、命中能提速 5-10 倍 | 我为啥要读完 |
-| 三、什么是 Context | 模型能看到的历史对话 ≠ 命中缓存 | 别把"看到"和"记下"搞混 |
-| 四、Token 是什么 | 模型不认字、只认编号 | 后面所有推理的基础 |
-| 五、模型在算什么 | Token → 一大堆数字 | 为啥 Cache 能省事 |
-| 六、KV Cache | 模型做完的"阅读笔记" | 会话内的缓存 |
-| 七、Prefix Cache | 把笔记升级到班级共享 | 跨请求的缓存 |
-| 八、Prompt Cache | 服务商主动保存的历史结果 | API 商业层的缓存 |
-| 九、怎么验证真的命中 | 看 `cached_tokens` 数字 | 钱花得值不值 |
-| 十、为什么改一字就失效 | 苹果→华为、火车变轨 | 失效原因可视化 |
-| 十一、写 prompt 的 5 条经验 | 怎么让缓存多命中 | 实战速查 |
-| 十二、一句话总结 | 4 个概念 + 主类比 | 复习用 |
+> The core in one sentence: **LLMs get faster by "not recomputing things"; changing one character and wasting all that earlier work is the price of this design.**
 
 ---
 
-# 一、先说结论
+## Reading Map
 
-很多人以为：
-
-> 大模型每次回答问题，都要把整个聊天记录重新读一遍。
-
-实际上并不完全是这样。
-
-现代大模型通常会使用各种缓存机制（Cache），避免重复计算已经处理过的内容。
-
-最常见的是：
-
-1. **Context**（上下文）
-2. **KV Cache**（推理缓存）
-3. **Prefix Cache**（前缀缓存）
-4. **Prompt Cache**（提示词缓存）
-
-其中四个概念的关系：
-
-| 概念 | 作用范围 | 类比 |
-|---|---|---|
-| **Context** | 模型能看到的历史对话 | 老师发给学生的整本教材 |
-| **KV Cache** | 单次会话内复用 | 学生做好的读书笔记 |
-| **Prefix Cache** | 跨请求/跨会话复用相同前缀 | 班级共享笔记本 |
-| **Prompt Cache** | 服务商主动保存的历史计算结果 | 学校图书馆系统 |
-
-**一句话**：这四个东西都在干同一件事——**别让模型重算算过的东西**，只是"地理范围"越来越大。
+| Section | Content | What it answers |
+| --- | --- | --- |
+| 1. The Bottom Line First | LLMs don't recompute every time; they use caching to save time | What the whole guide is about |
+| 2. Why You Should Care | Changing one character can cost more; cache hits can be 5-10x faster | Why read to the end |
+| 3. What Is Context | History the model can see ≠ a cache hit | Don't confuse "seeing" with "taking notes" |
+| 4. What Is a Token | Models don't read words, only ID numbers | The foundation for everything that follows |
+| 5. What the Model Computes | Token → a big pile of numbers | Why caching saves work |
+| 6. KV Cache | The model's finished "reading notes" | Cache within a session |
+| 7. Prefix Cache | Upgrading the notes to "shared with the class" | Cache across requests |
+| 8. Prompt Cache | Past results saved proactively by the provider | Cache at the API business layer |
+| 9. How to Verify a Hit | Check the `cached_tokens` number | Is your money well spent? |
+| 10. Why One Changed Character Breaks It | Apple → Huawei, a train switching tracks | Visualizing why the cache breaks |
+| 11. 5 Lessons for Writing Prompts | How to get more cache hits | Practical cheat sheet |
+| 12. Summary in One Sentence | 4 concepts + the main analogy | For review |
 
 ---
 
-# 二、为什么和你有关？
+## 1. The Bottom Line First
 
-读这份指南的最大动力不是技术好奇心，是**钱和速度**。
+Many people think:
 
-- ✅ 同样问题，**改 prompt 的一个字可能多花 10 倍钱**（改前面最贵）
-- ✅ 同样的回复，速度可以差 **5-10 倍**（命中 vs 不命中）
-- ✅ 看懂 API 返回的 `cached_tokens`，**能帮你判断钱花得值不值**
+> Every time an LLM answers a question, it has to reread the entire chat history.
 
-> 后面所有概念，都是为这三条服务的。
+That's not entirely true.
+
+Modern LLMs usually use various caching mechanisms to avoid recomputing content they've already processed.
+
+The most common are:
+
+1. **Context**
+2. **KV Cache** (inference cache)
+3. **Prefix Cache**
+4. **Prompt Cache**
+
+How the four concepts relate:
+
+| Concept | Scope | Analogy |
+| --- | --- | --- |
+| **Context** | The conversation history the model can see | The whole textbook the teacher hands to the student |
+| **KV Cache** | Reused within a single session | The reading notes the student has made |
+| **Prefix Cache** | Reuses identical prefixes across requests/sessions | A notebook shared by the whole class |
+| **Prompt Cache** | Past computation results saved proactively by the provider | The school library system |
+
+**In one sentence**: all four do the same thing, **keeping the model from recomputing what it has already computed**; they just cover a bigger and bigger "area."
 
 ---
 
-# 三、什么是 Context（上下文）？
+## 2. Why Should You Care?
 
-假设你连续提问：
+The biggest reason to read this guide isn't technical curiosity; it's **money and speed**.
 
-```text
-A：法国首都是哪里？
-A1：人口多少？
-A2：GDP 多少？
-A3：面积多大？
-A4：官方语言是什么？
-A5：哪个城市最有名？
+- ✅ For the same question, **changing one character in the prompt can cost 10x more** (changes near the start cost the most)
+- ✅ The same reply can differ in speed by **5-10x** (hit vs. miss)
+- ✅ Understanding the `cached_tokens` returned by the API **helps you judge whether your money is well spent**
+
+> Every concept that follows serves these three points.
+
+---
+
+## 3. What Is Context?
+
+Suppose you ask a series of questions:
+
+```
+A: What's the capital of France?
+A1: What's its population?
+A2: What's its GDP?
+A3: How big is it?
+A4: What's the official language?
+A5: Which city is the most famous?
 ```
 
-当你问 A5 时，模型实际收到的内容**通常**会包含此前的对话，因此 A5 能"看到"A~A4。这叫**上下文（Context）**。
+When you ask A5, what the model actually receives **usually** includes the earlier conversation, so A5 can "see" A through A4. This is called **context**.
 
-但请注意：
+But note:
 
-> **看到的 ≠ 记下的**
+> **Seen ≠ noted down**
+
 >
-> 学生面前有教材（Context），不等于他翻过笔记。
-> 老师给一本教材（Context），不等于学生做了笔记（KV Cache）。
->
-> **能看到历史内容 ≠ 命中缓存**。
 
-这个区别是理解整篇指南的关键，后面 KV Cache / Prefix Cache 都是"已经记下来的"，而不是"已经看到的"。
+> Having a textbook in front of a student (context) doesn't mean they've looked at their notes.  
+> A teacher handing out a textbook (context) doesn't mean the student has taken notes (KV Cache).
+
+>
+
+> **Being able to see past content ≠ a cache hit**.
+
+This distinction is the key to understanding the whole guide. KV Cache and Prefix Cache are about what's "already noted down," not what's "already seen."
 
 ---
 
-# 四、Token 是什么？（前面概念的基础）
+## 4. What Is a Token? (The Foundation for Everything Above)
 
-模型不认字，只认编号。
+Models don't read words; they only recognize ID numbers.
 
-比如：
+For example:
 
-```text
-"法国"
+```
+"France"
 ```
 
-在模型眼里可能是编号 `3847`，"我喜欢苹果"可能是 `[127, 8034, 5217]`。
+might be ID `3847` to the model, and "I like Apple" might be `[127, 8034, 5217]`.
 
-一句话会被切成很多个编号，每个编号叫一个 **Token**。
+A sentence gets split into many IDs, and each ID is called a **token**.
 
-> **你给模型发 1 万字 ≈ 发 1 万个编号。**
+> **Sending the model 10,000 words ≈ sending it 10,000 IDs.**
+
 >
-> 这就是为什么"字数"对大模型来说特别重要——**Token 越多，越慢，越贵。**
+
+> That's why "length" matters so much for LLMs: **more tokens means slower and more expensive.**
 
 ---
 
-# 五、模型到底在计算什么？
+## 5. What Is the Model Actually Computing?
 
-每个 Token 会被转换成一串数字，比如：
+Each token is turned into a string of numbers, for example:
 
-```text
-"法国"  →  [0.12, -0.34, 0.78, -0.05, ...]
+```
+"France"  →  [0.12, -0.34, 0.78, -0.05, ...]
 ```
 
-这串数字不是随机的，而是**编码了**：
+These numbers aren't random; they **encode**:
 
-- 词义（"法国"是个国家名）
-- 语法角色（在这句里是主语）
-- 上下文关系（和"首都"是一对）
-- 位置信息（在第几个字）
+- Meaning ("France" is the name of a country)
+- Grammatical role (it's the subject in this sentence)
+- Contextual relationships (it pairs with "capital")
+- Position (which word it is)
 
-> **你不用理解这些数字怎么算出来的**，只需要知道：
-> **每个 Token 背后都跟着一大堆数字。**
+> **You don't need to understand how these numbers are computed**; just know:  
+> **behind every token is a big pile of numbers.**
+
 >
-> 第一次见到一个新 Token，模型要把这一大堆数字全算出来——**这一步很贵**。
 
-而缓存的本质就是：**别让模型第二次算同一批数字**。
+> The first time the model sees a new token, it has to compute that whole pile of numbers, and **this step is expensive**.
+
+And the essence of caching is: **don't make the model compute the same numbers twice**.
 
 ---
 
-# 六、KV Cache——模型做好的"阅读笔记"
+## 6. KV Cache: The Model's "Reading Notes"
 
-> **KV Cache 可以理解为：大模型已经做好的阅读笔记。**
+> **Think of KV Cache as the reading notes an LLM has already made.**
 
-KV = Key + Value，模型分析完前面的内容后，会把**后续推理需要的重要中间结果**保存下来。
+KV = Key + Value. After the model analyzes earlier content, it saves **the important intermediate results needed for later reasoning**.
 
-下次遇到相同前缀时，直接使用这些笔记，而不是重新阅读整段内容。
+The next time it sees the same prefix, it uses those notes directly instead of rereading the whole passage.
 
-## 第 1 轮 vs 第 2 轮对比
+### Round 1 vs. Round 2
 
-```text
-第 1 轮
+```
+Round 1
 ─────────────────────────────────
-读 10000 字 → 算 10000 个 Token → 回答
+Read 10000 words → compute 10000 tokens → answer
               ↑
-          全部从头算
+       everything from scratch
 
-
-第 2 轮
+Round 2
 ─────────────────────────────────
-读 10000 + 100 字
+Read 10000 + 100 words
          ↑
-     这部分直接翻笔记（KV Cache）
+     this part just uses the notes (KV Cache)
               ↓
-只算新增的 100 个 Token → 回答
+Compute only the 100 new tokens → answer
               ↑
-         实际只算了 1%
+       actually computed only 1%
 ```
 
-**所以速度能差 5-10 倍**——你看到的差距不是优化出来的，是"跳过了 99% 的工作"。
+**That's why speed can differ by 5-10x**. The gap you see isn't from optimization; it's from "skipping 99% of the work."
 
 ---
 
-# 七、Prefix Cache——把笔记升级到"班级共享"
+## 7. Prefix Cache: Upgrading the Notes to "Shared with the Whole Class"
 
-**KV Cache 的局限**：笔记只放在**你这次对话**里，下个会话就没了。
+**The limit of KV Cache**: the notes stay only in **this conversation** and are gone in the next session.
 
-**Prefix Cache 是什么**：把笔记升级成"班级共享笔记本"——**跨请求、跨会话也能用**。
+**What Prefix Cache is**: upgrading the notes to a "notebook shared by the whole class," **usable across requests and sessions**.
 
-```text
-A → A1 → A2 → A3 → A4  ← 你之前算过
+```
+A → A1 → A2 → A3 → A4  ← computed before
 
-现在又来一段：
+Now a new request comes in:
 A → A1 → A2 → A3 → A4 → A5
                             ↑
-                       只算 A5
+                    compute only A5
 ```
 
-> **类比升级**：
-> - KV Cache = 你书桌抽屉里的笔记（只你用）
-> - Prefix Cache = 班级共享笔记本（同一个 prefix 谁都能借）
+> **The upgraded analogy**:  
+> - KV Cache = notes in your desk drawer (only you use them)  
+> - Prefix Cache = a notebook shared by the class (anyone with the same prefix can borrow it)
 
-注意：prefix 必须**完全一致**才能命中。前缀里改了一个字，整条笔记作废。
+Note: the prefix must be **exactly the same** to hit. Change one character in the prefix and the whole set of notes is void.
 
 ---
 
-# 八、Prompt Cache——服务商主动保存的结果
+## 8. Prompt Cache: Results Saved Proactively by the Provider
 
-KV Cache 像是当前会话里的临时笔记，**Prompt Cache 则是服务商额外保存的历史计算结果**。
+If KV Cache is like temporary notes in the current session, **Prompt Cache is past computation results the provider saves separately**.
 
-例如下面这段很长的系统提示词：
+For example, take this long system prompt:
 
-```text
-A + A1 + A2 + A3 + A4   ← 已经被某个用户算过
+```
+A + A1 + A2 + A3 + A4   ← already computed by some user
 ```
 
-之后**任何用户**再次提交相同前缀时，服务商**可能**直接复用以前的结果。
+Later, when **any user** submits the same prefix again, the provider **may** reuse the earlier results directly.
 
-| API 提供方 | 缓存形式 | 计费方式 |
-|---|---|---|
-| OpenAI | Prompt Caching | 缓存命中的 Token 半价 |
-| Anthropic | Prompt Caching | 缓存写入 1.25x、命中 0.1x |
-| Gemini | Context Caching | 按缓存时长收费 |
+| API provider | Cache type | Pricing |
+| --- | --- | --- |
+| OpenAI | Prompt Caching | Cache-hit tokens at half price |
+| Anthropic | Prompt Caching | Cache writes 1.25x, hits 0.1x |
+| Gemini | Context Caching | Charged by cache duration |
 
-> **和 Prefix Cache 的区别**：
-> Prefix Cache 通常是**服务端机制**（对用户透明），Prompt Cache 是**服务商主动卖的功能**（用户可选、有计费规则）。
+> **How it differs from Prefix Cache**:  
+> Prefix Cache is usually a **server-side mechanism** (invisible to users), while Prompt Cache is **a feature the provider actively sells** (optional for users, with pricing rules).
+
 >
-> 普通人理解成一个事就行：**别让模型重算算过的东西**。
+
+> For most people, just remember one thing: **don't make the model recompute what it has already computed**.
 
 ---
 
-# 九、怎么验证真的命中缓存？
+## 9. How Do You Verify a Cache Hit?
 
-部分 API 会返回类似信息：
+Some APIs return something like this:
 
-```json
+```
 {
   "input_tokens": 10000,
   "cached_tokens": 9500
 }
 ```
 
-含义：
+What it means:
 
-```text
-总输入 Token：10000
-缓存命中 Token：9500   ← 不用再算的部分
-重新计算 Token：500    ← 真正花了算力的
+```
+Total input tokens: 10000
+Cache-hit tokens:   9500   ← the part that doesn't need recomputing
+Recomputed tokens:  500    ← what actually used compute
 ```
 
-**怎么用这个数字**：
+**How to use this number**:
 
-- `cached_tokens` 占比高（>80%）→ 你的 prompt 结构稳定，**钱花得值**
-- `cached_tokens` 一直是 0 → 你的 prompt 在反复变化，**钱大概率白花了**
+- A high `cached_tokens` share (>80%) → your prompt structure is stable and **your money is well spent**
+- `cached_tokens` is always 0 → your prompt keeps changing, and **you're probably wasting money**
 
 ---
 
-# 十、为什么改一个字就失效？
+## 10. Why Does Changing One Character Break It?
 
-因为 Transformer 是一个**自回归**结构：
+Because the Transformer is an **autoregressive** structure:
 
-> **后面的 Token 理解，严格依赖前面的 Token。**
+> **How later tokens are understood depends strictly on earlier tokens.**
 
-## 例 1：苹果 → 华为
+### Example 1: Apple → Huawei
 
-原文：
+Original:
 
-```text
-我喜欢苹果手机
+```
+I like Apple phones
 ```
 
-改成：
+Change it to:
 
-```text
-我喜欢华为手机
+```
+I like Huawei phones
 ```
 
-从"苹果"开始，后面的语义状态全部变了。
+From "Apple" onward, every later semantic state changes.
 
-## 例 2：火车模型
+### Example 2: The Train Model
 
-```text
-原来
+```
+Before
 🚃 A → 🚃 B → 🚃 C → 🚃 D → 🚃 E
 
-改成
+After
 🚃 A → 🚃 B → 🚃 X → 🚃 D → 🚃 E
               ↑      ↑      ↑
-        重新挂车厢  重新挂车厢  重新挂车厢
+          recouple recouple recouple
 
-后面的车厢之所以要重挂，
-是因为它们以前是挂在 C 后面的，
-现在挂到 X 后面，挂钩方式变了。
+The later cars have to be recoupled
+because they used to hang behind C;
+now they hang behind X, so the coupling changed.
 ```
 
-## 例 3：改开头最惨
+### Example 3: Changing the Start Hurts Most
 
-```text
-原文：我喜欢苹果手机
-改成：他喜欢苹果手机
+```
+Original: I like Apple phones
+Changed:  He likes Apple phones
 ```
 
-虽然只改了一个字，但**后面所有 Token 的计算都可能受影响**。
+Even though only one word changed, **the computation for every later token may be affected**.
 
-> **改得越靠前，影响越大；改得越靠后，越容易命中缓存。**
+> **The earlier the change, the bigger the impact; the later the change, the easier it is to hit the cache.**
 
 ---
 
-# 十一、写 prompt 的 5 条经验（避坑速查）
+## 11. 5 Lessons for Writing Prompts (Pitfall Cheat Sheet)
 
-> [!tip] 让缓存多命中的实战原则
+> [!tip] Practical rules for more cache hits
+
 >
-> 1. **系统提示词放最前面**——一旦稳定下来就别动，改它 = 全军覆没
-> 2. **固定少改的部分放前缀**——能最大化命中
-> 3. **每次要变的部分放最后**——用户问题 / 变量 → 放最后
-> 4. **想加新约束？尽量追加到固定段之后**，别插队
-> 5. **看 API 返回的 `cached_tokens`**——如果一直是 0，说明你的 prompt 结构在反复变化
+
+> 1. **Put the system prompt first**: once it's stable, don't touch it; changing it = losing everything  
+> 2. **Put fixed, rarely changed parts in the prefix**: this maximizes hits  
+> 3. **Put the parts that change every time at the end**: user questions / variables → go last  
+> 4. **Want to add a new constraint? Append it after the fixed section** rather than cutting in line  
+> 5. **Check the `cached_tokens` returned by the API**: if it's always 0, your prompt structure keeps changing
 
 ---
 
-# 十二、一句话总结
+## 12. Summary in One Sentence
 
-## Context
+### Context
 
-```text
-模型看到的历史对话
+```
+The conversation history the model sees
 ```
 
-## KV Cache
+### KV Cache
 
-```text
-模型已经做好的阅读笔记
+```
+The reading notes the model has already made
 ```
 
-## Prefix Cache
+### Prefix Cache
 
-```text
-相同前缀直接复用
+```
+Reuse identical prefixes directly
 ```
 
-## Prompt Cache
+### Prompt Cache
 
-```text
-服务商保存的历史计算结果
+```
+Past computation results saved by the provider
 ```
 
-## 为什么改一个字可能失效？
+### Why can changing one character break it?
 
-```text
-后面的理解建立在前面的内容之上。
+```
+Later understanding builds on earlier content.
 
-改得越靠前，影响越大；
-改得越靠后，越容易命中缓存。
+The earlier the change, the bigger the impact;
+the later the change, the easier it is to hit the cache.
 ```
 
 ---
 
-# 最形象的记忆方式
+## The Most Memorable Way to Remember It
 
-```text
-上下文(Context)
-= 老师发给学生的整本教材
+```
+Context
+= the whole textbook the teacher hands out
 
 KV Cache
-= 学生做好的读书笔记
+= the reading notes the student made
 
-命中缓存
-= 直接翻笔记
+Cache hit
+= flipping straight to the notes
 
-缓存失效
-= 重新读教材
+Cache miss
+= rereading the textbook
 
 Prompt Cache
-= 学校图书馆保存的共享笔记
+= shared notes kept in the school library
 ```
 
 ---
 
-# 参考资料
+## References
 
-- 原始 Copilot 初稿：`/Users/bw/.hermes/cache/documents/doc_460c26220db8_大模型Cache通俗指南.md`
-- Hermes Review 重点：补 Token 铺垫、区分三个 Cache 层级、加"和我有啥关系"钩子、前移 cached_tokens 章节、火车模型升级、加避坑速查
+- Original Copilot first draft: `/Users/bw/.hermes/cache/documents/doc_460c26220db8_LLM-Cache-Guide.md`
+- Hermes review focus: add a token primer, distinguish the three cache layers, add a "why should I care" hook, move the cached\_tokens section earlier, upgrade the train model, add a pitfall cheat sheet
